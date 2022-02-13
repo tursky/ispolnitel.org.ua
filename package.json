@@ -4,7 +4,8 @@
   "description": "Legacy website: redesign, refactoring, retrospective",
   "main": "application/server.js",
   "scripts": {
-    "start": ""
+    "start": "",
+    "server": "node application/server.js"
   },
   "keywords": [
     "Engineering and design"
