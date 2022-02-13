@@ -9,7 +9,8 @@
   "keywords": [
     "Engineering and design"
   ],
-  "author": "",
+  "author": "S. Tursky <stastursky@gmail.com>",
+  "repository": "https://github.com/tursky",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^8.9.0",
