@@ -6,7 +6,21 @@
   "scripts": {
     "start": ""
   },
-  "keywords": ["Engineering and design"],
+  "keywords": [
+    "Engineering and design"
+  ],
   "author": "",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.9.0",
+    "eslint-config-metarhia": "^7.0.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-prettier": "^4.0.0",
+    "http-server": "^14.1.0",
+    "metatests": "^0.8.0",
+    "prettier": "^2.5.1",
+    "stylelint": "^14.5.0",
+    "stylelint-config-standard": "^25.0.0"
+  }
 }
