@@ -1,0 +1,12 @@
+{
+  "name": "ispolnitel.org.ua",
+  "version": "1.0.0",
+  "description": "Legacy website: redesign, refactoring, retrospective",
+  "main": "application/server.js",
+  "scripts": {
+    "start": ""
+  },
+  "keywords": ["Engineering and design"],
+  "author": "",
+  "license": "MIT"
+}
