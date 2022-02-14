@@ -4,7 +4,13 @@
   "description": "Legacy website: redesign, refactoring, retrospective",
   "main": "application/server.js",
   "scripts": {
-    "start": "",
+    "start": "http-server ./application/prototype -a localhost -o /",
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\"",
+    "stylelint": "stylelint \"**/*.css\" --ignore-path .npmignore",
+    "format": "npm run fmt:code && npm run fmt:html && npm run fmt:css",
+    "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" --ignore-path .npmignore",
+    "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
+    "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
     "server": "node application/server.js"
   },
   "keywords": [
@@ -23,6 +29,7 @@
     "metatests": "^0.8.0",
     "prettier": "^2.5.1",
     "stylelint": "^14.5.0",
+    "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0"
   }
 }
