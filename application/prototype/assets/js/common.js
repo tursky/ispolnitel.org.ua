@@ -1,9 +1,5 @@
 $(function() {
 
-	$(".accordion-item__trigger").click(function() {
-		$(this).next(".accordion-item__content").slideToggle(300);
-	});
-
 	$(".slider").owlCarousel({
 		autoplay: true,
 		items: 1,
@@ -80,7 +76,11 @@ $('.mnu-self li'); //берём li и удаляем класс active если 
 		// other options
 	});
 
-	
+  $(".chat-room-question").click(function() {
+		$(this).next(".accordion-item__content").slideToggle(300);
+	});
+
+
 	$('.button-top').click(function(){
 
 		$('html, footer').stop().animate({scrollTop: 0}, 'slow', 'swing');
@@ -95,11 +95,11 @@ $('.mnu-self li'); //берём li и удаляем класс active если 
 
 
 	//E-mail Ajax Send
-	$(".ajax-form").submit(function() { 
+	$(".ajax-form").submit(function() {
 		var th = $(this);
 		$.ajax({
 			type: "POST",
-			url: "mail.php", 
+			url: "mail.php",
 			data: th.serialize()
 		}).done(function() {
 			var popup_success = th.closest('.popup-form').find('.success');
