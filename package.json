@@ -6,10 +6,11 @@
   "scripts": {
     "start": "http-server ./application/prototype -a localhost -o /",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\"",
-    "stylelint": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
-    "format": "npm run fmt:code && npm run fmt:html",
-    "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.css\" --ignore-path .npmignore",
-    "fmt:html": "prettier --write \"**/*.html\"",
+    "stylelint": "stylelint \"**/*.css\" --ignore-path .npmignore",
+    "format": "npm run fmt:code && npm run fmt:html && npm run fmt:css",
+    "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" --ignore-path .npmignore",
+    "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
+    "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
     "server": "node application/server.js"
   },
   "keywords": [
