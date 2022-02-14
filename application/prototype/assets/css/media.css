@@ -38,6 +38,7 @@
 @media (max-width: 1000.98px) {
   .logo {
     text-align: right;
+		margin-bottom: 5px;
   }
 
   .logo .span2 {
