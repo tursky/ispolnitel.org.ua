@@ -4,7 +4,12 @@
   "description": "Legacy website: redesign, refactoring, retrospective",
   "main": "application/server.js",
   "scripts": {
-    "start": "",
+    "start": "http-server ./application/prototype -a localhost -o /",
+    "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\" --ignore-path .npmignore",
+    "stylelint": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
+    "format": "npm run fmt:code && npm run fmt:html",
+    "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" \"**/*.css\" --ignore-path .npmignore",
+    "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
     "server": "node application/server.js"
   },
   "keywords": [
