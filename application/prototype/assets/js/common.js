@@ -12,22 +12,22 @@ $(function() {
 		itemClass: "slide"
 	});
 
-	$('.sf-menu li').removeClass('active'); //берём li и удаляем класс active если он у нас есть
-	var path = window.location.pathname; // берём текущий pathname, проходимся по всем ссылкам меню
+	$('.sf-menu li').removeClass('active');
+	var path = window.location.pathname;
 	$('.sf-menu li a').each(function() {
 	var href = $(this).attr('href');
-	if(path.slice(1).substring(0, href.length) === href) { // если у нас ссылка какого-то пункта совпадает с ссылкой или содержит ссылку, которая у нас здесь в браузере
-	$(this).parent('li').addClass('active'); // то мы раздаём родительскому классу li раздаём класс active
-} // при помощи (path.slice(1).substring(0, href.length) подсвечивается родительская категория в меню, в которой открыта текущая страница подменю
+	if(path.slice(1).substring(0, href.length) === href) {
+	$(this).parent('li').addClass('active');
+}
 });
 
-$('.mnu-self li'); //берём li и удаляем класс active если он у нас есть
-	var path = window.location.pathname; // берём текущий pathname, проходимся по всем ссылкам меню
+$('.mnu-self li');
+	var path = window.location.pathname;
 	$('.mnu-self li a').each(function() {
 	var href = $(this).attr('href');
-	if(path === href) { // если у нас ссылка какого-то пункта совпадает с ссылкой или содержит ссылку, которая у нас здесь в браузере
-	$(this).parent('li').addClass('active'); // то мы раздаём родительскому классу li раздаём класс active
-	}// при помощи (path.slice(1).substring(0, href.length) подсвечивается родительская категория в меню, в которой открыта текущая страница подменю
+	if(path === href) {
+	$(this).parent('li').addClass('active');
+	}
 });
 
 	$(".sf-menu").after("<div id='my-menu'>");
@@ -44,8 +44,6 @@ $('.mnu-self li'); //берём li и удаляем класс active если 
 	$(".mobile-mnu").click(function() {
 		var mmAPI = $("#my-menu").data( "mmenu" );
 		mmAPI.open();
-		// var thiss = $(this).find(".toggle-mnu");
-		// thiss.toggleClass("on");
 		$(".main-mnu").slideToggle();
 		return false;
 	});
@@ -64,35 +62,9 @@ $('.mnu-self li'); //берём li и удаляем класс active если 
 	$(".new-item-text").equalHeights();
 	$(".link-item").equalHeights();
 
-	$('.parent-container').magnificPopup({
-		mainClass: 'mfp-fade',
-		delegate: 'a.new-item-img, a.service-item-image',
-		type: 'image',
-		gallery: {
-			enabled: true,
-			navigateByImgClick: true,
-			preload: [0,1] // Will preload 0 - before current, and 1 after the current image
-		}
-		// other options
-	});
-
   $(".chat-room-question").click(function() {
 		$(this).next(".accordion-item__content").slideToggle(300);
 	});
-
-
-	$('.button-top').click(function(){
-
-		$('html, footer').stop().animate({scrollTop: 0}, 'slow', 'swing');
-
-	});
-
-	// $("body").prognroll({
-	// 	height: 3,
-	// 	color: "#f9ce20",
-	// 	custom: false
-	// });
-
 
 	//E-mail Ajax Send
 	$(".ajax-form").submit(function() {
