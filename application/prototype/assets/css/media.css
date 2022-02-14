@@ -1,0 +1,135 @@
+@media (max-width: 1199.98px) {
+  .top-phone {
+    font-size: 14px;
+  }
+  .top-phone span {
+    font-size: 14px;
+  }
+  .slider .slide {
+    padding: 0;
+  }
+  .slider .slide h2 {
+    font-size: 20px;
+  }
+  .slider .slide li {
+    font-size: 14px;
+  }
+  .owl-nav {
+    display: none;
+  }
+  .sect-links .link-item .h4 {
+    font-size: 16px;
+  }
+  .sect-links .link-item .fas {
+    font-size: 40px;
+  }
+  .self-pannel-box {
+    margin-top: 20px;
+  }
+}
+@media (max-width: 1000.98px) {
+  .logo {
+    text-align: right;
+  }
+  .logo .span2 {
+    display: block;
+    margin-top: 10px;
+  }
+  .logo img {
+    display: none;
+  }
+  .top-phone a::before {
+    display: block;
+  }
+  .top-phone a:hover::before {
+    border: none;
+  }
+  .slider .slide-content {
+    padding-top: 55px;
+    padding-bottom: 20px;
+  }
+  .slider .slide h2 {
+    text-align: left;
+  }
+  .slider .slide li {
+    font-size: 12px;
+  }
+  .slider .slide .circle {
+    height: 240px;
+    width: 240px;
+  }
+  .owl-nav {
+    top: 10px;
+  }
+  .owl-nav > div.owl-prev {
+    padding-left: 0;
+  }
+  .owl-nav > div.owl-next {
+    padding-right: 0;
+  }
+  main .content {
+    padding: 20px 0;
+  }
+  .sect-universal {
+    padding: 0 0;
+    padding-bottom: 30px;
+  }
+  .teaser-item > div {
+    padding-bottom: 30px;
+  }
+  .sect-links .col-lg-3 {
+    margin-bottom: 30px;
+  }
+  .isnohome .content article {
+    color: #111;
+  }
+  .isnohome .content article h1 {
+    margin-top: 20px;
+  }
+  .pagenav {
+    margin-bottom: 60px;
+    margin-top: 40px;
+  }
+  .pagenav a {
+    margin: 0 5px;
+  }
+  .main-footer {
+    padding: 80px 0 40px 0;
+  }
+  .main-footer .logo .span,
+  .main-footer .logo p {
+    padding: 0;
+  }
+  .top-button {
+    margin-bottom: 10px;
+  }
+  .pulse-button {
+    bottom: 20px;
+    right: 20px;
+  }
+}
+@media (max-width: 767.98px) {
+  .slide-img-wrap img {
+    margin-top: 30px;
+  }
+  .sect-algoritm {
+    padding: 60px 0;
+  }
+}
+@media (max-width: 575.98px) {
+  .top-phone {
+    margin-top: 20px;
+  }
+  .button-more {
+    font-size: 15px;
+  }
+  .sect-links .link-item .h4 {
+    font-size: 16px;
+  }
+  .sect-links .link-item .fas {
+    font-size: 18px;
+  }
+  .content .newline {
+    display: block;
+  }
+}
