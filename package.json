@@ -1,7 +1,7 @@
 {
   "name": "ispolnitel.org.ua",
   "version": "1.0.0",
-  "description": "Legacy website: redesign, refactoring, retrospective",
+  "description": "Legacy website - redesign, refactoring, retrospective...",
   "main": "application/server.js",
   "scripts": {
     "start": "http-server ./application/prototype -a localhost -o /",
@@ -11,15 +11,17 @@
     "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" --ignore-path .npmignore",
     "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
     "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
+    "deploy": "node ftp.js",
     "server": "node application/server.js"
   },
   "keywords": [
-    "Engineering and design"
+    "engineering and design"
   ],
   "author": "S. Tursky <stastursky@gmail.com>",
   "repository": "https://github.com/tursky",
   "license": "MIT",
   "devDependencies": {
+    "basic-ftp": "^4.6.6",
     "eslint": "^8.9.0",
     "eslint-config-metarhia": "^7.0.1",
     "eslint-config-prettier": "^8.3.0",
