@@ -734,13 +734,14 @@ h6 {
 }
 
 .slider .owl-dot {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   background-color: #ccc;
   opacity: 1;
   border-radius: 10em;
   display: inline-block;
-  margin: 15px;
+  margin: 20px;
+	box-shadow: 10px 10px 5px #999;
   transition: background-color 0.5s ease, -webkit-transform 0.5s ease;
   transition: background-color 0.5s ease, -webkit-transform 0.5s ease;
   transition: background-color 0.5s ease, transform 0.5s ease;
@@ -815,10 +816,11 @@ h6 {
   height: 310px;
   width: 310px;
   color: #fff;
-  border: 10px double #fff;
+  /* border: 8px double #fff; */
   transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
   transition: opacity 0.2s ease;
+	box-shadow: 10px 10px 5px #999;
 }
 
 .slider .circle-left {
@@ -863,7 +865,7 @@ h6 {
 
 .chat-room-question {
   box-shadow: 10px 10px 5px #888;
-  box-shadow: 10px 10px 5px #888;
+  box-shadow: 10px 10px 5px #999;
   padding: 9px;
   background: #f9d02a;
 }
@@ -897,11 +899,20 @@ h6 {
   cursor: pointer;
 }
 
+.sect-universal {
+  background-color: #efefef;
+  padding-bottom: 40px;
+  padding-top: 30px;
+  position: relative;
+  background-size: cover;
+  line-height: 20px;
+}
+
 .sect-algoritm {
   position: relative;
   background-size: cover;
   z-index: 1;
-  padding: 80px 0;
+  padding: 120px 0;
   color: #fff;
 }
 
@@ -922,7 +933,7 @@ h6 {
   color: #efefef;
   font-size: 16px;
   text-align: center;
-  padding: 60px 0;
+  padding: 40px 0;
   z-index: 200;
 }
 
@@ -1305,15 +1316,6 @@ main .content .sect-link i {
   transition: all 0.25s ease;
 }
 
-.sect-universal {
-  background-color: #efefef;
-  padding-bottom: 40px;
-  padding-top: 30px;
-  position: relative;
-  background-size: cover;
-  line-height: 20px;
-}
-
 .sect-universal h2 {
   margin-top: 45px;
   margin-bottom: 35px;
@@ -1328,7 +1330,7 @@ main .content .sect-link i {
 
 .sect-news {
   color: #fff;
-  padding: 100px 0;
+  padding: 120px 0;
 }
 
 .sect-news .new-item {
@@ -1436,7 +1438,7 @@ main .content .sect-link i {
 
 .isnohome,
 .sect-links {
-  padding: 100px 0;
+  padding: 120px 0;
 }
 
 .isnohome .link-item,
@@ -2183,7 +2185,7 @@ main .content .sect-link i {
 
 .main-footer {
   background-color: #0e0b13;
-  padding: 100px 0;
+  padding: 120px 0;
   color: #fff;
   letter-spacing: 0.3px;
 }
