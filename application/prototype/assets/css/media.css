@@ -32,14 +32,18 @@
   }
 
   .self-pannel-box {
-    margin-top: 20px;
+		margin: 40px 0;
   }
 }
 @media (max-width: 1000.98px) {
   .logo {
     text-align: right;
-		margin-bottom: 5px;
+		/* margin-bottom: 10px; */
   }
+
+	.top-email {
+		margin-bottom: 20px;
+	}
 
   .logo .span2 {
     display: block;

@@ -327,7 +327,7 @@ h6 {
 }
 
 .self-pannel {
-  padding: 10px 0 15px;
+  padding: 10px 0 10px;
   position: relative;
   letter-spacing: 0.4px;
 }
@@ -515,8 +515,8 @@ h6 {
   background: #82c91e;
   box-shadow: 0 5px 35px rgb(0 0 0 / 20%);
   position: fixed;
-  bottom: 40px;
-  right: 40px;
+  bottom: 30px;
+  right: 30px;
   cursor: pointer;
   outline: 0;
   z-index: 1000;
@@ -619,8 +619,7 @@ h6 {
 }
 
 .slider {
-  box-shadow: rgb(255 255 255 / 3%) 0 0 0 10px;
-  box-shadow: rgb(255 255 255 / 3%) 0 0 0 10px;
+  box-shadow: rgb(255 255 255 / 5%) 0 0 0 6px;
   background-color: #efefef;
 }
 
@@ -629,7 +628,7 @@ h6 {
   width: 100%;
   position: relative;
   color: #000;
-  padding: 30px;
+  padding: 20px;
 }
 
 .slider .slide .slide-content {
@@ -923,7 +922,7 @@ h6 {
   color: #efefef;
   font-size: 16px;
   text-align: center;
-  padding: 25px 0;
+  padding: 60px 0;
   z-index: 200;
 }
 
@@ -1207,7 +1206,8 @@ main .content .sect-link i {
 
 #feedback {
   color: #fff;
-  padding: 40px 0;
+  padding-top: 30px;
+	padding-bottom: 40px;
 }
 
 #feedback h2 {
@@ -1216,7 +1216,8 @@ main .content .sect-link i {
 }
 
 #feedback p {
-  margin-bottom: 40px;
+	margin-top: 0px;
+  margin-bottom: 50px;
 }
 
 .sect-services {
@@ -1326,7 +1327,7 @@ main .content .sect-link i {
 }
 
 .col-first {
-  padding-bottom: 40px;
+  padding-bottom: 60px;
 }
 
 .sect-news {
