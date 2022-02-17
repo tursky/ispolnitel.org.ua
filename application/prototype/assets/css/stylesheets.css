@@ -327,7 +327,7 @@ h6 {
 }
 
 .self-pannel {
-  padding: 10px 0 10px;
+  padding: 10px 0;
   position: relative;
   letter-spacing: 0.4px;
 }
@@ -1220,7 +1220,7 @@ main .content .sect-link i {
 }
 
 #feedback p {
-	margin-top: 0px;
+	margin-top: 0;
   margin-bottom: 50px;
 }
 
@@ -1230,8 +1230,6 @@ main .content .sect-link i {
 
 .service-item {
   border: 5px #2e3947 solid;
-  transition: border-top-color 0.5s ease;
-  transition: border-top-color 0.5s ease;
   transition: border-top-color 0.5s ease;
   text-align: center;
   padding: 0 0 32px;
@@ -1283,8 +1281,6 @@ main .content .sect-link i {
   margin-top: -10px;
   opacity: 0;
   transition: all 0.25s ease;
-  transition: all 0.25s ease;
-  transition: all 0.25s ease;
 }
 
 .service-item-image::before {
@@ -1297,8 +1293,6 @@ main .content .sect-link i {
   background-color: rgb(15 15 15 / 87%);
   opacity: 0.4;
   transition: all 0.5s ease;
-  transition: all 0.5s ease;
-  transition: all 0.5s ease;
 }
 
 .service-item-icons {
@@ -1308,8 +1302,6 @@ main .content .sect-link i {
 
 .service-item-icons .fas {
   margin-left: 1px;
-  transition: all 0.25s ease;
-  transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
 
