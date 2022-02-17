@@ -941,7 +941,7 @@ h6 {
   color: #fff;
   margin-top: 0;
   margin-bottom: 60px;
-  font-size: 22px;
+  font-size: 24px;
   line-height: 34px;
   font-weight: 400;
 }
@@ -1204,6 +1204,10 @@ main .content .sect-link i {
   font-size: 18px;
 }
 
+.link-item-wrapper {
+	display: flex;
+}
+
 #feedback {
   color: #fff;
   padding-top: 30px;
@@ -1448,11 +1452,10 @@ main .content .sect-link i {
   display: block;
   padding: 14px;
   box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 20%);
-  box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 20%);
   background-color: #fff;
   padding-bottom: 20px;
   padding-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 0;
 }
 
 .isnohome .link-item .link-item-wrapper a:hover,
