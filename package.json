@@ -4,8 +4,8 @@
   "description": "Legacy website - redesign, refactoring, retrospective...",
   "main": "application/server.js",
   "scripts": {
-    "build": "rm -rf application/static && cp -r application/prototype application/static && npm run minify",
-    "start": "http-server ./application/prototype -a localhost -o /",
+    "build": "rm -rf application/static && cp -r frontend/src application/static && npm run minify",
+    "start": "http-server frontend/src -a localhost -o /",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\"",
     "stylelint": "stylelint \"**/*.css\" --ignore-path .npmignore",
     "format": "npm run fmt:code && npm run fmt:html && npm run fmt:css",
