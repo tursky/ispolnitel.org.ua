@@ -4,6 +4,7 @@
   "description": "Legacy website - redesign, refactoring, retrospective...",
   "main": "application/server.js",
   "scripts": {
+    "build": "rm -rf application/static && cp -r application/prototype application/static && npm run minify",
     "start": "http-server ./application/prototype -a localhost -o /",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\"",
     "stylelint": "stylelint \"**/*.css\" --ignore-path .npmignore",
