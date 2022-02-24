@@ -22,16 +22,20 @@
   "license": "MIT",
   "devDependencies": {
     "basic-ftp": "^4.6.6",
+    "cssnano": "^5.0.17",
     "eslint": "^8.9.0",
     "eslint-config-metarhia": "^7.0.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
+    "html-minifier-terser": "^7.0.0-alpha.1",
     "http-server": "^14.1.0",
     "metatests": "^0.8.0",
+    "postcss": "^8.4.6",
     "prettier": "^2.5.1",
     "stylelint": "^14.5.0",
     "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^25.0.0"
+    "stylelint-config-standard": "^25.0.0",
+    "terser": "^5.11.0"
   }
 }
