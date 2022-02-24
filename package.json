@@ -12,7 +12,8 @@
     "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
     "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
     "deploy": "node ftp.js",
-    "server": "node application/server.js"
+    "server": "node application/server.js",
+    "minify": "node frontend/lib/mod-pages && node frontend/lib/mod-styles && node frontend/lib/mod-scripts"
   },
   "keywords": [
     "engineering and design"
