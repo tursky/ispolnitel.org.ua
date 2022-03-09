@@ -14,7 +14,7 @@
     "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
     "deploy": "node ftp.js",
     "server": "node application/server.js",
-    "minify": "node frontend/lib/mod-pages && node frontend/lib/mod-styles && node frontend/lib/mod-scripts"
+    "minify": "node frontend/lib/optimizing.js"
   },
   "keywords": [
     "engineering and design"
