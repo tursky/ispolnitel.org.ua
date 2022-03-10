@@ -23,7 +23,7 @@ const CONFIGURATIONS = {
   },
 };
 
-const SCHEMA = {
+const schema = {
   '.js': (file, options) => handleJS(file, options),
   '.html': (file, options) => handleHTML(file, options),
   '.css': (file, options) => handleCSS(file, options),
@@ -96,7 +96,7 @@ const check = (path) => {
 
 const processing = (filepath, metadata) => {
   const ext = path.extname(filepath);
-  const scenario = SCHEMA[ext];
+  const scenario = schema[ext];
   const format = ext.slice(1).toUpperCase();
   const instruction = metadata[format];
   handler(filepath, scenario, instruction);
@@ -105,14 +105,14 @@ const processing = (filepath, metadata) => {
 const handler = (file, intention, options) => {
   const type = typeof intention;
   if (type === 'function') {
-    const serializer = TYPES[type];
+    const serializer = types[type];
     serializer([intention, file, options], (intention) =>
       handler(file, intention, options)
     );
   }
 };
 
-const TYPES = {
+const types = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
   undefined: (callback) => callback('not found'),
   function: ([fn, filepath, options], callback) =>
