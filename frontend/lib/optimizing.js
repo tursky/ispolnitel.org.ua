@@ -42,7 +42,7 @@ const handleCSS = (file, options) => {
         .then((result) => {
           fs.writeFile(file, result.css, (e) => {
             if (e) throw e;
-            printProcessed(file);
+            output(file);
           });
         });
     });
@@ -54,7 +54,7 @@ const handleJS = (file, options) => {
     Terser.minify(fs.readFileSync(file, 'utf8'), options).then((processed) => {
       fs.writeFile(file, processed.code, (e) => {
         if (e) throw e;
-        printProcessed(file);
+        output(file);
       });
     });
   });
@@ -66,14 +66,14 @@ const handleHTML = (file, options) => {
       (processed) => {
         fs.writeFile(file, processed, (e) => {
           if (e) throw e;
-          printProcessed(file);
+          output(file);
         });
       }
     );
   });
 };
 
-const printProcessed = (file) => console.log(`✅ ${file}`);
+const output = (handled) => console.log(`✅ ${handled}`);
 
 const pathfinder = (directory, exception, metadata) => {
   const isExist = check(directory);
@@ -108,21 +108,21 @@ const processing = (filepath, metadata) => {
 const handler = (file, scenario, options) => {
   const type = typeof scenario;
   if (type === 'function') {
-    const serializer = types[type];
+    const serializer = TYPES[type];
     serializer([scenario, file, options], (scenario) =>
       handler(file, scenario, options)
     );
   }
 };
 
-const types = {
+const TYPES = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
   undefined: (callback) => callback('not found'),
   function: ([fn, filepath, options], callback) =>
     callback(JSON.stringify(fn(filepath, options))),
 };
 
-const renderTitle = () => {
+const start = () => {
   process.stdout.write('\x1Bc');
   console.log('\x1b[1;33m');
   console.log('FRONTEND OPTIMIZING...');
@@ -131,5 +131,5 @@ const renderTitle = () => {
 
 const { ROOT, IGNORE, OPTIONS } = CONFIGURATIONS;
 
-renderTitle();
+start();
 pathfinder(ROOT, IGNORE, OPTIONS);
