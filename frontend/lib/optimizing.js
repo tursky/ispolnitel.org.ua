@@ -78,9 +78,7 @@ const output = (handled) => console.log(`✅ ${handled}`);
 const pathfinder = (directory, exception, metadata) => {
   const isExist = check(directory);
   if (!isExist) return 0;
-
   const files = fs.readdirSync(directory);
-
   for (let i = 0; i < files.length; i++) {
     const pathname = path.join(directory, files[i]);
     const status = fs.lstatSync(pathname);
@@ -92,8 +90,7 @@ const pathfinder = (directory, exception, metadata) => {
 
 const check = (path) => {
   const result = fs.existsSync(path);
-  const err = `❗️ Path "${path}" not found! \n`;
-  if (result === false) console.log(err);
+  if (result === false) console.log(`❗️ Path "${path}" not found! \n`);
   return result;
 };
 
