@@ -101,16 +101,16 @@ const processing = (filepath, metadata) => {
   const ext = path.extname(filepath);
   const scenario = SCHEMA[ext];
   const format = ext.slice(1).toUpperCase();
-  const options = metadata[format];
-  handler(filepath, scenario, options);
+  const instruction = metadata[format];
+  handler(filepath, scenario, instruction);
 };
 
-const handler = (file, scenario, options) => {
-  const type = typeof scenario;
+const handler = (file, intention, options) => {
+  const type = typeof intention;
   if (type === 'function') {
     const serializer = TYPES[type];
-    serializer([scenario, file, options], (scenario) =>
-      handler(file, scenario, options)
+    serializer([intention, file, options], (intention) =>
+      handler(file, intention, options)
     );
   }
 };
@@ -123,9 +123,10 @@ const TYPES = {
 };
 
 const start = () => {
+  const title = 'FRONTEND OPTIMIZING...';
   process.stdout.write('\x1Bc');
   console.log('\x1b[1;33m');
-  console.log('FRONTEND OPTIMIZING...');
+  console.log(title);
   console.log('\x1b[0m');
 };
 
