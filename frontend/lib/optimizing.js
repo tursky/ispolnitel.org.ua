@@ -21,6 +21,13 @@ const CONFIGURATIONS = {
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: [cssnano],
   },
+  STDOUT: {
+    text: 'FRONTEND OPTIMIZING ...',
+    color: '\x1b[1;33m',
+    newline: '\n\n',
+    normal: '\x1b[0m',
+    clear: '\x1Bc',
+  },
 };
 
 const schema = {
@@ -119,15 +126,16 @@ const types = {
     callback(JSON.stringify(fn(filepath, options))),
 };
 
-const start = () => {
-  const title = 'FRONTEND OPTIMIZING...';
-  process.stdout.write('\x1Bc');
-  console.log('\x1b[1;33m');
-  console.log(title);
-  console.log('\x1b[0m');
-};
+const start = (console) =>
+  process.stdout.write(
+    console.clear +
+      console.color +
+      console.text +
+      console.newline +
+      console.normal
+  );
 
-const { ROOT, IGNORE, OPTIONS } = CONFIGURATIONS;
+const { ROOT, IGNORE, OPTIONS, STDOUT } = CONFIGURATIONS;
 
-start();
+start(STDOUT);
 pathfinder(ROOT, IGNORE, OPTIONS);
