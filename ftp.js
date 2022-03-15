@@ -3,15 +3,9 @@
 'use strict';
 
 const ftp = require('basic-ftp');
-const client = require('../access.json');
+const config = require('../access.json');
 
-const access = {
-  HOST: client.HOST,
-  USER: client.USER,
-  PASSWORD: client.PASSWORD,
-  SERVER: client.SERVER,
-  UPLOAD: client.UPLOAD,
-};
+const { HOST, USER, PASSWORD, SERVER, SOURCE } = config;
 
 deploy();
 
@@ -20,14 +14,14 @@ async function deploy() {
   client.ftp.verbose = true;
   try {
     await client.access({
-      host: access.HOST,
-      user: access.USER,
-      password: access.PASSWORD,
+      host: HOST,
+      user: USER,
+      password: PASSWORD,
       secure: true,
     });
-    await client.ensureDir(access.SERVER);
+    await client.ensureDir(SERVER);
     console.log(await client.list());
-    await client.uploadFromDir(access.UPLOAD);
+    await client.uploadFromDir(SOURCE);
   } catch (err) {
     console.log(err);
   }
