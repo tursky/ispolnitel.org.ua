@@ -15,14 +15,14 @@ const fs = require('fs');
 
 const CONFIGURATIONS = {
   ROOT: 'application/static',
-  IGNORE: 'bundles',
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: [cssnano],
   },
+  IGNORE: ['bundles'],
   STDOUT: {
-    text: 'FRONTEND OPTIMIZING ...',
+    text: 'FRONTEND OPTIMIZING',
     color: '\x1b[1;33m',
     newline: '\n\n',
     normal: '\x1b[0m',
