@@ -24,18 +24,18 @@
   "license": "MIT",
   "devDependencies": {
     "basic-ftp": "^4.6.6",
-    "cssnano": "^5.0.17",
-    "eslint": "^8.9.0",
-    "eslint-config-prettier": "^8.3.0",
+    "cssnano": "^5.1.4",
+    "eslint": "^8.11.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
-    "html-minifier-terser": "^7.0.0-alpha.1",
+    "html-minifier-terser": "^7.0.0-alpha.2",
     "http-server": "^14.1.0",
-    "postcss": "^8.4.6",
+    "postcss": "^8.4.10",
     "prettier": "^2.5.1",
-    "stylelint": "^14.5.0",
+    "stylelint": "^14.5.3",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0",
-    "terser": "^5.11.0"
+    "terser": "^5.12.1"
   }
 }
