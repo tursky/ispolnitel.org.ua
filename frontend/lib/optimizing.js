@@ -20,7 +20,16 @@ const CONFIGURATIONS = {
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: [cssnano],
   },
-  IGNORE: ['bundles'],
+  IGNORE: [
+    'bundles',
+    'images',
+    'webfonts',
+    'docs',
+    'robots.txt',
+    'sitemap.xml',
+    'mail.php',
+    'libs.zip',
+  ],
   STDOUT: {
     text: 'FRONTEND OPTIMIZING',
     color: '\x1b[1;33m',
