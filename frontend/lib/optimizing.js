@@ -93,7 +93,8 @@ const pathfinder = (directory, exception, metadata) => {
       pathfinder(pathname, exception, metadata);
       continue;
     }
-    if (pathname.includes(exception)) continue;
+    const isException = pathignore(pathname, exception);
+    if (isException) continue;
     processing(pathname, metadata);
   }
 };
@@ -101,6 +102,16 @@ const pathfinder = (directory, exception, metadata) => {
 const pathcheck = (dir) => {
   const result = fs.existsSync(dir);
   if (result === false) console.log(`❗️ Path "${dir}" not found! \n`);
+  return result;
+};
+
+const pathignore = (path, exceptions) => {
+  let result = false;
+  exceptions.forEach((exception) => {
+    if (path.includes(exception)) {
+      result = true;
+    }
+  });
   return result;
 };
 
