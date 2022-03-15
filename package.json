@@ -12,7 +12,7 @@
     "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" --ignore-path .npmignore",
     "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
     "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
-    "deploy": "node ftp.js",
+    "deploy": "node ftpclient.js",
     "server": "node application/server.js",
     "minify": "node frontend/lib/optimizing.js"
   },
