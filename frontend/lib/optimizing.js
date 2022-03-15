@@ -89,7 +89,10 @@ const pathfinder = (directory, exception, metadata) => {
   for (let i = 0; i < files.length; i++) {
     const pathname = path.join(directory, files[i]);
     const status = fs.lstatSync(pathname);
-    if (status.isDirectory()) pathfinder(pathname, exception, metadata);
+    if (status.isDirectory()) {
+      pathfinder(pathname, exception, metadata);
+      continue;
+    }
     if (pathname.includes(exception)) continue;
     processing(pathname, metadata);
   }
