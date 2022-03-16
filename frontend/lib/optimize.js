@@ -48,7 +48,7 @@ const start = (console) =>
       console.normal
   );
 
-const output = (handled) => console.log(`✅ ${handled}`);
+const output = (handled) => console.log(`✅ - ${handled}`);
 
 const handleCSS = (file, options) => {
   new Promise(() => {
