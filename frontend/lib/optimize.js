@@ -39,11 +39,16 @@ const CONFIGURATIONS = {
   },
 };
 
-const schema = {
-  '.js': (file, options) => handleJS(file, options),
-  '.html': (file, options) => handleHTML(file, options),
-  '.css': (file, options) => handleCSS(file, options),
-};
+const start = (console) =>
+  process.stdout.write(
+    console.clear +
+      console.color +
+      console.text +
+      console.newline +
+      console.normal
+  );
+
+const output = (handled) => console.log(`✅ ${handled}`);
 
 const handleCSS = (file, options) => {
   new Promise(() => {
@@ -88,7 +93,45 @@ const handleHTML = (file, options) => {
   });
 };
 
-const output = (handled) => console.log(`✅ ${handled}`);
+const schema = {
+  '.js': (file, options) => handleJS(file, options),
+  '.html': (file, options) => handleHTML(file, options),
+  '.css': (file, options) => handleCSS(file, options),
+};
+
+const types = {
+  object: ([obj], callback) => callback(JSON.stringify(obj)),
+  undefined: (callback) => callback('not found'),
+  function: ([fn, filepath, options], callback) =>
+    callback(JSON.stringify(fn(filepath, options))),
+};
+
+const handler = (file, intention, options) => {
+  const type = typeof intention;
+  if (type === 'function') {
+    const serializer = types[type];
+    serializer([intention, file, options], (intention) =>
+      handler(file, intention, options)
+    );
+  }
+};
+
+const processing = (filepath, metadata) => {
+  const ext = path.extname(filepath);
+  const scenario = schema[ext];
+  const format = ext.slice(1).toUpperCase();
+  const instruction = metadata[format];
+  handler(filepath, scenario, instruction);
+};
+
+const pathcheck = (dir) => {
+  if (fs.existsSync(dir)) return true;
+  console.log(`❗️ Path "${dir}" not found! \n`);
+  return false;
+};
+
+const pathignore = (path, filter) =>
+  filter.find((exception) => path.includes(exception));
 
 const pathfinder = (root, exceptions, metadata) => {
   const isExist = pathcheck(root);
@@ -106,49 +149,6 @@ const pathfinder = (root, exceptions, metadata) => {
     processing(pathname, metadata);
   }
 };
-
-const pathcheck = (dir) => {
-  if (fs.existsSync(dir)) return true;
-  console.log(`❗️ Path "${dir}" not found! \n`);
-  return false;
-};
-
-const pathignore = (path, filter) =>
-  filter.find((exception) => path.includes(exception));
-
-const processing = (filepath, metadata) => {
-  const ext = path.extname(filepath);
-  const scenario = schema[ext];
-  const format = ext.slice(1).toUpperCase();
-  const instruction = metadata[format];
-  handler(filepath, scenario, instruction);
-};
-
-const handler = (file, intention, options) => {
-  const type = typeof intention;
-  if (type === 'function') {
-    const serializer = types[type];
-    serializer([intention, file, options], (intention) =>
-      handler(file, intention, options)
-    );
-  }
-};
-
-const types = {
-  object: ([obj], callback) => callback(JSON.stringify(obj)),
-  undefined: (callback) => callback('not found'),
-  function: ([fn, filepath, options], callback) =>
-    callback(JSON.stringify(fn(filepath, options))),
-};
-
-const start = (console) =>
-  process.stdout.write(
-    console.clear +
-      console.color +
-      console.text +
-      console.newline +
-      console.normal
-  );
 
 const { ROOT, IGNORE, OPTIONS, STDOUT } = CONFIGURATIONS;
 
