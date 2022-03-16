@@ -31,7 +31,7 @@ const CONFIGURATIONS = {
     'libs.zip',
   ],
   STDOUT: {
-    text: 'FRONTEND OPTIMIZING',
+    text: 'FRONTEND OPTIMIZER',
     color: '\x1b[1;33m',
     newline: '\n\n',
     normal: '\x1b[0m',
