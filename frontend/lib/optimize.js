@@ -46,20 +46,19 @@ const schema = {
 };
 
 const handleCSS = (file, options) => {
-  const [...plugins] = options;
   new Promise(() => {
     fs.readFile(file, (err, css) => {
       if (err) throw err;
-      postcss(plugins)
+      postcss(options)
         .process(css, {
           from: file,
           to: file,
         })
         .then((result) => {
-          fs.writeFile(file, result.css, (e) => {
-            if (e) throw e;
-            output(file);
+          fs.writeFile(file, result.css, (err) => {
+            if (err) throw err;
           });
+          output(file);
         });
     });
   });
@@ -68,10 +67,10 @@ const handleCSS = (file, options) => {
 const handleJS = (file, options) => {
   new Promise(() => {
     Terser.minify(fs.readFileSync(file, 'utf8'), options).then((processed) => {
-      fs.writeFile(file, processed.code, (e) => {
-        if (e) throw e;
-        output(file);
+      fs.writeFile(file, processed.code, (err) => {
+        if (err) throw err;
       });
+      output(file);
     });
   });
 };
@@ -80,10 +79,10 @@ const handleHTML = (file, options) => {
   new Promise(() => {
     HTMLTerser.minify(fs.readFileSync(file, 'utf8'), options).then(
       (processed) => {
-        fs.writeFile(file, processed, (e) => {
-          if (e) throw e;
-          output(file);
+        fs.writeFile(file, processed, (err) => {
+          if (err) throw err;
         });
+        output(file);
       }
     );
   });
