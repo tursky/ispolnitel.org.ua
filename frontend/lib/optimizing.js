@@ -119,6 +119,7 @@ const pathignore = (path, exceptions) => {
   exceptions.forEach((exception) => {
     if (path.includes(exception)) {
       result = true;
+      return;
     }
   });
   return result;
