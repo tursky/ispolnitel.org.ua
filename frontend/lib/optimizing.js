@@ -91,25 +91,25 @@ const handleHTML = (file, options) => {
 
 const output = (handled) => console.log(`✅ ${handled}`);
 
-const pathfinder = (directory, exception, metadata) => {
-  const isExist = pathcheck(directory);
+const pathfinder = (root, exceptions, metadata) => {
+  const isExist = pathcheck(root);
   if (!isExist) return 0;
-  const files = fs.readdirSync(directory);
-  for (let i = 0; i < files.length; i++) {
-    const pathname = path.join(directory, files[i]);
+  const source = fs.readdirSync(root);
+  for (let i = 0; i < source.length; i++) {
+    const pathname = path.join(root, source[i]);
     const status = fs.lstatSync(pathname);
     if (status.isDirectory()) {
-      pathfinder(pathname, exception, metadata);
+      pathfinder(pathname, exceptions, metadata);
       continue;
     }
-    const isException = pathignore(pathname, exception);
+    const isException = pathignore(pathname, exceptions);
     if (isException) continue;
     processing(pathname, metadata);
   }
 };
 
 const pathcheck = (dir) => {
-  if (fs.existsSync(dir)) return true
+  if (fs.existsSync(dir)) return true;
   console.log(`❗️ Path "${dir}" not found! \n`);
   return false;
 };
