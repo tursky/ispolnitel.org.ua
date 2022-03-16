@@ -109,9 +109,9 @@ const pathfinder = (directory, exception, metadata) => {
 };
 
 const pathcheck = (dir) => {
-  const result = fs.existsSync(dir);
-  if (result === false) console.log(`❗️ Path "${dir}" not found! \n`);
-  return result;
+  if (fs.existsSync(dir)) return true
+  console.log(`❗️ Path "${dir}" not found! \n`);
+  return false;
 };
 
 const pathignore = (path, filter) =>
