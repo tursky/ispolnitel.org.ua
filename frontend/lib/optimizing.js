@@ -114,16 +114,8 @@ const pathcheck = (dir) => {
   return result;
 };
 
-const pathignore = (path, exceptions) => {
-  let result = false;
-  exceptions.forEach((exception) => {
-    if (path.includes(exception)) {
-      result = true;
-      return;
-    }
-  });
-  return result;
-};
+const pathignore = (path, filter) =>
+  filter.find((exception) => path.includes(exception));
 
 const processing = (filepath, metadata) => {
   const ext = path.extname(filepath);
