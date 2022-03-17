@@ -120,6 +120,9 @@ const preprocess = (filepath, metadata) => {
   handler(filepath, scenario, instruction);
 };
 
+const checkExceptionExists = (path, filter) =>
+  filter.find((exception) => path.includes(exception));
+
 const checkDirectoryExists = (path) => {
   const check = fs.existsSync(path);
   if (check === false) {
@@ -127,9 +130,6 @@ const checkDirectoryExists = (path) => {
   }
   return check;
 };
-
-const checkExceptionExists = (path, filter) =>
-  filter.find((exception) => path.includes(exception));
 
 const pathfinder = (root, exceptions, metadata) => {
   if (checkDirectoryExists(root) === false) return 0;
