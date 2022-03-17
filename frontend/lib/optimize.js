@@ -50,47 +50,43 @@ const start = (console) =>
 
 const output = (handled) => console.log(`✅ - ${handled}`);
 
-const handleCSS = (file, options) => {
-  new Promise(() => {
-    fs.readFile(file, (err, css) => {
-      if (err) throw err;
-      postcss(options)
-        .process(css, {
-          from: file,
-          to: file,
-        })
-        .then((result) => {
-          fs.writeFile(file, result.css, (err) => {
-            if (err) throw err;
-          });
-          output(file);
-        });
+const handleCSS = async (file, config) => {
+  try {
+    const content = fs.readFileSync(file, 'utf8');
+    const plugins = [...config]
+    const processed = await postcss(plugins).process(content, {
+      from: file,
+      to: file,
     });
-  });
+    fs.writeFileSync(file, processed.css);
+  } catch (err) {
+    throw err;
+  }
+  output(file);
 };
 
-const handleJS = (file, options) => {
-  new Promise(() => {
-    Terser.minify(fs.readFileSync(file, 'utf8'), options).then((processed) => {
-      fs.writeFile(file, processed.code, (err) => {
-        if (err) throw err;
-      });
-      output(file);
-    });
-  });
+const handleJS = async (file, config) => {
+  try {
+    const content = fs.readFileSync(file, 'utf8');
+    const options = {...config}
+    const processed = await Terser.minify(content, options);
+    fs.writeFileSync(file, processed.code);
+  } catch (err) {
+    throw err;
+  }
+  output(file);
 };
 
-const handleHTML = (file, options) => {
-  new Promise(() => {
-    HTMLTerser.minify(fs.readFileSync(file, 'utf8'), options).then(
-      (processed) => {
-        fs.writeFile(file, processed, (err) => {
-          if (err) throw err;
-        });
-        output(file);
-      }
-    );
-  });
+const handleHTML = async (file, config) => {
+  try {
+    const content = fs.readFileSync(file, 'utf8');
+    const options = {...config}
+    const processed = await HTMLTerser.minify(content, options);
+    fs.writeFileSync(file, processed);
+  } catch (err) {
+    throw err;
+  }
+  output(file);
 };
 
 const schema = {
