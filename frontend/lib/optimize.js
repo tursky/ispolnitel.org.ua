@@ -53,7 +53,7 @@ const output = (handled) => console.log(`✅ - ${handled}`);
 const handleCSS = async (file, config) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const plugins = [...config]
+    const plugins = [...config];
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
@@ -68,7 +68,7 @@ const handleCSS = async (file, config) => {
 const handleJS = async (file, config) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const options = {...config}
+    const options = { ...config };
     const processed = await Terser.minify(content, options);
     fs.writeFileSync(file, processed.code);
   } catch (err) {
@@ -80,7 +80,7 @@ const handleJS = async (file, config) => {
 const handleHTML = async (file, config) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const options = {...config}
+    const options = { ...config };
     const processed = await HTMLTerser.minify(content, options);
     fs.writeFileSync(file, processed);
   } catch (err) {
@@ -112,7 +112,7 @@ const handler = (file, intention, options) => {
   }
 };
 
-const processing = (filepath, metadata) => {
+const preprocess = (filepath, metadata) => {
   const ext = path.extname(filepath);
   const scenario = schema[ext];
   const format = ext.slice(1).toUpperCase();
@@ -120,18 +120,19 @@ const processing = (filepath, metadata) => {
   handler(filepath, scenario, instruction);
 };
 
-const pathcheck = (dir) => {
-  if (fs.existsSync(dir)) return true;
-  console.log(`❗️ Path "${dir}" not found! \n`);
-  return false;
+const checkDirectoryExists = (path) => {
+  const check = fs.existsSync(path);
+  if (check === false) {
+    console.log(`❗️ Path "${path}" not found! \n`);
+  }
+  return check;
 };
 
-const pathignore = (path, filter) =>
+const checkExceptionExists = (path, filter) =>
   filter.find((exception) => path.includes(exception));
 
 const pathfinder = (root, exceptions, metadata) => {
-  const isExist = pathcheck(root);
-  if (!isExist) return 0;
+  if (checkDirectoryExists(root) === false) return 0;
   const source = fs.readdirSync(root);
   for (let i = 0; i < source.length; i++) {
     const pathname = path.join(root, source[i]);
@@ -140,9 +141,8 @@ const pathfinder = (root, exceptions, metadata) => {
       pathfinder(pathname, exceptions, metadata);
       continue;
     }
-    const isException = pathignore(pathname, exceptions);
-    if (isException) continue;
-    processing(pathname, metadata);
+    if (checkExceptionExists(pathname, exceptions)) continue;
+    preprocess(pathname, metadata);
   }
 };
 
