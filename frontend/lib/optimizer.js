@@ -54,7 +54,26 @@ const start = () => {
   );
 };
 
-const output = (handled) => console.log(`✅ - ${handled}`);
+const output = (handled) => {
+  const console = {
+    file: handled,
+    success: '[ok]',
+    successColor: '\x1b[36m',
+    fileColor: '\x1b[32m',
+    colorReset: '\x1b[0m',
+    empty: ' ',
+    newline: '\n',
+  };
+  process.stdout.write(
+    console.successColor +
+      console.success +
+      console.empty +
+      console.fileColor +
+      console.file +
+      console.newline +
+      console.colorReset
+  );
+};
 
 const handleError = (f, e) => {
   const console = {
