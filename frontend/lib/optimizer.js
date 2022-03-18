@@ -51,14 +51,22 @@ const start = (console) =>
 const output = (handled) => console.log(`✅ - ${handled}`);
 
 const handleError = (f, e) => {
-  const PRINT = {
-    alarm: 'Handling is stopped!',
-    info: 'Processing file: ',
-    file: f,
+  const console = {
+    message: 'PROCESS FAILED: ' + f,
     error: e.stack,
+    red: '\x1b[31m',
+    reset: '\x1b[0m',
+    indent: '\n\n',
   };
-  const { alarm, info, file, error } = PRINT;
-  console.log('\n' + alarm + '\n' + info + file + '\n\n' + error + '\n');
+  process.stdout.write(
+    console.indent +
+      console.message +
+      console.indent +
+      console.red +
+      console.error +
+      console.reset +
+      console.indent
+  );
   process.exit();
 };
 
