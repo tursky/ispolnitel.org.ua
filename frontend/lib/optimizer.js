@@ -35,22 +35,22 @@ const CONFIGURATIONS = {
 const start = () => {
   const console = {
     title: 'START FRONTEND OPTIMIZER',
-    color: '\x1b[37m',
-    bg: '\x1b[41m',
-    reset: '\x1b[0m',
+    titleColor: '\x1b[37m',
+    titleBg: '\x1b[44m',
+    resetColor: '\x1b[0m',
     clear: '\x1Bc',
     indent: '\n\n\n',
-    empty: '   ',
+    tab: '   ',
   };
   process.stdout.write(
     console.clear +
-      console.color +
-      console.bg +
-      console.empty +
+      console.titleColor +
+      console.titleBg +
+      console.tab +
       console.title +
-      console.empty +
+      console.tab +
       console.indent +
-      console.reset
+      console.resetColor
   );
 };
 
@@ -58,16 +58,16 @@ const output = (handled) => {
   const console = {
     file: handled,
     success: '[ok]',
-    successColor: '\x1b[36m',
-    fileColor: '\x1b[32m',
+    successColor: '\x1b[34m',
+    fileColor: '\x1b[36m',
     colorReset: '\x1b[0m',
-    empty: ' ',
+    tab: ' ',
     newline: '\n',
   };
   process.stdout.write(
     console.successColor +
       console.success +
-      console.empty +
+      console.tab +
       console.fileColor +
       console.file +
       console.newline +
@@ -77,20 +77,35 @@ const output = (handled) => {
 
 const handleError = (f, e) => {
   const console = {
-    message: 'PROCESS FAILED: ' + f,
+    title: 'PROCESS FAILED',
+    file: f,
     error: e.stack,
-    red: '\x1b[31m',
-    reset: '\x1b[0m',
+    errorColor: '\x1b[31m',
+    titleColor: '\x1b[37m',
+    titleBg: '\x1b[41m',
+    fileColor: '\x1b[1;37m',
+    resetColor: '\x1b[0m',
     indent: '\n\n',
+    tab: '   ',
   };
   process.stdout.write(
     console.indent +
-      console.message +
+      console.titleColor +
+      console.titleBg +
+      console.tab +
+      console.title +
+      console.tab +
+      console.resetColor +
       console.indent +
-      console.red +
+      console.tab +
+      console.fileColor +
+      console.file +
+      console.resetColor +
+      console.indent +
+      console.errorColor +
       console.error +
-      console.reset +
-      console.indent
+      console.indent +
+      console.resetColor
   );
   process.exit();
 };
