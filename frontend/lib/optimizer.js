@@ -34,18 +34,23 @@ const CONFIGURATIONS = {
 
 const start = () => {
   const console = {
-    text: 'FRONTEND OPTIMIZER',
-    color: '\x1b[1;33m',
-    indent: '\n\n',
-    normal: '\x1b[0m',
+    title: 'START FRONTEND OPTIMIZER',
+    color: '\x1b[37m',
+    bg: '\x1b[41m',
+    reset: '\x1b[0m',
     clear: '\x1Bc',
+    indent: '\n\n\n',
+    empty: '   '
   };
   process.stdout.write(
     console.clear +
       console.color +
-      console.text +
+      console.bg +
+      console.empty +
+      console.title +
+      console.empty +
       console.indent +
-      console.normal
+      console.reset
   );
 };
 
