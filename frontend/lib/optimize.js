@@ -50,6 +50,18 @@ const start = (console) =>
 
 const output = (handled) => console.log(`✅ - ${handled}`);
 
+const handleError = (f, e) => {
+  const PRINT = {
+    alarm: 'Handling is stopped!',
+    info: 'Processing file: ',
+    file: f,
+    error: e.stack,
+  };
+  const { alarm, info, file, error } = PRINT;
+  console.log('\n' + alarm + '\n' + info + file + '\n\n' + error + '\n');
+  process.exit();
+};
+
 const handleCSS = async (file, config) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
@@ -60,7 +72,7 @@ const handleCSS = async (file, config) => {
     });
     fs.writeFileSync(file, processed.css);
   } catch (err) {
-    throw err;
+    handleError(file, err);
   }
   output(file);
 };
@@ -72,7 +84,7 @@ const handleJS = async (file, config) => {
     const processed = await Terser.minify(content, options);
     fs.writeFileSync(file, processed.code);
   } catch (err) {
-    throw err;
+    handleError(file, err);
   }
   output(file);
 };
@@ -84,7 +96,7 @@ const handleHTML = async (file, config) => {
     const processed = await HTMLTerser.minify(content, options);
     fs.writeFileSync(file, processed);
   } catch (err) {
-    throw err;
+    handleError(file, err);
   }
   output(file);
 };
