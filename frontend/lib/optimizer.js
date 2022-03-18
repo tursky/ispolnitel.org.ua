@@ -206,9 +206,9 @@ const pathfinder = (root, exceptions, metadata) => {
   }
 };
 
-function main(args) {
-  const { ROOT, IGNORE, OPTIONS, STDOUT } = args;
-  start(STDOUT);
+const main = (settings) => {
+  const { ROOT, IGNORE, OPTIONS } = settings;
+  start();
   pathfinder(ROOT, IGNORE, OPTIONS);
 }
 
