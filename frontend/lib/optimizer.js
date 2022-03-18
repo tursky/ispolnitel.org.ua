@@ -183,7 +183,7 @@ const preprocess = (filepath, metadata) => {
 const checkExceptionExists = (path, filter) =>
   filter.find((exception) => path.includes(exception));
 
-const checkDirectoryExists = (path) => {
+const verifyDirExists = (path) => {
   const check = fs.existsSync(path);
   if (check === false) {
     console.log(`❗️ Path "${path}" not found! \n`);
@@ -192,7 +192,7 @@ const checkDirectoryExists = (path) => {
 };
 
 const pathfinder = (root, exceptions, metadata) => {
-  if (checkDirectoryExists(root) === false) return 0;
+  if (verifyDirExists(root) === false) return 0;
   const source = fs.readdirSync(root);
   for (let i = 0; i < source.length; i++) {
     const pathname = path.join(root, source[i]);
