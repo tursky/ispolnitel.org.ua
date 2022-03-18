@@ -20,6 +20,13 @@ const CONFIGURATIONS = {
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: [cssnano],
   },
+  STDOUT: {
+    text: 'FRONTEND OPTIMIZER',
+    color: '\x1b[1;33m',
+    indent: '\n\n',
+    normal: '\x1b[0m',
+    clear: '\x1Bc',
+  },
   IGNORE: [
     'bundles',
     'images',
@@ -30,13 +37,6 @@ const CONFIGURATIONS = {
     'mail.php',
     'libs.zip',
   ],
-  STDOUT: {
-    text: 'FRONTEND OPTIMIZER',
-    color: '\x1b[1;33m',
-    newline: '\n\n',
-    normal: '\x1b[0m',
-    clear: '\x1Bc',
-  },
 };
 
 const start = (console) =>
@@ -44,7 +44,7 @@ const start = (console) =>
     console.clear +
       console.color +
       console.text +
-      console.newline +
+      console.indent +
       console.normal
   );
 
