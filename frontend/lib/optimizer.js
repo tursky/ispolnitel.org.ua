@@ -20,13 +20,6 @@ const CONFIGURATIONS = {
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: [cssnano],
   },
-  STDOUT: {
-    text: 'FRONTEND OPTIMIZER',
-    color: '\x1b[1;33m',
-    indent: '\n\n',
-    normal: '\x1b[0m',
-    clear: '\x1Bc',
-  },
   IGNORE: [
     'bundles',
     'images',
@@ -39,7 +32,14 @@ const CONFIGURATIONS = {
   ],
 };
 
-const start = (console) =>
+const start = () => {
+  const console = {
+    text: 'FRONTEND OPTIMIZER',
+    color: '\x1b[1;33m',
+    indent: '\n\n',
+    normal: '\x1b[0m',
+    clear: '\x1Bc',
+  };
   process.stdout.write(
     console.clear +
       console.color +
@@ -47,6 +47,7 @@ const start = (console) =>
       console.indent +
       console.normal
   );
+};
 
 const output = (handled) => console.log(`✅ - ${handled}`);
 
