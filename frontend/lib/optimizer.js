@@ -40,7 +40,7 @@ const start = () => {
     reset: '\x1b[0m',
     clear: '\x1Bc',
     indent: '\n\n\n',
-    empty: '   '
+    empty: '   ',
   };
   process.stdout.write(
     console.clear +
