@@ -183,16 +183,7 @@ const preprocess = (filepath, metadata) => {
 const checkExceptionExists = (path, filter) =>
   filter.find((exception) => path.includes(exception));
 
-const verifyDirExists = (path) => {
-  const check = fs.existsSync(path);
-  if (check === false) {
-    console.log(`❗️ Path "${path}" not found! \n`);
-  }
-  return check;
-};
-
 const pathfinder = (root, exceptions, metadata) => {
-  if (verifyDirExists(root) === false) return 0;
   const source = fs.readdirSync(root);
   for (let i = 0; i < source.length; i++) {
     const pathname = path.join(root, source[i]);
@@ -206,11 +197,47 @@ const pathfinder = (root, exceptions, metadata) => {
   }
 };
 
+const EXIT = {
+  SUCCESS: true,
+  FAILURE: false,
+  INFO: '',
+};
+
+const saveTerminateInfo = (data) => {
+  EXIT.INFO = data;
+};
+
+const reportFailure = (info) => {
+  const console = {
+    message: info,
+    resetColor: '\x1b[0m',
+    messageColor: '\x1b[1;37m',
+    indent: '\n\n',
+  };
+  process.stdout.write(
+    console.messageColor + console.message + console.indent + console.resetColor
+  );
+};
+
+const verifyDirExists = (path) => fs.existsSync(path);
+
 const main = (settings) => {
   const { ROOT, IGNORE, OPTIONS } = settings;
   start();
+  if (verifyDirExists(ROOT) === false) {
+    const cause = `❗️ Path '${ROOT}' not found!`;
+    saveTerminateInfo(cause);
+    return EXIT.FAILURE;
+  }
   pathfinder(ROOT, IGNORE, OPTIONS);
-}
+  return EXIT.SUCCESS;
+};
 
-// Start programm
-main(CONFIGURATIONS);
+// Start program
+const optimizer = main(CONFIGURATIONS);
+
+if (optimizer === EXIT.FAILURE) {
+  const cause = EXIT.INFO;
+  reportFailure(cause);
+  process.exit();
+}
