@@ -237,9 +237,9 @@ const reportFailure = (info) => {
 };
 
 // Start program
-const optimizer = main(CONFIGURATIONS);
+const fn = main(CONFIGURATIONS);
 
-if (optimizer === EXIT.FAILURE) {
+if (fn === EXIT.FAILURE) {
   const cause = EXIT.INFO;
   reportFailure(cause);
   process.exit();
