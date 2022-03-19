@@ -207,18 +207,6 @@ const saveTerminateInfo = (data) => {
   EXIT.INFO = data;
 };
 
-const reportFailure = (info) => {
-  const console = {
-    message: info,
-    resetColor: '\x1b[0m',
-    messageColor: '\x1b[1;37m',
-    indent: '\n\n',
-  };
-  process.stdout.write(
-    console.messageColor + console.message + console.indent + console.resetColor
-  );
-};
-
 const verifyDirExists = (path) => fs.existsSync(path);
 
 const main = (settings) => {
@@ -231,6 +219,21 @@ const main = (settings) => {
   }
   pathfinder(ROOT, IGNORE, OPTIONS);
   return EXIT.SUCCESS;
+};
+
+const reportFailure = (info) => {
+  const console = {
+    notification: info,
+    notificationColor: '\x1b[1;37m',
+    resetColor: '\x1b[0m',
+    indent: '\n\n',
+  };
+  process.stdout.write(
+    console.notificationColor +
+      console.notification +
+      console.indent +
+      console.resetColor
+  );
 };
 
 // Start program
