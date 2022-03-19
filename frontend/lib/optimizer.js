@@ -200,12 +200,17 @@ const pathfinder = (root, exceptions, metadata) => {
 const EXIT = {
   SUCCESS: true,
   FAILURE: false,
-  INFO: '',
 };
 
 const saveTerminateInfo = (data) => {
   EXIT.INFO = data;
 };
+
+const getTerminateInfo = (
+  obj = EXIT,
+  field = 'INFO',
+  response = obj.hasOwnProperty(field) ? obj[field] : 'NO EXIT DATA'
+) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
 
@@ -236,11 +241,11 @@ const reportFailure = (info) => {
   );
 };
 
-// Start program
+// Start process
 const fn = main(CONFIGURATIONS);
 
 if (fn === EXIT.FAILURE) {
-  const cause = EXIT.INFO;
+  const cause = getTerminateInfo();
   reportFailure(cause);
   process.exit();
 }
