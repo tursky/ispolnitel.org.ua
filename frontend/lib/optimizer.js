@@ -230,11 +230,11 @@ const main = (settings) => {
   return EXIT.SUCCESS;
 };
 
-const reportFailure = (info) => {
+const reportFailure = (data) => {
   const console = {
     icon: '❗️',
-    notification: info,
-    notificationColor: '\x1b[1;37m',
+    content: data,
+    contentColor: '\x1b[1;37m',
     resetColor: '\x1b[0m',
     indent: '\n\n',
     tab: '  ',
@@ -242,8 +242,8 @@ const reportFailure = (info) => {
   process.stdout.write(
     console.icon +
       console.tab +
-      console.notificationColor +
-      console.notification +
+      console.contentColor +
+      console.content +
       console.indent +
       console.resetColor
   );
