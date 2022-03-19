@@ -202,14 +202,18 @@ const EXIT = {
   FAILURE: false,
 };
 
-const saveTerminateInfo = (data) => {
-  EXIT.INFO = data;
+const saveExitInformation = (
+  data = 'NO TERMINATE INFO',
+  obj = EXIT,
+  field = 'INFO'
+) => {
+  Object.defineProperty(obj, field, { value: data });
 };
 
-const getTerminateInfo = (
+const getExitInformation = (
   obj = EXIT,
   field = 'INFO',
-  response = obj.hasOwnProperty(field) ? obj[field] : 'NO EXIT DATA'
+  response = obj.hasOwnProperty(field) ? obj[field] : 'NO TERMINATE INFO'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
@@ -218,8 +222,8 @@ const main = (settings) => {
   const { ROOT, IGNORE, OPTIONS } = settings;
   start();
   if (verifyDirExists(ROOT) === false) {
-    const cause = `❗️ Path '${ROOT}' not found!`;
-    saveTerminateInfo(cause);
+    const info = `Path '${ROOT}' not found!`;
+    saveExitInformation(info);
     return EXIT.FAILURE;
   }
   pathfinder(ROOT, IGNORE, OPTIONS);
@@ -228,13 +232,17 @@ const main = (settings) => {
 
 const reportFailure = (info) => {
   const console = {
+    icon: '❗️',
     notification: info,
     notificationColor: '\x1b[1;37m',
     resetColor: '\x1b[0m',
     indent: '\n\n',
+    tab: '  ',
   };
   process.stdout.write(
-    console.notificationColor +
+    console.icon +
+      console.tab +
+      console.notificationColor +
       console.notification +
       console.indent +
       console.resetColor
@@ -245,7 +253,7 @@ const reportFailure = (info) => {
 const fn = main(CONFIGURATIONS);
 
 if (fn === EXIT.FAILURE) {
-  const cause = getTerminateInfo();
-  reportFailure(cause);
+  const info = getExitInformation();
+  reportFailure(info);
   process.exit();
 }
