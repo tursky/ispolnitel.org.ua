@@ -82,25 +82,22 @@ const getConsoleRenderSettings = () => ({
   newline3: '\n\n\n',
 });
 
-const start = () => {
-  const console = {
-    title: 'START FRONTEND OPTIMIZER',
-    titleColor: '\x1b[37m',
-    titleBg: '\x1b[44m',
-    resetColor: '\x1b[0m',
-    clear: '\x1Bc',
-    indent: '\n\n\n',
-    tab: '   ',
-  };
-  process.stdout.write(
-    console.clear +
-      console.titleColor +
-      console.titleBg +
-      console.tab +
-      console.title +
-      console.tab +
-      console.indent +
-      console.resetColor
+const start = (
+  app = 'START FRONTEND OPTIMIZER',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.clear,
+      stdout.white,
+      stdout.boldfont,
+      stdout.magentaBG,
+      stdout.space2,
+      app,
+      stdout.space2,
+      stdout.newline3,
+      stdout.reset,
+    ])
   );
 };
 
