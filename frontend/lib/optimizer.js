@@ -239,7 +239,7 @@ const EXIT = {
 };
 
 const saveExitInformation = (
-  data = 'NO TERMINATE INFO',
+  data = '...there is no terminate data!',
   obj = EXIT,
   field = 'INFO'
 ) => {
@@ -251,7 +251,7 @@ const getExitInformation = (
   field = 'INFO',
   response = obj.hasOwnProperty.call(obj, field)
     ? obj[field]
-    : 'NO TERMINATE INFO'
+    : '...there is no terminate info!'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
@@ -260,7 +260,7 @@ const main = (settings) => {
   const { ROOT, IGNORE, OPTIONS } = settings;
   start();
   if (verifyDirExists(ROOT) === false) {
-    const info = `Path '${ROOT}' not found!`;
+    const info = `Destination directory not found! Incorrect path: ${ROOT}`;
     saveExitInformation(info);
     return EXIT.FAILURE;
   }
