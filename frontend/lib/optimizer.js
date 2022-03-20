@@ -14,7 +14,7 @@ const path = require('path');
 const fs = require('fs');
 
 const CONFIGURATIONS = {
-  ROOT: 'application/static',
+  ROOT: 'application/staic',
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
@@ -93,10 +93,10 @@ const start = (
       stdout.clear,
       stdout.white,
       stdout.boldfont,
-      stdout.magentaBG,
-      stdout.space2,
+      stdout.blueBG,
+      stdout.space3,
       app,
-      stdout.space2,
+      stdout.space3,
       stdout.newline3,
       stdout.reset,
     ])
@@ -289,7 +289,7 @@ const reportFailure = (
       stdout.white,
       stdout.boldfont,
       data,
-      stdout.newline2,
+      stdout.newline3,
       stdout.reset,
     ])
   );
