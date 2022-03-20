@@ -92,7 +92,7 @@
     "no-whitespace-before-property": ["error"],
     "object-curly-spacing": ["error", "always"],
     "operator-assignment": ["error", "always"],
-    "operator-linebreak": ["error", "after"],
+    "operator-linebreak": ["error", "before"],
     "semi-spacing": [
       "error",
       {
