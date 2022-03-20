@@ -101,24 +101,22 @@ const start = (
   );
 };
 
-const output = (handled) => {
-  const console = {
-    file: handled,
-    success: '[ok]',
-    successColor: '\x1b[34m',
-    fileColor: '\x1b[36m',
-    colorReset: '\x1b[0m',
-    tab: ' ',
-    newline: '\n',
-  };
-  process.stdout.write(
-    console.successColor +
-      console.success +
-      console.tab +
-      console.fileColor +
-      console.file +
-      console.newline +
-      console.colorReset
+const output = (
+  file,
+  handled = '[ok]',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.green,
+      handled,
+      stdout.space1,
+      stdout.white,
+      stdout.boldfont,
+      file,
+      stdout.newline1,
+      stdout.reset,
+    ])
   );
 };
 
