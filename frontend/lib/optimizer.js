@@ -32,80 +32,116 @@ const CONFIGURATIONS = {
   ],
 };
 
-const start = () => {
-  const console = {
-    title: 'START FRONTEND OPTIMIZER',
-    titleColor: '\x1b[37m',
-    titleBg: '\x1b[44m',
-    resetColor: '\x1b[0m',
-    clear: '\x1Bc',
-    indent: '\n\n\n',
-    tab: '   ',
-  };
-  process.stdout.write(
-    console.clear +
-      console.titleColor +
-      console.titleBg +
-      console.tab +
-      console.title +
-      console.tab +
-      console.indent +
-      console.resetColor
+const application = 'FRONTEND OPTIMIZER';
+
+const render = (string) => process.stdout.write(string);
+const preprint = (array) => array.join('');
+
+const getConsoleRenderSettings = () => ({
+  /**
+   * CONSOLE TYPOGRAPHY
+   */
+  clear: '\x1Bc',
+  reset: '\x1b[0m',
+  boldfont: '\x1b[1m',
+  hidden: '\x1b[8m',
+  underline: '\x1b[4m',
+  dim: '\x1b[2m',
+  blink: '\x1b[5m',
+  reverse: '\x1b[7m',
+
+  /**
+   * CONSOLE COLORS
+   */
+  black: '\x1b[30m',
+  red: '\x1b[31m',
+  green: '\x1b[32m',
+  yellow: '\x1b[33m',
+  blue: '\x1b[34m',
+  magenta: '\x1b[35m',
+  cyan: '\x1b[36m',
+  white: '\x1b[37m',
+
+  /**
+   * CONSOLE BACKGROUNDS
+   */
+  blackBG: '\x1b[40m',
+  redBG: '\x1b[41m',
+  greenBG: '\x1b[42m',
+  yellowBG: '\x1b[43m',
+  blueBG: '\x1b[44m',
+  magentaBG: '\x1b[45m',
+  cyanBG: '\x1b[46m',
+  whiteBG: '\x1b[47m',
+
+  /**
+   * CONSOLE FUNCTIONALITY
+   */
+  draw: (symbol) => symbol,
+  newline: (n = 1, str = '\n') => str.repeat(n),
+  space: (n = 1, str = ' ') => str.repeat(n),
+});
+
+const start = (app, stdout = getConsoleRenderSettings()) => {
+  render(
+    preprint([
+      stdout.clear,
+      stdout.white,
+      stdout.boldfont,
+      stdout.blueBG,
+      stdout.space(3),
+      app,
+      stdout.space(3),
+      stdout.newline(3),
+      stdout.reset,
+    ])
   );
 };
 
-const output = (handled) => {
-  const console = {
-    file: handled,
-    success: '[ok]',
-    successColor: '\x1b[34m',
-    fileColor: '\x1b[36m',
-    colorReset: '\x1b[0m',
-    tab: ' ',
-    newline: '\n',
-  };
-  process.stdout.write(
-    console.successColor +
-      console.success +
-      console.tab +
-      console.fileColor +
-      console.file +
-      console.newline +
-      console.colorReset
+const output = (
+  file,
+  handled = '[ok]',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.green,
+      handled,
+      stdout.dim,
+      stdout.draw(' - '),
+      stdout.reset,
+      stdout.white,
+      stdout.boldfont,
+      file,
+      stdout.newline(1),
+      stdout.reset,
+    ])
   );
 };
 
-const handleError = (f, e) => {
-  const console = {
-    title: 'PROCESS FAILED',
-    file: f,
-    error: e.stack,
-    errorColor: '\x1b[31m',
-    titleColor: '\x1b[37m',
-    titleBg: '\x1b[41m',
-    fileColor: '\x1b[1;37m',
-    resetColor: '\x1b[0m',
-    indent: '\n\n',
-    tab: '   ',
-  };
-  process.stdout.write(
-    console.indent +
-      console.titleColor +
-      console.titleBg +
-      console.tab +
-      console.title +
-      console.tab +
-      console.resetColor +
-      console.indent +
-      console.tab +
-      console.fileColor +
-      console.file +
-      console.resetColor +
-      console.indent +
-      console.errorColor +
-      console.error +
-      console.indent +
-      console.resetColor
+const handleError = (
+  file,
+  err,
+  unhandled = '[ok]',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.red,
+      unhandled,
+      stdout.dim,
+      stdout.draw(' - '),
+      stdout.reset,
+      stdout.white,
+      stdout.boldfont,
+      file,
+      stdout.reset,
+      stdout.newline(2),
+      stdout.red,
+      err.stack,
+      stdout.newline(2),
+      stdout.reset,
+    ])
   );
   process.exit();
 };
@@ -203,7 +239,7 @@ const EXIT = {
 };
 
 const saveExitInformation = (
-  data = 'NO TERMINATE INFO',
+  data = 'Something went wrong! There is no exit data.',
   obj = EXIT,
   field = 'INFO'
 ) => {
@@ -213,39 +249,43 @@ const saveExitInformation = (
 const getExitInformation = (
   obj = EXIT,
   field = 'INFO',
-  response = obj.hasOwnProperty.call(field) ? obj[field] : 'NO TERMINATE INFO'
+  response = obj.hasOwnProperty.call(obj, field)
+    ? obj[field]
+    : 'Sorry, there is no exit info!'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
 
 const main = (settings) => {
   const { ROOT, IGNORE, OPTIONS } = settings;
-  start();
+  start(application);
   if (verifyDirExists(ROOT) === false) {
-    const info = `Path '${ROOT}' not found!`;
-    saveExitInformation(info);
+    const data = `Destination directory not found! Incorrect path: ${ROOT}`;
+    saveExitInformation(data);
     return EXIT.FAILURE;
   }
   pathfinder(ROOT, IGNORE, OPTIONS);
   return EXIT.SUCCESS;
 };
 
-const reportFailure = (data) => {
-  const console = {
-    icon: '❗️',
-    content: data,
-    contentColor: '\x1b[1;37m',
-    resetColor: '\x1b[0m',
-    indent: '\n\n',
-    tab: '  ',
-  };
-  process.stdout.write(
-    console.icon +
-      console.tab +
-      console.contentColor +
-      console.content +
-      console.indent +
-      console.resetColor
+const reportFailure = (
+  info,
+  notation = 'Failure',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.yellow,
+      stdout.boldfont,
+      notation,
+      stdout.draw(': '),
+      stdout.reset,
+      stdout.white,
+      stdout.boldfont,
+      info,
+      stdout.newline(3),
+      stdout.reset,
+    ])
   );
 };
 
