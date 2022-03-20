@@ -14,7 +14,7 @@ const path = require('path');
 const fs = require('fs');
 
 const CONFIGURATIONS = {
-  ROOT: 'application/staic',
+  ROOT: 'application/static',
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
@@ -244,7 +244,7 @@ const EXIT = {
 };
 
 const saveExitInformation = (
-  data = '...there is no terminate data!',
+  data = 'Something went wrong! There is no exit data.',
   obj = EXIT,
   field = 'INFO'
 ) => {
@@ -256,7 +256,7 @@ const getExitInformation = (
   field = 'INFO',
   response = obj.hasOwnProperty.call(obj, field)
     ? obj[field]
-    : '...there is no terminate info!'
+    : 'Sorry, there is no exit info!'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
@@ -266,7 +266,7 @@ const main = (settings) => {
   start();
   if (verifyDirExists(ROOT) === false) {
     const info = `Destination directory not found! Incorrect path: ${ROOT}`;
-    saveExitInformation(info);
+    saveExitInformation();
     return EXIT.FAILURE;
   }
   pathfinder(ROOT, IGNORE, OPTIONS);
@@ -275,17 +275,15 @@ const main = (settings) => {
 
 const reportFailure = (
   data,
-  notation = 'EXIT',
+  notation = 'Failure: ',
   stdout = getConsoleRenderSettings()
 ) => {
   render(
     preprint([
-      stdout.red,
+      stdout.yellow,
       stdout.boldfont,
-      stdout.underline,
       notation,
       stdout.reset,
-      stdout.space1,
       stdout.white,
       stdout.boldfont,
       data,
