@@ -37,7 +37,7 @@ const preprint = (array) => array.join('');
 
 const getConsoleRenderSettings = () => ({
   /**
-   *  CONSOLE TYPOGRAPHY
+   * CONSOLE TYPOGRAPHY
    */
   clear: '\x1Bc',
   reset: '\x1b[0m',
@@ -49,7 +49,7 @@ const getConsoleRenderSettings = () => ({
   reverse: '\x1b[7m',
 
   /**
-   *  CONSOLE COLORS
+   * CONSOLE COLORS
    */
   black: '\x1b[30m',
   red: '\x1b[31m',
@@ -61,7 +61,7 @@ const getConsoleRenderSettings = () => ({
   white: '\x1b[37m',
 
   /**
-   *  CONSOLE BACKGROUNDS
+   * CONSOLE BACKGROUNDS
    */
   blackBG: '\x1b[40m',
   redBG: '\x1b[41m',
