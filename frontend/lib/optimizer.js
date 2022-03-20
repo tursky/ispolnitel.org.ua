@@ -33,6 +33,7 @@ const CONFIGURATIONS = {
 };
 
 const render = (string) => process.stdout.write(string);
+const preprint = (array) => array.join('');
 
 const start = () => {
   const console = {
