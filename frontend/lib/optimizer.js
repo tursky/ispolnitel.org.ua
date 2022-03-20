@@ -77,6 +77,7 @@ const getConsoleRenderSettings = () => ({
    */
   space1: ' ',
   space2: '  ',
+  dash: ' - ',
   newline1: '\n',
   newline2: '\n\n',
   newline3: '\n\n\n',
