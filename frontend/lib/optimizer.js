@@ -111,7 +111,9 @@ const output = (
     preprint([
       stdout.green,
       handled,
-      stdout.space1,
+      stdout.dim,
+      stdout.dash,
+      stdout.reset,
       stdout.white,
       stdout.boldfont,
       file,
@@ -131,8 +133,9 @@ const handleError = (
     preprint([
       stdout.red,
       unhandled,
+      stdout.dim,
+      stdout.dash,
       stdout.reset,
-      stdout.space1,
       stdout.white,
       stdout.boldfont,
       file,
