@@ -82,6 +82,13 @@ const getConsoleRenderSettings = () => ({
   newline1: '\n',
   newline2: '\n\n',
   newline3: '\n\n\n',
+
+  /**
+   * CONSOLE FUNCTIONALITY
+   */
+  draw: (symbol) => symbol,
+  newline: (n = 1, str = '\n') => str.repeat(n),
+  space: (n = 1, str = ' ') => str.repeat(n),
 });
 
 const start = (
