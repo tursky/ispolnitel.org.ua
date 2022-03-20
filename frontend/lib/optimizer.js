@@ -75,9 +75,10 @@ const getConsoleRenderSettings = () => ({
   /**
    * CONSOLE CUSTOM INDENTS
    */
+  dash: ' - ',
   space1: ' ',
   space2: '  ',
-  dash: ' - ',
+  space3: '   ',
   newline1: '\n',
   newline2: '\n\n',
   newline3: '\n\n\n',
