@@ -268,22 +268,25 @@ const main = (settings) => {
   return EXIT.SUCCESS;
 };
 
-const reportFailure = (data) => {
-  const console = {
-    icon: '❗️',
-    content: data,
-    contentColor: '\x1b[1;37m',
-    resetColor: '\x1b[0m',
-    indent: '\n\n',
-    tab: '  ',
-  };
-  process.stdout.write(
-    console.icon +
-      console.tab +
-      console.contentColor +
-      console.content +
-      console.indent +
-      console.resetColor
+const reportFailure = (
+  data,
+  notation = 'EXIT',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.red,
+      stdout.boldfont,
+      stdout.underline,
+      notation,
+      stdout.reset,
+      stdout.space1,
+      stdout.white,
+      stdout.boldfont,
+      data,
+      stdout.newline2,
+      stdout.reset,
+    ])
   );
 };
 
