@@ -32,6 +32,8 @@ const CONFIGURATIONS = {
   ],
 };
 
+const render = (string) => process.stdout.write(string);
+
 const start = () => {
   const console = {
     title: 'START FRONTEND OPTIMIZER',
