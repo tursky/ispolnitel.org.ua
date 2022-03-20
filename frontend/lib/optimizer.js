@@ -32,6 +32,8 @@ const CONFIGURATIONS = {
   ],
 };
 
+const application = 'FRONTEND OPTIMIZER';
+
 const render = (string) => process.stdout.write(string);
 const preprint = (array) => array.join('');
 
@@ -73,17 +75,6 @@ const getConsoleRenderSettings = () => ({
   whiteBG: '\x1b[47m',
 
   /**
-   * CONSOLE CUSTOM INDENTS
-   */
-  dash: ' - ',
-  space1: ' ',
-  space2: '  ',
-  space3: '   ',
-  newline1: '\n',
-  newline2: '\n\n',
-  newline3: '\n\n\n',
-
-  /**
    * CONSOLE FUNCTIONALITY
    */
   draw: (symbol) => symbol,
@@ -91,20 +82,17 @@ const getConsoleRenderSettings = () => ({
   space: (n = 1, str = ' ') => str.repeat(n),
 });
 
-const start = (
-  app = 'START FRONTEND OPTIMIZER',
-  stdout = getConsoleRenderSettings()
-) => {
+const start = (app, stdout = getConsoleRenderSettings()) => {
   render(
     preprint([
       stdout.clear,
       stdout.white,
       stdout.boldfont,
       stdout.blueBG,
-      stdout.space3,
+      stdout.space(3),
       app,
-      stdout.space3,
-      stdout.newline3,
+      stdout.space(3),
+      stdout.newline(3),
       stdout.reset,
     ])
   );
@@ -120,12 +108,12 @@ const output = (
       stdout.green,
       handled,
       stdout.dim,
-      stdout.dash,
+      stdout.draw(' - '),
       stdout.reset,
       stdout.white,
       stdout.boldfont,
       file,
-      stdout.newline1,
+      stdout.newline(1),
       stdout.reset,
     ])
   );
@@ -142,16 +130,16 @@ const handleError = (
       stdout.red,
       unhandled,
       stdout.dim,
-      stdout.dash,
+      stdout.draw(' - '),
       stdout.reset,
       stdout.white,
       stdout.boldfont,
       file,
       stdout.reset,
-      stdout.newline2,
+      stdout.newline(2),
       stdout.red,
       err.stack,
-      stdout.newline2,
+      stdout.newline(2),
       stdout.reset,
     ])
   );
@@ -270,10 +258,10 @@ const verifyDirExists = (path) => fs.existsSync(path);
 
 const main = (settings) => {
   const { ROOT, IGNORE, OPTIONS } = settings;
-  start();
+  start(application);
   if (verifyDirExists(ROOT) === false) {
-    const info = `Destination directory not found! Incorrect path: ${ROOT}`;
-    saveExitInformation();
+    const data = `Destination directory not found! Incorrect path: ${ROOT}`;
+    saveExitInformation(data);
     return EXIT.FAILURE;
   }
   pathfinder(ROOT, IGNORE, OPTIONS);
@@ -281,8 +269,8 @@ const main = (settings) => {
 };
 
 const reportFailure = (
-  data,
-  notation = 'Failure: ',
+  info,
+  notation = 'Failure',
   stdout = getConsoleRenderSettings()
 ) => {
   render(
@@ -290,11 +278,12 @@ const reportFailure = (
       stdout.yellow,
       stdout.boldfont,
       notation,
+      stdout.draw(': '),
       stdout.reset,
       stdout.white,
       stdout.boldfont,
-      data,
-      stdout.newline3,
+      info,
+      stdout.newline(3),
       stdout.reset,
     ])
   );
