@@ -120,37 +120,28 @@ const output = (
   );
 };
 
-const handleError = (f, e) => {
-  const console = {
-    title: 'PROCESS FAILED',
-    file: f,
-    error: e.stack,
-    errorColor: '\x1b[31m',
-    titleColor: '\x1b[37m',
-    titleBg: '\x1b[41m',
-    fileColor: '\x1b[1;37m',
-    resetColor: '\x1b[0m',
-    indent: '\n\n',
-    tab: '   ',
-  };
-  process.stdout.write(
-    console.indent +
-      console.titleColor +
-      console.titleBg +
-      console.tab +
-      console.title +
-      console.tab +
-      console.resetColor +
-      console.indent +
-      console.tab +
-      console.fileColor +
-      console.file +
-      console.resetColor +
-      console.indent +
-      console.errorColor +
-      console.error +
-      console.indent +
-      console.resetColor
+const handleError = (
+  file,
+  err,
+  unhandled = '[ok]',
+  stdout = getConsoleRenderSettings()
+) => {
+  render(
+    preprint([
+      stdout.red,
+      unhandled,
+      stdout.reset,
+      stdout.space1,
+      stdout.white,
+      stdout.boldfont,
+      file,
+      stdout.reset,
+      stdout.newline2,
+      stdout.red,
+      err.stack,
+      stdout.newline2,
+      stdout.reset
+    ])
   );
   process.exit();
 };
