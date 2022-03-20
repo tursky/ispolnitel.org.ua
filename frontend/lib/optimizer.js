@@ -213,7 +213,7 @@ const saveExitInformation = (
 const getExitInformation = (
   obj = EXIT,
   field = 'INFO',
-  response = obj.hasOwnProperty(field) ? obj[field] : 'NO TERMINATE INFO'
+  response = obj.hasOwnProperty.call(field) ? obj[field] : 'NO TERMINATE INFO'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
