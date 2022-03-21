@@ -39,7 +39,11 @@ const preprint = (array) => array.join('');
 
 const getConsoleRenderSettings = () => ({
 
-  display: {},
+  display: {
+		clear: '\x1Bc',
+		reset: '\x1b[0m',
+	},
+
 	color: {},
 	background: {},
 	text: {},
