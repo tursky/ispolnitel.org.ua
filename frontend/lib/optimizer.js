@@ -35,7 +35,7 @@ const CONFIGURATIONS = {
 const application = 'FRONTEND OPTIMIZER';
 
 const render = (string) => process.stdout.write(string);
-const preprint = (array) => array.join('');
+const preprint = (arr) => arr.join('');
 
 const getConsoleRenderPreferences = () => ({
   display: {
@@ -75,9 +75,9 @@ const getConsoleRenderPreferences = () => ({
   },
 
   fn: {
-    draw: (symbol) => symbol,
-    newline: (n, str = '\n') => str.repeat(n),
-    space: (n, str = ' ') => str.repeat(n),
+    draw: (string) => string,
+    newline: (n) => '\n'.repeat(n),
+    space: (n) => ' '.repeat(n),
   },
 });
 
@@ -238,7 +238,7 @@ const EXIT = {
 };
 
 const saveExitInformation = (
-  data = 'Something went wrong! There is no exit data.',
+  data = 'Sorry,there is no exit data.',
   obj = EXIT,
   field = 'INFO'
 ) => {
