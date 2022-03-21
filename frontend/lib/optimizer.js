@@ -128,15 +128,15 @@ const getConsoleRenderSettings = () => ({
 const start = (app, stdout = getConsoleRenderSettings()) => {
   render(
     preprint([
-      stdout.clear,
-      stdout.white,
-      stdout.boldfont,
-      stdout.blueBG,
-      stdout.space(3),
+      stdout.display.clear,
+      stdout.color.white,
+      stdout.text.boldfont,
+      stdout.background.blue,
+      stdout.fn.space(3),
       app,
-      stdout.space(3),
-      stdout.newline(3),
-      stdout.reset,
+      stdout.fn.space(3),
+      stdout.fn.newline(3),
+      stdout.display.reset,
     ])
   );
 };
@@ -148,16 +148,16 @@ const output = (
 ) => {
   render(
     preprint([
-      stdout.green,
+      stdout.color.green,
       handled,
-      stdout.dim,
-      stdout.draw(' - '),
-      stdout.reset,
-      stdout.white,
-      stdout.boldfont,
+      stdout.text.dim,
+      stdout.fn.draw(' - '),
+      stdout.display.reset,
+      stdout.color.white,
+      stdout.text.boldfont,
       file,
-      stdout.newline(1),
-      stdout.reset,
+      stdout.fn.newline(1),
+      stdout.display.reset,
     ])
   );
 };
@@ -170,20 +170,20 @@ const handleError = (
 ) => {
   render(
     preprint([
-      stdout.red,
+      stdout.color.red,
       unhandled,
-      stdout.dim,
-      stdout.draw(' - '),
-      stdout.reset,
-      stdout.white,
-      stdout.boldfont,
+      stdout.text.dim,
+      stdout.fn.draw(' - '),
+      stdout.display.reset,
+      stdout.color.white,
+      stdout.text.boldfont,
       file,
-      stdout.reset,
-      stdout.newline(2),
-      stdout.red,
+      stdout.display.reset,
+      stdout.fn.newline(2),
+      stdout.color.red,
       err.stack,
-      stdout.newline(2),
-      stdout.reset,
+      stdout.fn.newline(2),
+      stdout.display.reset,
     ])
   );
   process.exit();
@@ -318,16 +318,16 @@ const reportFailure = (
 ) => {
   render(
     preprint([
-      stdout.yellow,
-      stdout.boldfont,
+      stdout.color.yellow,
+      stdout.text.boldfont,
       warning,
-      stdout.draw(': '),
-      stdout.reset,
-      stdout.white,
-      stdout.boldfont,
+      stdout.fn.draw(': '),
+      stdout.display.reset,
+      stdout.color.white,
+      stdout.text.boldfont,
       info,
-      stdout.newline(3),
-      stdout.reset,
+      stdout.fn.newline(3),
+      stdout.display.reset,
     ])
   );
 };
