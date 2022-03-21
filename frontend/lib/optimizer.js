@@ -277,14 +277,13 @@ const reportFailure = (
 ) => {
   render(
     preprint([
-      cli.color.yellow,
       cli.text.boldfont,
+      cli.color.blue,
+      cli.fn.draw('- '),
       warning,
       cli.fn.draw('❗️'),
-      cli.display.reset,
       cli.fn.newline(1),
-      cli.color.white,
-      cli.text.boldfont,
+      cli.fn.draw('- '),
       info,
       cli.fn.newline(3),
       cli.display.reset,
