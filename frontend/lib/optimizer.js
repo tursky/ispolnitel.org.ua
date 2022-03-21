@@ -37,7 +37,7 @@ const application = 'FRONTEND OPTIMIZER';
 const render = (string) => process.stdout.write(string);
 const preprint = (array) => array.join('');
 
-const getConsoleRenderSettings = () => ({
+const getConsoleRenderPreferences = () => ({
 
   display: {
 		clear: '\x1Bc',
@@ -82,18 +82,18 @@ const getConsoleRenderSettings = () => ({
 	},
 });
 
-const start = (app, stdout = getConsoleRenderSettings()) => {
+const start = (app, cli = getConsoleRenderPreferences()) => {
   render(
     preprint([
-      stdout.display.clear,
-      stdout.color.white,
-      stdout.text.boldfont,
-      stdout.background.blue,
-      stdout.fn.space(3),
+      cli.display.clear,
+      cli.color.white,
+      cli.text.boldfont,
+      cli.background.blue,
+      cli.fn.space(3),
       app,
-      stdout.fn.space(3),
-      stdout.fn.newline(3),
-      stdout.display.reset,
+      cli.fn.space(3),
+      cli.fn.newline(3),
+      cli.display.reset,
     ])
   );
 };
@@ -101,20 +101,20 @@ const start = (app, stdout = getConsoleRenderSettings()) => {
 const output = (
   file,
   handled = '[ok]',
-  stdout = getConsoleRenderSettings()
+  cli = getConsoleRenderPreferences()
 ) => {
   render(
     preprint([
-      stdout.color.green,
+      cli.color.green,
       handled,
-      stdout.text.dim,
-      stdout.fn.draw(' - '),
-      stdout.display.reset,
-      stdout.color.white,
-      stdout.text.boldfont,
+      cli.text.dim,
+      cli.fn.draw(' - '),
+      cli.display.reset,
+      cli.color.white,
+      cli.text.boldfont,
       file,
-      stdout.fn.newline(1),
-      stdout.display.reset,
+      cli.fn.newline(1),
+      cli.display.reset,
     ])
   );
 };
@@ -123,24 +123,24 @@ const handleError = (
   file,
   err,
   unhandled = '[ok]',
-  stdout = getConsoleRenderSettings()
+  cli = getConsoleRenderPreferences()
 ) => {
   render(
     preprint([
-      stdout.color.red,
+      cli.color.red,
       unhandled,
-      stdout.text.dim,
-      stdout.fn.draw(' - '),
-      stdout.display.reset,
-      stdout.color.white,
-      stdout.text.boldfont,
+      cli.text.dim,
+      cli.fn.draw(' - '),
+      cli.display.reset,
+      cli.color.white,
+      cli.text.boldfont,
       file,
-      stdout.display.reset,
-      stdout.fn.newline(2),
-      stdout.color.red,
+      cli.display.reset,
+      cli.fn.newline(2),
+      cli.color.red,
       err.stack,
-      stdout.fn.newline(2),
-      stdout.display.reset,
+      cli.fn.newline(2),
+      cli.display.reset,
     ])
   );
   process.exit();
@@ -271,20 +271,20 @@ const main = (settings) => {
 const reportFailure = (
   info,
   warning = 'Failure',
-  stdout = getConsoleRenderSettings()
+  cli = getConsoleRenderPreferences()
 ) => {
   render(
     preprint([
-      stdout.color.yellow,
-      stdout.text.boldfont,
+      cli.color.yellow,
+      cli.text.boldfont,
       warning,
-      stdout.fn.draw(': '),
-      stdout.display.reset,
-      stdout.color.white,
-      stdout.text.boldfont,
+      cli.fn.draw(': '),
+      cli.display.reset,
+      cli.color.white,
+      cli.text.boldfont,
       info,
-      stdout.fn.newline(3),
-      stdout.display.reset,
+      cli.fn.newline(3),
+      cli.display.reset,
     ])
   );
 };
