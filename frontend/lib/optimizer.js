@@ -56,14 +56,14 @@ const getConsoleRenderSettings = () => ({
 	},
 
 	background: {
-		blackBG: '\x1b[40m',
-		redBG: '\x1b[41m',
-		greenBG: '\x1b[42m',
-		yellowBG: '\x1b[43m',
-		blueBG: '\x1b[44m',
-		magentaBG: '\x1b[45m',
-		cyanBG: '\x1b[46m',
-		whiteBG: '\x1b[47m',
+		black: '\x1b[40m',
+		red: '\x1b[41m',
+		green: '\x1b[42m',
+		yellow: '\x1b[43m',
+		blue: '\x1b[44m',
+		magenta: '\x1b[45m',
+		cyan: '\x1b[46m',
+		white: '\x1b[47m',
 	},
 
 	text: {
@@ -77,8 +77,8 @@ const getConsoleRenderSettings = () => ({
 
 	fn: {
 		draw: (symbol) => symbol,
-		newline: (n = 1, str = '\n') => str.repeat(n),
-		space: (n = 1, str = ' ') => str.repeat(n),
+		newline: (n, str = '\n') => str.repeat(n),
+		space: (n, str = ' ') => str.repeat(n),
 	},
 
   /**
