@@ -35,7 +35,7 @@ const CONFIGURATIONS = {
 const application = 'FRONTEND OPTIMIZER';
 
 const render = (string) => process.stdout.write(string);
-const preprint = (arr) => arr.join('');
+const preprint = (array) => array.join('');
 
 const getConsoleRenderPreferences = () => ({
   display: {
@@ -85,8 +85,8 @@ const start = (app, cli = getConsoleRenderPreferences()) => {
   render(
     preprint([
       cli.display.clear,
-      cli.color.white,
       cli.text.boldfont,
+      cli.color.white,
       cli.background.blue,
       cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
       cli.fn.newline(1),
