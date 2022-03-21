@@ -108,13 +108,13 @@ const output = (
 ) => {
   render(
     preprint([
-      cli.color.green,
+      cli.color.cyan,
       handled,
+      cli.color.blue,
       cli.text.dim,
       cli.fn.draw(' - '),
       cli.display.reset,
-      cli.color.white,
-      cli.text.boldfont,
+      cli.color.blue,
       file,
       cli.fn.newline(1),
       cli.display.reset,
