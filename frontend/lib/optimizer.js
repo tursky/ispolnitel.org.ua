@@ -55,7 +55,17 @@ const getConsoleRenderSettings = () => ({
 		white: '\x1b[37m',
 	},
 
-	background: {},
+	background: {
+		blackBG: '\x1b[40m',
+		redBG: '\x1b[41m',
+		greenBG: '\x1b[42m',
+		yellowBG: '\x1b[43m',
+		blueBG: '\x1b[44m',
+		magentaBG: '\x1b[45m',
+		cyanBG: '\x1b[46m',
+		whiteBG: '\x1b[47m',
+	},
+
 	text: {},
 	fn: {},
 
