@@ -238,7 +238,7 @@ const EXIT = {
 };
 
 const saveExitInformation = (
-  data = 'Sorry,there is no exit data.',
+  data = 'Exit info is missing...',
   obj = EXIT,
   field = 'INFO'
 ) => {
@@ -250,7 +250,7 @@ const getExitInformation = (
   field = 'INFO',
   response = obj.hasOwnProperty.call(obj, field)
     ? obj[field]
-    : 'Sorry, there is no exit info!'
+    : 'Data is missing...'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
@@ -259,7 +259,7 @@ const main = (settings) => {
   const { ROOT, IGNORE, OPTIONS } = settings;
   start(application);
   if (verifyDirExists(ROOT) === false) {
-    const data = `Destination directory not found! Incorrect path: ${ROOT}`;
+    const data = `Target directory not found! Path incorrect: ${ROOT}`;
     saveExitInformation(data);
     return EXIT.FAILURE;
   }
@@ -277,8 +277,9 @@ const reportFailure = (
       cli.color.yellow,
       cli.text.boldfont,
       warning,
-      cli.fn.draw(': '),
+      cli.fn.draw('❗️'),
       cli.display.reset,
+      cli.fn.newline(1),
       cli.color.white,
       cli.text.boldfont,
       info,
