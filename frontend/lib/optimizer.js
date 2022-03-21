@@ -270,14 +270,14 @@ const main = (settings) => {
 
 const reportFailure = (
   info,
-  notation = 'Failure',
+  warning = 'Failure',
   stdout = getConsoleRenderSettings()
 ) => {
   render(
     preprint([
       stdout.yellow,
       stdout.boldfont,
-      notation,
+      warning,
       stdout.draw(': '),
       stdout.reset,
       stdout.white,
