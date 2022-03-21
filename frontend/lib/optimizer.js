@@ -35,7 +35,7 @@ const CONFIGURATIONS = {
 const application = 'FRONTEND OPTIMIZER';
 
 const render = (string) => process.stdout.write(string);
-const preprint = (arr) => arr.join('');
+const preprint = (array) => array.join('');
 
 const getConsoleRenderPreferences = () => ({
   display: {
@@ -85,12 +85,16 @@ const start = (app, cli = getConsoleRenderPreferences()) => {
   render(
     preprint([
       cli.display.clear,
-      cli.color.white,
       cli.text.boldfont,
+      cli.color.white,
       cli.background.blue,
-      cli.fn.space(3),
+      cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
+      cli.fn.newline(1),
+      cli.fn.space(5),
       app,
-      cli.fn.space(3),
+      cli.fn.space(5),
+      cli.fn.newline(1),
+      cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
       cli.fn.newline(3),
       cli.display.reset,
     ])
@@ -104,13 +108,13 @@ const output = (
 ) => {
   render(
     preprint([
-      cli.color.green,
+      cli.color.cyan,
       handled,
+      cli.color.blue,
       cli.text.dim,
       cli.fn.draw(' - '),
       cli.display.reset,
-      cli.color.white,
-      cli.text.boldfont,
+      cli.color.blue,
       file,
       cli.fn.newline(1),
       cli.display.reset,
@@ -128,13 +132,12 @@ const handleError = (
     preprint([
       cli.color.red,
       unhandled,
+      cli.color.blue,
       cli.text.dim,
       cli.fn.draw(' - '),
       cli.display.reset,
-      cli.color.white,
-      cli.text.boldfont,
+      cli.color.blue,
       file,
-      cli.display.reset,
       cli.fn.newline(2),
       cli.color.red,
       err.stack,
@@ -274,14 +277,13 @@ const reportFailure = (
 ) => {
   render(
     preprint([
-      cli.color.yellow,
       cli.text.boldfont,
+      cli.color.blue,
+      cli.fn.draw('- '),
       warning,
       cli.fn.draw('❗️'),
-      cli.display.reset,
       cli.fn.newline(1),
-      cli.color.white,
-      cli.text.boldfont,
+      cli.fn.draw('- '),
       info,
       cli.fn.newline(3),
       cli.display.reset,
