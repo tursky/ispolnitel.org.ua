@@ -66,7 +66,15 @@ const getConsoleRenderSettings = () => ({
 		whiteBG: '\x1b[47m',
 	},
 
-	text: {},
+	text: {
+		boldfont: '\x1b[1m',
+		hidden: '\x1b[8m',
+		underline: '\x1b[4m',
+		dim: '\x1b[2m',
+		blink: '\x1b[5m',
+		reverse: '\x1b[7m',
+	},
+
 	fn: {},
 
   /**
