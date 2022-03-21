@@ -37,63 +37,62 @@ const application = 'FRONTEND OPTIMIZER';
 const render = (string) => process.stdout.write(string);
 const preprint = (array) => array.join('');
 
-const getConsoleRenderSettings = () => ({
-  /**
-   * CONSOLE TYPOGRAPHY
-   */
-  clear: '\x1Bc',
-  reset: '\x1b[0m',
-  boldfont: '\x1b[1m',
-  hidden: '\x1b[8m',
-  underline: '\x1b[4m',
-  dim: '\x1b[2m',
-  blink: '\x1b[5m',
-  reverse: '\x1b[7m',
+const getConsoleRenderPreferences = () => ({
+  display: {
+    clear: '\x1Bc',
+    reset: '\x1b[0m',
+  },
 
-  /**
-   * CONSOLE COLORS
-   */
-  black: '\x1b[30m',
-  red: '\x1b[31m',
-  green: '\x1b[32m',
-  yellow: '\x1b[33m',
-  blue: '\x1b[34m',
-  magenta: '\x1b[35m',
-  cyan: '\x1b[36m',
-  white: '\x1b[37m',
+  color: {
+    black: '\x1b[30m',
+    red: '\x1b[31m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    blue: '\x1b[34m',
+    magenta: '\x1b[35m',
+    cyan: '\x1b[36m',
+    white: '\x1b[37m',
+  },
 
-  /**
-   * CONSOLE BACKGROUNDS
-   */
-  blackBG: '\x1b[40m',
-  redBG: '\x1b[41m',
-  greenBG: '\x1b[42m',
-  yellowBG: '\x1b[43m',
-  blueBG: '\x1b[44m',
-  magentaBG: '\x1b[45m',
-  cyanBG: '\x1b[46m',
-  whiteBG: '\x1b[47m',
+  background: {
+    black: '\x1b[40m',
+    red: '\x1b[41m',
+    green: '\x1b[42m',
+    yellow: '\x1b[43m',
+    blue: '\x1b[44m',
+    magenta: '\x1b[45m',
+    cyan: '\x1b[46m',
+    white: '\x1b[47m',
+  },
 
-  /**
-   * CONSOLE FUNCTIONALITY
-   */
-  draw: (symbol) => symbol,
-  newline: (n = 1, str = '\n') => str.repeat(n),
-  space: (n = 1, str = ' ') => str.repeat(n),
+  text: {
+    boldfont: '\x1b[1m',
+    hidden: '\x1b[8m',
+    underline: '\x1b[4m',
+    dim: '\x1b[2m',
+    blink: '\x1b[5m',
+    reverse: '\x1b[7m',
+  },
+
+  fn: {
+    draw: (symbol) => symbol,
+    newline: (n, str = '\n') => str.repeat(n),
+    space: (n, str = ' ') => str.repeat(n),
+  },
 });
 
-const start = (app, stdout = getConsoleRenderSettings()) => {
+const start = (app, cli = getConsoleRenderPreferences()) => {
   render(
     preprint([
-      stdout.clear,
-      stdout.white,
-      stdout.boldfont,
-      stdout.blueBG,
-      stdout.space(3),
+      cli.display.clear,
+      cli.color.white,
+      cli.text.boldfont,
+      cli.background.blue,
+      cli.fn.space(3),
       app,
-      stdout.space(3),
-      stdout.newline(3),
-      stdout.reset,
+      cli.fn.space(3),
+      cli.fn.newline(3),
+      cli.display.reset,
     ])
   );
 };
@@ -101,20 +100,20 @@ const start = (app, stdout = getConsoleRenderSettings()) => {
 const output = (
   file,
   handled = '[ok]',
-  stdout = getConsoleRenderSettings()
+  cli = getConsoleRenderPreferences()
 ) => {
   render(
     preprint([
-      stdout.green,
+      cli.color.green,
       handled,
-      stdout.dim,
-      stdout.draw(' - '),
-      stdout.reset,
-      stdout.white,
-      stdout.boldfont,
+      cli.text.dim,
+      cli.fn.draw(' - '),
+      cli.display.reset,
+      cli.color.white,
+      cli.text.boldfont,
       file,
-      stdout.newline(1),
-      stdout.reset,
+      cli.fn.newline(1),
+      cli.display.reset,
     ])
   );
 };
@@ -123,24 +122,24 @@ const handleError = (
   file,
   err,
   unhandled = '[ok]',
-  stdout = getConsoleRenderSettings()
+  cli = getConsoleRenderPreferences()
 ) => {
   render(
     preprint([
-      stdout.red,
+      cli.color.red,
       unhandled,
-      stdout.dim,
-      stdout.draw(' - '),
-      stdout.reset,
-      stdout.white,
-      stdout.boldfont,
+      cli.text.dim,
+      cli.fn.draw(' - '),
+      cli.display.reset,
+      cli.color.white,
+      cli.text.boldfont,
       file,
-      stdout.reset,
-      stdout.newline(2),
-      stdout.red,
+      cli.display.reset,
+      cli.fn.newline(2),
+      cli.color.red,
       err.stack,
-      stdout.newline(2),
-      stdout.reset,
+      cli.fn.newline(2),
+      cli.display.reset,
     ])
   );
   process.exit();
@@ -271,20 +270,20 @@ const main = (settings) => {
 const reportFailure = (
   info,
   warning = 'Failure',
-  stdout = getConsoleRenderSettings()
+  cli = getConsoleRenderPreferences()
 ) => {
   render(
     preprint([
-      stdout.yellow,
-      stdout.boldfont,
+      cli.color.yellow,
+      cli.text.boldfont,
       warning,
-      stdout.draw(': '),
-      stdout.reset,
-      stdout.white,
-      stdout.boldfont,
+      cli.fn.draw(': '),
+      cli.display.reset,
+      cli.color.white,
+      cli.text.boldfont,
       info,
-      stdout.newline(3),
-      stdout.reset,
+      cli.fn.newline(3),
+      cli.display.reset,
     ])
   );
 };
