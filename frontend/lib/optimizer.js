@@ -87,7 +87,7 @@ const start = (app, cli = getConsoleRenderPreferences()) => {
       cli.display.clear,
       cli.color.white,
       cli.text.boldfont,
-      cli.background.red,
+      cli.background.blue,
       cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
       cli.fn.newline(1),
       cli.fn.space(5),
