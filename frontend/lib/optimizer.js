@@ -38,6 +38,13 @@ const render = (string) => process.stdout.write(string);
 const preprint = (array) => array.join('');
 
 const getConsoleRenderSettings = () => ({
+
+  display: {},
+	color: {},
+	background: {},
+	text: {},
+	fn: {},
+
   /**
    * CONSOLE TYPOGRAPHY
    */
