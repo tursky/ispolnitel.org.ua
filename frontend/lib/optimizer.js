@@ -75,7 +75,11 @@ const getConsoleRenderSettings = () => ({
 		reverse: '\x1b[7m',
 	},
 
-	fn: {},
+	fn: {
+		draw: (symbol) => symbol,
+		newline: (n = 1, str = '\n') => str.repeat(n),
+		space: (n = 1, str = ' ') => str.repeat(n),
+	},
 
   /**
    * CONSOLE TYPOGRAPHY
