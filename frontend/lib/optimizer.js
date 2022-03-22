@@ -35,12 +35,16 @@ const CONFIGURATIONS = {
 const application = 'FRONTEND OPTIMIZER';
 
 const render = (output) => process.stdout.write(output);
-const preprint = (array) => array.join('');
+const preprint = (arr) => arr.join('');
 
-const getConsoleRenderPreferences = () => ({
-  display: {
-    clear: '\x1Bc',
-    reset: '\x1b[0m',
+const getConsoleRenderTypography = () => ({
+  text: {
+    boldfont: '\x1b[1m',
+    hidden: '\x1b[8m',
+    underline: '\x1b[4m',
+    dim: '\x1b[2m',
+    blink: '\x1b[5m',
+    reverse: '\x1b[7m',
   },
 
   color: {
@@ -65,23 +69,19 @@ const getConsoleRenderPreferences = () => ({
     white: '\x1b[47m',
   },
 
-  text: {
-    boldfont: '\x1b[1m',
-    hidden: '\x1b[8m',
-    underline: '\x1b[4m',
-    dim: '\x1b[2m',
-    blink: '\x1b[5m',
-    reverse: '\x1b[7m',
+  display: {
+    clear: '\x1Bc',
+    reset: '\x1b[0m',
   },
 
   fn: {
-    draw: (string) => string,
+    draw: (struct) => struct,
     newline: (n) => '\n'.repeat(n),
     space: (n) => ' '.repeat(n),
   },
 });
 
-const start = (app, cli = getConsoleRenderPreferences()) => {
+const start = (app, cli = getConsoleRenderTypography()) => {
   render(
     preprint([
       cli.display.clear,
@@ -90,9 +90,7 @@ const start = (app, cli = getConsoleRenderPreferences()) => {
       cli.background.blue,
       cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
       cli.fn.newline(1),
-      cli.fn.space(5),
-      app,
-      cli.fn.space(5),
+      cli.fn.draw(cli.fn.space(5) + app + cli.fn.space(5)),
       cli.fn.newline(1),
       cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
       cli.fn.newline(3),
@@ -101,46 +99,37 @@ const start = (app, cli = getConsoleRenderPreferences()) => {
   );
 };
 
-const output = (
-  file,
-  handled = '[ok]',
-  cli = getConsoleRenderPreferences()
-) => {
+const reportSuccess = (file, cli = getConsoleRenderTypography()) => {
   render(
     preprint([
       cli.color.cyan,
-      handled,
+      cli.fn.draw('[ok]'),
       cli.color.blue,
       cli.text.dim,
       cli.fn.draw(' - '),
       cli.display.reset,
       cli.color.blue,
-      file,
+      cli.fn.draw(file),
       cli.fn.newline(1),
       cli.display.reset,
     ])
   );
 };
 
-const handleError = (
-  file,
-  err,
-  unhandled = '[ok]',
-  cli = getConsoleRenderPreferences()
-) => {
+const reportError = (file, err, cli = getConsoleRenderTypography()) => {
   render(
     preprint([
       cli.color.red,
-      unhandled,
+      cli.fn.draw('[ok]'),
       cli.color.blue,
       cli.text.dim,
       cli.fn.draw(' - '),
       cli.display.reset,
       cli.color.blue,
-      file,
+      cli.fn.draw(file),
       cli.fn.newline(2),
       cli.color.red,
-      err.stack,
+      cli.fn.draw(err.stack),
       cli.fn.newline(2),
       cli.display.reset,
     ])
@@ -158,9 +147,9 @@ const handleCSS = async (file, config) => {
     });
     fs.writeFileSync(file, processed.css);
   } catch (err) {
-    handleError(file, err);
+    reportError(file, err);
   }
-  output(file);
+  reportSuccess(file);
 };
 
 const handleJS = async (file, config) => {
@@ -170,9 +159,9 @@ const handleJS = async (file, config) => {
     const processed = await Terser.minify(content, options);
     fs.writeFileSync(file, processed.code);
   } catch (err) {
-    handleError(file, err);
+    reportError(file, err);
   }
-  output(file);
+  reportSuccess(file);
 };
 
 const handleHTML = async (file, config) => {
@@ -182,9 +171,9 @@ const handleHTML = async (file, config) => {
     const processed = await HTMLTerser.minify(content, options);
     fs.writeFileSync(file, processed);
   } catch (err) {
-    handleError(file, err);
+    reportError(file, err);
   }
-  output(file);
+  reportSuccess(file);
 };
 
 const schema = {
@@ -276,18 +265,15 @@ const main = (settings) => {
 const reportFailure = (
   info,
   warning = 'Failure',
-  cli = getConsoleRenderPreferences()
+  cli = getConsoleRenderTypography()
 ) => {
   render(
     preprint([
       cli.text.boldfont,
       cli.color.blue,
-      cli.fn.draw('- '),
-      warning,
-      cli.fn.draw('❗️'),
+      cli.fn.draw(`- ${warning}❗️`),
       cli.fn.newline(1),
-      cli.fn.draw('- '),
-      info,
+      cli.fn.draw(`- ${info}`),
       cli.fn.newline(3),
       cli.display.reset,
     ])
