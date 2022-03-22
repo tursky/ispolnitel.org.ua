@@ -34,7 +34,7 @@
 
  const application = 'FRONTEND OPTIMIZER';
 
- const render = (string) => process.stdout.write(string);
+ const render = (output) => process.stdout.write(output);
  const preprint = (array) => array.join('');
 
  const getConsoleRenderPreferences = () => ({
@@ -221,20 +221,19 @@
  const getDirectoryContent = (directory) => fs.readdirSync(directory);
  const getSourceDetails = (source) => fs.lstatSync(source);
 
- const isExclusionExists = (path, filter) =>
+ const verifySourceExclusion = (path, filter) =>
    filter.find((exclusion) => path.includes(exclusion));
 
- const pathfinder = (root, ignore, metadata) => {
+ const pathfinder = (root, exclusions, metadata) => {
    const src = getDirectoryContent(root);
-   for (let i = 0; i < src.length; i++) {
-     let source = src[i];
+   for (let source of src) {
      const pathname = path.join(root, source);
      source = getSourceDetails(pathname);
      if (source.isDirectory()) {
-       pathfinder(pathname, ignore, metadata);
+       pathfinder(pathname, exclusions, metadata);
        continue;
      }
-     if (isExclusionExists(pathname, ignore)) continue;
+     if (verifySourceExclusion(pathname, exclusions)) continue;
      preprocess(pathname, metadata);
    }
  };
