@@ -216,14 +216,14 @@ const verifySourceExclusion = (path, filter) =>
 const pathfinder = (root, exclusions, metadata) => {
   const src = getDirectoryContent(root);
   for (let source of src) {
-    const pathname = path.join(root, source);
-    source = getSourceDetails(pathname);
-    if (source.isDirectory()) {
-      pathfinder(pathname, exclusions, metadata);
+    const sourcepath = path.join(root, source);
+    if (verifySourceExclusion(sourcepath, exclusions)) continue;
+    source = getSourceDetails(sourcepath);
+    if (source.isFile()) {
+      preprocess(sourcepath, metadata);
       continue;
     }
-    if (verifySourceExclusion(pathname, exclusions)) continue;
-    preprocess(pathname, metadata);
+    pathfinder(sourcepath, exclusions, metadata);
   }
 };
 
