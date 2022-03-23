@@ -12,7 +12,7 @@ const postcss = require('postcss');
 const cssnano = require('cssnano');
 const path = require('path');
 const fs = require('fs');
-const ConsoleUI = require('./ui');
+const UITypography = require('./ui');
 
 const CONFIGURATIONS = {
   ROOT: 'application/static',
@@ -38,7 +38,7 @@ const application = 'FRONTEND OPTIMIZER';
 const render = (output) => process.stdout.write(output);
 const preprint = (arr) => arr.join('');
 
-const getConsoleTypography = () => ConsoleUI;
+const getConsoleTypography = () => UITypography;
 
 const start = (app, cli = getConsoleTypography()) => {
   render(

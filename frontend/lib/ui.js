@@ -1,7 +1,7 @@
 /**
  * Console typography lib */
 
-const ConsoleUI = {
+const UITypography = {
   text: {
     boldfont: '\x1b[1m',
     hidden: '\x1b[8m',
@@ -45,4 +45,4 @@ const ConsoleUI = {
   },
 };
 
-module.exports = ConsoleUI;
+module.exports = UITypography;
