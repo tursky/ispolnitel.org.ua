@@ -38,9 +38,7 @@ const application = 'FRONTEND OPTIMIZER';
 const render = (output) => process.stdout.write(output);
 const preprint = (...array) => array.join('');
 
-const getConsoleTypography = () => UITypography;
-
-const start = (app, cli = getConsoleTypography()) => {
+const start = (app, cli = UITypography) => {
   render(
     preprint(
       cli.display.clear,
@@ -58,7 +56,7 @@ const start = (app, cli = getConsoleTypography()) => {
   );
 };
 
-const reportSuccess = (file, cli = getConsoleTypography()) => {
+const reportSuccess = (file, cli = UITypography) => {
   render(
     preprint(
       cli.color.cyan,
@@ -75,7 +73,7 @@ const reportSuccess = (file, cli = getConsoleTypography()) => {
   );
 };
 
-const reportFailure = (data, cli = getConsoleTypography()) => {
+const reportFailure = (data, cli = UITypography) => {
   render(
     preprint(
       cli.color.blue,
@@ -88,7 +86,7 @@ const reportFailure = (data, cli = getConsoleTypography()) => {
   );
 };
 
-const reportError = (file, err, cli = getConsoleTypography()) => {
+const reportError = (file, err, cli = UITypography) => {
   render(
     preprint(
       cli.color.red,
