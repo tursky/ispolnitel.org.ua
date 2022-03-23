@@ -1,3 +1,6 @@
+/**
+ * Console typography lib */
+
 const ConsoleUI = {
   text: {
     boldfont: '\x1b[1m',
