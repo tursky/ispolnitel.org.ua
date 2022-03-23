@@ -1,6 +1,9 @@
 /**
  * Console typography lib */
 
+const render = (output) => process.stdout.write(output);
+const preprint = (...array) => array.join('');
+
 const UITypography = {
   text: {
     boldfont: '\x1b[1m',
@@ -45,4 +48,4 @@ const UITypography = {
   },
 };
 
-module.exports = UITypography;
+module.exports = { UITypography, render, preprint };
