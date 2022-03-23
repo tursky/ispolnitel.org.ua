@@ -116,17 +116,13 @@ const reportSuccess = (file, cli = getConsoleTypography()) => {
   );
 };
 
-const reportFailure = (
-  info,
-  warning = 'Failure',
-  cli = getConsoleTypography()
-) => {
+const reportFailure = (data, cli = getConsoleTypography()) => {
   render(
     preprint([
       cli.color.blue,
-      cli.fn.draw(`- ${warning}❗️`),
+      cli.fn.draw('- Failure❗️'),
       cli.fn.newline(1),
-      cli.fn.draw(`- ${info}`),
+      cli.fn.draw(`- ${data}`),
       cli.fn.newline(3),
       cli.display.reset,
     ])
