@@ -269,7 +269,6 @@ const reportFailure = (
 ) => {
   render(
     preprint([
-      cli.text.boldfont,
       cli.color.blue,
       cli.fn.draw(`- ${warning}❗️`),
       cli.fn.newline(1),
