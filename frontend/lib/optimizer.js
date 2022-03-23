@@ -261,23 +261,25 @@ const getExitInformation = (
 
 const verifyDirExists = (path) => fs.existsSync(path);
 
-const main = (settings) => {
-  const { ROOT, IGNORE, OPTIONS } = settings;
+const main = (...args) => {
+  const [root, ignore, options] = args;
   start(application);
-  if (verifyDirExists(ROOT) === false) {
-    const data = `Target directory not found! Path incorrect: ${ROOT}`;
+  if (verifyDirExists(root) === false) {
+    const data = `Target directory not found! Path incorrect: ${root}`;
     saveExitInformation(data);
     return EXIT.FAILURE;
   }
-  pathfinder(ROOT, IGNORE, OPTIONS);
+  pathfinder(root, ignore, options);
   return EXIT.SUCCESS;
 };
 
-// Start process
-const fn = main(CONFIGURATIONS);
+const run = ({ ROOT, IGNORE, OPTIONS } = CONFIGURATIONS) => {
+  const outcome = main(ROOT, IGNORE, OPTIONS);
+  if (outcome === EXIT.FAILURE) {
+    const info = getExitInformation();
+    reportFailure(info);
+  }
+  return outcome;
+};
 
-if (fn === EXIT.FAILURE) {
-  const info = getExitInformation();
-  reportFailure(info);
-  process.exit();
-}
+run();
