@@ -36,13 +36,13 @@ const CONFIGURATIONS = {
 const application = 'FRONTEND OPTIMIZER';
 
 const render = (output) => process.stdout.write(output);
-const preprint = (arr) => arr.join('');
+const preprint = (...array) => array.join('');
 
 const getConsoleTypography = () => UITypography;
 
 const start = (app, cli = getConsoleTypography()) => {
   render(
-    preprint([
+    preprint(
       cli.display.clear,
       cli.text.boldfont,
       cli.color.white,
@@ -53,14 +53,14 @@ const start = (app, cli = getConsoleTypography()) => {
       cli.fn.newline(1),
       cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
       cli.fn.newline(3),
-      cli.display.reset,
-    ])
+      cli.display.reset
+    )
   );
 };
 
 const reportSuccess = (file, cli = getConsoleTypography()) => {
   render(
-    preprint([
+    preprint(
       cli.color.cyan,
       cli.fn.draw('[ok]'),
       cli.color.blue,
@@ -70,27 +70,27 @@ const reportSuccess = (file, cli = getConsoleTypography()) => {
       cli.color.blue,
       cli.fn.draw(file),
       cli.fn.newline(1),
-      cli.display.reset,
-    ])
+      cli.display.reset
+    )
   );
 };
 
 const reportFailure = (data, cli = getConsoleTypography()) => {
   render(
-    preprint([
+    preprint(
       cli.color.blue,
       cli.fn.draw('- Failure❗️'),
       cli.fn.newline(1),
       cli.fn.draw(`- ${data}`),
       cli.fn.newline(3),
-      cli.display.reset,
-    ])
+      cli.display.reset
+    )
   );
 };
 
 const reportError = (file, err, cli = getConsoleTypography()) => {
   render(
-    preprint([
+    preprint(
       cli.color.red,
       cli.fn.draw('[ok]'),
       cli.color.blue,
@@ -103,8 +103,8 @@ const reportError = (file, err, cli = getConsoleTypography()) => {
       cli.color.red,
       cli.fn.draw(err.stack),
       cli.fn.newline(2),
-      cli.display.reset,
-    ])
+      cli.display.reset
+    )
   );
   process.exit();
 };
