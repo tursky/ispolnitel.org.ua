@@ -37,7 +37,7 @@ const application = 'FRONTEND OPTIMIZER';
 const render = (output) => process.stdout.write(output);
 const preprint = (arr) => arr.join('');
 
-const getConsoleRenderTypography = () => ({
+const getConsoleTypography = () => ({
   text: {
     boldfont: '\x1b[1m',
     hidden: '\x1b[8m',
@@ -81,7 +81,7 @@ const getConsoleRenderTypography = () => ({
   },
 });
 
-const start = (app, cli = getConsoleRenderTypography()) => {
+const start = (app, cli = getConsoleTypography()) => {
   render(
     preprint([
       cli.display.clear,
@@ -99,7 +99,7 @@ const start = (app, cli = getConsoleRenderTypography()) => {
   );
 };
 
-const reportSuccess = (file, cli = getConsoleRenderTypography()) => {
+const reportSuccess = (file, cli = getConsoleTypography()) => {
   render(
     preprint([
       cli.color.cyan,
@@ -116,7 +116,24 @@ const reportSuccess = (file, cli = getConsoleRenderTypography()) => {
   );
 };
 
-const reportError = (file, err, cli = getConsoleRenderTypography()) => {
+const reportFailure = (
+  info,
+  warning = 'Failure',
+  cli = getConsoleTypography()
+) => {
+  render(
+    preprint([
+      cli.color.blue,
+      cli.fn.draw(`- ${warning}❗️`),
+      cli.fn.newline(1),
+      cli.fn.draw(`- ${info}`),
+      cli.fn.newline(3),
+      cli.display.reset,
+    ])
+  );
+};
+
+const reportError = (file, err, cli = getConsoleTypography()) => {
   render(
     preprint([
       cli.color.red,
@@ -258,23 +275,6 @@ const main = (settings) => {
   }
   pathfinder(ROOT, IGNORE, OPTIONS);
   return EXIT.SUCCESS;
-};
-
-const reportFailure = (
-  info,
-  warning = 'Failure',
-  cli = getConsoleRenderTypography()
-) => {
-  render(
-    preprint([
-      cli.color.blue,
-      cli.fn.draw(`- ${warning}❗️`),
-      cli.fn.newline(1),
-      cli.fn.draw(`- ${info}`),
-      cli.fn.newline(3),
-      cli.display.reset,
-    ])
-  );
 };
 
 // Start process
