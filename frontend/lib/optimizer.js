@@ -237,15 +237,13 @@ const saveExitInformation = (
   obj = EXIT,
   field = 'INFO'
 ) => {
-  Object.defineProperty(obj, field, { value: data });
+  Reflect.set(obj, field, data);
 };
 
 const getExitInformation = (
   obj = EXIT,
   field = 'INFO',
-  response = obj.hasOwnProperty.call(obj, field)
-    ? obj[field]
-    : 'Data is missing...'
+  response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
 const verifyDirExists = (path) => fs.existsSync(path);
