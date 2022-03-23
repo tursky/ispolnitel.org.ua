@@ -12,6 +12,7 @@ const postcss = require('postcss');
 const cssnano = require('cssnano');
 const path = require('path');
 const fs = require('fs');
+const ConsoleUI = require('./ui');
 
 const CONFIGURATIONS = {
   ROOT: 'application/static',
