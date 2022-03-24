@@ -242,11 +242,11 @@ const main = (...args) => {
 };
 
 const STATISTICS = {
-	TIMER: 0,
+  TIMER: 0,
 };
 
 const run = (args = CONFIGURATIONS) => {
-  Reflect.set(STATISTICS, 'TIMER', new Date);
+  Reflect.set(STATISTICS, 'TIMER', new Date());
   const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
   if (outcome === EXIT.FAILURE) {
     const info = getExitInformation();
@@ -258,7 +258,7 @@ const run = (args = CONFIGURATIONS) => {
 // Multithreading
 
 const threads = require('worker_threads');
-const { Worker } = threads;
+const { Worker, workerData } = threads;
 
 if (threads.isMainThread) {
   const worker = new Worker(__filename, {
@@ -269,9 +269,14 @@ if (threads.isMainThread) {
 
   run();
 
-  worker.on('message', () => {});
   worker.on('exit', () => {
     reportSpentTime(STATISTICS.TIMER);
   });
-  worker.on('error', (err) => console.log(err.stack));
+
+  worker.on('message', () => {});
+  worker.on('error', (err) => {
+    console.log(err.stack);
+  });
+} else {
+  Reflect.set(workerData, 'Worker', 'OK');
 }
