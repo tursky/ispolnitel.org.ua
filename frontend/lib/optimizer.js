@@ -19,7 +19,7 @@ const CONFIGURATIONS = {
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
-    CSS: [cssnano],
+    CSS: ['cssnano'],
   },
   IGNORE: [
     'bundles',
@@ -110,7 +110,7 @@ const handleCSS = async (file, config) => {
 	};
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const plugins = [...config];
+    const plugins = config.map((plugin) => dependencies[plugin]);
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
