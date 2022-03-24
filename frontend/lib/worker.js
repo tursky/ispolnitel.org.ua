@@ -241,6 +241,10 @@ const main = (...args) => {
   return EXIT.SUCCESS;
 };
 
+const STATISTICS = {
+	TIMER: 0,
+};
+
 const run = (args = CONFIGURATIONS) => {
   const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
   if (outcome === EXIT.FAILURE) {
