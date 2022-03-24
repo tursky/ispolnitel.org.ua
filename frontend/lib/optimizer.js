@@ -9,7 +9,6 @@
 const HTMLTerser = require('html-minifier-terser');
 const Terser = require('terser');
 const postcss = require('postcss');
-const cssnano = require('cssnano');
 const path = require('path');
 const fs = require('fs');
 const { UITypography, render, preprint } = require('./ui');
