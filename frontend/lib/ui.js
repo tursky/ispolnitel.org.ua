@@ -1,6 +1,8 @@
 /**
  * Console typography lib */
 
+'use strict';
+
 const render = (output) => process.stdout.write(output);
 const preprint = (...array) => array.join('');
 
