@@ -103,13 +103,13 @@ const reportError = (file, err, cli = UITypography) => {
   process.exit();
 };
 
-const handleCSS = async (file, config) => {
+const handleCSS = async (file, options) => {
   const dependencies = {
 		cssnano: require('cssnano'),
 	};
+  const plugins = options.map((plugin) => dependencies[plugin]);
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const plugins = config.map((plugin) => dependencies[plugin]);
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
@@ -121,10 +121,9 @@ const handleCSS = async (file, config) => {
   reportSuccess(file);
 };
 
-const handleJS = async (file, config) => {
+const handleJS = async (file, options) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const options = { ...config };
     const processed = await Terser.minify(content, options);
     fs.writeFileSync(file, processed.code);
   } catch (err) {
@@ -133,10 +132,9 @@ const handleJS = async (file, config) => {
   reportSuccess(file);
 };
 
-const handleHTML = async (file, config) => {
+const handleHTML = async (file, options) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const options = { ...config };
     const processed = await HTMLTerser.minify(content, options);
     fs.writeFileSync(file, processed);
   } catch (err) {
