@@ -9,7 +9,6 @@
 const HTMLTerser = require('html-minifier-terser');
 const Terser = require('terser');
 const postcss = require('postcss');
-const cssnano = require('cssnano');
 const path = require('path');
 const fs = require('fs');
 const { UITypography, render, preprint } = require('./ui');
@@ -19,7 +18,7 @@ const CONFIGURATIONS = {
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
-    CSS: [cssnano],
+    CSS: ['cssnano'],
   },
   IGNORE: [
     'bundles',
@@ -104,10 +103,13 @@ const reportError = (file, err, cli = UITypography) => {
   process.exit();
 };
 
-const handleCSS = async (file, config) => {
+const handleCSS = async (file, options) => {
+  const dependencies = {
+		cssnano: require('cssnano'),
+	};
+  const plugins = options.map((plugin) => dependencies[plugin]);
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const plugins = [...config];
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
@@ -119,10 +121,9 @@ const handleCSS = async (file, config) => {
   reportSuccess(file);
 };
 
-const handleJS = async (file, config) => {
+const handleJS = async (file, options) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const options = { ...config };
     const processed = await Terser.minify(content, options);
     fs.writeFileSync(file, processed.code);
   } catch (err) {
@@ -131,10 +132,9 @@ const handleJS = async (file, config) => {
   reportSuccess(file);
 };
 
-const handleHTML = async (file, config) => {
+const handleHTML = async (file, options) => {
   try {
     const content = fs.readFileSync(file, 'utf8');
-    const options = { ...config };
     const processed = await HTMLTerser.minify(content, options);
     fs.writeFileSync(file, processed);
   } catch (err) {
