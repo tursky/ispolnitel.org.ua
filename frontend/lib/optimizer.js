@@ -229,8 +229,8 @@ const main = (...args) => {
   return EXIT.SUCCESS;
 };
 
-const run = ({ ROOT, IGNORE, OPTIONS } = CONFIGURATIONS) => {
-  const outcome = main(ROOT, IGNORE, OPTIONS);
+const run = (args = CONFIGURATIONS) => {
+  const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
   if (outcome === EXIT.FAILURE) {
     const info = getExitInformation();
     reportFailure(info);
