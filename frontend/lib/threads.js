@@ -32,6 +32,10 @@ const CONFIGURATIONS = {
   ],
 };
 
+const STATISTICS = {
+  TIMER: 0,
+};
+
 const application = 'FRONTEND OPTIMIZER';
 
 const start = (app, cli = UITypography) => {
@@ -76,12 +80,11 @@ const reportFailure = (data, cli = UITypography) => {
       cli.fn.draw('- Failure❗️'),
       cli.fn.newline(1),
       cli.fn.draw(`- ${data}`),
-      cli.fn.newline(1),
-      cli.fn.draw('- Process end...'),
       cli.fn.newline(2),
       cli.display.reset
     )
   );
+  process.exit();
 };
 
 const reportError = (file, err, cli = UITypography) => {
@@ -103,6 +106,18 @@ const reportError = (file, err, cli = UITypography) => {
     )
   );
   process.exit();
+};
+
+const reportSpentTime = (timer, cli = UITypography) => {
+  render(
+    preprint(
+      cli.fn.newline(1),
+      cli.color.cyan,
+      cli.fn.draw(`Time spent: ${new Date() - timer} ms`),
+      cli.fn.newline(2),
+      cli.display.reset
+    )
+  );
 };
 
 const handleCSS = async (file, options) => {
@@ -218,41 +233,58 @@ const getExitInformation = (
 const verifyDirExists = (path) => fs.existsSync(path);
 
 const main = (...args) => {
-  const [root, ignore, options] = args;
+  const [root, exclusions, options] = args;
   start(application);
   if (verifyDirExists(root) === false) {
-    const data = `Target directory not found! Path incorrect: ${root}`;
+    const data = `Target directory not found!\n- Path incorrect: ${root}`;
     saveExitInformation(data);
     return EXIT.FAILURE;
   }
-  pathfinder(root, ignore, options);
+  pathfinder(root, exclusions, options);
   return EXIT.SUCCESS;
-};
-
-const run = (args = CONFIGURATIONS) => {
-  const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
-  if (outcome === EXIT.FAILURE) {
-    const info = getExitInformation();
-    reportFailure(info);
-  }
-  return outcome;
 };
 
 // Multithreading
 
 const threads = require('worker_threads');
-const { Worker } = threads;
+const { Worker, threadId, workerData, isMainThread } = threads;
 
-if (threads.isMainThread) {
+if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
       Master: 'Data to Worker',
+      threadStart: new Date(),
+      config: JSON.stringify(CONFIGURATIONS),
     },
   });
 
-  run();
+  worker.on('message', (msg) => {
+    Reflect.set(STATISTICS, 'TIMER', msg);
+  });
 
-  worker.on('message', (msg) => {});
-  worker.on('exit', (code) => {});
+  worker.on('exit', () => {
+    const timer = Reflect.get(STATISTICS, 'TIMER');
+    reportSpentTime(timer);
+  });
+
   worker.on('error', (err) => console.log(err.stack));
+} else {
+  if (threadId === 1) {
+    const msg = Reflect.get(workerData, 'threadStart');
+    Reflect.set(workerData, 'Worker', 'OK');
+    threads.parentPort.postMessage(msg);
+
+    const data = Reflect.get(workerData, 'config');
+
+    const run = ({ ROOT, IGNORE, OPTIONS } = JSON.parse(data)) => {
+      const outcome = main(ROOT, IGNORE, OPTIONS);
+      if (outcome === false) {
+        const info = getExitInformation();
+        reportFailure(info);
+      }
+      return outcome;
+    };
+
+    run();
+  }
 }
