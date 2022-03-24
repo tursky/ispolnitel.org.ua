@@ -76,7 +76,9 @@ const reportFailure = (data, cli = UITypography) => {
       cli.fn.draw('- Failure❗️'),
       cli.fn.newline(1),
       cli.fn.draw(`- ${data}`),
-      cli.fn.newline(3),
+      cli.fn.newline(1),
+      cli.fn.draw('- Process end...'),
+      cli.fn.newline(2),
       cli.display.reset
     )
   );
