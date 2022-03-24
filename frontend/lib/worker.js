@@ -246,6 +246,7 @@ const STATISTICS = {
 };
 
 const run = (args = CONFIGURATIONS) => {
+  Reflect.set(STATISTICS, 'TIMER', new Date);
   const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
   if (outcome === EXIT.FAILURE) {
     const info = getExitInformation();
@@ -268,7 +269,9 @@ if (threads.isMainThread) {
 
   run();
 
-  worker.on('message', (msg) => {});
-  worker.on('exit', (code) => {});
+  worker.on('message', () => {});
+  worker.on('exit', () => {
+    reportSpentTime(STATISTICS.TIMER);
+  });
   worker.on('error', (err) => console.log(err.stack));
 }
