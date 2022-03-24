@@ -105,6 +105,9 @@ const reportError = (file, err, cli = UITypography) => {
 };
 
 const handleCSS = async (file, config) => {
+  const dependencies = {
+		cssnano: require('cssnano'),
+	};
   try {
     const content = fs.readFileSync(file, 'utf8');
     const plugins = [...config];
