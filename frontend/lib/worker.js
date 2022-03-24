@@ -105,6 +105,18 @@ const reportError = (file, err, cli = UITypography) => {
   process.exit();
 };
 
+const reportSpentTime = (date, cli = UITypography) => {
+  render(
+    preprint(
+      cli.fn.newline(1),
+      cli.color.cyan,
+      cli.fn.draw(`Time spent: ${new Date() - date} ms`),
+      cli.fn.newline(2),
+      cli.display.reset
+    )
+  );
+};
+
 const handleCSS = async (file, options) => {
   const dependencies = {
     cssnano: require('cssnano'),
