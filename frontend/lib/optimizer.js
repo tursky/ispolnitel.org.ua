@@ -112,6 +112,13 @@ const readFile = (filepath) =>
     )
   );
 
+const writeFile = (filepath, data) =>
+  new Promise((res, rej) =>
+    fs.writeFile(filepath, data, (err) =>
+      err ? rej(err) : res('Successfully!')
+    )
+  );
+
 const handleCSS = async (file, options) => {
   const dependencies = {
     cssnano: require('cssnano'),
