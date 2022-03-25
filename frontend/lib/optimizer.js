@@ -153,15 +153,15 @@ const reportError = (file, err, cli = UITypography) => {
 
 const readFile = (filepath) =>
   new Promise((res, rej) => {
-    fs.readFile(filepath, 'utf8', (err, buffer) => {
-      err ? rej(err) : res(buffer);
+    fs.readFile(filepath, 'utf8', (error, buffer) => {
+      error ? rej(error) : res(buffer);
     });
   });
 
 const writeFile = (filepath, data) =>
   new Promise((res, rej) => {
-    fs.writeFile(filepath, data, (err) => {
-      err ? rej(err) : res('Successfully!');
+    fs.writeFile(filepath, data, (error) => {
+      error ? rej(error) : res('Successfully!');
     });
   });
 
@@ -236,17 +236,17 @@ const preprocess = (filepath, metadata) => {
   handler(filepath, scenario, instruction);
 };
 
-const readDirectoryContent = async (path) =>
-  await new Promise((res, rej) => {
-    fs.readdir(path, async (err, data) => {
-      err ? rej(err) : res(data);
+const readDirectoryContent = (pathname) =>
+  new Promise((res, rej) => {
+    fs.readdir(pathname, (error, data) => {
+      error ? rej(error) : res(data);
     });
   });
 
-const readSourceDetails = async (path) =>
-  await new Promise((res, rej) => {
-    fs.lstat(path, (err, data) => {
-      err ? rej(err) : res(data);
+const readSourceDetails = (pathname) =>
+  new Promise((res, rej) => {
+    fs.lstat(pathname, (error, data) => {
+      error ? rej(error) : res(data);
     });
   });
 
