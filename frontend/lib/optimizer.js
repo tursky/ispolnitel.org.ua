@@ -152,18 +152,18 @@ const reportError = (file, err, cli = UITypography) => {
 };
 
 const readFile = (filepath) =>
-  new Promise((res, rej) =>
+  new Promise((res, rej) => {
     fs.readFile(filepath, 'utf8', (err, buffer) => {
       err ? rej(err) : res(buffer);
-    })
-  );
+    });
+  });
 
 const writeFile = (filepath, data) =>
-  new Promise((res, rej) =>
+  new Promise((res, rej) => {
     fs.writeFile(filepath, data, (err) => {
       err ? rej(err) : res('Successfully!');
-    })
-  );
+    });
+  });
 
 const handleCSS = async (file, options) => {
   try {
@@ -237,14 +237,18 @@ const preprocess = (filepath, metadata) => {
 };
 
 const readDirectoryContent = async (path) =>
-  await new Promise((res, rej) =>
-    fs.readdir(path, async (err, data) => (err ? rej(err) : res(data)))
-  );
+  await new Promise((res, rej) => {
+    fs.readdir(path, async (err, data) => {
+      err ? rej(err) : res(data);
+    });
+  });
 
 const readSourceDetails = async (path) =>
-  await new Promise((res, rej) =>
-    fs.lstat(path, (err, data) => (err ? rej(err) : res(data)))
-  );
+  await new Promise((res, rej) => {
+    fs.lstat(path, (err, data) => {
+      err ? rej(err) : res(data);
+    });
+  });
 
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
