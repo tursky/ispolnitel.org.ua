@@ -139,9 +139,9 @@ const handleCSS = async (file, options) => {
 
 const handleJS = async (file, options) => {
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const content = await readFile(file);
     const processed = await Terser.minify(content, options);
-    fs.writeFileSync(file, processed.code);
+    await writeFile(file, processed.code);
   } catch (err) {
     reportError(file, err);
   }
