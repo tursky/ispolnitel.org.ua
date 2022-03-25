@@ -181,6 +181,11 @@ const readDirectoryContent = async (path) =>
     fs.readdir(path, async (err, data) => (err ? rej(err) : res(data)))
   );
 
+const readSourceDetails = async (path) =>
+  await new Promise((res, rej) =>
+    fs.lstat(path, (err, data) => (err ? rej(err) : res(data)))
+  );
+
 const getDirectoryContent = (directory) => fs.readdirSync(directory);
 const getSourceDetails = (source) => fs.lstatSync(source);
 
