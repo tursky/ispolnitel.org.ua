@@ -192,12 +192,12 @@ const getSourceDetails = (source) => fs.lstatSync(source);
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
 
-const pathfinder = (root, exclusions, metadata) => {
-  const src = getDirectoryContent(root);
+const pathfinder = async (root, exclusions, metadata) => {
+  const src = await readDirectoryContent(root);
   for (let source of src) {
     const sourcepath = path.join(root, source);
     if (verifySourceExclusion(sourcepath, exclusions)) continue;
-    source = getSourceDetails(sourcepath);
+    source = await readSourceDetails(sourcepath);
     if (source.isFile()) {
       preprocess(sourcepath, metadata);
       continue;
