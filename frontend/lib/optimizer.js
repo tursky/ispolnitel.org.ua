@@ -105,6 +105,13 @@ const reportError = (file, err, cli = UITypography) => {
   process.exit();
 };
 
+const readFile = (filepath) =>
+  new Promise((res, rej) =>
+    fs.readFile(filepath, 'utf8', (err, buffer) =>
+      err ? rej(err) : res(buffer)
+    )
+  );
+
 const handleCSS = async (file, options) => {
   const dependencies = {
     cssnano: require('cssnano'),
