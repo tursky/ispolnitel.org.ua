@@ -176,6 +176,11 @@ const preprocess = (filepath, metadata) => {
   handler(filepath, scenario, instruction);
 };
 
+const readDirectoryContent = async (path) =>
+  await new Promise((res, rej) =>
+    fs.readdir(path, async (err, data) => (err ? rej(err) : res(data)))
+  );
+
 const getDirectoryContent = (directory) => fs.readdirSync(directory);
 const getSourceDetails = (source) => fs.lstatSync(source);
 
