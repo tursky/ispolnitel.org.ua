@@ -107,16 +107,16 @@ const reportError = (file, err, cli = UITypography) => {
 
 const readFile = (filepath) =>
   new Promise((res, rej) =>
-    fs.readFile(filepath, 'utf8', (err, buffer) =>
-      err ? rej(err) : res(buffer)
-    )
+    fs.readFile(filepath, 'utf8', (err, buffer) => {
+      err ? rej(err) : res(buffer);
+    })
   );
 
 const writeFile = (filepath, data) =>
   new Promise((res, rej) =>
-    fs.writeFile(filepath, data, (err) =>
-      err ? rej(err) : res('Successfully!')
-    )
+    fs.writeFile(filepath, data, (err) => {
+      err ? rej(err) : res('Successfully!');
+    })
   );
 
 const handleCSS = async (file, options) => {
