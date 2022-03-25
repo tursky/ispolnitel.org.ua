@@ -105,18 +105,32 @@ const reportError = (file, err, cli = UITypography) => {
   process.exit();
 };
 
+const readFile = (filepath) =>
+  new Promise((res, rej) =>
+    fs.readFile(filepath, 'utf8', (err, buffer) => {
+      err ? rej(err) : res(buffer);
+    })
+  );
+
+const writeFile = (filepath, data) =>
+  new Promise((res, rej) =>
+    fs.writeFile(filepath, data, (err) => {
+      err ? rej(err) : res('Successfully!');
+    })
+  );
+
 const handleCSS = async (file, options) => {
-  const dependencies = {
-    cssnano: require('cssnano'),
-  };
-  const plugins = options.map((plugin) => dependencies[plugin]);
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const dependencies = {
+      cssnano: require('cssnano'),
+    };
+    const plugins = options.map((plugin) => dependencies[plugin]);
+    const content = await readFile(file);
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
     });
-    fs.writeFileSync(file, processed.css);
+    await writeFile(file, processed.css);
   } catch (err) {
     reportError(file, err);
   }
@@ -125,9 +139,9 @@ const handleCSS = async (file, options) => {
 
 const handleJS = async (file, options) => {
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const content = await readFile(file);
     const processed = await Terser.minify(content, options);
-    fs.writeFileSync(file, processed.code);
+    await writeFile(file, processed.code);
   } catch (err) {
     reportError(file, err);
   }
@@ -136,9 +150,9 @@ const handleJS = async (file, options) => {
 
 const handleHTML = async (file, options) => {
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const content = await readFile(file);
     const processed = await HTMLTerser.minify(content, options);
-    fs.writeFileSync(file, processed);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -176,18 +190,25 @@ const preprocess = (filepath, metadata) => {
   handler(filepath, scenario, instruction);
 };
 
-const getDirectoryContent = (directory) => fs.readdirSync(directory);
-const getSourceDetails = (source) => fs.lstatSync(source);
+const readDirectoryContent = async (path) =>
+  await new Promise((res, rej) =>
+    fs.readdir(path, async (err, data) => (err ? rej(err) : res(data)))
+  );
+
+const readSourceDetails = async (path) =>
+  await new Promise((res, rej) =>
+    fs.lstat(path, (err, data) => (err ? rej(err) : res(data)))
+  );
 
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
 
-const pathfinder = (root, exclusions, metadata) => {
-  const src = getDirectoryContent(root);
+const pathfinder = async (root, exclusions, metadata) => {
+  const src = await readDirectoryContent(root);
   for (let source of src) {
     const sourcepath = path.join(root, source);
     if (verifySourceExclusion(sourcepath, exclusions)) continue;
-    source = getSourceDetails(sourcepath);
+    source = await readSourceDetails(sourcepath);
     if (source.isFile()) {
       preprocess(sourcepath, metadata);
       continue;
