@@ -200,9 +200,6 @@ const readSourceDetails = async (path) =>
     fs.lstat(path, (err, data) => (err ? rej(err) : res(data)))
   );
 
-const getDirectoryContent = (directory) => fs.readdirSync(directory);
-const getSourceDetails = (source) => fs.lstatSync(source);
-
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
 
