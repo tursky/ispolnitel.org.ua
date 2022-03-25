@@ -150,9 +150,9 @@ const handleJS = async (file, options) => {
 
 const handleHTML = async (file, options) => {
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const content = await readFile(file);
     const processed = await HTMLTerser.minify(content, options);
-    fs.writeFileSync(file, processed);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
