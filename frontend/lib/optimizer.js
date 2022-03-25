@@ -120,17 +120,17 @@ const writeFile = (filepath, data) =>
   );
 
 const handleCSS = async (file, options) => {
-  const dependencies = {
-    cssnano: require('cssnano'),
-  };
-  const plugins = options.map((plugin) => dependencies[plugin]);
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const dependencies = {
+      cssnano: require('cssnano'),
+    };
+    const plugins = options.map((plugin) => dependencies[plugin]);
+    const content = await readFile(file);
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
     });
-    fs.writeFileSync(file, processed.css);
+    await writeFile(file, processed.css);
   } catch (err) {
     reportError(file, err);
   }
