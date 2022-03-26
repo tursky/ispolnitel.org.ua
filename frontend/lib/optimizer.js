@@ -284,6 +284,15 @@ const getExitInformation = (
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
+const verifyDirectoryExists = (path) =>
+	new Promise((resolve, reject) => {
+		fs.access(path, (error) => {
+			error
+				? reject(`Directory not found! Path incorrect: ${path}`)
+				: resolve(true);
+		});
+	});
+
 const verifyDirExists = (path) => fs.existsSync(path);
 
 const main = (...args) => {
