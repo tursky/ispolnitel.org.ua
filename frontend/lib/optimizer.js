@@ -276,9 +276,7 @@ const saveExitInformation = (
   data = 'Exit info is missing...',
   obj = EXIT,
   field = 'INFO'
-) => {
-  Reflect.set(obj, field, data);
-};
+) => Reflect.set(obj, field, data);
 
 const getExitInformation = (
   obj = EXIT,
