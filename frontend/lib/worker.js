@@ -342,7 +342,7 @@ if (threads.isMainThread) {
     },
   });
 
-  const now = new Date()
+  const now = new Date();
   Reflect.set(STATISTICS, 'TIMER', now);
 
   worker.on('exit', () => reportSpentTime(STATISTICS.TIMER));
