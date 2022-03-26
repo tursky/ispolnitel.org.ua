@@ -295,25 +295,26 @@ const verifyDirectoryExists = (path) =>
 
 const verifyDirExists = (path) => fs.existsSync(path);
 
-const main = (...args) => {
-  const [root, ignore, options] = args;
-  start(application);
-  if (verifyDirExists(root) === false) {
-    const data = `Target directory not found! Path incorrect: ${root}`;
-    saveExitInformation(data);
-    return EXIT.FAILURE;
-  }
-  pathfinder(root, ignore, options);
-  return EXIT.SUCCESS;
+const main = async (...args) => {
+	const [root, ignore, config] = args;
+	try {
+		start(application);
+		await verifyDirectoryExists(root);
+		await pathfinder(root, ignore, config);
+	} catch (error) {
+		saveExitInformation(error);
+		return EXIT.FAILURE;
+	}
+	return EXIT.SUCCESS;
 };
 
-const run = (args = CONFIGURATIONS) => {
-  const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
-  if (outcome === EXIT.FAILURE) {
-    const info = getExitInformation();
-    reportFailure(info);
-  }
-  return outcome;
+const run = async (args = CONFIGURATIONS) => {
+	const outcome = await main(args.ROOT, args.IGNORE, args.OPTIONS);
+	if (outcome === EXIT.FAILURE) {
+		const info = getExitInformation();
+		reportFailure(info);
+	}
+	return outcome;
 };
 
 run();
