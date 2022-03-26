@@ -11,7 +11,6 @@ const Terser = require('terser');
 const postcss = require('postcss');
 const path = require('path');
 const fs = require('fs');
-const { UITypography, render, preprint } = require('./ui');
 
 const CONFIGURATIONS = {
   ROOT: 'application/static',
@@ -33,6 +32,53 @@ const CONFIGURATIONS = {
 };
 
 const application = 'FRONTEND OPTIMIZER';
+
+const render = (output) => process.stdout.write(output);
+const preprint = (...array) => array.join('');
+
+const UITypography = {
+  text: {
+    boldfont: '\x1b[1m',
+    hidden: '\x1b[8m',
+    underline: '\x1b[4m',
+    dim: '\x1b[2m',
+    blink: '\x1b[5m',
+    reverse: '\x1b[7m',
+  },
+
+  display: {
+    clear: '\x1Bc',
+    reset: '\x1b[0m',
+  },
+
+  color: {
+    black: '\x1b[30m',
+    red: '\x1b[31m',
+    green: '\x1b[32m',
+    yellow: '\x1b[33m',
+    blue: '\x1b[34m',
+    magenta: '\x1b[35m',
+    cyan: '\x1b[36m',
+    white: '\x1b[37m',
+  },
+
+  background: {
+    black: '\x1b[40m',
+    red: '\x1b[41m',
+    green: '\x1b[42m',
+    yellow: '\x1b[43m',
+    blue: '\x1b[44m',
+    magenta: '\x1b[45m',
+    cyan: '\x1b[46m',
+    white: '\x1b[47m',
+  },
+
+  fn: {
+    draw: (struct) => struct,
+    newline: (n) => '\n'.repeat(n),
+    space: (n) => ' '.repeat(n),
+  },
+};
 
 const start = (app, cli = UITypography) => {
   render(
@@ -77,7 +123,7 @@ const reportFailure = (data, cli = UITypography) => {
       cli.fn.newline(1),
       cli.fn.draw(`- ${data}`),
       cli.fn.newline(1),
-      cli.fn.draw('- Process end...'),
+      cli.fn.draw('- Process end ...'),
       cli.fn.newline(1),
       cli.display.reset
     )
@@ -102,33 +148,46 @@ const reportError = (file, err, cli = UITypography) => {
       cli.display.reset
     )
   );
-  process.exit();
 };
 
-const reportSpentTime = (date, cli = UITypography) => {
+const reportSpentTime = (timer, cli = UITypography) => {
   render(
     preprint(
       cli.fn.newline(1),
       cli.color.cyan,
-      cli.fn.draw(`Time spent: ${new Date() - date} ms`),
+      cli.fn.draw(`Time spent: ${new Date() - timer} ms`),
       cli.fn.newline(2),
       cli.display.reset
     )
   );
 };
 
+const readFile = (filepath) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(filepath, 'utf8', (error, buffer) => {
+      error ? reject(error) : resolve(buffer);
+    });
+  });
+
+const writeFile = (filepath, data) =>
+  new Promise((resolve, reject) => {
+    fs.writeFile(filepath, data, (error) => {
+      error ? reject(error) : resolve('Successfully!');
+    });
+  });
+
 const handleCSS = async (file, options) => {
-  const dependencies = {
-    cssnano: require('cssnano'),
-  };
-  const plugins = options.map((plugin) => dependencies[plugin]);
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const dependencies = {
+      cssnano: require('cssnano'),
+    };
+    const plugins = options.map((plugin) => dependencies[plugin]);
+    const content = await readFile(file);
     const processed = await postcss(plugins).process(content, {
       from: file,
       to: file,
     });
-    fs.writeFileSync(file, processed.css);
+    await writeFile(file, processed.css);
   } catch (err) {
     reportError(file, err);
   }
@@ -137,9 +196,9 @@ const handleCSS = async (file, options) => {
 
 const handleJS = async (file, options) => {
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const content = await readFile(file);
     const processed = await Terser.minify(content, options);
-    fs.writeFileSync(file, processed.code);
+    await writeFile(file, processed.code);
   } catch (err) {
     reportError(file, err);
   }
@@ -148,9 +207,9 @@ const handleJS = async (file, options) => {
 
 const handleHTML = async (file, options) => {
   try {
-    const content = fs.readFileSync(file, 'utf8');
+    const content = await readFile(file);
     const processed = await HTMLTerser.minify(content, options);
-    fs.writeFileSync(file, processed);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -188,18 +247,29 @@ const preprocess = (filepath, metadata) => {
   handler(filepath, scenario, instruction);
 };
 
-const getDirectoryContent = (directory) => fs.readdirSync(directory);
-const getSourceDetails = (source) => fs.lstatSync(source);
+const readDirectoryContent = (pathname) =>
+  new Promise((resolve, reject) => {
+    fs.readdir(pathname, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
+
+const readSourceDetails = (pathname) =>
+  new Promise((resolve, reject) => {
+    fs.lstat(pathname, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
 
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
 
-const pathfinder = (root, exclusions, metadata) => {
-  const src = getDirectoryContent(root);
+const pathfinder = async (root, exclusions, metadata) => {
+  const src = await readDirectoryContent(root);
   for (let source of src) {
     const sourcepath = path.join(root, source);
     if (verifySourceExclusion(sourcepath, exclusions)) continue;
-    source = getSourceDetails(sourcepath);
+    source = await readSourceDetails(sourcepath);
     if (source.isFile()) {
       preprocess(sourcepath, metadata);
       continue;
@@ -217,9 +287,7 @@ const saveExitInformation = (
   data = 'Exit info is missing...',
   obj = EXIT,
   field = 'INFO'
-) => {
-  Reflect.set(obj, field, data);
-};
+) => Reflect.set(obj, field, data);
 
 const getExitInformation = (
   obj = EXIT,
@@ -227,27 +295,30 @@ const getExitInformation = (
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
-const verifyDirExists = (path) => fs.existsSync(path);
+const verifyDirectoryExists = (path) =>
+  new Promise((resolve, reject) => {
+    fs.access(path, (error) => {
+      error
+        ? reject(`Directory not found, wrong path: ${path}`)
+        : resolve(true);
+    });
+  });
 
-const main = (...args) => {
-  const [root, ignore, options] = args;
-  start(application);
-  if (verifyDirExists(root) === false) {
-    const data = `Target directory not found! Path incorrect: ${root}`;
-    saveExitInformation(data);
+const main = async (...args) => {
+  const [dir, filter, config] = args;
+  try {
+    start(application);
+    await verifyDirectoryExists(dir);
+    await pathfinder(dir, filter, config);
+  } catch (error) {
+    saveExitInformation(error);
     return EXIT.FAILURE;
   }
-  pathfinder(root, ignore, options);
   return EXIT.SUCCESS;
 };
 
-const STATISTICS = {
-  TIMER: 0,
-};
-
-const run = (args = CONFIGURATIONS) => {
-  Reflect.set(STATISTICS, 'TIMER', new Date());
-  const outcome = main(args.ROOT, args.IGNORE, args.OPTIONS);
+const run = async (args = CONFIGURATIONS) => {
+  const outcome = await main(args.ROOT, args.IGNORE, args.OPTIONS);
   if (outcome === EXIT.FAILURE) {
     const info = getExitInformation();
     reportFailure(info);
@@ -258,25 +329,21 @@ const run = (args = CONFIGURATIONS) => {
 // Multithreading
 
 const threads = require('worker_threads');
-const { Worker, workerData } = threads;
+const { Worker } = threads;
+
+const STATISTICS = {
+  TIMER: 0,
+};
 
 if (threads.isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
-      Master: 'Data to Worker',
+      msg: 'Data to Worker',
     },
   });
 
-  run();
+  const NOW = new Date();
+  Reflect.set(STATISTICS, 'TIMER', NOW);
 
-  worker.on('exit', () => {
-    reportSpentTime(STATISTICS.TIMER);
-  });
-
-  worker.on('message', () => {});
-  worker.on('error', (err) => {
-    console.log(err.stack);
-  });
-} else {
-  Reflect.set(workerData, 'Worker', 'OK');
-}
+  worker.on('exit', () => reportSpentTime(STATISTICS.TIMER));
+} else run();
