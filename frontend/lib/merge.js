@@ -327,8 +327,33 @@ const run = async (args = CONFIGURATIONS) => {
   return outcome;
 };
 
-run();
-
 const STATISTICS = {
   TIMER: 0,
 };
+
+// Multithreading
+
+const threads = require('worker_threads');
+const { Worker, workerData } = threads;
+
+if (threads.isMainThread) {
+  const worker = new Worker(__filename, {
+    workerData: {
+      Master: 'Data to Worker',
+    },
+  });
+
+  Reflect.set(STATISTICS, 'TIMER', new Date());
+
+  worker.on('exit', () => {
+    reportSpentTime(STATISTICS.TIMER);
+  });
+
+  worker.on('message', () => {});
+  worker.on('error', (err) => {
+    console.log(err.stack);
+  });
+} else {
+  Reflect.set(workerData, 'Worker', 'OK');
+  run();
+}
