@@ -328,3 +328,7 @@ const run = async (args = CONFIGURATIONS) => {
 };
 
 run();
+
+const STATISTICS = {
+  TIMER: 0,
+};
