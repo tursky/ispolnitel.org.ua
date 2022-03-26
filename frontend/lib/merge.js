@@ -148,7 +148,6 @@ const reportError = (file, err, cli = UITypography) => {
       cli.display.reset
     )
   );
-  process.exit();
 };
 
 const reportSpentTime = (date, cli = UITypography) => {
@@ -188,7 +187,7 @@ const handleCSS = async (file, options) => {
       from: file,
       to: file,
     });
-    await writeFile(file, processed.css);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -334,12 +333,12 @@ const STATISTICS = {
 // Multithreading
 
 const threads = require('worker_threads');
-const { Worker, workerData } = threads;
+const { Worker } = threads;
 
 if (threads.isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
-      Master: 'Data to Worker',
+      msg: 'Data to Worker',
     },
   });
 
@@ -349,11 +348,4 @@ if (threads.isMainThread) {
     reportSpentTime(STATISTICS.TIMER);
   });
 
-  worker.on('message', () => {});
-  worker.on('error', (err) => {
-    console.log(err.stack);
-  });
-} else {
-  Reflect.set(workerData, 'Worker', 'OK');
-  run();
-}
+} else run();
