@@ -317,33 +317,44 @@ const main = async (...args) => {
   return EXIT.SUCCESS;
 };
 
-const run = async (args = CONFIGURATIONS) => {
-  const outcome = await main(args.ROOT, args.IGNORE, args.OPTIONS);
+const run = async (settings) => {
+  const outcome = await main(settings.ROOT, settings.IGNORE, settings.OPTIONS);
   if (outcome === EXIT.FAILURE) {
     const info = getExitInformation();
     reportFailure(info);
   }
-  return outcome;
+  return true;
 };
 
 // Multithreading
 
 const threads = require('worker_threads');
-const { Worker } = threads;
+const { Worker, workerData, isMainThread } = threads;
 
 const STATISTICS = {
   TIMER: 0,
 };
 
-if (threads.isMainThread) {
+if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
       msg: 'Data to Worker',
+      config: JSON.stringify(CONFIGURATIONS),
+      threadStart: '',
     },
   });
 
-  const NOW = new Date();
-  Reflect.set(STATISTICS, 'TIMER', NOW);
-
+  worker.on('message', (msg) => Reflect.set(STATISTICS, 'TIMER', msg));
   worker.on('exit', () => reportSpentTime(STATISTICS.TIMER));
-} else run();
+  worker.on('error', (err) => console.log(err.stack));
+} else {
+  // console.dir({ worker: threads });
+
+  Reflect.set(workerData, 'threadStart', new Date());
+  const data = Reflect.get(workerData, 'threadStart');
+  threads.parentPort.postMessage(data);
+
+  const config = Reflect.get(workerData, 'config');
+  const fn = JSON.parse(config);
+  run(fn);
+}
