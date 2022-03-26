@@ -323,7 +323,7 @@ const run = async (settings) => {
     const info = getExitInformation();
     reportFailure(info);
   }
-  return true;
+  return 0;
 };
 
 // Multithreading
