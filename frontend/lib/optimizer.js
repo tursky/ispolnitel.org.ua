@@ -293,8 +293,6 @@ const verifyDirectoryExists = (path) =>
 		});
 	});
 
-const verifyDirExists = (path) => fs.existsSync(path);
-
 const main = async (...args) => {
 	const [root, ignore, config] = args;
 	try {
