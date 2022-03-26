@@ -152,16 +152,16 @@ const reportError = (file, err, cli = UITypography) => {
 };
 
 const readFile = (filepath) =>
-  new Promise((res, rej) => {
+  new Promise((resolve, reject) => {
     fs.readFile(filepath, 'utf8', (error, buffer) => {
-      error ? rej(error) : res(buffer);
+      error ? reject(error) : resolve(buffer);
     });
   });
 
 const writeFile = (filepath, data) =>
-  new Promise((res, rej) => {
+  new Promise((resolve, reject) => {
     fs.writeFile(filepath, data, (error) => {
-      error ? rej(error) : res('Successfully!');
+      error ? reject(error) : resolve('Successfully!');
     });
   });
 
@@ -237,16 +237,16 @@ const preprocess = (filepath, metadata) => {
 };
 
 const readDirectoryContent = (pathname) =>
-  new Promise((res, rej) => {
+  new Promise((resolve, reject) => {
     fs.readdir(pathname, (error, data) => {
-      error ? rej(error) : res(data);
+      error ? reject(error) : resolve(data);
     });
   });
 
 const readSourceDetails = (pathname) =>
-  new Promise((res, rej) => {
+  new Promise((resolve, reject) => {
     fs.lstat(pathname, (error, data) => {
-      error ? rej(error) : res(data);
+      error ? reject(error) : resolve(data);
     });
   });
 
@@ -294,11 +294,11 @@ const verifyDirectoryExists = (path) =>
   });
 
 const main = async (...args) => {
-  const [root, ignore, config] = args;
+  const [dir, filter, config] = args;
   try {
     start(application);
-    await verifyDirectoryExists(root);
-    await pathfinder(root, ignore, config);
+    await verifyDirectoryExists(dir);
+    await pathfinder(dir, filter, config);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
