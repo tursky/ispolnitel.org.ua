@@ -123,7 +123,7 @@ const reportFailure = (data, cli = UITypography) => {
       cli.fn.newline(1),
       cli.fn.draw(`- ${data}`),
       cli.fn.newline(1),
-      cli.fn.draw('- Process end...'),
+      cli.fn.draw('- Process end ...'),
       cli.fn.newline(2),
       cli.display.reset
     )
@@ -288,7 +288,7 @@ const verifyDirectoryExists = (path) =>
   new Promise((resolve, reject) => {
     fs.access(path, (error) => {
       error
-        ? reject(`Directory not found! Path incorrect: ${path}`)
+        ? reject(`Directory not found, wrong path: ${path}`)
         : resolve(true);
     });
   });
