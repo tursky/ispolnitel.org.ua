@@ -285,34 +285,34 @@ const getExitInformation = (
 ) => response;
 
 const verifyDirectoryExists = (path) =>
-	new Promise((resolve, reject) => {
-		fs.access(path, (error) => {
-			error
-				? reject(`Directory not found! Path incorrect: ${path}`)
-				: resolve(true);
-		});
-	});
+  new Promise((resolve, reject) => {
+    fs.access(path, (error) => {
+      error
+        ? reject(`Directory not found! Path incorrect: ${path}`)
+        : resolve(true);
+    });
+  });
 
 const main = async (...args) => {
-	const [root, ignore, config] = args;
-	try {
-		start(application);
-		await verifyDirectoryExists(root);
-		await pathfinder(root, ignore, config);
-	} catch (error) {
-		saveExitInformation(error);
-		return EXIT.FAILURE;
-	}
-	return EXIT.SUCCESS;
+  const [root, ignore, config] = args;
+  try {
+    start(application);
+    await verifyDirectoryExists(root);
+    await pathfinder(root, ignore, config);
+  } catch (error) {
+    saveExitInformation(error);
+    return EXIT.FAILURE;
+  }
+  return EXIT.SUCCESS;
 };
 
 const run = async (args = CONFIGURATIONS) => {
-	const outcome = await main(args.ROOT, args.IGNORE, args.OPTIONS);
-	if (outcome === EXIT.FAILURE) {
-		const info = getExitInformation();
-		reportFailure(info);
-	}
-	return outcome;
+  const outcome = await main(args.ROOT, args.IGNORE, args.OPTIONS);
+  if (outcome === EXIT.FAILURE) {
+    const info = getExitInformation();
+    reportFailure(info);
+  }
+  return outcome;
 };
 
 run();
