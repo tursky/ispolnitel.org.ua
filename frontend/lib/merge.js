@@ -124,7 +124,7 @@ const reportFailure = (data, cli = UITypography) => {
       cli.fn.draw(`- ${data}`),
       cli.fn.newline(1),
       cli.fn.draw('- Process end ...'),
-      cli.fn.newline(2),
+      cli.fn.newline(1),
       cli.display.reset
     )
   );
@@ -150,12 +150,12 @@ const reportError = (file, err, cli = UITypography) => {
   );
 };
 
-const reportSpentTime = (date, cli = UITypography) => {
+const reportSpentTime = (timer, cli = UITypography) => {
   render(
     preprint(
       cli.fn.newline(1),
       cli.color.cyan,
-      cli.fn.draw(`Time spent: ${new Date() - date} ms`),
+      cli.fn.draw(`Time spent: ${new Date() - timer} ms`),
       cli.fn.newline(2),
       cli.display.reset
     )
@@ -187,7 +187,7 @@ const handleCSS = async (file, options) => {
       from: file,
       to: file,
     });
-    await writeFile(file, processed);
+    await writeFile(file, processed.css);
   } catch (err) {
     reportError(file, err);
   }
@@ -326,14 +326,14 @@ const run = async (args = CONFIGURATIONS) => {
   return outcome;
 };
 
-const STATISTICS = {
-  TIMER: 0,
-};
-
 // Multithreading
 
 const threads = require('worker_threads');
 const { Worker } = threads;
+
+const STATISTICS = {
+  TIMER: 0,
+};
 
 if (threads.isMainThread) {
   const worker = new Worker(__filename, {
@@ -342,10 +342,8 @@ if (threads.isMainThread) {
     },
   });
 
-  Reflect.set(STATISTICS, 'TIMER', new Date());
+  const now = new Date()
+  Reflect.set(STATISTICS, 'TIMER', now);
 
-  worker.on('exit', () => {
-    reportSpentTime(STATISTICS.TIMER);
-  });
-
+  worker.on('exit', () => reportSpentTime(STATISTICS.TIMER));
 } else run();
