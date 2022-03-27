@@ -309,7 +309,7 @@ const main = async (...args) => {
   try {
     start(application);
     await verifyDirectoryExists(dir);
-    await pathfinder(dir, filter, config);
+    pathfinder(dir, filter, config);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
