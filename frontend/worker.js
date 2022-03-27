@@ -6,11 +6,17 @@
  * https://www.npmjs.com/package/postcss
  */
 
+/**
+ * DEPENDENCIES */
+
 const HTMLTerser = require('html-minifier-terser');
 const Terser = require('terser');
 const postcss = require('postcss');
 const path = require('path');
 const fs = require('fs');
+
+/**
+ * CONFIG */
 
 const CONFIGURATIONS = {
   ROOT: 'application/static',
@@ -32,6 +38,9 @@ const CONFIGURATIONS = {
 };
 
 const application = 'FRONTEND WORKER';
+
+/**
+ * CONSOLE UI */
 
 const render = (output) => process.stdout.write(output);
 const preprint = (...array) => array.join('');
@@ -79,6 +88,9 @@ const UITypography = {
     space: (n) => ' '.repeat(n),
   },
 };
+
+/**
+ * OUTPUT */
 
 const start = (app, cli = UITypography) => {
   render(
@@ -162,6 +174,9 @@ const reportSpentTime = (timer, cli = UITypography) => {
   );
 };
 
+/**
+ * BUSINESS LOGIC */
+
 const readFile = (filepath) =>
   new Promise((resolve, reject) => {
     fs.readFile(filepath, 'utf8', (error, buffer) => {
@@ -215,6 +230,9 @@ const handleHTML = async (file, options) => {
   }
   reportSuccess(file);
 };
+
+/**
+ * MAIN */
 
 const schema = {
   '.js': (file, options) => handleJS(file, options),
@@ -326,7 +344,8 @@ const run = async (settings) => {
   return outcome;
 };
 
-// Multithreading
+/**
+ * MULTITHREADING */
 
 const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
