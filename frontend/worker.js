@@ -187,7 +187,7 @@ const handleCSS = async (file, options) => {
       from: file,
       to: file,
     });
-    await writeFile(file, processed.css);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -323,7 +323,7 @@ const run = async (settings) => {
     const info = getExitInformation();
     reportFailure(info);
   }
-  return 0;
+  return outcome;
 };
 
 // Multithreading
