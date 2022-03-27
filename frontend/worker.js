@@ -187,7 +187,7 @@ const handleCSS = async (file, options) => {
       from: file,
       to: file,
     });
-    await writeFile(file, processed);
+    await writeFile(file, processed.css);
   } catch (err) {
     reportError(file, err);
   }
