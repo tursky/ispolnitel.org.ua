@@ -31,7 +31,7 @@ const CONFIGURATIONS = {
   ],
 };
 
-const application = 'FRONTEND OPTIMIZER';
+const application = 'FRONTEND WORKER';
 
 const render = (output) => process.stdout.write(output);
 const preprint = (...array) => array.join('');
