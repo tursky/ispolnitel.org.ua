@@ -1,10 +1,10 @@
+'use strict';
+
 /**
  * https://www.npmjs.com/package/html-minifier-terser
  * https://www.npmjs.com/package/terser
  * https://www.npmjs.com/package/postcss
  */
-
-'use strict';
 
 const HTMLTerser = require('html-minifier-terser');
 const Terser = require('terser');
@@ -331,10 +331,6 @@ const run = async (settings) => {
 const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
-const STATISTICS = {
-  TIMER: 0,
-};
-
 if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
@@ -343,6 +339,10 @@ if (isMainThread) {
       threadStart: '',
     },
   });
+
+  const STATISTICS = {
+    TIMER: 0,
+  };
 
   worker.on('message', (msg) => Reflect.set(STATISTICS, 'TIMER', msg));
   worker.on('exit', () => reportSpentTime(STATISTICS.TIMER));
