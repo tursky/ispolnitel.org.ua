@@ -280,9 +280,13 @@ const readSourceDetails = (pathname) =>
   });
 
 const verifySourceExclusion = (path, filter) =>
-  new Promise((resolve) =>
-    resolve(filter.find((exclusion) => path.includes(exclusion)))
-  );
+  new Promise((resolve) => {
+    filter.find((exclusion, index) => {
+      const checkout = path.includes(exclusion);
+      if (checkout === true) filter.splice(index, 1);
+      resolve(checkout);
+    });
+  });
 
 const pathfinder = async (root, exclusions, metadata) => {
   const src = await readDirectoryContent(root);
