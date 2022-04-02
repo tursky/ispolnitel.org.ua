@@ -10,8 +10,8 @@
  * DEPENDENCIES */
 
 const HTMLTerser = require('html-minifier-terser');
-const Terser = require('terser');
-const postcss = require('postcss');
+const JSTerser = require('terser');
+const PostCSS = require('postcss');
 const path = require('path');
 const fs = require('fs');
 
@@ -198,7 +198,7 @@ const handleCSS = async (file, options) => {
     };
     const plugins = options.map((plugin) => dependencies[plugin]);
     const content = await readFile(file);
-    const processed = await postcss(plugins).process(content, {
+    const processed = await PostCSS(plugins).process(content, {
       from: file,
       to: file,
     });
@@ -212,7 +212,7 @@ const handleCSS = async (file, options) => {
 const handleJS = async (file, options) => {
   try {
     const content = await readFile(file);
-    const processed = await Terser.minify(content, options);
+    const processed = await JSTerser.minify(content, options);
     await writeFile(file, processed.code);
   } catch (err) {
     reportError(file, err);
