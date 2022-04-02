@@ -280,19 +280,13 @@ const readSourceDetails = (pathname) =>
   });
 
 const verifySourceExclusion = (path, filter) =>
-  new Promise((resolve) => {
-    filter.find((exclusion, index) => {
-      const checkout = path.includes(exclusion);
-      if (checkout === true) filter.splice(index, 1);
-      resolve(checkout);
-    });
-  });
+  filter.find((exclusion) => path.includes(exclusion));
 
 const pathfinder = async (root, exclusions, metadata) => {
   const src = await readDirectoryContent(root);
   for (let source of src) {
     const sourcepath = path.join(root, source);
-    if (await verifySourceExclusion(sourcepath, exclusions)) continue;
+    if (verifySourceExclusion(sourcepath, exclusions)) continue;
     source = await readSourceDetails(sourcepath);
     if (source.isFile()) {
       preprocess(sourcepath, metadata);
