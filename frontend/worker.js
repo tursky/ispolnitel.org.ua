@@ -31,8 +31,8 @@ const CONFIGURATIONS = {
     'webfonts',
     'docs',
     'robots.txt',
-    'sitemap.xml',
-    'mail.php',
+    '.xml',
+    '.php',
     'libs.zip',
   ],
 };
