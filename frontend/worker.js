@@ -28,6 +28,10 @@ const VENDOR = {
   HTMLTerser: require('html-minifier-terser'),
   PostCSS: require('postcss'),
   cssnano: require('cssnano'),
+
+  componentHTMLTerser(src, options) {
+    return this.HTMLTerser.minify(src, options);
+  },
 };
 
 /**
