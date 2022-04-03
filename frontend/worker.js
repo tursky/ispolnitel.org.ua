@@ -1,19 +1,66 @@
 'use strict';
 
 /**
- * https://www.npmjs.com/package/html-minifier-terser
- * https://www.npmjs.com/package/terser
- * https://www.npmjs.com/package/postcss
- */
-
-/**
  * DEPENDENCIES */
 
-const HTMLTerser = require('html-minifier-terser');
-const JSTerser = require('terser');
-const PostCSS = require('postcss');
 const path = require('path');
 const fs = require('fs');
+
+/**
+ * 3rd-party software components */
+
+const VENDOR = {
+  JSTerser: require('terser'),
+  HTMLTerser: require('html-minifier-terser'),
+  PostCSS: require('postcss'),
+  cssnano: require('cssnano'),
+
+  // https://www.npmjs.com/package/html-minifier-terser
+
+  componentHTMLTerser(
+    src,
+    config,
+    html = async (result = this.HTMLTerser.minify(src, config)) => await result
+  ) {
+    return html();
+  },
+
+  // https://www.npmjs.com/package/terser
+
+  componentJSTerser(
+    src,
+    config,
+    js = async (result = this.JSTerser.minify(src, config)) => {
+      const processed = await result;
+      return processed.code;
+    }
+  ) {
+    return js();
+  },
+
+  // https://www.npmjs.com/package/postcss
+  // https://www.npmjs.com/package/cssnano
+
+  componentPostCSS(
+    src,
+    config,
+    plugins = () => {
+      const deps = { cssnano: this.cssnano };
+      return config.map((plugin) => deps[plugin]);
+    },
+    css = async (
+      result = this.PostCSS(plugins()).process(src, {
+        from: src,
+        to: src,
+      })
+    ) => {
+      const processed = await result;
+      return processed.css;
+    }
+  ) {
+    return css();
+  },
+};
 
 /**
  * CONFIG */
@@ -193,16 +240,9 @@ const writeFile = (filepath, data) =>
 
 const handleCSS = async (file, options) => {
   try {
-    const dependencies = {
-      cssnano: require('cssnano'),
-    };
-    const plugins = options.map((plugin) => dependencies[plugin]);
-    const content = await readFile(file);
-    const processed = await PostCSS(plugins).process(content, {
-      from: file,
-      to: file,
-    });
-    await writeFile(file, processed.css);
+    const code = await readFile(file);
+    const processed = await VENDOR.componentPostCSS(code, options);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -211,9 +251,9 @@ const handleCSS = async (file, options) => {
 
 const handleJS = async (file, options) => {
   try {
-    const content = await readFile(file);
-    const processed = await JSTerser.minify(content, options);
-    await writeFile(file, processed.code);
+    const code = await readFile(file);
+    const processed = await VENDOR.componentJSTerser(code, options);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -222,8 +262,8 @@ const handleJS = async (file, options) => {
 
 const handleHTML = async (file, options) => {
   try {
-    const content = await readFile(file);
-    const processed = await HTMLTerser.minify(content, options);
+    const code = await readFile(file);
+    const processed = await VENDOR.componentHTMLTerser(code, options);
     await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
