@@ -247,16 +247,9 @@ const writeFile = (filepath, data) =>
 
 const handleCSS = async (file, options) => {
   try {
-    const dependencies = {
-      cssnano: require('cssnano'),
-    };
-    const plugins = options.map((plugin) => dependencies[plugin]);
     const content = await readFile(file);
-    const processed = await PostCSS(plugins).process(content, {
-      from: file,
-      to: file,
-    });
-    await writeFile(file, processed.css);
+    const processed = await VENDOR.componentPostCSS(content, options);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -266,8 +259,8 @@ const handleCSS = async (file, options) => {
 const handleJS = async (file, options) => {
   try {
     const content = await readFile(file);
-    const processed = await JSTerser.minify(content, options);
-    await writeFile(file, processed.code);
+    const processed = await VENDOR.componentJSTerser(content, options);
+    await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
   }
@@ -277,7 +270,7 @@ const handleJS = async (file, options) => {
 const handleHTML = async (file, options) => {
   try {
     const content = await readFile(file);
-    const processed = await HTMLTerser.minify(content, options);
+    const processed = await VENDOR.componentHTMLTerser(content, options);
     await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
