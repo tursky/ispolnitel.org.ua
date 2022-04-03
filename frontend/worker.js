@@ -29,8 +29,15 @@ const VENDOR = {
   PostCSS: require('postcss'),
   cssnano: require('cssnano'),
 
-  componentHTMLTerser(src, options) {
-    return this.HTMLTerser.minify(src, options);
+  componentHTMLTerser(
+    src,
+    options,
+    code = async (result = this.HTMLTerser.minify(src, options)) => {
+      const processed = await result;
+      return processed;
+    }
+  ) {
+    return code();
   },
 
   componentJSTerser(
