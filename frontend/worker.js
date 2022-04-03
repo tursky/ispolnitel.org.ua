@@ -43,6 +43,26 @@ const VENDOR = {
   ) {
     return code();
   },
+
+  componentPostCSS(
+    src,
+    options,
+    plugins = () => {
+      const deps = { cssnano: this.cssnano };
+      return options.map((plugin) => deps[plugin]);
+    },
+    code = async (
+      result = this.PostCSS(plugins()).process(src, {
+        from: src,
+        to: src,
+      })
+    ) => {
+      const processed = await result;
+      return processed.css;
+    }
+  ) {
+    return code();
+  },
 };
 
 /**
