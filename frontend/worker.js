@@ -31,34 +31,31 @@ const VENDOR = {
 
   componentHTMLTerser(
     src,
-    options,
-    code = async (result = this.HTMLTerser.minify(src, options)) => {
-      const processed = await result;
-      return processed;
-    }
+    config,
+    html = async (result = this.HTMLTerser.minify(src, config)) => await result
   ) {
-    return code();
+    return html();
   },
 
   componentJSTerser(
     src,
-    options,
-    code = async (result = this.JSTerser.minify(src, options)) => {
+    config,
+    js = async (result = this.JSTerser.minify(src, config)) => {
       const processed = await result;
       return processed.code;
     }
   ) {
-    return code();
+    return js();
   },
 
   componentPostCSS(
     src,
-    options,
+    config,
     plugins = () => {
       const deps = { cssnano: this.cssnano };
-      return options.map((plugin) => deps[plugin]);
+      return config.map((plugin) => deps[plugin]);
     },
-    code = async (
+    css = async (
       result = this.PostCSS(plugins()).process(src, {
         from: src,
         to: src,
@@ -68,7 +65,7 @@ const VENDOR = {
       return processed.css;
     }
   ) {
-    return code();
+    return css();
   },
 };
 
