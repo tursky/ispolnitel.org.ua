@@ -32,6 +32,17 @@ const VENDOR = {
   componentHTMLTerser(src, options) {
     return this.HTMLTerser.minify(src, options);
   },
+
+  componentJSTerser(
+    src,
+    options,
+    code = async (result = this.JSTerser.minify(src, options)) => {
+      const processed = await result;
+      return processed.code;
+    }
+  ) {
+    return code();
+  },
 };
 
 /**
