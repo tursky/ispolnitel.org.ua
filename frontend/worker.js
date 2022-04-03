@@ -1,17 +1,8 @@
 'use strict';
 
 /**
- * https://www.npmjs.com/package/html-minifier-terser
- * https://www.npmjs.com/package/terser
- * https://www.npmjs.com/package/postcss
- */
-
-/**
  * DEPENDENCIES */
 
-const HTMLTerser = require('html-minifier-terser');
-const JSTerser = require('terser');
-const PostCSS = require('postcss');
 const path = require('path');
 const fs = require('fs');
 
@@ -247,8 +238,8 @@ const writeFile = (filepath, data) =>
 
 const handleCSS = async (file, options) => {
   try {
-    const content = await readFile(file);
-    const processed = await VENDOR.componentPostCSS(content, options);
+    const code = await readFile(file);
+    const processed = await VENDOR.componentPostCSS(code, options);
     await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
@@ -258,8 +249,8 @@ const handleCSS = async (file, options) => {
 
 const handleJS = async (file, options) => {
   try {
-    const content = await readFile(file);
-    const processed = await VENDOR.componentJSTerser(content, options);
+    const code = await readFile(file);
+    const processed = await VENDOR.componentJSTerser(code, options);
     await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
@@ -269,8 +260,8 @@ const handleJS = async (file, options) => {
 
 const handleHTML = async (file, options) => {
   try {
-    const content = await readFile(file);
-    const processed = await VENDOR.componentHTMLTerser(content, options);
+    const code = await readFile(file);
+    const processed = await VENDOR.componentHTMLTerser(code, options);
     await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
