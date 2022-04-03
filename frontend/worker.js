@@ -7,18 +7,15 @@ const path = require('path');
 const fs = require('fs');
 
 /**
- * 3rd-party software components
- *
- * https://www.npmjs.com/package/terser
- * https://www.npmjs.com/package/html-minifier-terser
- * https://www.npmjs.com/package/postcss
- * https://www.npmjs.com/package/cssnano */
+ * 3rd-party software components */
 
 const VENDOR = {
   JSTerser: require('terser'),
   HTMLTerser: require('html-minifier-terser'),
   PostCSS: require('postcss'),
   cssnano: require('cssnano'),
+
+  // https://www.npmjs.com/package/html-minifier-terser
 
   componentHTMLTerser(
     src,
@@ -27,6 +24,8 @@ const VENDOR = {
   ) {
     return html();
   },
+
+  // https://www.npmjs.com/package/terser
 
   componentJSTerser(
     src,
@@ -38,6 +37,9 @@ const VENDOR = {
   ) {
     return js();
   },
+
+  // https://www.npmjs.com/package/postcss
+  // https://www.npmjs.com/package/cssnano
 
   componentPostCSS(
     src,
