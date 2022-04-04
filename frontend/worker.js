@@ -238,39 +238,6 @@ const writeFile = (filepath, data) =>
     });
   });
 
-const handleCSS = async (file, options) => {
-  try {
-    const code = await readFile(file);
-    const processed = await VENDOR.componentPostCSS(code, options);
-    await writeFile(file, processed);
-  } catch (err) {
-    reportError(file, err);
-  }
-  reportSuccess(file);
-};
-
-const handleJS = async (file, options) => {
-  try {
-    const code = await readFile(file);
-    const processed = await VENDOR.componentJSTerser(code, options);
-    await writeFile(file, processed);
-  } catch (err) {
-    reportError(file, err);
-  }
-  reportSuccess(file);
-};
-
-const handleHTML = async (file, options) => {
-  try {
-    const code = await readFile(file);
-    const processed = await VENDOR.componentHTMLTerser(code, options);
-    await writeFile(file, processed);
-  } catch (err) {
-    reportError(file, err);
-  }
-  reportSuccess(file);
-};
-
 const metacomponent = async (file, options, process) => {
   try {
     const code = await readFile(file);
@@ -307,12 +274,6 @@ const metaencode = {
   JS: 'Λ',
   HTML: 'Β',
   CSS: 'Σ',
-};
-
-const schema = {
-  '.js': (file, options) => handleJS(file, options),
-  '.html': (file, options) => handleHTML(file, options),
-  '.css': (file, options) => handleCSS(file, options),
 };
 
 const types = {
