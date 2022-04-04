@@ -238,32 +238,10 @@ const writeFile = (filepath, data) =>
     });
   });
 
-const handleCSS = async (file, options) => {
+const metacomponent = async (file, options, process) => {
   try {
     const code = await readFile(file);
-    const processed = await VENDOR.componentPostCSS(code, options);
-    await writeFile(file, processed);
-  } catch (err) {
-    reportError(file, err);
-  }
-  reportSuccess(file);
-};
-
-const handleJS = async (file, options) => {
-  try {
-    const code = await readFile(file);
-    const processed = await VENDOR.componentJSTerser(code, options);
-    await writeFile(file, processed);
-  } catch (err) {
-    reportError(file, err);
-  }
-  reportSuccess(file);
-};
-
-const handleHTML = async (file, options) => {
-  try {
-    const code = await readFile(file);
-    const processed = await VENDOR.componentHTMLTerser(code, options);
+    const processed = await process(code, options);
     await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
@@ -274,10 +252,30 @@ const handleHTML = async (file, options) => {
 /**
  * MAIN */
 
-const schema = {
-  '.js': (file, options) => handleJS(file, options),
-  '.html': (file, options) => handleHTML(file, options),
-  '.css': (file, options) => handleCSS(file, options),
+const ϒ = VENDOR;
+
+const metaprocess = {
+  1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
+  2: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
+  3: (data, metadata) => ϒ.componentPostCSS(data, metadata),
+};
+
+const metaschema = {
+  λ: (x, y) => metaprocess[1](x, y),
+  β: (x, y) => metaprocess[2](x, y),
+  ς: (x, y) => metaprocess[3](x, y),
+};
+
+const metamodel = {
+  Λ: (x, y, fn = (x, y) => metaschema['λ'](x, y)) => metacomponent(x, y, fn),
+  Β: (x, y, fn = (x, y) => metaschema['β'](x, y)) => metacomponent(x, y, fn),
+  Σ: (x, y, fn = (x, y) => metaschema['ς'](x, y)) => metacomponent(x, y, fn),
+};
+
+const metaencode = {
+  JS: 'Λ',
+  HTML: 'Β',
+  CSS: 'Σ',
 };
 
 const types = {
@@ -297,12 +295,13 @@ const handler = (file, intention, options) => {
   }
 };
 
-const preprocess = (filepath, metadata) => {
-  const ext = path.extname(filepath);
-  const scenario = schema[ext];
-  const format = ext.slice(1).toUpperCase();
-  const instruction = metadata[format];
-  handler(filepath, scenario, instruction);
+const preprocess = (filepath, config) => {
+  const ext = path.extname(filepath).slice(1).toUpperCase();
+  const data = filepath;
+  const metadata = config[ext];
+  const name = metaencode[ext];
+  const scenario = metamodel[name];
+  handler(data, scenario, metadata);
 };
 
 const readDirectoryContent = (pathname) =>
