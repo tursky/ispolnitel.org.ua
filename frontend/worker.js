@@ -63,34 +63,33 @@ const VENDOR = {
 };
 
 /**
- * CONFIG */
+ * CONFIGURATIONS */
 
-const CONFIGURATIONS = {
-  ROOT: 'application/static',
-  OPTIONS: {
-    JS: { compress: false },
-    HTML: { collapseWhitespace: true, removeComments: true },
-    CSS: ['cssnano'],
-  },
-  IGNORE: [
-    'bundles',
-    'images',
-    'webfonts',
-    'docs',
-    'robots.txt',
-    '.xml',
-    '.php',
-    'libs.zip',
-  ],
-};
-
-const application = 'FRONTEND WORKER';
+const application = 'FRONTEND WORKER',
+  config = {
+    root: 'application/static',
+    options: {
+      JS: { compress: false },
+      HTML: { collapseWhitespace: true, removeComments: true },
+      CSS: ['cssnano'],
+    },
+    ignore: [
+      'bundles',
+      'images',
+      'webfonts',
+      'docs',
+      'robots.txt',
+      '.xml',
+      '.php',
+      'libs.zip',
+    ],
+  };
 
 /**
- * CONSOLE UI */
+ * CLI FEATURES, UI */
 
 const render = (output) => process.stdout.write(output);
-const preprint = (...array) => array.join('');
+const preprint = (...arr) => arr.join('');
 
 const UITypography = {
   text: {
@@ -137,7 +136,7 @@ const UITypography = {
 };
 
 /**
- * OUTPUT */
+ * CONSOLE OUTPUT */
 
 const start = (app, cli = UITypography) => {
   render(
@@ -157,7 +156,7 @@ const start = (app, cli = UITypography) => {
   );
 };
 
-const reportSuccess = (file, cli = UITypography) => {
+const printSuccess = (data, cli = UITypography) => {
   render(
     preprint(
       cli.color.cyan,
@@ -167,14 +166,14 @@ const reportSuccess = (file, cli = UITypography) => {
       cli.fn.draw(' - '),
       cli.display.reset,
       cli.color.blue,
-      cli.fn.draw(file),
+      cli.fn.draw(data),
       cli.fn.newline(1),
       cli.display.reset
     )
   );
 };
 
-const reportFailure = (data, cli = UITypography) => {
+const printFailure = (data, cli = UITypography) => {
   render(
     preprint(
       cli.color.blue,
@@ -182,14 +181,14 @@ const reportFailure = (data, cli = UITypography) => {
       cli.fn.newline(1),
       cli.fn.draw(`- ${data}`),
       cli.fn.newline(1),
-      cli.fn.draw('- Work completed...'),
+      cli.fn.draw('- Process completed...'),
       cli.fn.newline(1),
       cli.display.reset
     )
   );
 };
 
-const reportError = (file, err, cli = UITypography) => {
+const printError = (data, err, cli = UITypography) => {
   render(
     preprint(
       cli.color.red,
@@ -199,7 +198,7 @@ const reportError = (file, err, cli = UITypography) => {
       cli.fn.draw(' - '),
       cli.display.reset,
       cli.color.blue,
-      cli.fn.draw(file),
+      cli.fn.draw(data),
       cli.fn.newline(2),
       cli.color.red,
       cli.fn.draw(err.stack),
@@ -209,7 +208,7 @@ const reportError = (file, err, cli = UITypography) => {
   );
 };
 
-const reportSpentTime = (timer, cli = UITypography) => {
+const printSpentTime = (timer, cli = UITypography) => {
   render(
     preprint(
       cli.fn.newline(1),
@@ -224,16 +223,16 @@ const reportSpentTime = (timer, cli = UITypography) => {
 /**
  * BUSINESS LOGIC */
 
-const readFile = (filepath) =>
+const readFile = (sourcepath) =>
   new Promise((resolve, reject) => {
-    fs.readFile(filepath, 'utf8', (error, buffer) => {
+    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
       error ? reject(error) : resolve(buffer);
     });
   });
 
-const writeFile = (filepath, data) =>
+const writeFile = (sourcepath, data) =>
   new Promise((resolve, reject) => {
-    fs.writeFile(filepath, data, (error) => {
+    fs.writeFile(sourcepath, data, (error) => {
       error ? reject(error) : resolve('Successfully!');
     });
   });
@@ -244,13 +243,13 @@ const metacomponent = async (file, options, process) => {
     const processed = await process(code, options);
     await writeFile(file, processed);
   } catch (err) {
-    reportError(file, err);
+    printError(file, err);
   }
-  reportSuccess(file);
+  printSuccess(file);
 };
 
 /**
- * MAIN */
+ * MAIN LOGIC */
 
 const αλφάβητο = {
   β: 'HTML',
@@ -298,35 +297,35 @@ const types = {
     callback(JSON.stringify(fn(filepath, options))),
 };
 
-const handler = (file, intention, options) => {
+const handler = (file, options, intention) => {
   const type = typeof intention;
   if (type === 'function') {
     const serializer = types[type];
     serializer([intention, file, options], (intention) =>
-      handler(file, intention, options)
+      handler(file, options, intention)
     );
   }
 };
 
-const preprocess = (filepath, config) => {
-  const ext = path.extname(filepath).slice(1).toUpperCase();
-  const data = filepath;
+const preprocess = (sourcepath, config) => {
+  const ext = path.extname(sourcepath).slice(1).toUpperCase();
+  const data = sourcepath;
   const metadata = config[ext];
   const name = metadecode[ext];
   const scenario = metamodel[name];
-  handler(data, scenario, metadata);
+  handler(data, metadata, scenario);
 };
 
-const readDirectoryContent = (pathname) =>
+const readDirectoryContent = (sourcepath) =>
   new Promise((resolve, reject) => {
-    fs.readdir(pathname, (error, data) => {
+    fs.readdir(sourcepath, (error, data) => {
       error ? reject(error) : resolve(data);
     });
   });
 
-const readSourceDetails = (pathname) =>
+const readSourceDetails = (sourcepath) =>
   new Promise((resolve, reject) => {
-    fs.lstat(pathname, (error, data) => {
+    fs.lstat(sourcepath, (error, data) => {
       error ? reject(error) : resolve(data);
     });
   });
@@ -334,17 +333,17 @@ const readSourceDetails = (pathname) =>
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
 
-const pathfinder = async (root, exclusions, metadata) => {
+const pathfinder = async (root, filter, metadata) => {
   const src = await readDirectoryContent(root);
   for (let source of src) {
     const sourcepath = path.join(root, source);
-    if (verifySourceExclusion(sourcepath, exclusions)) continue;
+    if (verifySourceExclusion(sourcepath, filter)) continue;
     source = await readSourceDetails(sourcepath);
     if (source.isFile()) {
       preprocess(sourcepath, metadata);
       continue;
     }
-    pathfinder(sourcepath, exclusions, metadata);
+    pathfinder(sourcepath, filter, metadata);
   }
 };
 
@@ -375,11 +374,11 @@ const verifyDirectoryExists = (path) =>
   });
 
 const main = async (...args) => {
-  const [dir, filter, config] = args;
+  const [directory, exclusions, configurations] = args;
   try {
     start(application);
-    await verifyDirectoryExists(dir);
-    pathfinder(dir, filter, config);
+    await verifyDirectoryExists(directory);
+    pathfinder(directory, exclusions, configurations);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
@@ -388,10 +387,10 @@ const main = async (...args) => {
 };
 
 const run = async (settings) => {
-  const outcome = await main(settings.ROOT, settings.IGNORE, settings.OPTIONS);
+  const outcome = await main(settings.root, settings.ignore, settings.options);
   if (outcome === EXIT.FAILURE) {
     const info = getExitInformation();
-    reportFailure(info);
+    printFailure(info);
   }
   return outcome;
 };
@@ -406,17 +405,17 @@ if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
       msg: 'Data to Worker',
-      config: JSON.stringify(CONFIGURATIONS),
+      config: JSON.stringify(config),
       threadStart: '',
     },
   });
 
-  const STATISTICS = {
+  const statistics = {
     TIMER: 0,
   };
 
-  worker.on('message', (msg) => Reflect.set(STATISTICS, 'TIMER', msg));
-  worker.on('exit', () => reportSpentTime(STATISTICS.TIMER));
+  worker.on('message', (msg) => Reflect.set(statistics, 'TIMER', msg));
+  worker.on('exit', () => printSpentTime(statistics.TIMER));
   worker.on('error', (err) => console.log(err.stack));
 } else {
   // console.dir({ worker: threads });
