@@ -138,84 +138,90 @@ const UITypography = {
 /**
  * CONSOLE OUTPUT */
 
-const start = (app, cli = UITypography) => {
+const start = (app, ui = UITypography) => {
   render(
     preprint(
-      cli.display.clear,
-      cli.text.boldfont,
-      cli.color.white,
-      cli.background.blue,
-      cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
-      cli.fn.newline(1),
-      cli.fn.draw(cli.fn.space(5) + app + cli.fn.space(5)),
-      cli.fn.newline(1),
-      cli.fn.draw(cli.fn.space(5) + cli.fn.space(app.length) + cli.fn.space(5)),
-      cli.fn.newline(3),
-      cli.display.reset
+      ui['display'].clear,
+      ui['text'].boldfont,
+      ui['color'].white,
+      ui['background'].blue,
+
+      ui['fn'].draw(
+        ui['fn'].space(5) + ui['fn'].space(app.length) + ui['fn'].space(5)
+      ),
+      ui['fn'].newline(1),
+      ui['fn'].draw(ui['fn'].space(5) + app + ui['fn'].space(5)),
+      ui['fn'].newline(1),
+      ui['fn'].draw(
+        ui['fn'].space(5) + ui['fn'].space(app.length) + ui['fn'].space(5)
+      ),
+
+      ui['fn'].newline(3),
+      ui['display'].reset
     )
   );
 };
 
-const printSuccess = (data, cli = UITypography) => {
+const printSuccess = (data, ui = UITypography) => {
   render(
     preprint(
-      cli.color.cyan,
-      cli.fn.draw('[ok]'),
-      cli.color.blue,
-      cli.text.dim,
-      cli.fn.draw(' - '),
-      cli.display.reset,
-      cli.color.blue,
-      cli.fn.draw(data),
-      cli.fn.newline(1),
-      cli.display.reset
+      ui['color'].cyan,
+      ui['fn'].draw('[ok]'),
+      ui['color'].blue,
+      ui['text'].dim,
+      ui['fn'].draw(' - '),
+      ui['display'].reset,
+      ui['color'].blue,
+      ui['fn'].draw(data),
+      ui['fn'].newline(1),
+      ui['display'].reset
     )
   );
 };
 
-const printFailure = (data, cli = UITypography) => {
+const printFailure = (data, ui = UITypography) => {
   render(
     preprint(
-      cli.color.blue,
-      cli.fn.draw('- Failure❗️'),
-      cli.fn.newline(1),
-      cli.fn.draw(`- ${data}`),
-      cli.fn.newline(1),
-      cli.fn.draw('- Process completed...'),
-      cli.fn.newline(1),
-      cli.display.reset
+      ui['color'].blue,
+      ui['fn'].draw('- Failure❗️'),
+      ui['fn'].newline(1),
+      ui['fn'].draw(`- ${data}`),
+      ui['fn'].newline(1),
+      ui['fn'].draw('- Process completed...'),
+      ui['fn'].newline(1),
+      ui['display'].reset
     )
   );
 };
 
-const printError = (data, err, cli = UITypography) => {
+const printError = (data, err, ui = UITypography) => {
   render(
     preprint(
-      cli.color.red,
-      cli.fn.draw('[ok]'),
-      cli.color.blue,
-      cli.text.dim,
-      cli.fn.draw(' - '),
-      cli.display.reset,
-      cli.color.blue,
-      cli.fn.draw(data),
-      cli.fn.newline(2),
-      cli.color.red,
-      cli.fn.draw(err.stack),
-      cli.fn.newline(2),
-      cli.display.reset
+      ui['color'].red,
+      ui['fn'].draw('[ok]'),
+      ui['color'].blue,
+      ui['text'].dim,
+      ui['fn'].draw(' - '),
+      ui['display'].reset,
+      ui['color'].blue,
+      ui['fn'].draw(data),
+      ui['fn'].newline(2),
+      ui['color'].red,
+      ui['fn'].draw(err.stack),
+      ui['fn'].newline(2),
+      ui['display'].reset
     )
   );
 };
 
-const printSpentTime = (timer, cli = UITypography) => {
+const printSpentTime = (timer, ui = UITypography) => {
   render(
     preprint(
-      cli.fn.newline(1),
-      cli.color.cyan,
-      cli.fn.draw(`Time spent: ${new Date() - timer} ms`),
-      cli.fn.newline(2),
-      cli.display.reset
+      ui['fn'].newline(1),
+      ui['color'].cyan,
+      ui['fn'].draw(`Time spent: ${new Date() - timer} ms`),
+      ui['fn'].newline(2),
+      ui['display'].reset
     )
   );
 };
