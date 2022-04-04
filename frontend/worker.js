@@ -332,12 +332,13 @@ const handler = (file, intention, options) => {
   }
 };
 
-const preprocess = (filepath, metadata) => {
-  const ext = path.extname(filepath);
-  const scenario = schema[ext];
-  const format = ext.slice(1).toUpperCase();
-  const instruction = metadata[format];
-  handler(filepath, scenario, instruction);
+const preprocess = (filepath, config) => {
+  const ext = path.extname(filepath).slice(1).toUpperCase();
+  const data = filepath;
+  const metadata = config[ext];
+  const name = metaencode[ext];
+  const scenario = metamodel[name];
+  handler(data, scenario, metadata);
 };
 
 const readDirectoryContent = (pathname) =>
