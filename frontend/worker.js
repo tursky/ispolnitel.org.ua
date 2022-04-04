@@ -252,30 +252,43 @@ const metacomponent = async (file, options, process) => {
 /**
  * MAIN */
 
-const ϒ = VENDOR;
-
-const metaprocess = {
-  1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
-  2: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
-  3: (data, metadata) => ϒ.componentPostCSS(data, metadata),
+const αλφάβητο = {
+  β: 'HTML',
+  λ: 'JS',
+  ς: 'CSS',
+  ϒ: VENDOR,
 };
 
-const metaschema = {
-  λ: (x, y) => metaprocess[1](x, y),
-  β: (x, y) => metaprocess[2](x, y),
-  ς: (x, y) => metaprocess[3](x, y),
+const { λ, β, ς, ϒ } = αλφάβητο;
+
+const schema = {
+  JS: {
+    id: {
+      1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
+    },
+  },
+  HTML: {
+    id: {
+      1: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
+    },
+  },
+  CSS: {
+    id: {
+      1: (data, metadata) => ϒ.componentPostCSS(data, metadata),
+    },
+  },
 };
 
 const metamodel = {
-  Λ: (x, y, fn = (x, y) => metaschema['λ'](x, y)) => metacomponent(x, y, fn),
-  Β: (x, y, fn = (x, y) => metaschema['β'](x, y)) => metacomponent(x, y, fn),
-  Σ: (x, y, fn = (x, y) => metaschema['ς'](x, y)) => metacomponent(x, y, fn),
+  λ: (x, y, fn = (x, y) => schema[λ]['id'][1](x, y)) => metacomponent(x, y, fn),
+  β: (x, y, fn = (x, y) => schema[β]['id'][1](x, y)) => metacomponent(x, y, fn),
+  ς: (x, y, fn = (x, y) => schema[ς]['id'][1](x, y)) => metacomponent(x, y, fn),
 };
 
-const metaencode = {
-  JS: 'Λ',
-  HTML: 'Β',
-  CSS: 'Σ',
+const metadecode = {
+  HTML: 'β',
+  JS: 'λ',
+  CSS: 'ς',
 };
 
 const types = {
@@ -299,7 +312,7 @@ const preprocess = (filepath, config) => {
   const ext = path.extname(filepath).slice(1).toUpperCase();
   const data = filepath;
   const metadata = config[ext];
-  const name = metaencode[ext];
+  const name = metadecode[ext];
   const scenario = metamodel[name];
   handler(data, scenario, metadata);
 };
