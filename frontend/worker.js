@@ -271,6 +271,17 @@ const handleHTML = async (file, options) => {
   reportSuccess(file);
 };
 
+const metacomponent = async (file, options, process) => {
+  try {
+    const code = await readFile(file);
+    const processed = await process(code, options);
+    await writeFile(file, processed);
+  } catch (err) {
+    reportError(file, err);
+  }
+  reportSuccess(file);
+};
+
 /**
  * MAIN */
 
