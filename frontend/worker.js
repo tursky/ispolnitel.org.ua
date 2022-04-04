@@ -274,6 +274,12 @@ const handleHTML = async (file, options) => {
 /**
  * MAIN */
 
+const metaschema = {
+  λ: (x, y) => metaprocess[1](x, y),
+  β: (x, y) => metaprocess[2](x, y),
+  ς: (x, y) => metaprocess[3](x, y),
+};
+
 const metamodel = {
   JS: (x, y, fn = (x, y) => metaschema['λ'](x, y)) => metacomponent(x, y, fn),
   HTML: (x, y, fn = (x, y) => metaschema['β'](x, y)) => metacomponent(x, y, fn),
