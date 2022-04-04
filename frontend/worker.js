@@ -252,10 +252,12 @@ const metacomponent = async (file, options, process) => {
 /**
  * MAIN */
 
+const ϒ = VENDOR;
+
 const metaprocess = {
-  1: (data, metadata) => VENDOR.componentJSTerser(data, metadata),
-  2: (data, metadata) => VENDOR.componentHTMLTerser(data, metadata),
-  3: (data, metadata) => VENDOR.componentPostCSS(data, metadata),
+  1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
+  2: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
+  3: (data, metadata) => ϒ.componentPostCSS(data, metadata),
 };
 
 const metaschema = {
