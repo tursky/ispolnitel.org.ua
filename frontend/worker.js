@@ -298,9 +298,15 @@ const metaschema = {
 };
 
 const metamodel = {
-  JS: (x, y, fn = (x, y) => metaschema['λ'](x, y)) => metacomponent(x, y, fn),
-  HTML: (x, y, fn = (x, y) => metaschema['β'](x, y)) => metacomponent(x, y, fn),
-  CSS: (x, y, fn = (x, y) => metaschema['ς'](x, y)) => metacomponent(x, y, fn),
+  Λ: (x, y, fn = (x, y) => metaschema['λ'](x, y)) => metacomponent(x, y, fn),
+  Β: (x, y, fn = (x, y) => metaschema['β'](x, y)) => metacomponent(x, y, fn),
+  Σ: (x, y, fn = (x, y) => metaschema['ς'](x, y)) => metacomponent(x, y, fn),
+};
+
+const metaencode = {
+  JS: 'Λ',
+  HTML: 'Β',
+  CSS: 'Σ',
 };
 
 const schema = {
