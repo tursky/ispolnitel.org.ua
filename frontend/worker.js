@@ -274,6 +274,12 @@ const handleHTML = async (file, options) => {
 /**
  * MAIN */
 
+const metaprocess = {
+  1: (data, metadata) => VENDOR.componentJSTerser(data, metadata),
+  2: (data, metadata) => VENDOR.componentHTMLTerser(data, metadata),
+  3: (data, metadata) => VENDOR.componentPostCSS(data, metadata),
+};
+
 const metaschema = {
   λ: (x, y) => metaprocess[1](x, y),
   β: (x, y) => metaprocess[2](x, y),
