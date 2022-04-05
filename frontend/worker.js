@@ -285,21 +285,9 @@ const metaprocess = {
 };
 
 const schema = {
-  JS: {
-    id: {
-      1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
-    },
-  },
-  HTML: {
-    id: {
-      1: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
-    },
-  },
-  CSS: {
-    id: {
-      1: (data, metadata) => ϒ.componentPostCSS(data, metadata),
-    },
-  },
+  A: (x, y) => metaprocess[α]['id'][1](x, y),
+  B: (x, y) => metaprocess[β]['id'][1](x, y),
+  C: (x, y) => metaprocess[ς]['id'][1](x, y),
 };
 
 const metamodel = {
