@@ -297,6 +297,8 @@ const metamodel = (
       metacomponent(χ, ϒ, φ)
 ) => λ();
 
+const encode = (ϰ) => ({ JS: 'A', HTML: 'B', CSS: 'C' }[ϰ]);
+
 const metadecode = {
   HTML: 'β',
   JS: 'λ',
