@@ -308,16 +308,16 @@ const metadecode = {
 const types = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
   undefined: (callback) => callback('not found'),
-  function: ([fn, filepath, options], callback) =>
-    callback(JSON.stringify(fn(filepath, options))),
+  function: ([fn, src, config], callback) =>
+    callback(JSON.stringify(fn(src, config))),
 };
 
-const handler = (file, options, intention) => {
+const metahandler = (data, metadata, intention) => {
   const type = typeof intention;
   if (type === 'function') {
     const serializer = types[type];
-    serializer([intention, file, options], (intention) =>
-      handler(file, options, intention)
+    serializer([intention, data, metadata], (intention) =>
+      metahandler(data, metadata, intention)
     );
   }
 };
@@ -329,7 +329,7 @@ const preprocess = (sourcepath, config) => {
   const file = sourcepath;
   const qr = encode(srcformat);
   const scenario = metamodel(qr);
-  handler(file, options, scenario);
+  metahandler(file, options, scenario);
 };
 
 const readDirectoryContent = (sourcepath) =>
