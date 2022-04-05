@@ -258,13 +258,13 @@ const metacomponent = async (file, options, process) => {
  * MAIN LOGIC */
 
 const αλφάβητο = {
-  β: 'HTML',
-  λ: 'JS',
-  ς: 'CSS',
+  α: 'A',
+  β: 'B',
+  ς: 'C',
   ϒ: VENDOR,
 };
 
-const { λ, β, ς, ϒ } = αλφάβητο;
+const { α, β, ς, ϒ } = αλφάβητο;
 
 const metaprocess = {
   A: {
