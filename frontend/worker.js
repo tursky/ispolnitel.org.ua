@@ -323,12 +323,13 @@ const handler = (file, options, intention) => {
 };
 
 const preprocess = (sourcepath, config) => {
-  const ext = path.extname(sourcepath).slice(1).toUpperCase();
-  const data = sourcepath;
-  const metadata = config[ext];
-  const name = metadecode[ext];
-  const scenario = metamodel[name];
-  handler(data, metadata, scenario);
+  const ext = path.extname(sourcepath);
+  const srcformat = ext.slice(1).toUpperCase();
+  const options = config[srcformat];
+  const file = sourcepath;
+  const qr = encode(srcformat);
+  const scenario = metamodel(qr);
+  handler(file, options, scenario);
 };
 
 const readDirectoryContent = (sourcepath) =>
