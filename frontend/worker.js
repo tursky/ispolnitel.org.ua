@@ -266,6 +266,24 @@ const αλφάβητο = {
 
 const { λ, β, ς, ϒ } = αλφάβητο;
 
+const metaprocess = {
+  A: {
+    id: {
+      1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
+    },
+  },
+  B: {
+    id: {
+      1: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
+    },
+  },
+  C: {
+    id: {
+      1: (data, metadata) => ϒ.componentPostCSS(data, metadata),
+    },
+  },
+};
+
 const schema = {
   JS: {
     id: {
