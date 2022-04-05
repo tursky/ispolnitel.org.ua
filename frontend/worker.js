@@ -290,11 +290,12 @@ const schema = {
   C: (x, y) => metaprocess[ς]['id'][1](x, y),
 };
 
-const metamodel = {
-  λ: (x, y, fn = (x, y) => schema[λ]['id'][1](x, y)) => metacomponent(x, y, fn),
-  β: (x, y, fn = (x, y) => schema[β]['id'][1](x, y)) => metacomponent(x, y, fn),
-  ς: (x, y, fn = (x, y) => schema[ς]['id'][1](x, y)) => metacomponent(x, y, fn),
-};
+const metamodel = (
+  ϰ,
+  λ = () =>
+    (χ, ϒ, φ = (χ, ϒ) => schema[ϰ](χ, ϒ)) =>
+      metacomponent(χ, ϒ, φ)
+) => λ();
 
 const metadecode = {
   HTML: 'β',
