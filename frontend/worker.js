@@ -299,12 +299,6 @@ const metamodel = (
 
 const encode = (ϰ) => ({ JS: 'A', HTML: 'B', CSS: 'C' }[ϰ]);
 
-const metadecode = {
-  HTML: 'β',
-  JS: 'λ',
-  CSS: 'ς',
-};
-
 const types = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
   undefined: (callback) => callback('not found'),
