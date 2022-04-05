@@ -258,68 +258,72 @@ const metacomponent = async (file, options, process) => {
  * MAIN LOGIC */
 
 const αλφάβητο = {
-  β: 'HTML',
-  λ: 'JS',
-  ς: 'CSS',
+  α: 'A',
+  β: 'B',
+  ς: 'C',
   ϒ: VENDOR,
 };
 
-const { λ, β, ς, ϒ } = αλφάβητο;
+const { α, β, ς, ϒ } = αλφάβητο;
 
-const schema = {
-  JS: {
+const metaprocess = {
+  A: {
     id: {
       1: (data, metadata) => ϒ.componentJSTerser(data, metadata),
     },
   },
-  HTML: {
+  B: {
     id: {
       1: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
     },
   },
-  CSS: {
+  C: {
     id: {
       1: (data, metadata) => ϒ.componentPostCSS(data, metadata),
     },
   },
 };
 
-const metamodel = {
-  λ: (x, y, fn = (x, y) => schema[λ]['id'][1](x, y)) => metacomponent(x, y, fn),
-  β: (x, y, fn = (x, y) => schema[β]['id'][1](x, y)) => metacomponent(x, y, fn),
-  ς: (x, y, fn = (x, y) => schema[ς]['id'][1](x, y)) => metacomponent(x, y, fn),
+const schema = {
+  A: (x, y) => metaprocess[α]['id'][1](x, y),
+  B: (x, y) => metaprocess[β]['id'][1](x, y),
+  C: (x, y) => metaprocess[ς]['id'][1](x, y),
 };
 
-const metadecode = {
-  HTML: 'β',
-  JS: 'λ',
-  CSS: 'ς',
-};
+const metamodel = (
+  ϰ,
+  λ = () =>
+    (χ, ϒ, φ = (χ, ϒ) => schema[ϰ](χ, ϒ)) =>
+      metacomponent(χ, ϒ, φ)
+) => λ();
+
+const encode = (ϰ) => ({ JS: 'A', HTML: 'B', CSS: 'C' }[ϰ]);
 
 const types = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
   undefined: (callback) => callback('not found'),
-  function: ([fn, filepath, options], callback) =>
-    callback(JSON.stringify(fn(filepath, options))),
+  function: ([fn, src, config], callback) =>
+    callback(JSON.stringify(fn(src, config))),
 };
 
-const handler = (file, options, intention) => {
+const metahandler = (data, metadata, intention) => {
   const type = typeof intention;
   if (type === 'function') {
     const serializer = types[type];
-    serializer([intention, file, options], (intention) =>
-      handler(file, options, intention)
+    serializer([intention, data, metadata], (intention) =>
+      metahandler(data, metadata, intention)
     );
   }
 };
 
 const preprocess = (sourcepath, config) => {
-  const ext = path.extname(sourcepath).slice(1).toUpperCase();
-  const data = sourcepath;
-  const metadata = config[ext];
-  const name = metadecode[ext];
-  const scenario = metamodel[name];
-  handler(data, metadata, scenario);
+  const ext = path.extname(sourcepath);
+  const srcformat = ext.slice(1).toUpperCase();
+  const options = config[srcformat];
+  const file = sourcepath;
+  const qr = encode(srcformat);
+  const scenario = metamodel(qr);
+  metahandler(file, options, scenario);
 };
 
 const readDirectoryContent = (sourcepath) =>
