@@ -255,7 +255,7 @@ const metacomponent = async (file, options, process) => {
 };
 
 /**
- * MAIN LOGIC */
+ * MAIN */
 
 const αλφάβητο = {
   α: 'A',
