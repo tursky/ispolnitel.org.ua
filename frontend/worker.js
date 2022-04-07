@@ -49,7 +49,7 @@ const VENDOR = {
       return config.map((plugin) => deps[plugin]);
     },
     css = async (
-      result = this.PostCSS(plugins()).process(src, {
+      result = PostCSS(plugins()).process(src, {
         from: src,
         to: src,
       })
@@ -251,6 +251,10 @@ const metacomponent = async (file, options, process) => {
 
   catch (e) {
     reportError(file, e);
+
+    if (e instanceof ReferenceError) {
+      console.log('[er]');
+    }
   }
 
   finally {
