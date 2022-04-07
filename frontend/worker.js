@@ -290,6 +290,8 @@ const schema = {
   C: (x, y) => metaprocess[ς]['id'][1](x, y),
 };
 
+const commutator = (x, y, ϰ) => schema[ϰ](x, y);
+
 const metamodel = (
   ϰ,
   λ = () =>
