@@ -281,7 +281,7 @@ const metamodel = (
       metacomponent(χ, ϒ, φ)
 ) => λ();
 
-const encode = (ζ) => ({ JS: 'A', HTML: 'B', CSS: 'C' }[ζ]);
+const encode = (ζ) => ({ JS: α, HTML: β, CSS: ς }[ζ]);
 
 const types = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
