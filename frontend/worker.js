@@ -272,16 +272,16 @@ const schema = {
   C: (data, metadata) => ϒ.componentPostCSS(data, metadata),
 };
 
-const commutator = (x, y, ϰ) => schema[ϰ](x, y);
+const commutator = (x, y, ζ) => schema[ζ](x, y);
 
 const metamodel = (
-  ϰ,
+  ζ,
   λ = () =>
-    (χ, ϒ, φ = (χ, ϒ) => commutator(χ, ϒ, ϰ)) =>
+    (χ, ϒ, φ = (χ, ϒ) => commutator(χ, ϒ, ζ)) =>
       metacomponent(χ, ϒ, φ)
 ) => λ();
 
-const encode = (ϰ) => ({ JS: 'A', HTML: 'B', CSS: 'C' }[ϰ]);
+const encode = (ζ) => ({ JS: 'A', HTML: 'B', CSS: 'C' }[ζ]);
 
 const types = {
   object: ([obj], callback) => callback(JSON.stringify(obj)),
