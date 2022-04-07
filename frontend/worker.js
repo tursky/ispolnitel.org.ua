@@ -173,6 +173,7 @@ const informSuccess = (data, ui = CLITypography) => {
       ui.display.reset
     )
   );
+  return true;
 };
 
 const informFailure = (data, ui = CLITypography) => {
@@ -240,13 +241,22 @@ const writeFile = (sourcepath, data) =>
   });
 
 const metacomponent = async (file, options, process) => {
+  let result;
+
   try {
     const code = await readFile(file);
     const processed = await process(code, options);
-    await writeFile(file, processed);
-    informSuccess(file);
-  } catch (err) {
-    reportError(file, err);
+    result = await writeFile(file, processed);
+  }
+
+  catch (e) {
+    reportError(file, e);
+  }
+
+  finally {
+    if (result === 'Successfully!') {
+      informSuccess(file);
+    }
   }
 };
 
