@@ -285,9 +285,9 @@ const metaprocess = {
 };
 
 const schema = {
-  A: (x, y) => metaprocess[α]['id'][1](x, y),
-  B: (x, y) => metaprocess[β]['id'][1](x, y),
-  C: (x, y) => metaprocess[ς]['id'][1](x, y),
+  A: (data, metadata) => ϒ.componentJSTerser(data, metadata),
+  B: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
+  C: (data, metadata) => ϒ.componentPostCSS(data, metadata),
 };
 
 const commutator = (x, y, ϰ) => schema[ϰ](x, y);
@@ -295,7 +295,7 @@ const commutator = (x, y, ϰ) => schema[ϰ](x, y);
 const metamodel = (
   ϰ,
   λ = () =>
-    (χ, ϒ, φ = (χ, ϒ) => schema[ϰ](χ, ϒ)) =>
+    (χ, ϒ, φ = (χ, ϒ) => commutator(χ, ϒ, ϰ)) =>
       metacomponent(χ, ϒ, φ)
 ) => λ();
 
