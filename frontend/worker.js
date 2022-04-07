@@ -255,7 +255,12 @@ const metacomponent = async (file, options, process) => {
     reportError(file, e);
 
     if (e instanceof ReferenceError) {
-      console.log('[er]');
+			const list = ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano']
+			const err = JSON.stringify(e.stack);
+			const data = list.find(cause => err.includes(cause));
+			const srcformat = path.extname(file).slice(1).toUpperCase();
+
+      console.log(`[er] - Cause in the ${data}/${srcformat} file`);
     }
   }
 
