@@ -256,9 +256,17 @@ const metacomponent = async (file, options, process) => {
       const list = ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'];
       const err = JSON.stringify(e.stack);
       const data = list.find((cause) => err.includes(cause));
-      const srcformat = path.extname(file).slice(1).toUpperCase();
 
-      console.log(`[er] - Cause in the ${data}/${srcformat} file`);
+      const conformity = {
+        JSTerser: 'JS',
+        HTMLTerser: 'HTML',
+        PostCSS: 'CSS',
+        cssnano: 'CSS',
+      };
+
+      const srcformat = conformity[data]
+
+      console.log(`[er] - ${data} fail / in ${srcformat} file`);
 
       const schema = {
         CSS: (src) => src.split('\n').reduce((acc, line) => acc + line.trim()),
