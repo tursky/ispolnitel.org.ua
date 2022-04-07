@@ -248,10 +248,10 @@ const metacomponent = async (file, options, process) => {
     const code = await readFile(file);
     const processed = await process(code, options);
     await writeFile(file, processed);
+    printSuccess(file);
   } catch (err) {
     printError(file, err);
   }
-  printSuccess(file);
 };
 
 /**
