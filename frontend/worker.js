@@ -91,7 +91,7 @@ const application = 'FRONTEND WORKER',
 const render = (output) => process.stdout.write(output);
 const preprint = (...arr) => arr.join('');
 
-const UITypography = {
+const CLITypography = {
   text: {
     boldfont: '\x1b[1m',
     hidden: '\x1b[8m',
@@ -138,90 +138,86 @@ const UITypography = {
 /**
  * CONSOLE OUTPUT */
 
-const start = (app, ui = UITypography) => {
+const start = (app, ui = CLITypography) => {
   render(
     preprint(
-      ui['display'].clear,
-      ui['text'].boldfont,
-      ui['color'].white,
-      ui['background'].blue,
+      ui.display.clear,
+      ui.text.boldfont,
+      ui.color.white,
+      ui.background.blue,
 
-      ui['fn'].draw(
-        ui['fn'].space(5) + ui['fn'].space(app.length) + ui['fn'].space(5)
-      ),
-      ui['fn'].newline(1),
-      ui['fn'].draw(ui['fn'].space(5) + app + ui['fn'].space(5)),
-      ui['fn'].newline(1),
-      ui['fn'].draw(
-        ui['fn'].space(5) + ui['fn'].space(app.length) + ui['fn'].space(5)
-      ),
+      ui.fn.draw(ui.fn.space(5) + ui.fn.space(app.length) + ui.fn.space(5)),
+      ui.fn.newline(1),
+      ui.fn.draw(ui.fn.space(5) + app + ui.fn.space(5)),
+      ui.fn.newline(1),
+      ui.fn.draw(ui.fn.space(5) + ui.fn.space(app.length) + ui.fn.space(5)),
 
-      ui['fn'].newline(3),
-      ui['display'].reset
+      ui.fn.newline(3),
+      ui.display.reset
     )
   );
 };
 
-const printSuccess = (data, ui = UITypography) => {
+const informSuccess = (data, ui = CLITypography) => {
   render(
     preprint(
-      ui['color'].cyan,
-      ui['fn'].draw('[ok]'),
-      ui['color'].blue,
-      ui['text'].dim,
-      ui['fn'].draw(' - '),
-      ui['display'].reset,
-      ui['color'].blue,
-      ui['fn'].draw(data),
-      ui['fn'].newline(1),
-      ui['display'].reset
+      ui.color.cyan,
+      ui.fn.draw('[ok]'),
+      ui.color.blue,
+      ui.text.dim,
+      ui.fn.draw(' - '),
+      ui.display.reset,
+      ui.color.blue,
+      ui.fn.draw(data),
+      ui.fn.newline(1),
+      ui.display.reset
     )
   );
 };
 
-const printFailure = (data, ui = UITypography) => {
+const informFailure = (data, ui = CLITypography) => {
   render(
     preprint(
-      ui['color'].blue,
-      ui['fn'].draw('- Failure❗️'),
-      ui['fn'].newline(1),
-      ui['fn'].draw(`- ${data}`),
-      ui['fn'].newline(1),
-      ui['fn'].draw('- Process completed...'),
-      ui['fn'].newline(1),
-      ui['display'].reset
+      ui.color.blue,
+      ui.fn.draw('- Failure❗️'),
+      ui.fn.newline(1),
+      ui.fn.draw(`- ${data}`),
+      ui.fn.newline(1),
+      ui.fn.draw('- Process completed...'),
+      ui.fn.newline(1),
+      ui.display.reset
     )
   );
 };
 
-const printError = (data, err, ui = UITypography) => {
+const reportError = (data, err, ui = CLITypography) => {
   render(
     preprint(
-      ui['color'].red,
-      ui['fn'].draw('[ok]'),
-      ui['color'].blue,
-      ui['text'].dim,
-      ui['fn'].draw(' - '),
-      ui['display'].reset,
-      ui['color'].blue,
-      ui['fn'].draw(data),
-      ui['fn'].newline(2),
-      ui['color'].red,
-      ui['fn'].draw(err.stack),
-      ui['fn'].newline(2),
-      ui['display'].reset
+      ui.color.red,
+      ui.fn.draw('[ok]'),
+      ui.color.blue,
+      ui.text.dim,
+      ui.fn.draw(' - '),
+      ui.display.reset,
+      ui.color.blue,
+      ui.fn.draw(data),
+      ui.fn.newline(2),
+      ui.color.red,
+      ui.fn.draw(err.stack),
+      ui.fn.newline(2),
+      ui.display.reset
     )
   );
 };
 
-const printSpentTime = (timer, ui = UITypography) => {
+const printSpentTime = (timer, ui = CLITypography) => {
   render(
     preprint(
-      ui['fn'].newline(1),
-      ui['color'].cyan,
-      ui['fn'].draw(`Time spent: ${new Date() - timer} ms`),
-      ui['fn'].newline(2),
-      ui['display'].reset
+      ui.fn.newline(1),
+      ui.color.cyan,
+      ui.fn.draw(`Time spent: ${new Date() - timer} ms`),
+      ui.fn.newline(2),
+      ui.display.reset
     )
   );
 };
@@ -248,9 +244,9 @@ const metacomponent = async (file, options, process) => {
     const code = await readFile(file);
     const processed = await process(code, options);
     await writeFile(file, processed);
-    printSuccess(file);
+    informSuccess(file);
   } catch (err) {
-    printError(file, err);
+    reportError(file, err);
   }
 };
 
@@ -383,8 +379,8 @@ const main = async (...args) => {
 const run = async (settings) => {
   const outcome = await main(settings.root, settings.ignore, settings.options);
   if (outcome === EXIT.FAILURE) {
-    const info = getExitInformation();
-    printFailure(info);
+    const data = getExitInformation();
+    informFailure(data);
   }
   return outcome;
 };
