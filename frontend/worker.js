@@ -241,11 +241,13 @@ const writeFile = (sourcepath, data) =>
   });
 
 const metacomponent = async (file, options, process) => {
-  let result;
+  let result = null;
+  let code = null;
+  let processed = null;
 
   try {
-    const code = await readFile(file);
-    const processed = await process(code, options);
+    code = await readFile(file);
+    processed = await process(code, options);
     result = await writeFile(file, processed);
   }
 
