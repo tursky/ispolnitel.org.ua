@@ -249,22 +249,29 @@ const metacomponent = async (file, options, process) => {
     code = await readFile(file);
     processed = await process(code, options);
     result = await writeFile(file, processed);
-  }
-
-  catch (e) {
+  } catch (e) {
     reportError(file, e);
 
     if (e instanceof ReferenceError) {
-			const list = ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano']
-			const err = JSON.stringify(e.stack);
-			const data = list.find(cause => err.includes(cause));
-			const srcformat = path.extname(file).slice(1).toUpperCase();
+      const list = ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'];
+      const err = JSON.stringify(e.stack);
+      const data = list.find((cause) => err.includes(cause));
+      const srcformat = path.extname(file).slice(1).toUpperCase();
 
       console.log(`[er] - Cause in the ${data}/${srcformat} file`);
-    }
-  }
 
-  finally {
+      const schema = {
+        CSS: (src) => src.split('\n').reduce((acc, line) => acc + line.trim()),
+      };
+
+      const rehandle = schema[srcformat];
+      result = await writeFile(file, rehandle(code));
+
+      if (result === 'Successfully!') {
+        console.log(result);
+      }
+    }
+  } finally {
     if (result === 'Successfully!') {
       informSuccess(file);
     }
