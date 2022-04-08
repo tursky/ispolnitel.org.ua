@@ -297,7 +297,7 @@ const metacomponent = async (file, options, process) => {
     if (result === 'Successfully!') {
       const srcformat = path.extname(file).slice(1).toUpperCase();
       console.log(
-        `\x1b[1;37m[er] - Import substitution completed! ${srcformat} processing is done by native software.\x1b[0m`
+        `\x1b[1;37m[ok] - Import substitution completed successfully! ${srcformat} processing is done by native software.\x1b[0m`
       );
     }
   } finally {
