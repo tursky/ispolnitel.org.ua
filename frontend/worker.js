@@ -267,9 +267,9 @@ const componentImportSubstitution = (
     C: (source) =>
       source.split('\n').reduce((lines, line) => lines + line.trim()),
   },
+  metaschema = schema,
   identifyCase = () => encode(casemap[data]),
   findSolution = (component) => nativeSoftwareImplementations[component],
-  metaschema = schema,
   rethinkMetaschema = (field, value) => Reflect.set(metaschema, field, value),
   trySolve = () => {
     const task = identifyCase();
@@ -294,13 +294,11 @@ const metacomponent = async (file, options, process) => {
     const rehandle = componentImportSubstitution(intelligence);
     result = await writeFile(file, rehandle(code));
 
-    // --> Implement report issue fn, report ok/not ok
     if (result === 'Successfully!') {
       const srcformat = path.extname(file).slice(1).toUpperCase();
       console.log(
         `\x1b[1;37m[er] - Import substitution completed! ${srcformat} processing is done by native software.\x1b[0m`
       );
-      // <-- reportIssue fn
     }
   } finally {
     if (result === 'Successfully!') {
