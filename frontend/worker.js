@@ -251,7 +251,7 @@ const analize = (err) => {
 };
 
 const componentImportSubstitution = (
-  data,
+  summary,
   casemap = {
     PostCSS: 'CSS',
     cssnano: 'CSS',
@@ -268,11 +268,20 @@ const componentImportSubstitution = (
       source.split('\n').reduce((lines, line) => lines + line.trim()),
   },
   metaschema = schema,
-  identifyCase = () => encode(casemap[data]),
+  analizeError = (err) => {
+    const types = {
+      ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
+      TypeError: ['componentJSTerser', 'componentHTMLTerser', 'componentPostCSS'],
+    };
+    const list = types[err.name];
+    const e = JSON.stringify(err.stack);
+    return list.find((cause) => e.includes(cause));
+  },
+  identifyCase = (data) => encode(casemap[data]),
   findSolution = (component) => nativeSoftwareImplementations[component],
   rethinkMetaschema = (field, value) => Reflect.set(metaschema, field, value),
   trySolve = () => {
-    const task = identifyCase();
+    const task = identifyCase(analizeError(summary));
     const solution = findSolution(task);
     return rethinkMetaschema(task, solution) ? solution : false;
   }
@@ -290,9 +299,10 @@ const metacomponent = async (file, options, process) => {
   } catch (err) {
     reportError(file, err);
 
-    const intelligence = analize(err);
-    const rehandle = componentImportSubstitution(intelligence);
-    result = await writeFile(file, rehandle(code));
+    const summary = err;
+    const implement = componentImportSubstitution(summary);
+
+    result = await writeFile(file, implement(code));
 
     if (result === 'Successfully!') {
       const srcformat = path.extname(file).slice(1).toUpperCase();
