@@ -240,16 +240,6 @@ const writeFile = (sourcepath, data) =>
     });
   });
 
-const analize = (err) => {
-  const types = {
-    ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
-    TypeError: ['componentJSTerser', 'componentHTMLTerser', 'componentPostCSS'],
-  };
-  const list = types[err.name];
-  const e = JSON.stringify(err.stack);
-  return list.find((cause) => e.includes(cause));
-};
-
 const componentImportSubstitution = (
   summary,
   file,
