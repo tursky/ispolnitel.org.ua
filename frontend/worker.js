@@ -252,11 +252,14 @@ const metacomponent = async (file, options, process) => {
   } catch (e) {
     reportError(file, e);
 
+		// --> Implement analize fn, define few types of err
     if (e instanceof ReferenceError) {
       const list = ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'];
       const err = JSON.stringify(e.stack);
       const data = list.find((cause) => err.includes(cause));
+			// <-- analize fn
 
+			// --> Implement support fn
       const qrdecode = {
         JSTerser: α,
         HTMLTerser: β,
@@ -269,16 +272,27 @@ const metacomponent = async (file, options, process) => {
       const source = {
         C: (code) => code.split('\n').reduce((acc, line) => acc + line.trim()),
       };
+			// <-- support fn
 
+			// --> Implement rehandle fn
       const rehandle = source[algorithm];
+			// <-- Implement rehandle fn
+
+			// --> Implement rethink fn
       Reflect.set(schema, algorithm, source[algorithm]);
+			// <-- Implement rethink fn
+
+			// End file processing
       result = await writeFile(file, rehandle(code));
 
+			// --> Implement report issue fn, report ok/not ok
       if (result === 'Successfully!') {
         const srcformat = path.extname(file).slice(1).toUpperCase();
         console.log(
           `\x1b[1;37m[er] - Successfully! Import substitution completed. An alternative ${srcformat} processing scenario running.\x1b[0m`
         );
+				// <-- reportIssue fn
+
       }
     }
   } finally {
