@@ -250,10 +250,33 @@ const analize = (err) => {
   return list.find((cause) => e.includes(cause));
 };
 
-const support = (data, fn, algorithm = help) => algorithm;
-const rethink = (algorithm, metadata, metaschema, boolean = fn) => boolean;
-const rehandle = (code, rehandled) => rehandled;
-const reportIssue = (file, result) => result;
+const componentImportSubstitution = (
+  data,
+  casemap = {
+    PostCSS: 'CSS',
+    cssnano: 'CSS',
+    HTMLTerser: 'HTML',
+    JSTerser: 'JS',
+    componentJSTerser: 'JS',
+    componentHTMLTerser: 'HTML',
+    componentPostCSS: 'CSS',
+  },
+  nativeSoftwareImplementations = {
+    A: null,
+    B: null,
+    C: (source) =>
+      source.split('\n').reduce((lines, line) => lines + line.trim()),
+  },
+  identifyCase = () => encode(casemap[data]),
+  findSolution = (component) => nativeSoftwareImplementations[component],
+  metaschema = schema,
+  rethinkMetaschema = (field, value) => Reflect.set(metaschema, field, value),
+  trySolve = () => {
+    const task = identifyCase();
+    const solution = findSolution(task);
+    return rethinkMetaschema(task, solution) ? solution : false;
+  }
+) => trySolve();
 
 const metacomponent = async (file, options, process) => {
   let result = null;
@@ -274,29 +297,30 @@ const metacomponent = async (file, options, process) => {
       // const data = list.find((cause) => err.includes(cause));
 
       const data = analize(e);
+
       // <-- analize fn
 
       // --> Implement support fn
-      const qrdecode = {
-        JSTerser: α,
-        HTMLTerser: β,
-        PostCSS: ς,
-        cssnano: ς,
-      };
+      // const qrdecode = {
+      //   JSTerser: α,
+      //   HTMLTerser: β,
+      //   PostCSS: ς,
+      //   cssnano: ς,
+      // };
 
-      const algorithm = qrdecode[data];
+      // const algorithm = qrdecode[data];
 
-      const source = {
-        C: (code) => code.split('\n').reduce((acc, line) => acc + line.trim()),
-      };
+      // const source = {
+      //   C: (code) => code.split('\n').reduce((acc, line) => acc + line.trim()),
+      // };
       // <-- support fn
 
       // --> Implement rehandle fn
-      const rehandle = source[algorithm];
+      const rehandle = componentImportSubstitution(data);
       // <-- Implement rehandle fn
 
       // --> Implement rethink fn
-      Reflect.set(schema, algorithm, source[algorithm]);
+      // Reflect.set(schema, algorithm, source[algorithm]);
       // <-- Implement rethink fn
 
       // End file processing
