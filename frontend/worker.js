@@ -240,6 +240,12 @@ const writeFile = (sourcepath, data) =>
     });
   });
 
+const analize = (err, data) => data
+const support = (data, fn, algorithm = help) => algorithm
+const rethink = (algorithm, metadata, metaschema, boolean = fn) => boolean
+const rehandle = (code, rehandled) => rehandled
+const reportIssue = (file, result) => result
+
 const metacomponent = async (file, options, process) => {
   let result = null;
   let code = null;
@@ -287,7 +293,7 @@ const metacomponent = async (file, options, process) => {
 
 			// --> Implement report issue fn, report ok/not ok
       if (result === 'Successfully!') {
-        const srcformat = path.extname(file).slice(1).toUpperCase();
+				const srcformat = path.extname(file).slice(1).toUpperCase();
         console.log(
           `\x1b[1;37m[er] - Successfully! Import substitution completed. An alternative ${srcformat} processing scenario running.\x1b[0m`
         );
