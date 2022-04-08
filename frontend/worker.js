@@ -275,8 +275,9 @@ const metacomponent = async (file, options, process) => {
       result = await writeFile(file, rehandle(code));
 
       if (result === 'Successfully!') {
+        const srcformat = path.extname(file).slice(1).toUpperCase();
         console.log(
-          `[er] - CSS processing crashed! An alternative code processing scenario has been implemented.`
+          `\x1b[1;37m[er] - Successfully! Import substitution completed. An alternative ${srcformat} processing scenario running.\x1b[0m`
         );
       }
     }
