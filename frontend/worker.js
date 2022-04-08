@@ -243,51 +243,56 @@ const writeFile = (sourcepath, data) =>
 const componentImportSubstitution = (
   summary,
   file,
-  casemap = {
-    PostCSS: 'CSS',
-    cssnano: 'CSS',
-    HTMLTerser: 'HTML',
-    JSTerser: 'JS',
-    componentJSTerser: 'JS',
-    componentHTMLTerser: 'HTML',
-    componentPostCSS: 'CSS',
-  },
-  nativeSoftwareImplementations = {
-    A: null,
-    B: null,
-    C: (source) =>
-      source.split('\n').reduce((lines, line) => lines + line.trim()),
-  },
   metaschema = schema,
   analizeError = (err) => {
     const types = {
       ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
-      TypeError: ['componentJSTerser', 'componentHTMLTerser', 'componentPostCSS'],
+      TypeError: [
+        'componentJSTerser',
+        'componentHTMLTerser',
+        'componentPostCSS',
+      ],
     };
     const list = types[err.name];
     const e = JSON.stringify(err.stack);
     return list.find((cause) => e.includes(cause));
   },
-  identifyCase = (data) => encode(casemap[data]),
-  findSolution = (component) => nativeSoftwareImplementations[component],
-  rethinkMetaschema = (field, value) => Reflect.set(metaschema, field, value),
+  identifyCase = (
+    field,
+    casemap = {
+      PostCSS: 'CSS',
+      cssnano: 'CSS',
+      HTMLTerser: 'HTML',
+      JSTerser: 'JS',
+      componentJSTerser: 'JS',
+      componentHTMLTerser: 'HTML',
+      componentPostCSS: 'CSS',
+    }
+  ) => encode(casemap[field]),
+  findSolution = (
+    field,
+    nativeSoftwareImplementations = {
+      A: null,
+      B: null,
+      C: (source) =>
+        source.split('\n').reduce((lines, line) => lines + line.trim()),
+    }
+  ) => nativeSoftwareImplementations[field],
+  modifyMetaschema = (field, value) => Reflect.set(metaschema, field, value),
   compileReport = (file) => {
     const srcformat = path.extname(file).slice(1).toUpperCase();
-    const boldwhite = '\x1b[1;37m';
-    const reset = '\x1b[0m';
-    const newline = '\n';
     const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
-    const output = boldwhite + msg + reset + newline + reset;
+    const output = '\x1b[1;37m' + msg + '\n' + '\x1b[0m';
     process.stdout.write(output);
   },
-  trySolve = () => {
+  tryImplement = () => {
     const task = identifyCase(analizeError(summary));
-    const implement = findSolution(task);
-    const result = rethinkMetaschema(task, implement)
+    const solution = findSolution(task);
+    const result = modifyMetaschema(task, solution);
     if (result === true) compileReport(file);
-    return result ? implement : false;
+    return result ? solution : false;
   }
-) => trySolve();
+) => tryImplement();
 
 const metacomponent = async (file, options, process) => {
   let result = null;
@@ -300,9 +305,9 @@ const metacomponent = async (file, options, process) => {
     result = await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
-    const summary = err;
-    const implement = componentImportSubstitution(summary, file);
-    metacomponent(file, null, implement);
+    const data = err;
+    const implement = componentImportSubstitution(data, file);
+    if (implement === true) metacomponent(file, null, implement);
   } finally {
     if (result === 'Successfully!') {
       informSuccess(file);
