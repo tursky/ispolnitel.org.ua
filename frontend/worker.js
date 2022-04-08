@@ -287,53 +287,20 @@ const metacomponent = async (file, options, process) => {
     code = await readFile(file);
     processed = await process(code, options);
     result = await writeFile(file, processed);
-  } catch (e) {
-    reportError(file, e);
+  } catch (err) {
+    reportError(file, err);
 
-    // --> Implement analize fn, define few types of err
-    if (e instanceof ReferenceError) {
-      // const list = ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'];
-      // const err = JSON.stringify(e.stack);
-      // const data = list.find((cause) => err.includes(cause));
+    const intelligence = analize(err);
+    const rehandle = componentImportSubstitution(intelligence);
+    result = await writeFile(file, rehandle(code));
 
-      const data = analize(e);
-
-      // <-- analize fn
-
-      // --> Implement support fn
-      // const qrdecode = {
-      //   JSTerser: α,
-      //   HTMLTerser: β,
-      //   PostCSS: ς,
-      //   cssnano: ς,
-      // };
-
-      // const algorithm = qrdecode[data];
-
-      // const source = {
-      //   C: (code) => code.split('\n').reduce((acc, line) => acc + line.trim()),
-      // };
-      // <-- support fn
-
-      // --> Implement rehandle fn
-      const rehandle = componentImportSubstitution(data);
-      // <-- Implement rehandle fn
-
-      // --> Implement rethink fn
-      // Reflect.set(schema, algorithm, source[algorithm]);
-      // <-- Implement rethink fn
-
-      // End file processing
-      result = await writeFile(file, rehandle(code));
-
-      // --> Implement report issue fn, report ok/not ok
-      if (result === 'Successfully!') {
-        const srcformat = path.extname(file).slice(1).toUpperCase();
-        console.log(
-          `\x1b[1;37m[er] - Successfully! Import substitution completed. An alternative ${srcformat} processing scenario running.\x1b[0m`
-        );
-        // <-- reportIssue fn
-      }
+    // --> Implement report issue fn, report ok/not ok
+    if (result === 'Successfully!') {
+      const srcformat = path.extname(file).slice(1).toUpperCase();
+      console.log(
+        `\x1b[1;37m[er] - Import substitution completed! ${srcformat} processing is done by native software.\x1b[0m`
+      );
+      // <-- reportIssue fn
     }
   } finally {
     if (result === 'Successfully!') {
