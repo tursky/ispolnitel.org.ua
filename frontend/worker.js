@@ -49,7 +49,7 @@ const VENDOR = {
       return config.map((plugin) => deps[plugin]);
     },
     css = async (
-      result = this.PostCSS(plugins()).process(src, {
+      result = PostCSS(plugins()).process(src, {
         from: src,
         to: src,
       })
@@ -173,6 +173,7 @@ const informSuccess = (data, ui = CLITypography) => {
       ui.display.reset
     )
   );
+  return true;
 };
 
 const informFailure = (data, ui = CLITypography) => {
@@ -239,14 +240,78 @@ const writeFile = (sourcepath, data) =>
     });
   });
 
+const componentImportSubstitution = (
+  summary,
+  file,
+  metaschema = schema,
+  analizeError = (err) => {
+    const types = {
+      ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
+      TypeError: [
+        'componentJSTerser',
+        'componentHTMLTerser',
+        'componentPostCSS',
+      ],
+    };
+    const list = types[err.name];
+    const e = JSON.stringify(err.stack);
+    return list.find((cause) => e.includes(cause));
+  },
+  identifyCase = (
+    field,
+    casemap = {
+      PostCSS: 'CSS',
+      cssnano: 'CSS',
+      HTMLTerser: 'HTML',
+      JSTerser: 'JS',
+      componentJSTerser: 'JS',
+      componentHTMLTerser: 'HTML',
+      componentPostCSS: 'CSS',
+    }
+  ) => encode(casemap[field]),
+  findSolution = (
+    field,
+    nativeSoftwareImplementations = {
+      A: null,
+      B: null,
+      C: (source) =>
+        source.split('\n').reduce((lines, line) => lines + line.trim()),
+    }
+  ) => nativeSoftwareImplementations[field],
+  modifyMetaschema = (field, value) => Reflect.set(metaschema, field, value),
+  compileReport = (file) => {
+    const srcformat = path.extname(file).slice(1).toUpperCase();
+    const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
+    const output = '\x1b[1;37m' + msg + '\n' + '\x1b[0m';
+    process.stdout.write(output);
+  },
+  tryImplement = () => {
+    const task = identifyCase(analizeError(summary));
+    const solution = findSolution(task);
+    const result = modifyMetaschema(task, solution);
+    if (result === true) compileReport(file);
+    return result ? solution : false;
+  }
+) => tryImplement();
+
 const metacomponent = async (file, options, process) => {
+  let result = null;
+  let code = null;
+  let processed = null;
+
   try {
-    const code = await readFile(file);
-    const processed = await process(code, options);
-    await writeFile(file, processed);
-    informSuccess(file);
+    code = await readFile(file);
+    processed = await process(code, options);
+    result = await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
+    const data = err;
+    const implement = componentImportSubstitution(data, file);
+    if (implement === true) metacomponent(file, null, implement);
+  } finally {
+    if (result === 'Successfully!') {
+      informSuccess(file);
+    }
   }
 };
 
