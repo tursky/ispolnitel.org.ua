@@ -252,6 +252,7 @@ const analize = (err) => {
 
 const componentImportSubstitution = (
   summary,
+  file,
   casemap = {
     PostCSS: 'CSS',
     cssnano: 'CSS',
@@ -280,10 +281,21 @@ const componentImportSubstitution = (
   identifyCase = (data) => encode(casemap[data]),
   findSolution = (component) => nativeSoftwareImplementations[component],
   rethinkMetaschema = (field, value) => Reflect.set(metaschema, field, value),
+  compileReport = (file) => {
+    const srcformat = path.extname(file).slice(1).toUpperCase();
+    const boldwhite = '\x1b[1;37m';
+    const reset = '\x1b[0m';
+    const newline = '\n';
+    const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
+    const output = boldwhite + msg + reset + newline + reset;
+    process.stdout.write(output);
+  },
   trySolve = () => {
     const task = identifyCase(analizeError(summary));
-    const solution = findSolution(task);
-    return rethinkMetaschema(task, solution) ? solution : false;
+    const implement = findSolution(task);
+    const result = rethinkMetaschema(task, implement)
+    if (result === true) compileReport(file);
+    return result ? implement : false;
   }
 ) => trySolve();
 
@@ -298,18 +310,9 @@ const metacomponent = async (file, options, process) => {
     result = await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
-
     const summary = err;
-    const implement = componentImportSubstitution(summary);
-
-    result = await writeFile(file, implement(code));
-
-    if (result === 'Successfully!') {
-      const srcformat = path.extname(file).slice(1).toUpperCase();
-      console.log(
-        `\x1b[1;37m[ok] - Import substitution completed successfully! ${srcformat} processing is done by native software.\x1b[0m`
-      );
-    }
+    const implement = componentImportSubstitution(summary, file);
+    metacomponent(file, null, implement);
   } finally {
     if (result === 'Successfully!') {
       informSuccess(file);
