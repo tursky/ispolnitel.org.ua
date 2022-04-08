@@ -257,26 +257,27 @@ const metacomponent = async (file, options, process) => {
       const err = JSON.stringify(e.stack);
       const data = list.find((cause) => err.includes(cause));
 
-      const conformity = {
-        JSTerser: 'JS',
-        HTMLTerser: 'HTML',
-        PostCSS: 'CSS',
-        cssnano: 'CSS',
+      const qrdecode = {
+        JSTerser: α,
+        HTMLTerser: β,
+        PostCSS: ς,
+        cssnano: ς,
       };
 
-      const srcformat = conformity[data]
+      const algorithm = qrdecode[data];
 
-      console.log(`[er] - ${data} fail / in ${srcformat} file`);
-
-      const schema = {
-        CSS: (src) => src.split('\n').reduce((acc, line) => acc + line.trim()),
+      const source = {
+        C: (code) => code.split('\n').reduce((acc, line) => acc + line.trim()),
       };
 
-      const rehandle = schema[srcformat];
+      const rehandle = source[algorithm];
+      Reflect.set(schema, algorithm, source[algorithm]);
       result = await writeFile(file, rehandle(code));
 
       if (result === 'Successfully!') {
-        console.log(result);
+        console.log(
+          `[er] - CSS processing crashed! An alternative code processing scenario has been implemented.`
+        );
       }
     }
   } finally {
