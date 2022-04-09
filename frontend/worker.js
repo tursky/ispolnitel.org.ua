@@ -3,6 +3,7 @@
 /**
  * DEPENDENCIES */
 
+const v8 = require('v8');
 const path = require('path');
 const fs = require('fs');
 
@@ -241,9 +242,7 @@ const writeFile = (sourcepath, data) =>
   });
 
 const componentImportSubstitution = (
-  source,
-  file,
-  summary,
+  data,
   metaschema = schema,
   analizeError = (err) => {
     const types = {
@@ -292,27 +291,33 @@ const componentImportSubstitution = (
   compileReport = (file, processing) => {
     const srcformat = path.extname(file).slice(1).toUpperCase();
     if (processing === 'OK') {
-      const note = '[er] - Import substitution completed successfully!'
+      const note = '[er] - Import substitution completed successfully!';
       const msg = `${srcformat} processing is done by native software.`;
       const output = '\x1b[1;37m' + note + ' ' + msg + '\n' + '\x1b[0m';
       process.stdout.write(output);
     }
   },
   tryImplement = () => {
-    const task = identifyCase(analizeError(summary));
+    const unbuffer = v8.deserialize(data);
+    const { dataset } = unbuffer;
+    const [FILENAME, ERROR, FILESOURCE] = dataset;
+
+    const task = identifyCase(analizeError(ERROR));
     const solution = findSolution(task);
-    let processing, end;
+
+    let processing = null,
+      end = null;
 
     try {
-      const rehandled = rehandleAlgorithm(source, solution);
-      processing = completeFileProcessing(file, rehandled);
+      const rehandled = rehandleAlgorithm(FILESOURCE, solution);
+      processing = completeFileProcessing(FILENAME, rehandled);
     } catch (e) {
       if (e) throw e;
     } finally {
       if (processing === 'OK') {
         const finished = modifyMetaschema(task, solution);
         if (finished) {
-          compileReport(file, processing);
+          compileReport(FILENAME, processing);
           end = true;
         }
       }
@@ -323,18 +328,20 @@ const componentImportSubstitution = (
 ) => tryImplement();
 
 const metacomponent = async (file, options, process) => {
-  let result = null;
-  let code = null;
-  let processed = null;
+  let result = null,
+    code = null;
 
   try {
     code = await readFile(file);
-    processed = await process(code, options);
+    const processed = await process(code, options);
     result = await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
     if (err instanceof TypeError || err instanceof ReferenceError) {
-      result = componentImportSubstitution(code, file, err);
+      const PACKAGE = v8.serialize({
+        dataset: [file, err, code],
+      });
+      result = componentImportSubstitution(PACKAGE);
     }
   } finally {
     if (result === 'Successfully!') {
