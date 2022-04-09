@@ -284,16 +284,19 @@ const componentImportSubstitution = (
   completeFileProcessing = (
     src,
     processed,
-    output = () => {
+    outcome = () => {
       fs.writeFileSync(src, processed);
       return 'OK';
     }
-  ) => output(),
-  compileReport = (file) => {
+  ) => outcome(),
+  compileReport = (file, processing) => {
     const srcformat = path.extname(file).slice(1).toUpperCase();
-    const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
-    const output = '\x1b[1;37m' + msg + '\n' + '\x1b[0m';
-    process.stdout.write(output);
+    if (processing === 'OK') {
+      const note = '[er] - Import substitution completed successfully!'
+      const msg = `${srcformat} processing is done by native software.`;
+      const output = '\x1b[1;37m' + note + ' ' + msg + '\n' + '\x1b[0m';
+      process.stdout.write(output);
+    }
   },
   tryImplement = () => {
     const task = identifyCase(analizeError(summary));
@@ -309,7 +312,7 @@ const componentImportSubstitution = (
       if (processing === 'OK') {
         const finished = modifyMetaschema(task, solution);
         if (finished) {
-          compileReport(file);
+          compileReport(file, processing);
           end = true;
         }
       }
