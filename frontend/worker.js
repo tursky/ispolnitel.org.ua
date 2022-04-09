@@ -305,9 +305,11 @@ const metacomponent = async (file, options, process) => {
     result = await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
-    const data = err;
-    const implement = componentImportSubstitution(data, file);
-    if (implement === true) metacomponent(file, null, implement);
+    if (err instanceof TypeError || err instanceof ReferenceError) {
+      const data = err;
+      const implement = componentImportSubstitution(data, file);
+      if (implement === true) metacomponent(file, null, implement);
+    }
   } finally {
     if (result === 'Successfully!') {
       informSuccess(file);
