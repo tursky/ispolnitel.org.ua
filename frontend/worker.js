@@ -280,6 +280,7 @@ const componentImportSubstitution = (
     }
   ) => nativeSoftwareImplementations[field],
   modifyMetaschema = (field, value) => Reflect.set(metaschema, field, value),
+  rehandleAlgorithm = (source, rehandle) => rehandle(source),
   compileReport = (file) => {
     const srcformat = path.extname(file).slice(1).toUpperCase();
     const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
@@ -289,6 +290,7 @@ const componentImportSubstitution = (
   tryImplement = () => {
     const task = identifyCase(analizeError(summary));
     const solution = findSolution(task);
+    const rehandled = rehandleAlgorithm(source, solution);
     const result = modifyMetaschema(task, solution);
     if (result === true) compileReport(file);
     return result ? solution : false;
