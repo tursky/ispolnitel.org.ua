@@ -281,7 +281,14 @@ const componentImportSubstitution = (
   ) => nativeSoftwareImplementations[field],
   modifyMetaschema = (field, value) => Reflect.set(metaschema, field, value),
   rehandleAlgorithm = (source, rehandle) => rehandle(source),
-  completeFileProcessing = (src, processed) => fs.writeFileSync(src, processed),
+  completeFileProcessing = (
+    src,
+    processed,
+    output = () => {
+      fs.writeFileSync(src, processed);
+      return 'OK';
+    }
+  ) => output(),
   compileReport = (file) => {
     const srcformat = path.extname(file).slice(1).toUpperCase();
     const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
@@ -291,11 +298,24 @@ const componentImportSubstitution = (
   tryImplement = () => {
     const task = identifyCase(analizeError(summary));
     const solution = findSolution(task);
-    const rehandled = rehandleAlgorithm(source, solution);
-    completeFileProcessing(file, rehandled);
-    const result = modifyMetaschema(task, solution);
-    if (result === true) compileReport(file);
-    return result ? 'Successfully!' : false;
+    let processing, end;
+
+    try {
+      const rehandled = rehandleAlgorithm(source, solution);
+      processing = completeFileProcessing(file, rehandled);
+    } catch (e) {
+      if (e) throw e;
+    } finally {
+      if (processing === 'OK') {
+        const finished = modifyMetaschema(task, solution);
+        if (finished) {
+          compileReport(file);
+          end = true;
+        }
+      }
+    }
+
+    return end ? 'Successfully!' : false;
   }
 ) => tryImplement();
 
