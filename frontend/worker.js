@@ -241,8 +241,9 @@ const writeFile = (sourcepath, data) =>
   });
 
 const componentImportSubstitution = (
-  summary,
+  source,
   file,
+  summary,
   metaschema = schema,
   analizeError = (err) => {
     const types = {
@@ -306,8 +307,7 @@ const metacomponent = async (file, options, process) => {
   } catch (err) {
     reportError(file, err);
     if (err instanceof TypeError || err instanceof ReferenceError) {
-      const data = err;
-      const implement = componentImportSubstitution(data, file);
+      const implement = componentImportSubstitution(code, file, err);
       if (implement === true) metacomponent(file, null, implement);
     }
   } finally {
