@@ -292,10 +292,10 @@ const componentImportSubstitution = (
     const task = identifyCase(analizeError(summary));
     const solution = findSolution(task);
     const rehandled = rehandleAlgorithm(source, solution);
-    // completeFileProcessing(file, rehandled);
+    completeFileProcessing(file, rehandled);
     const result = modifyMetaschema(task, solution);
     if (result === true) compileReport(file);
-    return result ? solution : false;
+    return result ? 'Successfully!' : false;
   }
 ) => tryImplement();
 
@@ -311,8 +311,7 @@ const metacomponent = async (file, options, process) => {
   } catch (err) {
     reportError(file, err);
     if (err instanceof TypeError || err instanceof ReferenceError) {
-      const implement = componentImportSubstitution(code, file, err);
-      if (implement === true) metacomponent(file, null, implement);
+      result = componentImportSubstitution(code, file, err);
     }
   } finally {
     if (result === 'Successfully!') {
