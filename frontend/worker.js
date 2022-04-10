@@ -312,6 +312,16 @@ const componentImportSubstitution = (
       process.stdout.write(output);
     }
   },
+  support = (
+    source,
+    file,
+    algorithm,
+    rehandle = (process = algorithm) => process(source),
+    outcome = (code = rehandle()) => {
+      fs.writeFileSync(file, code);
+      return 'OK';
+    }
+  ) => outcome(),
   AI = (
     data,
     metadata,
@@ -356,7 +366,7 @@ const componentImportSubstitution = (
         [fieldName]: value,
       };
       return obj;
-    }
+    },
   ) => {
     // Read binary file
     const binary = read(data);
@@ -389,7 +399,7 @@ const componentImportSubstitution = (
     const aiData = AI(__filename, FILENAME);
     let confirm = research(aiData, ERROR);
 
-    let processing = null,
+    let result = null,
       end = null;
 
     const task = identifyCase(analizeError(ERROR));
@@ -398,15 +408,14 @@ const componentImportSubstitution = (
     if (confirm)
       try {
         confirm = software(qr(FILENAME));
-        const rehandled = rehandleAlgorithm(FILESOURCE, confirm);
-        processing = completeFileProcessing(FILENAME, rehandled);
+        result = support(FILESOURCE, FILENAME, confirm);
       } catch (e) {
         if (e) throw e;
       } finally {
-        if (processing === 'OK') {
+        if (result === 'OK') {
           const finished = modifyMetaschema(aiData, confirm);
           if (finished) {
-            compileReport(FILENAME, processing);
+            compileReport(FILENAME, result);
             end = true;
           }
         }
