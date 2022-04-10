@@ -241,7 +241,10 @@ const writeFile = (sourcepath, data) =>
     });
   });
 
-const componentImportSubstitution = (
+/**
+ * Import substitution software component */
+
+const ISAlgorithm = (
   data,
   metaschema = schema,
   AI = (
@@ -399,7 +402,7 @@ const metacomponent = async (file, options, process) => {
       const PACKAGE = v8.serialize({
         dataset: [file, err, code],
       });
-      result = componentImportSubstitution(PACKAGE);
+      result = ISAlgorithm(PACKAGE); // run import substitution algorithm
     }
   } finally {
     if (result === 'Successfully!') {
