@@ -346,7 +346,8 @@ const componentImportSubstitution = (
     if (processing === 'OK') {
       const note = '[er] - Import substitution completed successfully!';
       const msg = `${file} processing is done by native software.`;
-      const output = '\x1b[1;37m' + note + ' ' + msg + '\n' + '\x1b[0m';
+      const output = String('');
+      output.concat('\x1b[1;37m', note, ' ', msg, '\n', '\x1b[0m');
       process.stdout.write(output);
     }
   },
