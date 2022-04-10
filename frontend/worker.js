@@ -264,11 +264,10 @@ const componentImportSubstitution = (
     const [value] = Object.values(AIdata);
     return Reflect.set(struct, field, value);
   },
-  compileReport = (file, processing) => {
-    const srcformat = path.extname(file).slice(1).toUpperCase();
+  compile = (file, processing) => {
     if (processing === 'OK') {
       const note = '[er] - Import substitution completed successfully!';
-      const msg = `${srcformat} processing is done by native software.`;
+      const msg = `${file} processing is done by native software.`;
       const output = '\x1b[1;37m' + note + ' ' + msg + '\n' + '\x1b[0m';
       process.stdout.write(output);
     }
@@ -378,7 +377,7 @@ const componentImportSubstitution = (
       }
 
     if (rethink(aiData)) {
-      compileReport(FILENAME, result);
+      compile(qr(FILENAME), result);
       end = true;
     }
 
