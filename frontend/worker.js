@@ -292,8 +292,12 @@ const componentImportSubstitution = (
         source.split('\n').reduce((lines, line) => lines + line.trim()),
     }
   ) => nativeSoftwareImplementations[field],
-  modifyMetaschema = (struct, value) =>
-    Reflect.set(metaschema, Object.keys(struct), value),
+  rethink = (AIdata) => {
+    const struct = metaschema;
+    const field = Object.keys(AIdata);
+    const [value] = Object.values(AIdata);
+    return Reflect.set(struct, field, value);
+  },
   rehandleAlgorithm = (source, rehandle) => rehandle(source),
   completeFileProcessing = (
     src,
@@ -396,7 +400,7 @@ const componentImportSubstitution = (
     const [FILENAME, ERROR, FILESOURCE] = dataset;
 
     // Data science
-    const aiData = AI(__filename, FILENAME);
+    let aiData = AI(__filename, FILENAME);
     let confirm = research(aiData, ERROR);
 
     let result = null,
@@ -413,13 +417,16 @@ const componentImportSubstitution = (
         if (e) throw e;
       } finally {
         if (result === 'OK') {
-          const finished = modifyMetaschema(aiData, confirm);
-          if (finished) {
-            compileReport(FILENAME, result);
-            end = true;
-          }
+          aiData = Object.defineProperty(aiData, Object.keys(aiData), {
+            value: confirm
+          });
         }
       }
+
+    if (rethink(aiData)) {
+      compileReport(FILENAME, result);
+      end = true;
+    }
 
     return end ? 'Successfully!' : false;
   }
