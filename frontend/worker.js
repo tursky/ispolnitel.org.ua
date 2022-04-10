@@ -258,55 +258,12 @@ const componentImportSubstitution = (
   software = (component, implementations = database()) =>
     implementations[component],
   qr = (file) => path.extname(file).slice(1).toUpperCase(),
-  analizeError = (err) => {
-    const types = {
-      ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
-      TypeError: [
-        'componentJSTerser',
-        'componentHTMLTerser',
-        'componentPostCSS',
-      ],
-    };
-    const list = types[err.name];
-    const e = JSON.stringify(err.stack);
-    return list.find((cause) => e.includes(cause));
-  },
-  identifyCase = (
-    field,
-    casemap = {
-      PostCSS: 'CSS',
-      cssnano: 'CSS',
-      HTMLTerser: 'HTML',
-      JSTerser: 'JS',
-      componentJSTerser: 'JS',
-      componentHTMLTerser: 'HTML',
-      componentPostCSS: 'CSS',
-    }
-  ) => encode(casemap[field]),
-  findSolution = (
-    field,
-    nativeSoftwareImplementations = {
-      A: null,
-      B: null,
-      C: (source) =>
-        source.split('\n').reduce((lines, line) => lines + line.trim()),
-    }
-  ) => nativeSoftwareImplementations[field],
   rethink = (AIdata) => {
     const struct = metaschema;
     const field = Object.keys(AIdata);
     const [value] = Object.values(AIdata);
     return Reflect.set(struct, field, value);
   },
-  rehandleAlgorithm = (source, rehandle) => rehandle(source),
-  completeFileProcessing = (
-    src,
-    processed,
-    outcome = () => {
-      fs.writeFileSync(src, processed);
-      return 'OK';
-    }
-  ) => outcome(),
   compileReport = (file, processing) => {
     const srcformat = path.extname(file).slice(1).toUpperCase();
     if (processing === 'OK') {
@@ -405,9 +362,6 @@ const componentImportSubstitution = (
 
     let result = null,
       end = null;
-
-    const task = identifyCase(analizeError(ERROR));
-    const solution = findSolution(task);
 
     if (confirm)
       try {
