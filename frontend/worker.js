@@ -249,6 +249,15 @@ const componentImportSubstitution = (
     const err = JSON.stringify(error.stack);
     return err.includes(data);
   },
+  database = () => ({
+    JS: undefined,
+    HTML: undefined,
+    CSS: (data) =>
+      data.split('\n').reduce((lines, line) => lines + line.trim()),
+  }),
+  software = (component, implementations = database()) =>
+    implementations[component],
+  qr = (file) => path.extname(file).slice(1).toUpperCase(),
   analizeError = (err) => {
     const types = {
       ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
@@ -378,28 +387,30 @@ const componentImportSubstitution = (
 
     // Data science
     const aiData = AI(__filename, FILENAME);
-    const confirm = research(aiData, ERROR);
-
-    const task = identifyCase(analizeError(ERROR));
-    const solution = findSolution(task);
+    let confirm = research(aiData, ERROR);
 
     let processing = null,
       end = null;
 
-    try {
-      const rehandled = rehandleAlgorithm(FILESOURCE, solution);
-      processing = completeFileProcessing(FILENAME, rehandled);
-    } catch (e) {
-      if (e) throw e;
-    } finally {
-      if (processing === 'OK') {
-        const finished = modifyMetaschema(aiData, solution);
-        if (finished) {
-          compileReport(FILENAME, processing);
-          end = true;
+    const task = identifyCase(analizeError(ERROR));
+    const solution = findSolution(task);
+
+    if (confirm)
+      try {
+        confirm = software(qr(FILENAME));
+        const rehandled = rehandleAlgorithm(FILESOURCE, confirm);
+        processing = completeFileProcessing(FILENAME, rehandled);
+      } catch (e) {
+        if (e) throw e;
+      } finally {
+        if (processing === 'OK') {
+          const finished = modifyMetaschema(aiData, confirm);
+          if (finished) {
+            compileReport(FILENAME, processing);
+            end = true;
+          }
         }
       }
-    }
 
     return end ? 'Successfully!' : false;
   }
