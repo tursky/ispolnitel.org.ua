@@ -244,44 +244,6 @@ const writeFile = (sourcepath, data) =>
 const componentImportSubstitution = (
   data,
   metaschema = schema,
-  research = (AIdata, error) => {
-    const [data] = [...Object.values(AIdata)];
-    const err = JSON.stringify(error.stack);
-    return err.includes(data);
-  },
-  database = () => ({
-    JS: undefined,
-    HTML: undefined,
-    CSS: (data) =>
-      data.split('\n').reduce((lines, line) => lines + line.trim()),
-  }),
-  software = (component, implementations = database()) =>
-    implementations[component],
-  qr = (file) => path.extname(file).slice(1).toUpperCase(),
-  rethink = (AIdata) => {
-    const struct = metaschema;
-    const field = Object.keys(AIdata);
-    const [value] = Object.values(AIdata);
-    return Reflect.set(struct, field, value);
-  },
-  compile = (file, processing) => {
-    if (processing === 'OK') {
-      const note = '[er] - Import substitution completed successfully!';
-      const msg = `${file} processing is done by native software.`;
-      const output = '\x1b[1;37m' + note + ' ' + msg + '\n' + '\x1b[0m';
-      process.stdout.write(output);
-    }
-  },
-  support = (
-    source,
-    file,
-    algorithm,
-    rehandle = (process = algorithm) => process(source),
-    outcome = (code = rehandle()) => {
-      fs.writeFileSync(file, code);
-      return 'OK';
-    }
-  ) => outcome(),
   AI = (
     data,
     metadata,
@@ -326,12 +288,12 @@ const componentImportSubstitution = (
         [fieldName]: value,
       };
       return obj;
-    },
+    }
   ) => {
     // Read binary file
     const binary = read(data);
 
-    // Parse content
+    // Parse binary content
     const content = parse(binary);
 
     // Prepare content
@@ -340,15 +302,53 @@ const componentImportSubstitution = (
     // Preprocess metadata
     const srcformat = preprocess(metadata);
 
-    // Get filtered string
-    const str = filter(dataset, {
+    // Get filtered struct
+    const struct = filter(dataset, {
       contains: srcformat,
     });
 
-    // Get key as field of metaschema
-    const result = analize(str);
+    // Generates analytical summaries
+    const summary = analize(struct);
 
-    return result;
+    return summary;
+  },
+  research = (AIdata, error) => {
+    const [data] = [...Object.values(AIdata)];
+    const err = JSON.stringify(error.stack);
+    return err.includes(data);
+  },
+  database = () => ({
+    JS: undefined,
+    HTML: undefined,
+    CSS: (data) =>
+      data.split('\n').reduce((lines, line) => lines + line.trim()),
+  }),
+  software = (component, implementations = database()) =>
+    implementations[component],
+  qr = (file) => path.extname(file).slice(1).toUpperCase(),
+  support = (
+    source,
+    file,
+    algorithm,
+    rehandle = (process = algorithm) => process(source),
+    outcome = (code = rehandle()) => {
+      fs.writeFileSync(file, code);
+      return 'OK';
+    }
+  ) => outcome(),
+  rethink = (AIdata) => {
+    const struct = metaschema;
+    const field = Object.keys(AIdata);
+    const [value] = Object.values(AIdata);
+    return Reflect.set(struct, field, value);
+  },
+  compile = (file, processing) => {
+    if (processing === 'OK') {
+      const note = '[er] - Import substitution completed successfully!';
+      const msg = `${file} processing is done by native software.`;
+      const output = '\x1b[1;37m' + note + ' ' + msg + '\n' + '\x1b[0m';
+      process.stdout.write(output);
+    }
   },
   tryImplement = () => {
     const unbuffer = v8.deserialize(data);
@@ -371,7 +371,7 @@ const componentImportSubstitution = (
       } finally {
         if (result === 'OK') {
           aiData = Object.defineProperty(aiData, Object.keys(aiData), {
-            value: confirm
+            value: confirm,
           });
         }
       }
@@ -547,7 +547,6 @@ const run = async (settings) => {
  * MULTITHREADING */
 
 const threads = require('worker_threads');
-const { parse } = require('path');
 const { Worker, workerData, isMainThread } = threads;
 
 if (isMainThread) {
