@@ -278,7 +278,8 @@ const componentImportSubstitution = (
         source.split('\n').reduce((lines, line) => lines + line.trim()),
     }
   ) => nativeSoftwareImplementations[field],
-  modifyMetaschema = (field, value) => Reflect.set(metaschema, field, value),
+  modifyMetaschema = (struct, value) =>
+    Reflect.set(metaschema, Object.keys(struct), value),
   rehandleAlgorithm = (source, rehandle) => rehandle(source),
   completeFileProcessing = (
     src,
@@ -334,7 +335,13 @@ const componentImportSubstitution = (
     preprocess = (data) => path.extname(data).slice(1).toUpperCase(),
     analize = (data) => {
       const [str] = [...data];
-      return str.substring(0, 1);
+      const rx = /component[a-zA-Z]+/g;
+      const [fieldName] = [...new Set(str.substring(0, 1))];
+      const [value] = [...new Set(str.match(rx))];
+      const obj = {
+        [fieldName]: value,
+      };
+      return obj;
     }
   ) => {
     // Read binary file
@@ -377,8 +384,8 @@ const componentImportSubstitution = (
       if (e) throw e;
     } finally {
       if (processing === 'OK') {
-        const field = AI(__filename, FILENAME);
-        const finished = modifyMetaschema(field, solution);
+        const data = AI(__filename, FILENAME);
+        const finished = modifyMetaschema(data, solution);
         if (finished) {
           compileReport(FILENAME, processing);
           end = true;
