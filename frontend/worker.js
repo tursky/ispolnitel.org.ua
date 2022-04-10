@@ -297,6 +297,68 @@ const componentImportSubstitution = (
       process.stdout.write(output);
     }
   },
+  AI = (
+    data,
+    metadata,
+    read = (data) => fs.readFileSync(data, 'utf-8'),
+    parse = (data) => {
+      const pattern = /schema = {\s[^;]*/gm;
+      const [dataschema] = [...data.match(pattern)];
+      return dataschema;
+    },
+    prepare = (data) => {
+      const lines = data.split('\n');
+      lines.shift();
+      lines.pop();
+      const dataset = lines.map((line) => line.replace('  ', ''));
+      return dataset;
+    },
+    filter = (dataset, conditions) => {
+      const operations = {};
+      const check = (s, conditions) => {
+        let valid = true;
+        for (const key in conditions) {
+          valid = valid && operations[key](s, conditions[key]);
+        }
+        return valid;
+      };
+      Object.assign(operations, {
+        length: (s, v) => s.length >= v[0] && s.length <= v[1],
+        contains: (s, v) => s.includes(v),
+        starts: (s, v) => s.startsWith(v),
+        ends: (s, v) => s.endsWith(v),
+        not: (s, v) => !check(s, v),
+      });
+      return dataset.filter((s) => check(s, conditions));
+    },
+    preprocess = (data) => path.extname(data).slice(1).toUpperCase(),
+    analize = (data) => {
+      const [str] = [...data];
+      return str.substring(0, 1);
+    }
+  ) => {
+    // Read binary file
+    const binary = read(data);
+
+    // Parse content
+    const content = parse(binary);
+
+    // Prepare content
+    const dataset = prepare(content);
+
+    // Preprocess metadata
+    const srcformat = preprocess(metadata);
+
+    // Get filtered string
+    const str = filter(dataset, {
+      contains: srcformat,
+    });
+
+    // Get key as field of metaschema
+    const result = analize(str);
+
+    return result;
+  },
   tryImplement = () => {
     const unbuffer = v8.deserialize(data);
     const { dataset } = unbuffer;
@@ -315,7 +377,8 @@ const componentImportSubstitution = (
       if (e) throw e;
     } finally {
       if (processing === 'OK') {
-        const finished = modifyMetaschema(task, solution);
+        const field = AI(__filename, FILENAME);
+        const finished = modifyMetaschema(field, solution);
         if (finished) {
           compileReport(FILENAME, processing);
           end = true;
@@ -489,6 +552,7 @@ const run = async (settings) => {
  * MULTITHREADING */
 
 const threads = require('worker_threads');
+const { parse } = require('path');
 const { Worker, workerData, isMainThread } = threads;
 
 if (isMainThread) {
