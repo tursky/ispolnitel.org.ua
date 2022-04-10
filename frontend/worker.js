@@ -371,6 +371,9 @@ const componentImportSubstitution = (
     const { dataset } = unbuffer;
     const [FILENAME, ERROR, FILESOURCE] = dataset;
 
+    // Data science
+    const ds = AI(__filename, FILENAME);
+
     const task = identifyCase(analizeError(ERROR));
     const solution = findSolution(task);
 
@@ -384,8 +387,7 @@ const componentImportSubstitution = (
       if (e) throw e;
     } finally {
       if (processing === 'OK') {
-        const data = AI(__filename, FILENAME);
-        const finished = modifyMetaschema(data, solution);
+        const finished = modifyMetaschema(ds, solution);
         if (finished) {
           compileReport(FILENAME, processing);
           end = true;
