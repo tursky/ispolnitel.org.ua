@@ -244,6 +244,11 @@ const writeFile = (sourcepath, data) =>
 const componentImportSubstitution = (
   data,
   metaschema = schema,
+  research = (AIdata, error) => {
+    const [data] = [...Object.values(AIdata)];
+    const err = JSON.stringify(error.stack);
+    return err.includes(data);
+  },
   analizeError = (err) => {
     const types = {
       ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
@@ -372,7 +377,8 @@ const componentImportSubstitution = (
     const [FILENAME, ERROR, FILESOURCE] = dataset;
 
     // Data science
-    const ds = AI(__filename, FILENAME);
+    const aiData = AI(__filename, FILENAME);
+    const confirm = research(aiData, ERROR);
 
     const task = identifyCase(analizeError(ERROR));
     const solution = findSolution(task);
@@ -387,7 +393,7 @@ const componentImportSubstitution = (
       if (e) throw e;
     } finally {
       if (processing === 'OK') {
-        const finished = modifyMetaschema(ds, solution);
+        const finished = modifyMetaschema(aiData, solution);
         if (finished) {
           compileReport(FILENAME, processing);
           end = true;
