@@ -250,15 +250,14 @@ const componentImportSubstitution = (
     read = (data) => fs.readFileSync(data, 'utf-8'),
     parse = (data) => {
       const pattern = /schema = {\s[^;]*/gm;
-      const [dataschema] = [...data.match(pattern)];
-      return dataschema;
+      const [struct] = [...new Set(data.match(pattern))];
+      return struct;
     },
     prepare = (data) => {
-      const lines = data.split('\n');
-      lines.shift();
-      lines.pop();
-      const dataset = lines.map((line) => line.replace('  ', ''));
-      return dataset;
+      const dataset = data.split('\n');
+      dataset.shift();
+      dataset.pop();
+      return dataset.map((line) => line.replace('  ', ''));
     },
     filter = (dataset, conditions) => {
       const operations = {};
@@ -320,8 +319,8 @@ const componentImportSubstitution = (
   database = () => ({
     JS: undefined,
     HTML: undefined,
-    CSS: (data) =>
-      data.split('\n').reduce((lines, line) => lines + line.trim()),
+    CSS: (source) =>
+      source.split('\n').reduce((processed, line) => processed + line.trim()),
   }),
   software = (component, implementations = database()) =>
     implementations[component],
