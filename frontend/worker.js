@@ -246,7 +246,6 @@ const writeFile = (sourcepath, data) =>
 
 const ISAlgorithm = (
   data,
-  metaschema = schema,
   AI = (
     data,
     metadata,
@@ -338,8 +337,8 @@ const ISAlgorithm = (
       return 'OK';
     }
   ) => outcome(),
-  rethink = (AIdata) => {
-    const struct = metaschema;
+  rethink = (AIdata, struct) => {
+    // const struct = metaschema;
     const field = Object.keys(AIdata);
     const [value] = Object.values(AIdata);
     return Reflect.set(struct, field, value);
@@ -379,7 +378,7 @@ const ISAlgorithm = (
         }
       }
 
-    if (rethink(aiData)) {
+    if (rethink(aiData, require(__filename))) {
       compile(qr(FILENAME), result);
       end = true;
     }
@@ -579,3 +578,5 @@ if (isMainThread) {
   const fn = JSON.parse(config);
   run(fn);
 }
+
+module.exports = schema;
