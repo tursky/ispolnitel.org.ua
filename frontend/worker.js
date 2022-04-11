@@ -302,8 +302,8 @@ const ISAlgorithm = (
     return err.includes(data);
   },
   database = () => ({
-    JS: undefined,
-    HTML: undefined,
+    JS: () => undefined,
+    HTML: () => undefined,
     CSS: (source) =>
       source.split('\n').reduce((processed, line) => processed + line.trim()),
   }),
@@ -360,7 +360,7 @@ const ISAlgorithm = (
         }
       }
 
-    if (rethink(aiData, require(__filename))) {
+    if (rethink(aiData, require(__filename).schema)) {
       compile(qr(FILENAME), result);
       end = true;
     }
@@ -578,4 +578,4 @@ if (isMainThread) {
   run(fn);
 }
 
-module.exports = schema;
+module.exports = { schema };
