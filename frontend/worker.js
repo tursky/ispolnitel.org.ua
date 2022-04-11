@@ -3,6 +3,7 @@
 /**
  * DEPENDENCIES */
 
+const v8 = require('v8');
 const path = require('path');
 const fs = require('fs');
 
@@ -224,6 +225,151 @@ const printSpentTime = (timer, ui = CLITypography) => {
 };
 
 /**
+ * AI, IMPORT SUBSTITUTION COMPONENT */
+
+const ISAlgorithm = (
+  data,
+  AI = (
+    data,
+    metadata,
+    read = (data) => fs.readFileSync(data, 'utf-8'),
+    parse = (data) => {
+      const pattern = /schema = {\s[^;]*/gm;
+      const [struct] = [...new Set(data.match(pattern))];
+      return struct;
+    },
+    prepare = (data) => {
+      const dataset = data.split('\n');
+      dataset.shift();
+      dataset.pop();
+      return dataset.map((line) => line.replace('  ', ''));
+    },
+    filter = (dataset, conditions) => {
+      const operations = {};
+      const check = (s, conditions) => {
+        let valid = true;
+        for (const key in conditions) {
+          valid = valid && operations[key](s, conditions[key]);
+        }
+        return valid;
+      };
+      Object.assign(operations, {
+        length: (s, v) => s.length >= v[0] && s.length <= v[1],
+        contains: (s, v) => s.includes(v),
+        starts: (s, v) => s.startsWith(v),
+        ends: (s, v) => s.endsWith(v),
+        not: (s, v) => !check(s, v),
+      });
+      return dataset.filter((s) => check(s, conditions));
+    },
+    preprocess = (data) => path.extname(data).slice(1).toUpperCase(),
+    analize = (data) => {
+      const [str] = [...data];
+      const rx = /component[a-zA-Z]+/g;
+      const [fieldName] = [...new Set(str.substring(0, 1))];
+      const [value] = [...new Set(str.match(rx))];
+      const obj = {
+        [fieldName]: value,
+      };
+      return obj;
+    }
+  ) => {
+    // Read binary file
+    const binary = read(data);
+
+    // Parse binary content
+    const content = parse(binary);
+
+    // Prepare content
+    const dataset = prepare(content);
+
+    // Preprocess metadata
+    const srcformat = preprocess(metadata);
+
+    // Get filtered struct
+    const struct = filter(dataset, {
+      contains: srcformat,
+    });
+
+    // Generates analytical summaries
+    const summary = analize(struct);
+
+    return summary;
+  },
+  research = (AIdata, error) => {
+    const [data] = [...Object.values(AIdata)];
+    const err = JSON.stringify(error.stack);
+    return err.includes(data);
+  },
+  database = () => ({
+    JS: () => undefined,
+    HTML: () => undefined,
+    CSS: (source) =>
+      source.split('\n').reduce((processed, line) => processed + line.trim()),
+  }),
+  software = (component, implementations = database()) =>
+    implementations[component],
+  qr = (file) => path.extname(file).slice(1).toUpperCase(),
+  support = (
+    source,
+    file,
+    algorithm,
+    rehandle = (process = algorithm) => process(source),
+    outcome = (code = rehandle()) => {
+      fs.writeFileSync(file, code);
+      return 'OK';
+    }
+  ) => outcome(),
+  rethink = (AIdata, struct) => {
+    const field = Object.keys(AIdata);
+    const [value] = Object.values(AIdata);
+    return Reflect.set(struct, field, value);
+  },
+  compile = (file, processing) => {
+    if (processing === 'OK') {
+      const note = '[er] - Import substitution completed successfully!';
+      const msg = `${file} processing is done by native software.`;
+      const output = String('');
+      output.concat('\x1b[1;37m', note, ' ', msg, '\n', '\x1b[0m');
+      process.stdout.write(output);
+    }
+  },
+  tryImplement = () => {
+    const unbuffer = v8.deserialize(data);
+    const { dataset } = unbuffer;
+    const [FILENAME, ERROR, FILESOURCE] = dataset;
+
+    // Data science
+    let aiData = AI(__filename, FILENAME);
+    let confirm = research(aiData, ERROR);
+
+    let result = null,
+      end = null;
+
+    if (confirm)
+      try {
+        confirm = software(qr(FILENAME));
+        result = support(FILESOURCE, FILENAME, confirm);
+      } catch (e) {
+        if (e) throw e;
+      } finally {
+        if (result === 'OK') {
+          aiData = Object.defineProperty(aiData, Object.keys(aiData), {
+            value: confirm,
+          });
+        }
+      }
+
+    if (rethink(aiData, require(__filename).schema)) {
+      compile(qr(FILENAME), result);
+      end = true;
+    }
+
+    return end ? 'Successfully!' : false;
+  }
+) => tryImplement();
+
+/**
  * BUSINESS LOGIC */
 
 const readFile = (sourcepath) =>
@@ -240,74 +386,22 @@ const writeFile = (sourcepath, data) =>
     });
   });
 
-const componentImportSubstitution = (
-  summary,
-  file,
-  metaschema = schema,
-  analizeError = (err) => {
-    const types = {
-      ReferenceError: ['JSTerser', 'HTMLTerser', 'PostCSS', 'cssnano'],
-      TypeError: [
-        'componentJSTerser',
-        'componentHTMLTerser',
-        'componentPostCSS',
-      ],
-    };
-    const list = types[err.name];
-    const e = JSON.stringify(err.stack);
-    return list.find((cause) => e.includes(cause));
-  },
-  identifyCase = (
-    field,
-    casemap = {
-      PostCSS: 'CSS',
-      cssnano: 'CSS',
-      HTMLTerser: 'HTML',
-      JSTerser: 'JS',
-      componentJSTerser: 'JS',
-      componentHTMLTerser: 'HTML',
-      componentPostCSS: 'CSS',
-    }
-  ) => encode(casemap[field]),
-  findSolution = (
-    field,
-    nativeSoftwareImplementations = {
-      A: null,
-      B: null,
-      C: (source) =>
-        source.split('\n').reduce((lines, line) => lines + line.trim()),
-    }
-  ) => nativeSoftwareImplementations[field],
-  modifyMetaschema = (field, value) => Reflect.set(metaschema, field, value),
-  compileReport = (file) => {
-    const srcformat = path.extname(file).slice(1).toUpperCase();
-    const msg = `[ok] - ${srcformat} processing is done by native software. Import substitution completed successfully!`;
-    const output = '\x1b[1;37m' + msg + '\n' + '\x1b[0m';
-    process.stdout.write(output);
-  },
-  tryImplement = () => {
-    const task = identifyCase(analizeError(summary));
-    const solution = findSolution(task);
-    const result = modifyMetaschema(task, solution);
-    if (result === true) compileReport(file);
-    return result ? solution : false;
-  }
-) => tryImplement();
-
 const metacomponent = async (file, options, process) => {
-  let result = null;
-  let code = null;
-  let processed = null;
+  let result = null,
+    code = null;
 
   try {
     code = await readFile(file);
-    processed = await process(code, options);
+    const processed = await process(code, options);
     result = await writeFile(file, processed);
   } catch (err) {
     reportError(file, err);
-    const data = err;
-    const implement = componentImportSubstitution(data, file);
-    if (implement === true) metacomponent(file, null, implement);
+    if (err instanceof TypeError || err instanceof ReferenceError) {
+      const PACKAGE = v8.serialize({
+        dataset: [file, err, code],
+      });
+      result = ISAlgorithm(PACKAGE); // run import substitution algorithm
+    }
   } finally {
     if (result === 'Successfully!') {
       informSuccess(file);
@@ -483,3 +577,5 @@ if (isMainThread) {
   const fn = JSON.parse(config);
   run(fn);
 }
+
+module.exports = { schema };
