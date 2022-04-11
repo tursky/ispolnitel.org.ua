@@ -225,24 +225,7 @@ const printSpentTime = (timer, ui = CLITypography) => {
 };
 
 /**
- * BUSINESS LOGIC */
-
-const readFile = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
-      error ? reject(error) : resolve(buffer);
-    });
-  });
-
-const writeFile = (sourcepath, data) =>
-  new Promise((resolve, reject) => {
-    fs.writeFile(sourcepath, data, (error) => {
-      error ? reject(error) : resolve('Successfully!');
-    });
-  });
-
-/**
- * Import substitution software component */
+ * AI, IMPORT SUBSTITUTION COMPONENT */
 
 const ISAlgorithm = (
   data,
@@ -338,7 +321,6 @@ const ISAlgorithm = (
     }
   ) => outcome(),
   rethink = (AIdata, struct) => {
-    // const struct = metaschema;
     const field = Object.keys(AIdata);
     const [value] = Object.values(AIdata);
     return Reflect.set(struct, field, value);
@@ -386,6 +368,23 @@ const ISAlgorithm = (
     return end ? 'Successfully!' : false;
   }
 ) => tryImplement();
+
+/**
+ * BUSINESS LOGIC */
+
+const readFile = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
+      error ? reject(error) : resolve(buffer);
+    });
+  });
+
+const writeFile = (sourcepath, data) =>
+  new Promise((resolve, reject) => {
+    fs.writeFile(sourcepath, data, (error) => {
+      error ? reject(error) : resolve('Successfully!');
+    });
+  });
 
 const metacomponent = async (file, options, process) => {
   let result = null,
