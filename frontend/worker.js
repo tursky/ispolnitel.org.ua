@@ -341,14 +341,19 @@ const ISAlgorithm = (
     const err = JSON.stringify(error.stack);
     return err.includes(data);
   },
-  database = () => ({
-    JS: () => undefined,
-    HTML: () => undefined,
-    CSS: (source) =>
-      source.split('\n').reduce((processed, line) => processed + line.trim()),
-  }),
-  software = (component, implementations = database()) =>
-    implementations[component],
+  db = (
+    request,
+    response = () =>
+      ({
+        JS: () => undefined,
+        HTML: () => undefined,
+        CSS: (source) =>
+          source
+            .split('\n')
+            .reduce((processed, line) => processed + line.trim()),
+      }[request])
+  ) => response(),
+  software = (component, confirm = () => db(component)) => confirm(),
   qr = (file) => path.extname(file).slice(1).toUpperCase(),
   support = (
     source,
