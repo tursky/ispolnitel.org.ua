@@ -2,10 +2,9 @@
 
 /**
  * Title: Frontend worker
- * Code scenario: can traverse the project tree and compress its sources
+ * Code scenario: can navigate the project tree and compress its sources
  * Designer: S.Tursky
- * Essence of research: metaprogramming
- */
+ * Essence of research: metaprogramming */
 
 /**
  * CONFIGURATIONS */
@@ -127,7 +126,7 @@ const writeFile = (sourcepath, data) =>
   });
 
 /**
- * CLI FEATURES, UI */
+ * UI, CLI FEATURES */
 
 const render = (output) => process.stdout.write(output);
 const preprint = (...arr) => arr.join('');
@@ -270,12 +269,12 @@ const printSpentTime = (timer, ui = CLITypography) => {
 const ISAlgorithm = (
   data,
   AI = (
-    data,
-    metadata,
-    read = (data) => fs.readFileSync(data, 'utf-8'),
-    parse = (data) => {
+    src,
+    srcname,
+    read = (f) => fs.readFileSync(f, 'utf-8'),
+    parse = (content) => {
       const pattern = /schema = {\s[^;]*/gm;
-      const [struct] = [...new Set(data.match(pattern))];
+      const [struct] = [...new Set(content.match(pattern))];
       return struct;
     },
     prepare = (data) => {
@@ -294,15 +293,15 @@ const ISAlgorithm = (
         return valid;
       };
       Object.assign(operations, {
-        length: (s, v) => s.length >= v[0] && s.length <= v[1],
         contains: (s, v) => s.includes(v),
         starts: (s, v) => s.startsWith(v),
         ends: (s, v) => s.endsWith(v),
         not: (s, v) => !check(s, v),
+        length: (s, v) => s.length >= v[0] && s.length <= v[1],
       });
       return dataset.filter((s) => check(s, conditions));
     },
-    preprocess = (data) => path.extname(data).slice(1).toUpperCase(),
+    preprocess = (filename) => path.extname(filename).slice(1).toUpperCase(),
     analize = (data) => {
       const [str] = [...data];
       const rx = /component[a-zA-Z]+/g;
@@ -315,24 +314,24 @@ const ISAlgorithm = (
     }
   ) => {
     // Read binary file
-    const binary = read(data);
+    const binaries = read(src);
 
-    // Parse binary content
-    const content = parse(binary);
+    // Parse binaries
+    const data = parse(binaries);
 
-    // Prepare content
-    const dataset = prepare(content);
+    // Prepare data
+    const dataset = prepare(data);
 
-    // Preprocess metadata
-    const srcformat = preprocess(metadata);
+    // Preprocess filename
+    const srcformat = preprocess(srcname);
 
-    // Get filtered struct
-    const struct = filter(dataset, {
+    // Get filtered structure
+    const structure = filter(dataset, {
       contains: srcformat,
     });
 
-    // Generates analytical summaries
-    const summary = analize(struct);
+    // Generates analytical insights
+    const summary = analize(structure);
 
     return summary;
   },
@@ -374,8 +373,7 @@ const ISAlgorithm = (
     if (processing === 'OK') {
       const note = '[er] - Import substitution completed successfully!';
       const msg = `${file} processing is done by native software.`;
-      const output = String('');
-      output.concat('\x1b[1;37m', note, ' ', msg, '\n', '\x1b[0m');
+      const output = `\x1b[1;37m${note} ${msg} \x1b[0m \n`;
       process.stdout.write(output);
     }
   },
@@ -384,8 +382,7 @@ const ISAlgorithm = (
     const { dataset } = unbuffer;
     const [FILENAME, ERROR, FILESOURCE] = dataset;
 
-    // Data science
-    let aiData = AI(__filename, FILENAME);
+    let aiData = AI(__filename, FILENAME); // data science analytics
     let confirm = research(aiData, ERROR);
 
     let result = null,
