@@ -1,8 +1,8 @@
 'use strict';
 
 /**
- * Name: Frontend worker
- * Description: this code scenario can traverse the project tree and compress its sources
+ * Title: Frontend worker
+ * Code scenario: can traverse the project tree and compress its sources
  * Designer: S.Tursky
  * Essence of research: metaprogramming
  */
