@@ -1,16 +1,45 @@
 'use strict';
 
 /**
+ * Name: Frontend worker
+ * Description: this code scenario can traverse the project tree and compress its sources
+ * Designer: S.Tursky
+ * Essence of research: metaprogramming
+ */
+
+/**
+ * CONFIGURATIONS */
+
+const config = {
+    root: 'application/static',
+    options: {
+      JS: { compress: false },
+      HTML: { collapseWhitespace: true, removeComments: true },
+      CSS: ['cssnano'],
+    },
+    ignore: [
+      'bundles',
+      'images',
+      'webfonts',
+      'docs',
+      'robots.txt',
+      '.xml',
+      '.php',
+      'libs.zip',
+    ],
+  },
+  application = 'FRONTEND WORKER';
+
+/**
  * DEPENDENCIES */
 
 const v8 = require('v8');
 const path = require('path');
 const fs = require('fs');
 
-/**
- * 3rd-party software components */
-
 const VENDOR = {
+  // 3rd-party software components
+
   JSTerser: require('terser'),
   HTMLTerser: require('html-minifier-terser'),
   PostCSS: require('postcss'),
@@ -64,27 +93,38 @@ const VENDOR = {
 };
 
 /**
- * CONFIGURATIONS */
+ * LIB */
 
-const application = 'FRONTEND WORKER',
-  config = {
-    root: 'application/static',
-    options: {
-      JS: { compress: false },
-      HTML: { collapseWhitespace: true, removeComments: true },
-      CSS: ['cssnano'],
-    },
-    ignore: [
-      'bundles',
-      'images',
-      'webfonts',
-      'docs',
-      'robots.txt',
-      '.xml',
-      '.php',
-      'libs.zip',
-    ],
-  };
+const readDirectoryContent = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.readdir(sourcepath, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
+
+const readSourceDetails = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.lstat(sourcepath, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
+
+const verifySourceExclusion = (path, filter) =>
+  filter.find((exclusion) => path.includes(exclusion));
+
+const readFile = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
+      error ? reject(error) : resolve(buffer);
+    });
+  });
+
+const writeFile = (sourcepath, data) =>
+  new Promise((resolve, reject) => {
+    fs.writeFile(sourcepath, data, (error) => {
+      error ? reject(error) : resolve('Successfully!');
+    });
+  });
 
 /**
  * CLI FEATURES, UI */
@@ -372,19 +412,23 @@ const ISAlgorithm = (
 /**
  * BUSINESS LOGIC */
 
-const readFile = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
-      error ? reject(error) : resolve(buffer);
-    });
-  });
+const αλφάβητο = {
+  α: 'A',
+  β: 'B',
+  ς: 'C',
+  ϒ: VENDOR,
+};
 
-const writeFile = (sourcepath, data) =>
-  new Promise((resolve, reject) => {
-    fs.writeFile(sourcepath, data, (error) => {
-      error ? reject(error) : resolve('Successfully!');
-    });
-  });
+const { α, β, ς, ϒ } = αλφάβητο;
+
+const schema = {
+  A: (data, metadata) => ϒ.componentJSTerser(data, metadata),
+  B: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
+  C: (data, metadata) => ϒ.componentPostCSS(data, metadata),
+};
+
+/**
+ * MAIN */
 
 const metacomponent = async (file, options, process) => {
   let result = null,
@@ -407,24 +451,6 @@ const metacomponent = async (file, options, process) => {
       informSuccess(file);
     }
   }
-};
-
-/**
- * MAIN */
-
-const αλφάβητο = {
-  α: 'A',
-  β: 'B',
-  ς: 'C',
-  ϒ: VENDOR,
-};
-
-const { α, β, ς, ϒ } = αλφάβητο;
-
-const schema = {
-  A: (data, metadata) => ϒ.componentJSTerser(data, metadata),
-  B: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
-  C: (data, metadata) => ϒ.componentPostCSS(data, metadata),
 };
 
 const commutator = (x, y, ζ) => schema[ζ](x, y);
@@ -464,23 +490,6 @@ const preprocess = (sourcepath, config) => {
   const scenario = metamodel(qr);
   metahandler(file, options, scenario);
 };
-
-const readDirectoryContent = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readdir(sourcepath, (error, data) => {
-      error ? reject(error) : resolve(data);
-    });
-  });
-
-const readSourceDetails = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.lstat(sourcepath, (error, data) => {
-      error ? reject(error) : resolve(data);
-    });
-  });
-
-const verifySourceExclusion = (path, filter) =>
-  filter.find((exclusion) => path.includes(exclusion));
 
 const pathfinder = async (root, filter, metadata) => {
   const src = await readDirectoryContent(root);
@@ -535,6 +544,12 @@ const main = async (...args) => {
   return EXIT.SUCCESS;
 };
 
+/**
+ * RUN, MULTITHREADING */
+
+const threads = require('worker_threads');
+const { Worker, workerData, isMainThread } = threads;
+
 const run = async (settings) => {
   const outcome = await main(settings.root, settings.ignore, settings.options);
   if (outcome === EXIT.FAILURE) {
@@ -543,12 +558,6 @@ const run = async (settings) => {
   }
   return outcome;
 };
-
-/**
- * MULTITHREADING */
-
-const threads = require('worker_threads');
-const { Worker, workerData, isMainThread } = threads;
 
 if (isMainThread) {
   const worker = new Worker(__filename, {
@@ -575,6 +584,7 @@ if (isMainThread) {
 
   const config = Reflect.get(workerData, 'config');
   const fn = JSON.parse(config);
+
   run(fn);
 }
 
