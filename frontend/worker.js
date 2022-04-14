@@ -126,140 +126,99 @@ const writeFile = (sourcepath, data) =>
   });
 
 /**
- * UI, CLI FEATURES */
+ * UI */
 
-const render = (output) => process.stdout.write(output);
-const preprint = (...arr) => arr.join('');
-
-const CLITypography = {
-  text: {
-    boldfont: '\x1b[1m',
-    hidden: '\x1b[8m',
-    underline: '\x1b[4m',
-    dim: '\x1b[2m',
-    blink: '\x1b[5m',
-    reverse: '\x1b[7m',
-  },
-
-  display: {
+const CLI /** FEATURES */ = {
+  UITypography: {
     clear: '\x1Bc',
     reset: '\x1b[0m',
-  },
-
-  color: {
-    black: '\x1b[30m',
-    red: '\x1b[31m',
-    green: '\x1b[32m',
-    yellow: '\x1b[33m',
-    blue: '\x1b[34m',
-    magenta: '\x1b[35m',
-    cyan: '\x1b[36m',
+    boldfont: '\x1b[1m',
+    dim: '\x1b[2m',
     white: '\x1b[37m',
+    blue: '\x1b[34m',
+    red: '\x1b[31m',
+    cyan: '\x1b[36m',
+    blueBG: '\x1b[44m',
+    newline: '\n',
+    indent: '\v',
   },
 
-  background: {
-    black: '\x1b[40m',
-    red: '\x1b[41m',
-    green: '\x1b[42m',
-    yellow: '\x1b[43m',
-    blue: '\x1b[44m',
-    magenta: '\x1b[45m',
-    cyan: '\x1b[46m',
-    white: '\x1b[47m',
+  preprint(matrix) {
+    return [...matrix].flat().join('');
   },
 
-  fn: {
-    draw: (struct) => struct,
-    newline: (n) => '\n'.repeat(n),
-    space: (n) => ' '.repeat(n),
+  CLIStart(data, cli = this.UITypography) {
+    const [title] = [...data];
+    return this.preprint([
+      [cli.clear, cli.boldfont, cli.white, cli.blueBG],
+      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
+      [' '.repeat(5), title, ' '.repeat(5), cli.newline],
+      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
+      [cli.reset, cli.indent.repeat(2)],
+    ]);
   },
-};
 
-/**
- * CONSOLE OUTPUT */
+  CLISuccess(data, cli = this.UITypography) {
+    const [srcname] = [...data];
+    return this.preprint([
+      [cli.cyan, '[ok]'],
+      [cli.blue, cli.dim, ' - ', cli.reset],
+      [cli.blue, srcname, cli.newline, cli.reset],
+    ]);
+  },
 
-const start = (app, ui = CLITypography) => {
-  render(
-    preprint(
-      ui.display.clear,
-      ui.text.boldfont,
-      ui.color.white,
-      ui.background.blue,
+  CLIError(data, cli = this.UITypography) {
+    const [srcname, err] = [...data];
+    return this.preprint([
+      [cli.red, '[ok]'],
+      [cli.blue, cli.dim, ' - ', cli.reset],
+      [cli.blue, srcname, cli.newline, cli.indent],
+      [cli.red, err.stack, cli.newline, cli.indent, cli.reset],
+    ]);
+  },
 
-      ui.fn.draw(ui.fn.space(5) + ui.fn.space(app.length) + ui.fn.space(5)),
-      ui.fn.newline(1),
-      ui.fn.draw(ui.fn.space(5) + app + ui.fn.space(5)),
-      ui.fn.newline(1),
-      ui.fn.draw(ui.fn.space(5) + ui.fn.space(app.length) + ui.fn.space(5)),
+  CLIFailure(data, cli = this.UITypography) {
+    const [msg] = [...data];
+    return this.preprint([
+      [cli.blue],
+      ['- Failure❗️', cli.newline],
+      ['- ', msg, cli.newline],
+      ['- Process completed...', cli.newline],
+      [cli.reset],
+    ]);
+  },
 
-      ui.fn.newline(3),
-      ui.display.reset
-    )
-  );
-};
+  CLITimer(data, cli = this.UITypography) {
+    const [timer] = [...data];
+    return this.preprint([
+      [cli.newline, cli.cyan],
+      [`Time spent: ${new Date() - timer} ms`],
+      [cli.newline, cli.indent, cli.reset],
+    ]);
+  },
 
-const informSuccess = (data, ui = CLITypography) => {
-  render(
-    preprint(
-      ui.color.cyan,
-      ui.fn.draw('[ok]'),
-      ui.color.blue,
-      ui.text.dim,
-      ui.fn.draw(' - '),
-      ui.display.reset,
-      ui.color.blue,
-      ui.fn.draw(data),
-      ui.fn.newline(1),
-      ui.display.reset
-    )
-  );
-};
+  Router(route, args) {
+    return {
+      start: (param) => this.CLIStart(param),
+      success: (param) => this.CLISuccess(param),
+      error: (param) => this.CLIError(param),
+      failure: (param) => this.CLIFailure(param),
+      timer: (param) => this.CLITimer(param),
+    }[route](args);
+  },
 
-const informFailure = (data, ui = CLITypography) => {
-  render(
-    preprint(
-      ui.color.blue,
-      ui.fn.draw('- Failure❗️'),
-      ui.fn.newline(1),
-      ui.fn.draw(`- ${data}`),
-      ui.fn.newline(1),
-      ui.fn.draw('- Process completed...'),
-      ui.fn.newline(1),
-      ui.display.reset
-    )
-  );
-};
+  FRONTController(request, data, response = () => this.Router(request, data)) {
+    return response();
+  },
 
-const reportError = (data, err, ui = CLITypography) => {
-  render(
-    preprint(
-      ui.color.red,
-      ui.fn.draw('[ok]'),
-      ui.color.blue,
-      ui.text.dim,
-      ui.fn.draw(' - '),
-      ui.display.reset,
-      ui.color.blue,
-      ui.fn.draw(data),
-      ui.fn.newline(2),
-      ui.color.red,
-      ui.fn.draw(err.stack),
-      ui.fn.newline(2),
-      ui.display.reset
-    )
-  );
-};
+  print(otput) {
+    process.stdout.write(otput);
+  },
 
-const printSpentTime = (timer, ui = CLITypography) => {
-  render(
-    preprint(
-      ui.fn.newline(1),
-      ui.color.cyan,
-      ui.fn.draw(`Time spent: ${new Date() - timer} ms`),
-      ui.fn.newline(2),
-      ui.display.reset
-    )
-  );
+  Renderer(status, ...args) {
+    const view = this.FRONTController(status, args);
+    return this.print(view);
+  },
 };
 
 /**
@@ -440,7 +399,7 @@ const metacomponent = async (file, options, process) => {
     const processed = await process(code, options);
     result = await writeFile(file, processed);
   } catch (err) {
-    reportError(file, err);
+    CLI.Renderer('error', file, err);
     if (err instanceof TypeError || err instanceof ReferenceError) {
       const PACKAGE = v8.serialize({
         dataset: [file, err, code],
@@ -449,7 +408,7 @@ const metacomponent = async (file, options, process) => {
     }
   } finally {
     if (result === 'Successfully!') {
-      informSuccess(file);
+      CLI.Renderer('success', file);
     }
   }
 };
@@ -535,7 +494,7 @@ const verifyDirectoryExists = (path) =>
 const main = async (...args) => {
   const [directory, exclusions, configurations] = args;
   try {
-    start(application);
+    CLI.Renderer('start', application);
     await verifyDirectoryExists(directory);
     pathfinder(directory, exclusions, configurations);
   } catch (error) {
@@ -555,7 +514,7 @@ const run = async (settings) => {
   const outcome = await main(settings.root, settings.ignore, settings.options);
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
-    informFailure(data);
+    CLI.Renderer('failure', data);
   }
   return outcome;
 };
@@ -574,7 +533,7 @@ if (isMainThread) {
   };
 
   worker.on('message', (msg) => Reflect.set(statistics, 'TIMER', msg));
-  worker.on('exit', () => printSpentTime(statistics.TIMER));
+  worker.on('exit', () => CLI.Renderer('timer', statistics.TIMER));
   worker.on('error', (err) => console.log(err.stack));
 } else {
   // console.dir({ worker: threads });
