@@ -201,16 +201,18 @@ const start = (app, ui = CLITypography) => {
 const informSuccess = (data, ui = CLITypography) => {
   render(
     preprint(
-      [
-        [ui.color.cyan, '[ok]'],
-        [ui.color.blue, ui.text.dim, ' - ', ui.display.reset],
-        [ui.color.blue, data, ui.fn.newline(1), ui.display.reset],
-      ]
-        .flat()
-        .join('')
+      ui.color.cyan,
+      ui.fn.draw('[ok]'),
+      ui.color.blue,
+      ui.text.dim,
+      ui.fn.draw(' - '),
+      ui.display.reset,
+      ui.color.blue,
+      ui.fn.draw(data),
+      ui.fn.newline(1),
+      ui.display.reset
     )
   );
-  return true;
 };
 
 const informFailure = (data, ui = CLITypography) => {
