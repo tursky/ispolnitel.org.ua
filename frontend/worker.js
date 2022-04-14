@@ -177,13 +177,9 @@ const CLI /** FEATURES */ = {
     return response();
   },
 
-  print(output) {
-    process.stdout.write(output);
-  },
-
   Renderer(status, ...args) {
     const view = this.FRONTController(status, args);
-    return this.print(view);
+    return process.stdout.write(view)
   },
 };
 
