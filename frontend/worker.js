@@ -92,40 +92,6 @@ const VENDOR = {
 };
 
 /**
- * LIB */
-
-const readDirectoryContent = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readdir(sourcepath, (error, data) => {
-      error ? reject(error) : resolve(data);
-    });
-  });
-
-const readSourceDetails = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.lstat(sourcepath, (error, data) => {
-      error ? reject(error) : resolve(data);
-    });
-  });
-
-const verifySourceExclusion = (path, filter) =>
-  filter.find((exclusion) => path.includes(exclusion));
-
-const readFile = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
-      error ? reject(error) : resolve(buffer);
-    });
-  });
-
-const writeFile = (sourcepath, data) =>
-  new Promise((resolve, reject) => {
-    fs.writeFile(sourcepath, data, (error) => {
-      error ? reject(error) : resolve('Successfully!');
-    });
-  });
-
-/**
  * UI */
 
 const CLI /** FEATURES */ = {
@@ -370,6 +336,37 @@ const ISAlgorithm = (
 ) => tryImplement();
 
 /**
+ * LIB */
+
+ const readDirectoryContent = (sourcepath) =>
+ new Promise((resolve, reject) => {
+   fs.readdir(sourcepath, (error, data) => {
+     error ? reject(error) : resolve(data);
+   });
+ });
+
+const readSourceDetails = (sourcepath) =>
+ new Promise((resolve, reject) => {
+   fs.lstat(sourcepath, (error, data) => {
+     error ? reject(error) : resolve(data);
+   });
+ });
+
+const readFile = (sourcepath) =>
+ new Promise((resolve, reject) => {
+   fs.readFile(sourcepath, 'utf8', (error, buffer) => {
+     error ? reject(error) : resolve(buffer);
+   });
+ });
+
+const writeFile = (sourcepath, data) =>
+ new Promise((resolve, reject) => {
+   fs.writeFile(sourcepath, data, (error) => {
+     error ? reject(error) : resolve('Successfully!');
+   });
+ });
+
+/**
  * BUSINESS LOGIC */
 
 const αλφάβητο = {
@@ -450,6 +447,9 @@ const preprocess = (sourcepath, config) => {
   const scenario = metamodel(qr);
   metahandler(file, options, scenario);
 };
+
+const verifySourceExclusion = (path, filter) =>
+ filter.find((exclusion) => path.includes(exclusion));
 
 const pathfinder = async (root, filter, metadata) => {
   const src = await readDirectoryContent(root);
