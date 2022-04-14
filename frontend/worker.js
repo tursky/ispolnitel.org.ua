@@ -201,16 +201,13 @@ const start = (app, ui = CLITypography) => {
 const informSuccess = (data, ui = CLITypography) => {
   render(
     preprint(
-      ui.color.cyan,
-      ui.fn.draw('[ok]'),
-      ui.color.blue,
-      ui.text.dim,
-      ui.fn.draw(' - '),
-      ui.display.reset,
-      ui.color.blue,
-      ui.fn.draw(data),
-      ui.fn.newline(1),
-      ui.display.reset
+      [
+        [ui.color.cyan, '[ok]'],
+        [ui.color.blue, ui.text.dim, ' - ', ui.display.reset],
+        [ui.color.blue, data, ui.fn.newline(1), ui.display.reset],
+      ]
+        .flat()
+        .join('')
     )
   );
   return true;
@@ -325,12 +322,12 @@ const ISAlgorithm = (
     // Preprocess filename
     const srcformat = preprocess(srcname);
 
-    // Get filtered structure
+    // Get filtered struct
     const structure = filter(dataset, {
       contains: srcformat,
     });
 
-    // Generates analytical insights
+    // Compose analytical summaries
     const summary = analize(structure);
 
     return summary;
