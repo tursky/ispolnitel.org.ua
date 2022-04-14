@@ -177,8 +177,8 @@ const CLI /** FEATURES */ = {
     return response();
   },
 
-  print(otput) {
-    process.stdout.write(otput);
+  print(output) {
+    process.stdout.write(output);
   },
 
   Renderer(status, ...args) {
