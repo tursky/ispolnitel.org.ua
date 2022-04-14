@@ -128,6 +128,99 @@ const writeFile = (sourcepath, data) =>
 /**
  * UI, CLI FEATURES */
 
+const CLI = {
+  UITypography: {
+    clear: '\x1Bc',
+    reset: '\x1b[0m',
+    boldfont: '\x1b[1m',
+    dim: '\x1b[2m',
+    white: '\x1b[37m',
+    blue: '\x1b[34m',
+    red: '\x1b[31m',
+    cyan: '\x1b[36m',
+    blueBG: '\x1b[44m',
+    newline: '\n',
+    indent: '\v',
+  },
+
+  preprint(matrix) {
+    return [...matrix].flat().join('');
+  },
+
+  CLIStart(data, cli = this.UITypography) {
+    const [title] = [...data];
+    return this.preprint([
+      [cli.clear, cli.boldfont, cli.white, cli.blueBG],
+      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
+      [' '.repeat(5), title, ' '.repeat(5), cli.newline],
+      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
+      [cli.reset, cli.indent.repeat(2)],
+    ]);
+  },
+
+  CLISuccess(data, cli = this.UITypography) {
+    const [srcname] = [...data];
+    return this.preprint([
+      [cli.cyan, '[ok]'],
+      [cli.blue, cli.dim, ' - ', cli.reset],
+      [cli.blue, srcname, cli.newline, cli.reset],
+    ]);
+  },
+
+  CLIError(data, cli = this.UITypography) {
+    const [srcname, err] = [...data];
+    return this.preprint([
+      [cli.red, '[ok]'],
+      [cli.blue, cli.dim, ' - ', cli.reset],
+      [cli.blue, srcname, cli.newline, cli.indent],
+      [cli.red, err.stack, cli.newline, cli.indent, cli.reset],
+    ]);
+  },
+
+  CLIFailure(data, cli = this.UITypography) {
+    const [msg] = [...data];
+    return this.preprint([
+      [cli.blue],
+      ['- Failure❗️', cli.newline],
+      ['- ', msg, cli.newline],
+      ['- Process completed...', cli.newline],
+      [cli.reset],
+    ]);
+  },
+
+  CLITimer(data, cli = this.UITypography) {
+    const [timer] = [...data];
+    return this.preprint([
+      [cli.newline, cli.cyan],
+      [`Time spent: ${new Date() - timer} ms`],
+      [cli.newline, cli.indent, cli.reset],
+    ]);
+  },
+
+  Router(route, args) {
+    return {
+      start: (param) => this.CLIStart(param),
+      success: (param) => this.CLISuccess(param),
+      error: (param) => this.CLIError(param),
+      failure: (param) => this.CLIFailure(param),
+      timer: (param) => this.CLITimer(param),
+    }[route](args);
+  },
+
+  FRONTController(request, data, response = () => this.Router(request, data)) {
+    return response();
+  },
+
+  print(otput) {
+    process.stdout.write(otput);
+  },
+
+  Renderer(status, ...args) {
+    const view = this.FRONTController(status, args);
+    return this.print(view);
+  },
+};
+
 const render = (output) => process.stdout.write(output);
 const preprint = (...arr) => arr.join('');
 
