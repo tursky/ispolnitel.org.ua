@@ -92,7 +92,7 @@ const VENDOR = {
 };
 
 /**
- * UI */
+ * UI, CONSOLE OUTPUT */
 
 const CLI /** FEATURES */ = {
   UITypography: {
@@ -338,33 +338,33 @@ const ISAlgorithm = (
 /**
  * LIB */
 
- const readDirectoryContent = (sourcepath) =>
- new Promise((resolve, reject) => {
-   fs.readdir(sourcepath, (error, data) => {
-     error ? reject(error) : resolve(data);
-   });
- });
+const readDirectoryContent = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.readdir(sourcepath, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
 
 const readSourceDetails = (sourcepath) =>
- new Promise((resolve, reject) => {
-   fs.lstat(sourcepath, (error, data) => {
-     error ? reject(error) : resolve(data);
-   });
- });
+  new Promise((resolve, reject) => {
+    fs.lstat(sourcepath, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
 
 const readFile = (sourcepath) =>
- new Promise((resolve, reject) => {
-   fs.readFile(sourcepath, 'utf8', (error, buffer) => {
-     error ? reject(error) : resolve(buffer);
-   });
- });
+  new Promise((resolve, reject) => {
+    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
+      error ? reject(error) : resolve(buffer);
+    });
+  });
 
 const writeFile = (sourcepath, data) =>
- new Promise((resolve, reject) => {
-   fs.writeFile(sourcepath, data, (error) => {
-     error ? reject(error) : resolve('Successfully!');
-   });
- });
+  new Promise((resolve, reject) => {
+    fs.writeFile(sourcepath, data, (error) => {
+      error ? reject(error) : resolve('Successfully!');
+    });
+  });
 
 /**
  * BUSINESS LOGIC */
@@ -449,7 +449,7 @@ const preprocess = (sourcepath, config) => {
 };
 
 const verifySourceExclusion = (path, filter) =>
- filter.find((exclusion) => path.includes(exclusion));
+  filter.find((exclusion) => path.includes(exclusion));
 
 const pathfinder = async (root, filter, metadata) => {
   const src = await readDirectoryContent(root);
