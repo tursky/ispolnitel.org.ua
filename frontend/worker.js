@@ -533,7 +533,7 @@ const metacomponent = async (file, options, process) => {
     const processed = await process(code, options);
     result = await writeFile(file, processed);
   } catch (err) {
-    reportError(file, err);
+    CLI.Renderer('error', file, err);
     if (err instanceof TypeError || err instanceof ReferenceError) {
       const PACKAGE = v8.serialize({
         dataset: [file, err, code],
@@ -542,7 +542,7 @@ const metacomponent = async (file, options, process) => {
     }
   } finally {
     if (result === 'Successfully!') {
-      informSuccess(file);
+      CLI.Renderer('success', file);
     }
   }
 };
@@ -628,7 +628,7 @@ const verifyDirectoryExists = (path) =>
 const main = async (...args) => {
   const [directory, exclusions, configurations] = args;
   try {
-    start(application);
+    CLI.Renderer('start', application);
     await verifyDirectoryExists(directory);
     pathfinder(directory, exclusions, configurations);
   } catch (error) {
@@ -648,7 +648,7 @@ const run = async (settings) => {
   const outcome = await main(settings.root, settings.ignore, settings.options);
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
-    informFailure(data);
+    CLI.Renderer('failure', data);
   }
   return outcome;
 };
@@ -667,7 +667,7 @@ if (isMainThread) {
   };
 
   worker.on('message', (msg) => Reflect.set(statistics, 'TIMER', msg));
-  worker.on('exit', () => printSpentTime(statistics.TIMER));
+  worker.on('exit', () => CLI.Renderer('timer', statistics.TIMER));
   worker.on('error', (err) => console.log(err.stack));
 } else {
   // console.dir({ worker: threads });
