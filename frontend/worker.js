@@ -126,9 +126,9 @@ const writeFile = (sourcepath, data) =>
   });
 
 /**
- * UI, CLI FEATURES */
+ * UI */
 
-const CLI = {
+const CLI /** FEATURES */ = {
   UITypography: {
     clear: '\x1Bc',
     reset: '\x1b[0m',
