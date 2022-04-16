@@ -506,23 +506,6 @@ const getDataset = async (src, fltr) => {
   return srcmap;
 };
 
-const verifySourceExclusion = (path, filter) =>
-  filter.find((exclusion) => path.includes(exclusion));
-
-const pathfinder = async (root, filter, metadata) => {
-  const src = await readDirectoryContent(root);
-  for (let source of src) {
-    const sourcepath = path.join(root, source);
-    if (verifySourceExclusion(sourcepath, filter)) continue;
-    source = await readSourceDetails(sourcepath);
-    if (source.isFile()) {
-      preprocess(sourcepath, metadata);
-      continue;
-    }
-    pathfinder(sourcepath, filter, metadata);
-  }
-};
-
 const EXIT = {
   SUCCESS: true,
   FAILURE: false,
@@ -557,7 +540,6 @@ const main = async (...args) => {
     const sources = await pathfinder_v2(directory);
     const dataset = await getDataset(sources, exclusions);
     await toLaunch(dataset, configurations);
-    // pathfinder(directory, exclusions, configurations);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
