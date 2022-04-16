@@ -470,13 +470,13 @@ const toLaunch = async (dataset, metadata) => {
   }
 };
 
-const pathfinder_v2 = async (root) => {
+const pathfinder = async (root) => {
   const sources = await readDirectoryContent(root);
   const src = await Promise.all(
     sources.map(async (source) => {
       const sourcepath = path.join(root, source);
       source = await readSourceDetails(sourcepath);
-      return source.isDirectory() ? pathfinder_v2(sourcepath) : sourcepath;
+      return source.isDirectory() ? pathfinder(sourcepath) : sourcepath;
     })
   );
   return src.reduce((acc, file) => acc.concat(file), []);
@@ -534,10 +534,10 @@ const verifyDirectoryExists = (path) =>
 
 const main = async (...args) => {
   const [directory, exclusions, configurations] = args;
+  CLI.Renderer('start', application);
   try {
-    CLI.Renderer('start', application);
     await verifyDirectoryExists(directory);
-    const sources = await pathfinder_v2(directory);
+    const sources = await pathfinder(directory);
     const dataset = await getDataset(sources, exclusions);
     await toLaunch(dataset, configurations);
   } catch (error) {
