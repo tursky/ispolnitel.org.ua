@@ -98,7 +98,7 @@ const VENDOR = {
 };
 
 /**
- * UI, CONSOLE OUTPUT */
+ * CONSOLE OUTPUT, UI */
 
 const CLI /** FEATURES */ = {
   UITypography: {
@@ -190,7 +190,7 @@ const CLI /** FEATURES */ = {
 };
 
 /**
- * AI, IMPORT SUBSTITUTION COMPONENT */
+ * IMPORT SUBSTITUTION COMPONENT, AI */
 
 const ISAlgorithm = (
   data,
