@@ -27,6 +27,12 @@ const config = {
       'libs.zip',
     ],
   },
+  RALEY = {
+    EXTNAME: ['.css', '.html', '.js'],
+    CSS: true,
+    HTML: true,
+    JS: true,
+  },
   application = 'FRONTEND WORKER';
 
 /**
@@ -179,7 +185,7 @@ const CLI /** FEATURES */ = {
 
   Renderer(status, ...args) {
     const view = this.FRONTController(status, args);
-    return process.stdout.write(view)
+    return process.stdout.write(view);
   },
 };
 
@@ -444,21 +450,60 @@ const preprocess = (sourcepath, config) => {
   metahandler(file, options, scenario);
 };
 
-const verifySourceExclusion = (path, filter) =>
-  filter.find((exclusion) => path.includes(exclusion));
+const sleep = (msec) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, msec);
+  });
 
-const pathfinder = async (root, filter, metadata) => {
-  const src = await readDirectoryContent(root);
-  for (let source of src) {
-    const sourcepath = path.join(root, source);
-    if (verifySourceExclusion(sourcepath, filter)) continue;
-    source = await readSourceDetails(sourcepath);
-    if (source.isFile()) {
-      preprocess(sourcepath, metadata);
-      continue;
+const launcher = async (file, config) => {
+  await sleep(15);
+  preprocess(file, config);
+};
+
+const launchProcess = async (srcmap, metadata) => {
+  for (const [format, files] of srcmap) {
+    if (RALEY[format]) {
+      for (const file of files) {
+        await launcher(file, metadata);
+      }
     }
-    pathfinder(sourcepath, filter, metadata);
   }
+};
+
+const pathfinder = async (root) => {
+  const sources = await readDirectoryContent(root);
+  const src = await Promise.all(
+    sources.map(async (source) => {
+      const sourcepath = path.join(root, source);
+      source = await readSourceDetails(sourcepath);
+      return source.isDirectory() ? pathfinder(sourcepath) : sourcepath;
+    })
+  );
+  return src.reduce((acc, file) => acc.concat(file), []);
+};
+
+const isCheckException = (path, filter) =>
+  filter.find((exception) => path.includes(exception));
+
+const isCheckInsertion = (path, s) => path.includes(s);
+
+const getDataset = async (src, fltr) => {
+  const srcmap = new Map();
+  let stack = new Array();
+  for (const name of RALEY.EXTNAME) {
+    for (const source of src) {
+      if (isCheckException(source, fltr)) {
+        continue;
+      }
+      if (isCheckInsertion(source, name)) {
+        stack.push(source);
+      }
+    }
+    const extname = name.slice(1).toUpperCase();
+    srcmap.set(extname, stack);
+    stack = [];
+  }
+  return srcmap;
 };
 
 const EXIT = {
@@ -478,7 +523,7 @@ const getExitInformation = (
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
-const verifyDirectoryExists = (path) =>
+const verifyRootExists = (path) =>
   new Promise((resolve, reject) => {
     fs.access(path, (error) => {
       error
@@ -488,11 +533,13 @@ const verifyDirectoryExists = (path) =>
   });
 
 const main = async (...args) => {
-  const [directory, exclusions, configurations] = args;
+  const [rootpath, exceptions, metadata] = args;
+  CLI.Renderer('start', application);
   try {
-    CLI.Renderer('start', application);
-    await verifyDirectoryExists(directory);
-    pathfinder(directory, exclusions, configurations);
+    await verifyRootExists(rootpath);
+    const sources = await pathfinder(rootpath);
+    const dataset = await getDataset(sources, exceptions);
+    await launchProcess(dataset, metadata);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
@@ -507,7 +554,12 @@ const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
 const run = async (settings) => {
-  const outcome = await main(settings.root, settings.ignore, settings.options);
+  const outcome = await main(
+    settings.root,
+    settings.ignore,
+    settings.options,
+    settings.formats
+  );
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
     CLI.Renderer('failure', data);
