@@ -27,6 +27,12 @@ const config = {
       'libs.zip',
     ],
   },
+  RALEY = {
+    EXTNAME: ['.css', '.html', '.js'],
+    CSS: true,
+    HTML: true,
+    JS: true,
+  },
   application = 'FRONTEND WORKER';
 
 /**
@@ -179,7 +185,7 @@ const CLI /** FEATURES */ = {
 
   Renderer(status, ...args) {
     const view = this.FRONTController(status, args);
-    return process.stdout.write(view)
+    return process.stdout.write(view);
   },
 };
 
@@ -444,6 +450,62 @@ const preprocess = (sourcepath, config) => {
   metahandler(file, options, scenario);
 };
 
+const sleep = (msec) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, msec);
+  });
+
+const launcher = async (file, config) => {
+  await sleep(15);
+  preprocess(file, config);
+};
+
+const toLaunch = async (dataset, metadata) => {
+  for (const [format, files] of dataset) {
+    if (RALEY[format]) {
+      for (const file of files) {
+        await launcher(file, metadata);
+      }
+    }
+  }
+};
+
+const pathfinder_v2 = async (root) => {
+  const sources = await readDirectoryContent(root);
+  const src = await Promise.all(
+    sources.map(async (source) => {
+      const sourcepath = path.join(root, source);
+      source = await readSourceDetails(sourcepath);
+      return source.isDirectory() ? pathfinder_v2(sourcepath) : sourcepath;
+    })
+  );
+  return src.reduce((acc, file) => acc.concat(file), []);
+};
+
+const isCheckException = (path, filter) =>
+  filter.find((exception) => path.includes(exception));
+
+const isCheckInsertion = (path, s) => path.includes(s);
+
+const getDataset = async (src, fltr) => {
+  const srcmap = new Map();
+  let stack = new Array();
+  for (const name of RALEY.EXTNAME) {
+    for (const source of src) {
+      if (isCheckException(source, fltr)) {
+        continue;
+      }
+      if (isCheckInsertion(source, name)) {
+        stack.push(source);
+      }
+    }
+    const extname = name.slice(1).toUpperCase();
+    srcmap.set(extname, stack);
+    stack = [];
+  }
+  return srcmap;
+};
+
 const verifySourceExclusion = (path, filter) =>
   filter.find((exclusion) => path.includes(exclusion));
 
@@ -507,7 +569,12 @@ const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
 const run = async (settings) => {
-  const outcome = await main(settings.root, settings.ignore, settings.options);
+  const outcome = await main(
+    settings.root,
+    settings.ignore,
+    settings.options,
+    settings.formats
+  );
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
     CLI.Renderer('failure', data);
