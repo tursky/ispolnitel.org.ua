@@ -460,8 +460,8 @@ const launcher = async (file, config) => {
   preprocess(file, config);
 };
 
-const toLaunch = async (dataset, metadata) => {
-  for (const [format, files] of dataset) {
+const launchProcess = async (srcmap, metadata) => {
+  for (const [format, files] of srcmap) {
     if (RALEY[format]) {
       for (const file of files) {
         await launcher(file, metadata);
@@ -523,7 +523,7 @@ const getExitInformation = (
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
-const verifyDirectoryExists = (path) =>
+const verifyRootExists = (path) =>
   new Promise((resolve, reject) => {
     fs.access(path, (error) => {
       error
@@ -533,13 +533,13 @@ const verifyDirectoryExists = (path) =>
   });
 
 const main = async (...args) => {
-  const [directory, exclusions, configurations] = args;
+  const [rootpath, exceptions, metadata] = args;
   CLI.Renderer('start', application);
   try {
-    await verifyDirectoryExists(directory);
-    const sources = await pathfinder(directory);
-    const dataset = await getDataset(sources, exclusions);
-    await toLaunch(dataset, configurations);
+    await verifyRootExists(rootpath);
+    const sources = await pathfinder(rootpath);
+    const dataset = await getDataset(sources, exceptions);
+    await launchProcess(dataset, metadata);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
