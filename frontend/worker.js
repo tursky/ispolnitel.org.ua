@@ -558,7 +558,6 @@ const run = async (settings) => {
     settings.root,
     settings.ignore,
     settings.options,
-    settings.formats
   );
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
