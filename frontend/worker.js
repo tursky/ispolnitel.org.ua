@@ -554,7 +554,10 @@ const main = async (...args) => {
   try {
     CLI.Renderer('start', application);
     await verifyDirectoryExists(directory);
-    pathfinder(directory, exclusions, configurations);
+    const sources = await pathfinder_v2(directory);
+    const dataset = await getDataset(sources, exclusions);
+    await toLaunch(dataset, configurations);
+    // pathfinder(directory, exclusions, configurations);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
