@@ -538,8 +538,8 @@ const main = async (...args) => {
   try {
     await verifyRootExists(rootpath);
     const sources = await pathfinder(rootpath);
-    const dataset = await getDataset(sources, exceptions);
-    await launchTask(dataset, metadata);
+    const srcmap = await getDataset(sources, exceptions);
+    await launchTask(srcmap, metadata);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
