@@ -412,12 +412,12 @@ const metacomponent = async (file, options, process) => {
   }
 };
 
-const commutator = (x, y, ζ) => schema[ζ](x, y);
+const commutator = (ζ) => schema[ζ];
 
 const metamodel = (
   ζ,
   λ = () =>
-    (χ, ϒ, φ = (χ, ϒ) => commutator(χ, ϒ, ζ)) =>
+    (χ, ϒ, φ = commutator(ζ)) =>
       metacomponent(χ, ϒ, φ)
 ) => λ();
 
