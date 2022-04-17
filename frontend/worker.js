@@ -472,23 +472,10 @@ const launchTask = async (srcmap, metadata) => {
   }
 };
 
-const pathfinder = async (root) => {
-  const content = await readDirectory(root);
-  const set = await Promise.all(
-    content.map(async (source) => {
-      const sourcepath = path.join(root, source);
-      source = await readDetails(sourcepath);
-      if (source.isDirectory()) return pathfinder(sourcepath);
-      else return sourcepath;
-    })
-  );
-  return set.reduce((acc, src) => acc.concat(src), []);
-};
+const checkInsert = (path, insertion) => path.includes(insertion);
 
 const checkExcept = (path, fltr) =>
   fltr.find((exception) => path.includes(exception));
-
-const checkInsert = (path, s) => path.includes(s);
 
 const preprocessDataset = async (src, filter) => {
   const srcmap = new Map();
@@ -503,6 +490,19 @@ const preprocessDataset = async (src, filter) => {
     stack = [];
   }
   return srcmap;
+};
+
+const pathfinder = async (root) => {
+  const content = await readDirectory(root);
+  const set = await Promise.all(
+    content.map(async (source) => {
+      const sourcepath = path.join(root, source);
+      source = await readDetails(sourcepath);
+      if (source.isDirectory()) return pathfinder(sourcepath);
+      else return sourcepath;
+    })
+  );
+  return set.reduce((acc, src) => acc.concat(src), []);
 };
 
 const EXIT = {
