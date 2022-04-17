@@ -27,12 +27,6 @@ const config = {
       'libs.zip',
     ],
   },
-  RALEY = {
-    EXTNAME: ['.css', '.html', '.js'],
-    CSS: true,
-    HTML: true,
-    JS: true,
-  },
   application = 'FRONTEND WORKER';
 
 /**
@@ -384,6 +378,13 @@ const schema = {
   A: (data, metadata) => ϒ.componentJSTerser(data, metadata),
   B: (data, metadata) => ϒ.componentHTMLTerser(data, metadata),
   C: (data, metadata) => ϒ.componentPostCSS(data, metadata),
+};
+
+const RALEY = {
+  EXTNAME: ['.css', '.html', '.js'],
+  CSS: true,
+  HTML: true,
+  JS: true,
 };
 
 /**
