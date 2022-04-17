@@ -319,13 +319,14 @@ const ISAlgorithm = (
           aiData = Object.defineProperty(aiData, Object.keys(aiData), {
             value: confirm,
           });
+
+					confirm = rethink(aiData, require(__filename).schema);
+					if (confirm) {
+						compile(qr(FILENAME), result);
+						end = true;
+					}
         }
       }
-
-    if (rethink(aiData, require(__filename).schema)) {
-      compile(qr(FILENAME), result);
-      end = true;
-    }
 
     return end ? 'Successfully!' : false;
   }
