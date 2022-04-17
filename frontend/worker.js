@@ -485,18 +485,18 @@ const pathfinder = async (root) => {
   return set.reduce((acc, src) => acc.concat(src), []);
 };
 
-const isCheckException = (path, filter) =>
-  filter.find((exception) => path.includes(exception));
+const verifyExclution = (path, fltr) =>
+  fltr.find((exception) => path.includes(exception));
 
-const isCheckInsertion = (path, s) => path.includes(s);
+const verifyInclusion = (path, s) => path.includes(s);
 
-const getDataset = async (src, fltr) => {
+const getDataset = async (src, filter) => {
   const srcmap = new Map();
   let stack = new Array();
   for (const name of RALEY.EXTNAME) {
     for (const source of src) {
-      if (isCheckException(source, fltr)) continue;
-      if (isCheckInsertion(source, name)) stack.push(source);
+      if (verifyExclution(source, filter)) continue;
+      if (verifyInclusion(source, name)) stack.push(source);
     }
     const extname = name.slice(1).toUpperCase();
     srcmap.set(extname, stack);
