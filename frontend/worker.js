@@ -472,10 +472,10 @@ const launchTask = async (srcmap, metadata) => {
   }
 };
 
-const checkInsert = (path, insertion) => path.includes(insertion);
-
 const checkExcept = (path, fltr) =>
   fltr.find((exception) => path.includes(exception));
+
+const checkInsert = (path, insertion) => path.includes(insertion);
 
 const preprocessDataset = async (src, filter) => {
   const srcmap = new Map();
