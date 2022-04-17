@@ -460,7 +460,7 @@ const launcher = async (file, config) => {
   preprocess(file, config);
 };
 
-const launchProcess = async (srcmap, metadata) => {
+const launchTask = async (srcmap, metadata) => {
   for (const [format, files] of srcmap) {
     if (RALEY[format]) {
       for (const file of files) {
@@ -539,7 +539,7 @@ const main = async (...args) => {
     await verifyRootExists(rootpath);
     const sources = await pathfinder(rootpath);
     const dataset = await getDataset(sources, exceptions);
-    await launchProcess(dataset, metadata);
+    await launchTask(dataset, metadata);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
