@@ -92,6 +92,37 @@ const VENDOR = {
 };
 
 /**
+ * LIB */
+
+const readFile = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
+      error ? reject(error) : resolve(buffer);
+    });
+  });
+
+const writeFile = (sourcepath, data) =>
+  new Promise((resolve, reject) => {
+    fs.writeFile(sourcepath, data, (error) => {
+      error ? reject(error) : resolve('Successfully!');
+    });
+  });
+
+const readDirectory = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.readdir(sourcepath, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
+
+const readDetails = (sourcepath) =>
+  new Promise((resolve, reject) => {
+    fs.lstat(sourcepath, (error, data) => {
+      error ? reject(error) : resolve(data);
+    });
+  });
+
+/**
  * CONSOLE OUTPUT, UI */
 
 const CLI /** FEATURES */ = {
@@ -331,37 +362,6 @@ const ISAlgorithm = (
     return end ? 'Successfully!' : false;
   }
 ) => tryImplement();
-
-/**
- * LIB */
-
-const readDirectory = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readdir(sourcepath, (error, data) => {
-      error ? reject(error) : resolve(data);
-    });
-  });
-
-const readDetails = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.lstat(sourcepath, (error, data) => {
-      error ? reject(error) : resolve(data);
-    });
-  });
-
-const readFile = (sourcepath) =>
-  new Promise((resolve, reject) => {
-    fs.readFile(sourcepath, 'utf8', (error, buffer) => {
-      error ? reject(error) : resolve(buffer);
-    });
-  });
-
-const writeFile = (sourcepath, data) =>
-  new Promise((resolve, reject) => {
-    fs.writeFile(sourcepath, data, (error) => {
-      error ? reject(error) : resolve('Successfully!');
-    });
-  });
 
 /**
  * BUSINESS LOGIC */
