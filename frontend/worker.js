@@ -320,11 +320,11 @@ const ISAlgorithm = (
             value: confirm,
           });
 
-					confirm = rethink(aiData, require(__filename).schema);
-					if (confirm) {
-						compile(qr(FILENAME), result);
-						end = true;
-					}
+          confirm = rethink(aiData, require(__filename).schema);
+          if (confirm) {
+            compile(qr(FILENAME), result);
+            end = true;
+          }
         }
       }
 
@@ -494,12 +494,8 @@ const getDataset = async (src, fltr) => {
   let stack = new Array();
   for (const name of RALEY.EXTNAME) {
     for (const source of src) {
-      if (isCheckException(source, fltr)) {
-        continue;
-      }
-      if (isCheckInsertion(source, name)) {
-        stack.push(source);
-      }
+      if (isCheckException(source, fltr)) continue;
+      if (isCheckInsertion(source, name)) stack.push(source);
     }
     const extname = name.slice(1).toUpperCase();
     srcmap.set(extname, stack);
