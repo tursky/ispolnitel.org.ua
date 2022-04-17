@@ -335,14 +335,14 @@ const ISAlgorithm = (
 /**
  * LIB */
 
-const readDirectoryContent = (sourcepath) =>
+const readDirectory = (sourcepath) =>
   new Promise((resolve, reject) => {
     fs.readdir(sourcepath, (error, data) => {
       error ? reject(error) : resolve(data);
     });
   });
 
-const readSourceDetails = (sourcepath) =>
+const readDetails = (sourcepath) =>
   new Promise((resolve, reject) => {
     fs.lstat(sourcepath, (error, data) => {
       error ? reject(error) : resolve(data);
@@ -473,11 +473,11 @@ const launchTask = async (srcmap, metadata) => {
 };
 
 const pathfinder = async (root) => {
-  const sources = await readDirectoryContent(root);
+  const sources = await readDirectory(root);
   const dataset = await Promise.all(
     sources.map(async (source) => {
       const srcpath = path.join(root, source);
-      source = await readSourceDetails(srcpath);
+      source = await readDetails(srcpath);
       return source.isDirectory() ? pathfinder(srcpath) : srcpath;
     })
   );
