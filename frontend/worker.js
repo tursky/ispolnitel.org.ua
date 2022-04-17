@@ -554,11 +554,7 @@ const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
 const run = async (settings) => {
-  const outcome = await main(
-    settings.root,
-    settings.ignore,
-    settings.options,
-  );
+  const outcome = await main(settings.root, settings.ignore, settings.options);
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
     CLI.Renderer('failure', data);
