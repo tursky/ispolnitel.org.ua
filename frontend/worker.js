@@ -473,15 +473,16 @@ const launchTask = async (srcmap, metadata) => {
 };
 
 const pathfinder = async (root) => {
-  const sources = await readDirectory(root);
-  const dataset = await Promise.all(
-    sources.map(async (source) => {
-      const srcpath = path.join(root, source);
-      source = await readDetails(srcpath);
-      return source.isDirectory() ? pathfinder(srcpath) : srcpath;
+  const content = await readDirectory(root);
+  const set = await Promise.all(
+    content.map(async (source) => {
+      const sourcepath = path.join(root, source);
+      source = await readDetails(sourcepath);
+      if (source.isDirectory()) return pathfinder(sourcepath);
+      else return sourcepath;
     })
   );
-  return dataset.reduce((set, src) => set.concat(src), []);
+  return set.reduce((acc, src) => acc.concat(src), []);
 };
 
 const isCheckException = (path, filter) =>
