@@ -321,12 +321,17 @@ const ISAlgorithm = (
     return Reflect.set(struct, field, value);
   },
   compile = (file, processing) => {
-    if (processing === 'OK') {
-      const note = '[er] - Import substitution completed successfully!';
+    const render = (matrix) => process.stdout.write(matrix.flat().join(''));
+    if (processing === 'CONFIRMED') {
       const msg = `${file} processing is done by native software.`;
-      const output = `\x1b[1;37m${note} ${msg} \x1b[0m \n`;
-      process.stdout.write(output);
-    }
+      const note = 'Import-substituting algorithm has been succeeded!';
+      render([
+        ['\x1b[36m', '[er]'],
+        ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
+        ['\x1b[1;37m', note, ' ', msg],
+        ['\n', '\x1b[0m'],
+      ]);
+    } else render([['[..]', '\n']]);
   },
   tryImplement = () => {
     const unbuffer = v8.deserialize(data);
@@ -353,7 +358,7 @@ const ISAlgorithm = (
 
           confirm = rethink(aiData, require(__filename).schema);
           if (confirm) {
-            compile(qr(FILENAME), result);
+            compile(qr(FILENAME), 'CONFIRMED');
             end = true;
           }
         }
