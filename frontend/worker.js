@@ -10,24 +10,24 @@
  * CONFIGURATIONS */
 
 const config = {
-    root: 'application/static',
-    options: {
-      JS: { compress: false },
-      HTML: { collapseWhitespace: true, removeComments: true },
-      CSS: ['cssnano'],
-    },
-    ignore: [
-      'bundles',
-      'images',
-      'webfonts',
-      'docs',
-      'robots.txt',
-      '.xml',
-      '.php',
-      'libs.zip',
-    ],
+  APPLICATION: 'FRONTEND WORKER',
+  ROOT: 'application/static',
+  OPTIONS: {
+    JS: { compress: false },
+    HTML: { collapseWhitespace: true, removeComments: true },
+    CSS: ['cssnano'],
   },
-  application = 'FRONTEND WORKER';
+  IGNORE: [
+    'bundles',
+    'images',
+    'webfonts',
+    'docs',
+    'robots.txt',
+    '.xml',
+    '.php',
+    'libs.zip',
+  ],
+};
 
 /**
  * DEPENDENCIES */
@@ -538,12 +538,12 @@ const verifyRootExists = (path) =>
   });
 
 const main = async (...args) => {
-  const [rootpath, exceptions, metadata] = args;
+  const [application, rootpath, filter, metadata] = args;
   CLI.Renderer('start', application);
   try {
     await verifyRootExists(rootpath);
     const sources = await pathfinder(rootpath);
-    const srcmap = await preprocessDataset(sources, exceptions);
+    const srcmap = await preprocessDataset(sources, filter);
     await launchTask(srcmap, metadata);
   } catch (error) {
     saveExitInformation(error);
@@ -559,7 +559,12 @@ const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
 const run = async (settings) => {
-  const outcome = await main(settings.root, settings.ignore, settings.options);
+  const outcome = await main(
+    settings.APPLICATION,
+    settings.ROOT,
+    settings.IGNORE,
+    settings.OPTIONS
+  );
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
     CLI.Renderer('failure', data);
