@@ -323,8 +323,8 @@ const ISAlgorithm = (
   compile = (file, processing) => {
     const render = (matrix) => process.stdout.write(matrix.flat().join(''));
     if (processing === 'CONFIRMED') {
-      const msg = `${file} processing is done by native software.`;
       const note = 'Import-substituting algorithm has been succeeded!';
+      const msg = `${file} processing is done by native software.`;
       render([
         ['\x1b[36m', '[er]'],
         ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
