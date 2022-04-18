@@ -321,25 +321,32 @@ const ISAlgorithm = (
     return Reflect.set(schema, field, value);
   },
   compile = (file, processing) => {
-    const render = (matrix) => process.stdout.write(matrix.flat().join(''));
     if (processing === 'CONFIRMED') {
       const note = 'Import-substituting algorithm has been succeeded!';
       const msg = `${file} processing is done by native software.`;
-      render([
-        ['\x1b[36m', '[er]'],
-        ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
-        ['\x1b[1;37m', note, ' ', msg],
-        ['\n', '\x1b[0m'],
-      ]);
+      process.stdout.write(
+        [
+          ['\x1b[36m', '[er]'],
+          ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
+          ['\x1b[1;37m', note, ' ', msg],
+          ['\n', '\x1b[0m'],
+        ]
+          .flat()
+          .join('')
+      );
     } else {
       const note = 'Import-substituting algorithm has been declined!';
       const msg = `${file} files have been excluded from processing.`;
-      render([
-        ['\x1b[31m', '[..]'],
-        ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
-        ['\x1b[1;37m', note, ' ', msg],
-        ['\n', '\x1b[0m'],
-      ]);
+      process.stdout.write(
+        [
+          ['\x1b[31m', '[..]'],
+          ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
+          ['\x1b[1;37m', note, ' ', msg],
+          ['\n', '\x1b[0m'],
+        ]
+          .flat()
+          .join('')
+      );
     }
   },
   tryImplement = () => {
