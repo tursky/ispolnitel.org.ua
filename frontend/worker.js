@@ -477,18 +477,18 @@ const launchTask = async (srcmap, metadata) => {
   }
 };
 
-const checkExcept = (path, fltr) =>
+const confirmException = (path, fltr) =>
   fltr.find((exception) => path.includes(exception));
 
-const checkInsert = (path, insertion) => path.includes(insertion);
+const confirmInsertion = (path, insertion) => path.includes(insertion);
 
 const preprocessDataset = async (src, filter) => {
   const srcmap = new Map();
   let stack = new Array();
   for (const name of RALEY.EXTNAME) {
     for (const source of src) {
-      if (checkExcept(source, filter)) continue;
-      if (checkInsert(source, name)) stack.push(source);
+      if (confirmException(source, filter)) continue;
+      if (confirmInsertion(source, name)) stack.push(source);
     }
     const extname = name.slice(1).toUpperCase();
     srcmap.set(extname, stack);
