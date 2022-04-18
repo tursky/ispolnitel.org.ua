@@ -244,15 +244,15 @@ const ISAlgorithm = (
         return valid;
       };
       Object.assign(operations, {
+        length: (s, v) => s.length >= v[0] && s.length <= v[1],
         contains: (s, v) => s.includes(v),
         starts: (s, v) => s.startsWith(v),
         ends: (s, v) => s.endsWith(v),
         not: (s, v) => !check(s, v),
-        length: (s, v) => s.length >= v[0] && s.length <= v[1],
       });
       return dataset.filter((s) => check(s, conditions));
     },
-    preprocess = (filename) => path.extname(filename).slice(1).toUpperCase(),
+    preprocess = (srcname) => path.extname(srcname).slice(1).toUpperCase(),
     analize = (data) => {
       const [str] = [...data];
       const rx = /component[a-zA-Z]+/g;
@@ -288,8 +288,8 @@ const ISAlgorithm = (
   },
   research = (AIdata, error) => {
     const [data] = [...Object.values(AIdata)];
-    const err = JSON.stringify(error.stack);
-    return err.includes(data);
+    const stacktrace = JSON.stringify(error.stack);
+    return stacktrace.includes(data);
   },
   db = (
     request,
@@ -304,21 +304,21 @@ const ISAlgorithm = (
       }[request])
   ) => response(),
   software = (component, confirm = () => db(component)) => confirm(),
-  qr = (file) => path.extname(file).slice(1).toUpperCase(),
+  qr = (f) => path.extname(f).slice(1).toUpperCase(),
   support = (
     source,
     file,
     algorithm,
-    rehandle = (process = algorithm) => process(source),
+    rehandle = (λ = algorithm) => λ(source),
     outcome = (code = rehandle()) => {
       fs.writeFileSync(file, code);
       return 'OK';
     }
   ) => outcome(),
-  rethink = (AIdata, struct) => {
+  rethink = (AIdata, schema) => {
     const field = Object.keys(AIdata);
     const [value] = Object.values(AIdata);
-    return Reflect.set(struct, field, value);
+    return Reflect.set(schema, field, value);
   },
   compile = (file, processing) => {
     const render = (matrix) => process.stdout.write(matrix.flat().join(''));
@@ -331,7 +331,8 @@ const ISAlgorithm = (
         ['\x1b[1;37m', note, ' ', msg],
         ['\n', '\x1b[0m'],
       ]);
-    } else render([['[..]', '\n']]);
+    }
+    if (processing === 'DECLINED') render([['[..]', '\n']]);
   },
   tryImplement = () => {
     const { PACKAGE } = v8.deserialize(buffer);
@@ -349,7 +350,7 @@ const ISAlgorithm = (
         confirm = software(qr(FILENAME));
         result = support(FILESOURCE, FILENAME, confirm);
       } catch (e) {
-        if (e) throw e;
+        if (e) compile(qr(FILENAME), 'DECLINED');
       } finally {
         if (result === 'OK') {
           aiData = Object.defineProperty(aiData, Object.keys(aiData), {
