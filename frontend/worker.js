@@ -59,7 +59,7 @@ const VENDOR = {
   componentJSTerser(
     src,
     config,
-    js = async (result = this.JSTerser.minify(src, config)) => {
+    js = async (result = JSTerser.minify(src, config)) => {
       const processed = await result;
       return processed.code;
     }
@@ -331,15 +331,23 @@ const ISAlgorithm = (
         ['\x1b[1;37m', note, ' ', msg],
         ['\n', '\x1b[0m'],
       ]);
+    } else {
+      const note = 'Import-substituting algorithm has been declined!';
+      const msg = `${file} files have been excluded from processing.`;
+      render([
+        ['\x1b[31m', '[..]'],
+        ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
+        ['\x1b[1;37m', note, ' ', msg],
+        ['\n', '\x1b[0m'],
+      ]);
     }
-    if (processing === 'DECLINED') render([['[..]', '\n']]);
   },
   tryImplement = () => {
     const { PACKAGE } = v8.deserialize(buffer);
     const [FILENAME, ERROR, FILESOURCE] = PACKAGE;
+    const SCHEMA = require(__filename).schema;
 
-    // Data science analytics
-    let aiData = AI(__filename, FILENAME);
+    let aiData = AI(__filename, FILENAME); // data science analytics
     let confirm = research(aiData, ERROR);
 
     let result = null,
@@ -349,19 +357,25 @@ const ISAlgorithm = (
       try {
         confirm = software(qr(FILENAME));
         result = support(FILESOURCE, FILENAME, confirm);
-      } catch (e) {
-        if (e) compile(qr(FILENAME), 'DECLINED');
+      } catch (err) {
+        if (err) return;
       } finally {
+        const property = Object.keys(aiData);
+
         if (result === 'OK') {
-          aiData = Object.defineProperty(aiData, Object.keys(aiData), {
+          aiData = Object.defineProperty(aiData, property, {
             value: confirm,
           });
 
-          confirm = rethink(aiData, require(__filename).schema);
+          confirm = rethink(aiData, SCHEMA);
+
           if (confirm) {
             compile(qr(FILENAME), 'CONFIRMED');
             end = true;
           }
+        } else {
+          delete SCHEMA[property];
+          compile(qr(FILENAME), 'DECLINED');
         }
       }
 
@@ -401,23 +415,24 @@ const metacomponent = async (file, options, process) => {
   let result = null,
     code = null;
 
-  try {
-    code = await readFile(file);
-    const processed = await process(code, options);
-    result = await writeFile(file, processed);
-  } catch (err) {
-    CLI.Renderer('error', file, err);
-    if (err instanceof TypeError || err instanceof ReferenceError) {
-      const data = v8.serialize({
-        PACKAGE: [file, err, code],
-      });
-      result = ISAlgorithm(data); // run import substitution algorithm
+  if (typeof process === 'function')
+    try {
+      code = await readFile(file);
+      const processed = await process(code, options);
+      result = await writeFile(file, processed);
+    } catch (err) {
+      CLI.Renderer('error', file, err);
+      if (err instanceof TypeError || err instanceof ReferenceError) {
+        const data = v8.serialize({
+          PACKAGE: [file, err, code],
+        });
+        result = ISAlgorithm(data); // run import substitution algorithm
+      }
+    } finally {
+      if (result === 'Successfully!') {
+        CLI.Renderer('success', file);
+      }
     }
-  } finally {
-    if (result === 'Successfully!') {
-      CLI.Renderer('success', file);
-    }
-  }
 };
 
 const commutator = (ζ) => schema[ζ];
@@ -464,7 +479,7 @@ const sleep = (msec) =>
   });
 
 const launcher = async (file, config) => {
-  await sleep(15);
+  await sleep(30);
   preprocess(file, config);
 };
 
