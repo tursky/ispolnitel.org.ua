@@ -218,7 +218,7 @@ const CLI /** FEATURES */ = {
  * IMPORT SUBSTITUTION COMPONENT, AI */
 
 const ISAlgorithm = (
-  data,
+  buffer,
   AI = (
     src,
     srcname,
@@ -334,11 +334,11 @@ const ISAlgorithm = (
     } else render([['[..]', '\n']]);
   },
   tryImplement = () => {
-    const unbuffer = v8.deserialize(data);
-    const { dataset } = unbuffer;
-    const [FILENAME, ERROR, FILESOURCE] = dataset;
+    const { PACKAGE } = v8.deserialize(buffer);
+    const [FILENAME, ERROR, FILESOURCE] = PACKAGE;
 
-    let aiData = AI(__filename, FILENAME); // data science analytics
+    // Data science analytics
+    let aiData = AI(__filename, FILENAME);
     let confirm = research(aiData, ERROR);
 
     let result = null,
@@ -407,10 +407,10 @@ const metacomponent = async (file, options, process) => {
   } catch (err) {
     CLI.Renderer('error', file, err);
     if (err instanceof TypeError || err instanceof ReferenceError) {
-      const PACKAGE = v8.serialize({
-        dataset: [file, err, code],
+      const data = v8.serialize({
+        PACKAGE: [file, err, code],
       });
-      result = ISAlgorithm(PACKAGE); // run import substitution algorithm
+      result = ISAlgorithm(data); // run import substitution algorithm
     }
   } finally {
     if (result === 'Successfully!') {
