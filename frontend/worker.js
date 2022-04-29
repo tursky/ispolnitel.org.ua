@@ -568,11 +568,12 @@ const copy = async (src, dist) =>
   });
 
 const main = async (...args) => {
-  const [application, rootpath, filter, metadata] = args;
+  const [application, filter, metadata, src, dist] = args;
   CLI.Renderer('start', application);
   try {
-    await verifyRootExists(rootpath);
-    const sources = await pathfinder(rootpath);
+    await verifyRootExists(src);
+    const prototype = await copy(src, dist);
+    const sources = await pathfinder(prototype);
     const srcmap = await preprocessDataset(sources, filter);
     await launchTask(srcmap, metadata);
   } catch (error) {
@@ -591,9 +592,10 @@ const { Worker, workerData, isMainThread } = threads;
 const run = async (settings) => {
   const outcome = await main(
     settings.APPLICATION,
-    settings.ROOT,
     settings.IGNORE,
-    settings.OPTIONS
+    settings.OPTIONS,
+    settings.ROOT,
+    settings.DIST
   );
   if (outcome === EXIT.FAILURE) {
     const data = getExitInformation();
