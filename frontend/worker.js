@@ -11,7 +11,8 @@
 
 const config = {
   APPLICATION: 'FRONTEND WORKER',
-  ROOT: 'application/static',
+  ROOT: './frontend/src',
+  DIST: './application/static',
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
