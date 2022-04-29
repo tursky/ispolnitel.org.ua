@@ -562,6 +562,7 @@ const verifyRootExists = (path) =>
 
 const copy = async (src, dist) =>
   new Promise((resolve, reject) => {
+    // experimental feature of the standard lib
     fs.cp(src, dist, { recursive: true, force: true }, (error) => {
       error ? reject(error) : resolve(dist);
     });
