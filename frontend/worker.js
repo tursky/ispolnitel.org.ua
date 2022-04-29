@@ -559,6 +559,13 @@ const verifyRootExists = (path) =>
     });
   });
 
+const copy = async (src, dist) =>
+  new Promise((resolve, reject) => {
+    fs.cp(src, dist, { recursive: true, force: true }, (error) => {
+      error ? reject(error) : resolve(dist);
+    });
+  });
+
 const main = async (...args) => {
   const [application, rootpath, filter, metadata] = args;
   CLI.Renderer('start', application);
