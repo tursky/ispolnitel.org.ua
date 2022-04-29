@@ -4,8 +4,9 @@
   "description": "Legacy website - redesign, refactoring, retrospective...",
   "main": "application/server.js",
   "scripts": {
-    "build": "rm -rf application/static && cp -r frontend/src application/static && npm run minify",
-    "start": "http-server frontend/src -a localhost -o /",
+    "build": "node frontend/worker.js",
+    "dev": "http-server frontend/src -a localhost -o /",
+    "start": "http-server application/static -a localhost -o /",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\"",
     "stylelint": "stylelint \"**/*.css\" --ignore-path .npmignore",
     "format": "npm run fmt:code && npm run fmt:html && npm run fmt:css",
@@ -13,8 +14,7 @@
     "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
     "fmt:html": "prettier --write \"**/*.html\" --ignore-path .npmignore",
     "deploy": "node ftpclient.js",
-    "server": "node application/server.js",
-    "minify": "node frontend/worker.js"
+    "server": "node application/server.js"
   },
   "keywords": [
     "engineering and design"
