@@ -256,7 +256,9 @@ h6 {
 }
 
 .logo:hover {
-  text-decoration: none;
+	text-decoration: none;
+  color: #f9d02a;
+  opacity: 0.85;
 }
 
 .logo .span,
@@ -272,12 +274,6 @@ h6 {
 
 .logo .span2 {
   display: none;
-}
-
-.logo:hover {
-  text-decoration: none;
-  color: #f9d02a;
-  opacity: 0.85;
 }
 
 .map-ua {
@@ -1404,17 +1400,22 @@ main .content .sect-link i {
 }
 
 .likely-on-page .likely {
+  position: relative;
   display: inline-block;
+	opacity: 0;
+  font-size: 0 !important;
+	margin: 0 -5px -10px;
+	top: -10px;
 }
 
 .likely-on-page .likely__widget {
+	position: relative;
+  white-space: nowrap;
   margin: 0;
   font-size: inherit;
-}
-
-.likely-on-page .likely {
-  opacity: 0;
-  font-size: 0 !important;
+	vertical-align: top;
+  transition: background 0.33s ease-out, color 0.33s ease-out,
+    fill 0.33s ease-out;
 }
 
 .likely-on-page .likely_visible {
@@ -1431,11 +1432,6 @@ main .content .sect-link i {
   visibility: inherit;
 }
 
-.likely-on-page .likely__widget {
-  position: relative;
-  white-space: nowrap;
-}
-
 .likely-on-page .likely__button,
 .likely-on-page .likely__widget {
   display: inline-block;
@@ -1447,6 +1443,8 @@ main .content .sect-link i {
   text-rendering: optimizelegibility;
   margin: 0;
   outline: 0;
+	line-height: inherit;
+  cursor: inherit;
 }
 
 .likely-on-page .likely__button {
@@ -1458,6 +1456,7 @@ main .content .sect-link i {
   display: none;
   position: relative;
   font-weight: 400;
+	text-align: center;
 }
 
 .likely-on-page .likely_ready .likely__counter {
@@ -1472,12 +1471,6 @@ main .content .sect-link i {
 .likely-on-page .likely__counter,
 .likely-on-page .likely__icon {
   vertical-align: top;
-}
-
-.likely-on-page .likely__widget {
-  vertical-align: top;
-  transition: background 0.33s ease-out, color 0.33s ease-out,
-    fill 0.33s ease-out;
 }
 
 .likely-on-page .likely__widget:active,
@@ -1510,23 +1503,19 @@ main .content .sect-link i {
   height: 16px;
 }
 
-.likely-on-page .likely__button,
-.likely-on-page .likely__counter {
-  line-height: inherit;
-  cursor: inherit;
-}
-
 .likely-on-page .likely__button:empty {
   display: none;
-}
-
-.likely-on-page .likely__counter {
-  text-align: center;
 }
 
 .likely-on-page .likely .likely__widget {
   color: #000;
   background: rgb(231 231 231 / 80%);
+  padding: 3px 3px 25px 6px;
+	line-height: 20px;
+  font-size: 14px;
+  border-radius: 3px;
+  height: 22px;
+  margin: 0 5px 10px;
 }
 
 .likely-on-page .likely .likely__counter {
@@ -1544,6 +1533,7 @@ main .content .sect-link i {
     rgb(0 0 0 / 0%) 0.5px,
     rgb(0 0 0 / 0%) 100%
   );
+	padding: 1px 4px 1px 6px;
 }
 
 .likely-on-page .likely-light .likely__widget {
@@ -1856,25 +1846,15 @@ main .content .sect-link i {
   }
 }
 
-.likely-on-page .likely {
-  margin: 0 -5px -10px;
-}
-
-.likely-on-page .likely .likely__widget {
-  line-height: 20px;
-  font-size: 14px;
-  border-radius: 3px;
-  height: 22px;
-  margin: 0 5px 10px;
-}
-
 .likely-on-page .likely .likely__icon {
   width: 22px;
   height: 22px;
 }
 
 .likely-on-page .likely .likely__button {
-  padding: 1px 4px 1px 0;
+	margin-left: 2px;
+  opacity: 0.8;
+  padding: 1px 8px 1px 1px;
 }
 
 .likely-on-page .likely .likely__counter {
@@ -1943,27 +1923,6 @@ main .content .sect-link i {
   top: 3px;
   width: 12px;
   height: 12px;
-}
-
-.likely-on-page .likely {
-  top: -10px;
-  position: relative;
-}
-
-.likely-on-page .likely .likely__widget {
-  border-radius: 0;
-  padding: 3px 3px 25px 6px;
-  font-size: 15px;
-}
-
-.likely-on-page .likely .likely__counter {
-  padding: 1px 4px 1px 6px;
-}
-
-.likely-on-page .likely .likely__button {
-  margin-left: 2px;
-  opacity: 0.8;
-  padding: 1px 8px 1px 1px;
 }
 
 .likely-on-page {
