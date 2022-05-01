@@ -506,7 +506,7 @@ const confirmException = (path, fltr) =>
 
 const confirmInsertion = (path, insertion) => path.includes(insertion);
 
-const preprocessDataset = async (src, filter) => {
+const prepareDataset = async (src, filter) => {
   const srcmap = new Map();
   let stack = new Array();
   for (const name of RALEY.EXTNAME) {
@@ -575,7 +575,7 @@ const main = async (...args) => {
     await verifyRootExists(src);
     const prototype = await copy(src, dist);
     const sources = await pathfinder(prototype);
-    const srcmap = await preprocessDataset(sources, filter);
+    const srcmap = await prepareDataset(sources, filter);
     await launchTask(srcmap, metadata);
   } catch (error) {
     saveExitInformation(error);
