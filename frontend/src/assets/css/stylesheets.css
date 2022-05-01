@@ -2,15 +2,6 @@
   color: #000;
 }
 
-::placeholder {
-  color: #000;
-}
-
-::selection {
-  background-color: #ec1c1c;
-  color: #fff;
-}
-
 ::selection {
   background-color: #ec1c1c;
   color: #fff;
