@@ -210,11 +210,9 @@ h6 {
   background-color: #1a2028;
   display: flex;
   -webkit-box-align: start;
-  align-items: start;
   -ms-flex-align: start;
   align-items: start;
   -webkit-box-pack: center;
-  justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
@@ -223,11 +221,9 @@ h6 {
   position: relative;
   display: flex;
   -webkit-box-align: start;
-  align-items: start;
   -ms-flex-align: start;
   align-items: start;
   -webkit-box-pack: center;
-  justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   color: rgb(255 255 255 / 50%);
@@ -250,10 +246,8 @@ h6 {
 }
 
 .logo {
-  color: #fff;
   text-align: center;
   display: block;
-  letter-spacing: 0.5px;
   font-size: 20px;
   font-weight: 800;
   letter-spacing: 1px;
@@ -728,11 +722,9 @@ h6 {
 .slider .circles {
   display: flex;
   -webkit-box-align: center;
-  align-items: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   transform: scale(0.8);
@@ -741,11 +733,9 @@ h6 {
 
 .slider .circle {
   -webkit-box-pack: center;
-  justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   -webkit-box-align: center;
-  align-items: center;
   -ms-flex-align: center;
   align-items: center;
   border-radius: 100%;
@@ -2293,7 +2283,6 @@ main .content .sect-link i {
   left: 0;
   right: 0;
   bottom: 0;
-  opacity: 0.8;
   font-size: 40px;
   background-color: #efefef;
   color: #000;
