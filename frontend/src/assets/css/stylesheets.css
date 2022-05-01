@@ -748,26 +748,10 @@ h6 {
 }
 
 .slider .circle-left {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#1d4a84),
-    color-stop(#060f1b),
-    to(#1d4a84)
-  );
   background: linear-gradient(#1d4a84, #060f1b, #1d4a84);
 }
 
 .slider .circle-right {
-  background: -webkit-gradient(
-    linear,
-    left top,
-    left bottom,
-    from(#ec1c1c),
-    color-stop(#7e0b0b),
-    to(#ec1c1c)
-  );
   background: linear-gradient(#ec1c1c, #7e0b0b, #ec1c1c);
 }
 
@@ -1521,12 +1505,6 @@ main .content .sect-link i {
   background-size: 1px 1px;
   background-repeat: repeat-y;
   background-image: linear-gradient(
-    left,
-    rgb(0 0 0 / 20%) 0,
-    rgb(0 0 0 / 0%) 0.5px,
-    rgb(0 0 0 / 0%) 100%
-  );
-  background-image: linear-gradient(
     to right,
     rgb(0 0 0 / 20%) 0,
     rgb(0 0 0 / 0%) 0.5px,
@@ -1543,12 +1521,6 @@ main .content .sect-link i {
 }
 
 .likely-on-page .likely-light .likely__counter {
-  background-image: linear-gradient(
-    left,
-    rgb(255 255 255 / 40%) 0,
-    rgb(255 255 255 / 0%) 0.5px,
-    rgb(255 255 255 / 0%) 100%
-  );
   background-image: linear-gradient(
     to right,
     rgb(255 255 255 / 40%) 0,
