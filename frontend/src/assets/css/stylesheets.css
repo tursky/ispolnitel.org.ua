@@ -2188,18 +2188,8 @@ main .content .sect-link i {
   border-radius: 5px;
 }
 
-.popup-form .form-control:focus::input-placeholder,
-.popup-form textarea:focus::input-placeholder {
-  color: transparent;
-}
-
 .popup-form .form-control:focus::placeholder,
 .popup-form textarea:focus::placeholder {
-  color: transparent;
-}
-
-.popup-form .form-control:focus:input-placeholder,
-.popup-form textarea:focus:input-placeholder {
   color: transparent;
 }
 
