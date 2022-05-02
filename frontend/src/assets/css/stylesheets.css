@@ -1999,8 +1999,9 @@ main .content .sect-link i {
 }
 
 .main-footer .top-email span {
-	font-size: 14px;
-	/* font-style: italic; */
+	font-size: 16px;
+	font-weight: 300;
+	text-transform: none;
 }
 
 .main-footer .top-email .fa,
