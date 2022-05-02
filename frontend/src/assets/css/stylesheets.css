@@ -328,9 +328,10 @@ h6 {
 }
 
 .top-email span {
-	font-family: var(--roboto);
-	font-weight: 300;
-  font-size: 16px;
+	/* font-family: var(--roboto); */
+	/* font-weight: 300; */
+  /* font-size: 16px; */
+	text-transform: uppercase;
   color: rgb(255 255 255 / 50%);
 }
 
@@ -545,10 +546,11 @@ h6 {
 }
 
 .slider .slide h2 {
-  font-size: 28px;
+	font-family: var(--roboto-condensed);
 	font-weight: 300;
+  font-size: 28px;
   margin-top: 0;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   color: #000;
 }
 
@@ -690,11 +692,12 @@ h6 {
   border-radius: 100%;
   text-align: center;
   margin: 5px 20px;
+	font-family: var(--roboto-condensed);
+  width: 300px;
   font-size: 28px;
   padding: 15px;
   display: flex;
   height: 300px;
-  width: 300px;
   color: #fff;
   transition: opacity 0.2s ease;
 	box-shadow: 10px 10px 5px #999;
@@ -786,7 +789,7 @@ h6 {
 
 .sect-algoritm .self-item {
   background-color: transparent;
-  color: #efefef;
+  color: #fff;
   font-size: 16px;
   text-align: center;
   padding: 60px 0;
@@ -796,7 +799,7 @@ h6 {
 .sect-algoritm .self-item .col-md-2,
 .sect-algoritm .self-item .col-md-4 {
   margin-top: 10px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
 .sect-algoritm .self-item .col-md-2:hover a,
@@ -1995,6 +1998,10 @@ main .content .sect-link i {
   color: #fff;
 }
 
+.main-footer .top-email span {
+	font-size: 13px;
+}
+
 .main-footer .top-email .fa,
 .main-footer .top-email .fab,
 .main-footer .top-email .fas,
@@ -2050,13 +2057,13 @@ main .content .sect-link i {
   color: rgb(255 255 255 / 20%);
   font-size: 16px;
   margin: 5px;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
 }
 
 .bottom-footer .footer-copy {
   color: rgb(255 255 255 / 45%);
   font-size: 16px;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
 }
 
 .popup-form {
