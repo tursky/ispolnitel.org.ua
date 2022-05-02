@@ -187,53 +187,6 @@ h6 {
   color: #f9d02a;
 }
 
-.toggle-mnu {
-  display: block;
-  width: 28px;
-  height: 28px;
-  float: left;
-}
-
-.toggle-mnu span::after,
-.toggle-mnu span::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 9px;
-}
-
-.toggle-mnu span::after {
-  top: 18px;
-}
-
-.toggle-mnu span {
-  position: relative;
-  display: block;
-}
-
-.toggle-mnu span,
-.toggle-mnu span::after,
-.toggle-mnu span::before {
-  width: 100%;
-  height: 2px;
-  background-color: #1a2028;
-  transition: all 0.3s;
-  backface-visibility: hidden;
-  border-radius: 2px;
-}
-
-.toggle-mnu.on span {
-  background-color: transparent;
-}
-
-.toggle-mnu.on span::before {
-  transform: rotate(45deg) translate(-1px, 0);
-}
-
-.toggle-mnu.on span::after {
-  transform: rotate(-45deg) translate(6px, -7px);
-}
-
 .section-overlay::before {
   content: '';
   position: absolute;
