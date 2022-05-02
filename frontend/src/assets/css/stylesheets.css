@@ -1,3 +1,9 @@
+:root {
+	--roboto: Roboto-ft, sans-serif;
+	--roboto-condensed: RobotoCondensed-ft, sans-serif;
+	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+}
+
 ::placeholder {
   color: #000;
 }
@@ -12,7 +18,7 @@ body {
   min-width: 320px;
   position: relative;
   line-height: 1.4;
-  font-family: roboto-example, sans-serif;
+  font-family: var(--roboto);
   overflow-x: hidden;
   color: #000;
 }
@@ -48,11 +54,6 @@ body textarea:focus:required:invalid {
   text-align: center;
 }
 
-b,
-strong {
-  font-family: RobotoBold, sans-serif;
-}
-
 a {
   outline: 0;
 }
@@ -61,7 +62,6 @@ a:hover {
   text-decoration: none;
 }
 
-.button,
 .h1,
 .h2,
 .h3,
@@ -74,7 +74,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: RobotoCondensedBold, sans-serif;
   font-weight: 400;
   text-transform: uppercase;
 }
@@ -144,8 +143,7 @@ h6 {
   margin: 0 auto -7px;
   float: none;
   display: inline-block;
-  font-family: RobotoCondensedRegular, sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 18px;
   letter-spacing: 0.6px;
   border-bottom: #2e3947 2px solid;
@@ -202,8 +200,8 @@ h6 {
   text-align: center;
   display: block;
   font-size: 20px;
-  font-weight: 800;
-  letter-spacing: 1px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
   color: #f9d02a;
   text-transform: uppercase;
 }
@@ -218,9 +216,9 @@ h6 {
 .logo p {
   color: #999;
   font-size: 16px;
-  letter-spacing: 1.2px;
+  letter-spacing: 1.5px;
   line-height: 26px;
-  font-weight: 800;
+  font-weight: 700;
   padding: 0 20px;
   display: block;
 }
@@ -243,6 +241,7 @@ h6 {
 
 .self-pannel-content {
   position: relative;
+	font-family: var(--roboto-condensed);
   color: #fff;
   font-size: 13px;
 	padding-top: 2px;
@@ -292,7 +291,6 @@ h6 {
 
 .top-phone {
   font-size: 14px;
-  font-family: RobotoCondensedRegular, sans-serif;
 }
 
 .top-phone .icons {
@@ -330,9 +328,10 @@ h6 {
 }
 
 .top-email span {
+	font-family: var(--roboto);
+	font-weight: 300;
   font-size: 16px;
   color: rgb(255 255 255 / 50%);
-  font-style: italic;
 }
 
 .text-right {
@@ -352,12 +351,13 @@ h6 {
 .button {
   color: #000;
   background-color: #f9d02a;
-  font-size: 16px;
+	font-family: var(--roboto-condensed);
+  font-size: 14px;
+  font-weight: 700;
   text-transform: uppercase;
   padding: 8px 24px;
   border: none;
   border-bottom: 3px solid #d1a906;
-  font-weight: 400;
   border-radius: 5px;
   outline: 0;
   letter-spacing: 0.5px;
@@ -387,7 +387,7 @@ h6 {
 }
 
 .button-order {
-  font-weight: 600;
+  font-weight: 700;
   background-color: #1d4a84;
   color: #fff;
   border-bottom: 3px solid #14335a;
@@ -444,7 +444,8 @@ h6 {
   display: block;
   width: 100%;
   height: 35px;
-  font-size: 15px;
+  font-size: 16px;
+	font-family: var(--roboto-condensed);
   color: #fff;
   text-align: center;
   line-height: 1.2;
@@ -452,7 +453,6 @@ h6 {
   visibility: hidden;
   position: absolute;
   transition: 0.3s;
-  margin-top: 1px;
 }
 
 .pulse-button:hover .pulse-button__icon {
@@ -545,15 +545,15 @@ h6 {
 }
 
 .slider .slide h2 {
-  font-size: 24px;
-  font-family: RobotoCondensedLight, sans-serif;
+  font-size: 28px;
+	font-weight: 300;
   margin-top: 0;
   margin-bottom: 22px;
   color: #000;
 }
 
 .slider .slide p {
-  font-family: RobotoCondensedLight, sans-serif;
+	font-family: 300;
   margin-bottom: 25px;
 }
 
@@ -690,7 +690,7 @@ h6 {
   border-radius: 100%;
   text-align: center;
   margin: 5px 20px;
-  font-size: 30px;
+  font-size: 28px;
   padding: 15px;
   display: flex;
   height: 300px;
@@ -729,7 +729,7 @@ h6 {
 }
 
 .accordion {
-  margin-bottom: 40px;
+  margin-bottom: 60px;
 }
 
 .accordion-item__trigger i {
@@ -748,7 +748,7 @@ h6 {
 
 .accordion-item__content {
   display: none;
-  padding: 5px;
+  padding: 20px;
 }
 
 .accordion-item__trigger:hover {
@@ -768,7 +768,7 @@ h6 {
   position: relative;
   background-size: cover;
   z-index: 1;
-  padding: 120px 0;
+  padding: 100px 0;
   color: #fff;
 }
 
@@ -789,7 +789,7 @@ h6 {
   color: #efefef;
   font-size: 16px;
   text-align: center;
-  padding: 40px 0;
+  padding: 60px 0;
   z-index: 200;
 }
 
@@ -808,9 +808,9 @@ h6 {
   color: #fff;
   margin-top: 0;
   margin-bottom: 60px;
-  font-size: 24px;
+  font-size: 28px;
   line-height: 34px;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 .sect-algoritm .self-item .icon .far,
@@ -826,15 +826,15 @@ h6 {
 }
 
 .sect-algoritm .self-item .text span {
-  letter-spacing: 0.25px;
-  color: #ccc;
-  font-family: RobotoLight, sans-serif;
+  letter-spacing: 0.4px;
+  color: #fff;
+	font-weight: 700;
 }
 
 .sect-algoritm .self-item .text span a {
   color: #f9d02a;
   text-decoration: underline;
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .sect-algoritm .self-item .text span a:hover {
@@ -855,8 +855,9 @@ h6 {
 }
 
 .breadcrumbs li {
+	font-family: var(--roboto-condensed);
   display: inline-block;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .breadcrumbs li a {
@@ -919,15 +920,15 @@ article h5 {
 
 article h4 {
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 article blockquote {
-  padding: 20px;
-  margin: 30px;
+  padding: 30px;
+  margin: 40px 0;
   font-size: 20px;
-  border-top: #2661ae 2px solid;
-  border-bottom: #2661ae 2px solid;
+  border-top: #ddd 2px dotted;
+  border-bottom: #ddd 2px dotted;
 }
 
 article ol,
@@ -992,7 +993,7 @@ main .content .main-aside .self-pannel-box h4 {
   margin-top: 20px;
   color: #000;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 main .content .main-aside .mnu-self a {
@@ -1021,7 +1022,7 @@ main .content .main-aside .mnu-self li.active .fas {
 
 main .content .main-aside .mnu-self li.active a {
   color: #000;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: underline;
 }
 
@@ -1078,17 +1079,17 @@ main .content .sect-link i {
 #feedback {
   color: #fff;
   padding-top: 30px;
-	padding-bottom: 40px;
+	padding-bottom: 60px;
 }
 
 #feedback h2 {
   font-size: 32px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 #feedback p {
 	margin-top: 0;
-  margin-bottom: 50px;
+  margin-bottom: 60px;
 }
 
 .sect-services {
@@ -1120,8 +1121,8 @@ main .content .sect-link i {
 }
 
 .service-item-icons {
-  margin-bottom: 40px;
-	font-size: 11px;
+  margin-bottom: 80px;
+	font-size: 12px;
   color: #b4b4b4;
 }
 
@@ -1174,7 +1175,7 @@ main .content .sect-link i {
   margin-bottom: 35px;
   font-size: 32px;
   line-height: 34px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .col-first {
@@ -1183,7 +1184,7 @@ main .content .sect-link i {
 
 .sect-news {
   color: #fff;
-  padding: 120px 0;
+  padding: 100px 0;
 }
 
 .sect-news .new-item {
@@ -1195,7 +1196,7 @@ main .content .sect-link i {
 }
 
 .sect-news .new-item .new-item-text {
-  margin-bottom: 28px;
+  margin-bottom: 40px;
 }
 
 .sect-news .new-item:hover .new-item-img::before {
@@ -1256,9 +1257,10 @@ main .content .sect-link i {
 
 .date {
   display: block;
-  margin-top: 20px;
+  margin-top: 40px;
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 400;
+	font-style: italic;
   opacity: 1;
   color: #000;
 }
@@ -1283,7 +1285,7 @@ main .content .sect-link i {
 
 .isnohome,
 .sect-links {
-  padding: 120px 0;
+  padding: 100px 0;
 }
 
 .isnohome .link-item,
@@ -1312,7 +1314,7 @@ main .content .sect-link i {
 
 .isnohome .link-item .link-item-wrapper a span,
 .sect-links .link-item .link-item-wrapper a span {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .isnohome .link-item i,
@@ -1905,7 +1907,7 @@ main .content .sect-link i {
   border: 2px solid #e5e5e5;
   border-radius: 10em;
   font-size: 18px;
-  font-weight: 800;
+  font-weight: 700;
   text-decoration: none;
   color: #666;
   transition: border-color 0.25s ease, color 0.25s ease;
@@ -1957,14 +1959,13 @@ main .content .sect-link i {
 
 .main-footer {
   background-color: #0e0b13;
-  padding: 120px 0;
+  padding: 100px 0;
   color: #fff;
   letter-spacing: 0.3px;
 }
 
 .main-footer .logo {
   color: #f9d02a;
-  font-size: 22px;
   margin-bottom: 20px;
   text-align: left;
   font-style: normal;
@@ -1974,12 +1975,12 @@ main .content .sect-link i {
 .main-footer .logo p {
   font-size: 16px;
   font-weight: 300;
-  letter-spacing: 1px;
   margin-top: 10px;
   padding: 10px 0;
 }
 
 .main-footer .self-pannel-box {
+	font-family: var(--roboto-condensed);
   margin-bottom: 40px;
   color: #999;
   font-size: 14px;
@@ -2060,7 +2061,7 @@ main .content .sect-link i {
 
 .popup-form {
   background-color: #fff;
-  max-width: 480px;
+  max-width: 600px;
   position: relative;
   margin: auto;
   padding: 15px;
@@ -2073,7 +2074,7 @@ main .content .sect-link i {
 }
 
 .popup-form form label span {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 18px;
 }
 
@@ -2082,7 +2083,7 @@ main .content .sect-link i {
   margin-bottom: 10px;
   font-size: 24px;
   text-align: center;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .popup-form p {
@@ -2091,7 +2092,7 @@ main .content .sect-link i {
 }
 
 .popup-form p b {
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .popup-form .form-control,
@@ -2152,7 +2153,7 @@ main .content .sect-link i {
   font-size: 40px;
   background-color: #efefef;
   color: #000;
-  font-weight: 600;
+  font-weight: 700;
   text-align: center;
   text-transform: uppercase;
   padding: 70% 10% 10%;
@@ -2237,8 +2238,8 @@ main .content .sect-link i {
 
 .read-more-header {
   font-size: 22px;
-  font-weight: 800;
-  margin: 45px 0 15px;
+  font-weight: 700;
+  margin: 60px 0 20px;
 }
 
 .read-more li,
