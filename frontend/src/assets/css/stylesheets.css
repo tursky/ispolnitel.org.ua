@@ -1152,6 +1152,8 @@ main .content .sect-link i {
 
 .service-item-icons {
   margin-bottom: 40px;
+	font-size: 11px;
+  color: #b4b4b4;
 }
 
 .service-item:hover {
@@ -1207,11 +1209,6 @@ main .content .sect-link i {
   background-color: rgb(15 15 15 / 87%);
   opacity: 0.4;
   transition: all 0.5s ease;
-}
-
-.service-item-icons {
-  font-size: 11px;
-  color: #b4b4b4;
 }
 
 .service-item-icons .fas {
