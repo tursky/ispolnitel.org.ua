@@ -690,11 +690,11 @@ h6 {
   border-radius: 100%;
   text-align: center;
   margin: 5px 20px;
-  font-size: 28px;
+  font-size: 30px;
   padding: 15px;
   display: flex;
-  height: 310px;
-  width: 310px;
+  height: 300px;
+  width: 300px;
   color: #fff;
   transition: opacity 0.2s ease;
 	box-shadow: 10px 10px 5px #999;
