@@ -560,7 +560,7 @@ const verifyRootExists = (path) =>
     });
   });
 
-const copy = async (src, dist) =>
+const copy = (src, dist) =>
   new Promise((resolve, reject) => {
     // experimental feature of the standard lib
     fs.cp(src, dist, { recursive: true, force: true }, (error) => {
