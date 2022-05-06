@@ -382,6 +382,15 @@ h6 {
   border-radius: 5px;
   outline: 0;
   letter-spacing: 0.5px;
+	position: relative;
+}
+
+.button svg {
+	fill: #000;
+	width: 17px;
+	height: 17px;
+	margin-right: 6px;
+	margin-bottom: -3px;
 }
 
 .button:focus {
