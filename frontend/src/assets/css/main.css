@@ -2025,8 +2025,9 @@ main .content .sect-link i {
   font-size: 14px;
 }
 
-.main-footer .self-pannel-box .fas {
-  opacity: 0.4;
+.main-footer .self-pannel-box svg {
+  fill: #f9d02a;
+	opacity: 0.4;
 }
 
 .main-footer .self-pannel-box h4 {
