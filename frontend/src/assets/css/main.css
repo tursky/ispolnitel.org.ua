@@ -2010,6 +2010,14 @@ main .content .sect-link i {
   padding: 10px 0;
 }
 
+.main-footer .triple-icons svg {
+	width: 26px;
+	height: 26px;
+	fill: #999;
+  margin-top: 60px;
+  margin-bottom: 20px;
+}
+
 .main-footer .self-pannel-box {
 	font-family: var(--roboto-condensed);
   margin-bottom: 40px;
