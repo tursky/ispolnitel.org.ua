@@ -849,13 +849,6 @@ h6 {
   font-weight: 300;
 }
 
-.sect-algoritm .self-item .icon .far,
-.sect-algoritm .self-item .icon .fas {
-  font-size: 64px;
-  color: #f9d02a;
-  margin-bottom: 10px;
-}
-
 .sect-algoritm .self-item .icon svg {
 	width: 64px;
 	height: auto;
