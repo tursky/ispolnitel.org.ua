@@ -259,10 +259,6 @@ h6 {
 	margin-top: 5px;
 }
 
-.self-pannel-box .fas {
-  margin-right: 6px;
-}
-
 .self-pannel-box h4 {
   margin-top: 0;
   font-size: 14px;
@@ -296,9 +292,21 @@ h6 {
 }
 
 .self-pannel-box li {
-  display: inline-block;
+  display: inline-flex;
   max-width: 100%;
   padding: 5px 10px 0 0;
+}
+
+.self-pannel-box .fas {
+  margin-right: 6px;
+}
+
+.self-pannel-box svg {
+	width: 16px;
+	height: 16px;
+  fill: #fff;
+	justify-items: center;
+	margin-right: 6px;
 }
 
 .top-phone {
