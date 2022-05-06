@@ -91,7 +91,7 @@ h6 {
   z-index: 200;
 }
 
-.mm-menu .fa {
+.mm-menu svg {
   display: none;
 }
 
@@ -125,9 +125,11 @@ h6 {
   color: rgb(255 255 255 / 50%);
 }
 
-.mobile-mnu a i {
+.mobile-mnu a svg {
+	width: 32px;
+	height: 32px;
+	fill: rgb(255 255 255 / 50%);
   padding-top: 4px;
-  font-size: 24px;
 }
 
 .top-line {
