@@ -1981,17 +1981,20 @@ main .content .sect-link i {
 }
 
 .main-footer .logo .span {
-  font-size: 16px;
-  font-weight: 300;
-  margin-top: 10px;
-  padding: 10px 0;
+	display: block;
+	margin-bottom: 40px;
+	margin-top: 20px;
+	padding: 10px 0;
+	font-size: 16px;
+	font-weight: 300;
+	text-transform: none;
 }
 
 .main-footer .triple-icons svg {
 	width: 26px;
 	height: 26px;
-	fill: #999;
-  margin-top: 60px;
+	fill: #f9d02a;
+	opacity: 0.4;
   margin-bottom: 20px;
 }
 
@@ -2016,6 +2019,8 @@ main .content .sect-link i {
 	font-size: 16px;
 	font-weight: 300;
 	text-transform: none;
+	display: block;
+	margin-bottom: 60px;
 }
 
 .main-footer .mnu-self a {
@@ -2032,32 +2037,10 @@ main .content .sect-link i {
   fill: #f9d02a;
 }
 
-.main-footer .developer {
-  margin-top: 60px;
-}
-
-.main-footer .developer a {
-  color: #b3b3b3;
-  font-size: 18px;
-  text-decoration: underline;
-  margin-left: 5px;
-}
-
-.main-footer .developer a:focus,
-.main-footer .developer a:hover {
-  color: #fbdb5c;
-  text-decoration: none;
-  border-color: #b3b3b3;
-}
-
 .bottom-footer {
   background-color: #0e0b13;
   padding: 40px 0;
   padding-top: 0;
-}
-
-.bottom-footer .logo {
-  display: inline-block;
 }
 
 .bottom-footer p {
@@ -2068,7 +2051,7 @@ main .content .sect-link i {
 }
 
 .bottom-footer .footer-copy {
-  color: rgb(255 255 255 / 45%);
+  color: #999;
   font-size: 16px;
   letter-spacing: 0.4px;
 }
