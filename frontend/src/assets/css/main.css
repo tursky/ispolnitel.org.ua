@@ -1316,12 +1316,10 @@ main .content .sect-link i {
   display: inline-block;
 }
 
-.isnohome,
 .sect-links {
   padding: 100px 0;
 }
 
-.isnohome .link-item,
 .sect-links .link-item {
   padding: 14px;
   box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 20%);
@@ -1331,7 +1329,6 @@ main .content .sect-link i {
   margin: 20px 0;
 }
 
-.isnohome .link-item a:hover,
 .sect-links .link-item a:hover {
   text-decoration: underline;
 }
@@ -1340,7 +1337,6 @@ main .content .sect-link i {
 	display: inline-flex;
 }
 
-.isnohome .link-item a,
 .sect-links .link-item a {
   font-size: 15px;
   color: #000;
@@ -1348,12 +1344,10 @@ main .content .sect-link i {
   letter-spacing: 0;
 }
 
-.isnohome .link-item a span,
 .sect-links .link-item a span {
   font-weight: 700;
 }
 
-.isnohome .link-item svg,
 .sect-links .link-item svg {
 	display: inline;
 	width: 46px;
