@@ -2027,9 +2027,9 @@ main .content .sect-link i {
   display: block;
 }
 
-.main-footer .mnu-self li:hover .fas {
+.main-footer .mnu-self li:hover svg {
   opacity: 1;
-  color: #f9d02a;
+  fill: #f9d02a;
 }
 
 .main-footer .developer {
