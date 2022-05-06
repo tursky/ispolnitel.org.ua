@@ -750,14 +750,17 @@ h6 {
   margin-bottom: 60px;
 }
 
-.accordion-item__trigger i {
-  color: #1d4a84;
+.accordion-item__trigger svg {
+	width: 28px;
+	height: 28px;
+  fill: #ec1c1c;
+	margin-bottom: -4px;
   margin-right: 5px;
   transition: color 0.2s ease;
 }
 
-.accordion-item__trigger:hover i {
-  color: #ec1c1c;
+.accordion-item__trigger:hover svg {
+  fill: #1d4a84;
 }
 
 .accordion-item--active .accordion-item__content {
