@@ -1146,7 +1146,7 @@ main .content .sect-link i {
   opacity: 0;
 }
 
-.service-item:hover .service-item-image .far {
+.service-item:hover .service-item-image svg {
   opacity: 0.8;
 }
 
@@ -1181,12 +1181,13 @@ main .content .sect-link i {
   display: block;
 }
 
-.service-item-image .far {
-  font-size: 30px;
-  color: #fff;
+.service-item-image svg {
   position: absolute;
-  top: 50%;
-  left: 50%;
+	width: 42px;
+	height: 42px;
+  fill: #fff;
+  top: 45%;
+  left: 48%;
   margin-left: -18px;
   margin-top: -10px;
   opacity: 0;
@@ -1238,7 +1239,7 @@ main .content .sect-link i {
   opacity: 0.3;
 }
 
-.sect-news .new-item:hover .new-item-img .far {
+.sect-news .new-item:hover .new-item-img svg {
   opacity: 0.5;
 }
 
@@ -1249,14 +1250,15 @@ main .content .sect-link i {
   position: relative;
 }
 
-.sect-news .new-item-img .far {
-  font-size: 30px;
-  color: #fff;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin-left: -17px;
-  margin-top: -12px;
+.sect-news .new-item-img svg {
+	position: absolute;
+	width: 42px;
+	height: 42px;
+  fill: #fff;
+  top: 45%;
+  left: 48%;
+  margin-left: -18px;
+  margin-top: -10px;
   opacity: 0;
   transition: all 0.25s ease;
 }
