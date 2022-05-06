@@ -289,10 +289,11 @@ h6 {
 .self-pannel-box li span,
 .self-pannel-box ul span {
   color: #f9d02a;
+	margin-left: 6px;
 }
 
 .self-pannel-box li {
-  display: inline-flex;
+	display: inline-flex;
   max-width: 100%;
   padding: 5px 10px 0 0;
 }
