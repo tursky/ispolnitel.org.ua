@@ -8,9 +8,9 @@
 @font-face { src: url("../webfonts/Roboto/roboto-700.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 700; font-style: normal; }
 
 :root {
-	--roboto: Roboto-ft, sans-serif;
-	--roboto-condensed: RobotoCondensed-ft, sans-serif;
-	--systemfont: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+	--roboto: roboto-ft, sans-serif;
+	--roboto-condensed: robotocondensed-ft, sans-serif;
+	--systemfont: -apple-system, blinkmacsystemfont, arial, sans-serif;
 }
 
 ::placeholder {
