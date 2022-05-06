@@ -434,6 +434,10 @@ h6 {
   border-bottom: 3px solid #679c1c;
 }
 
+.button-green svg {
+	fill: #fff;
+}
+
 .button-green:hover {
   color: #fff;
   background-color: #8cda1f;
