@@ -634,7 +634,7 @@ h6 {
 
 .slider .owl-nav {
   position: absolute;
-  top: 80%;
+  top: 77%;
   width: 100%;
 }
 
@@ -653,13 +653,13 @@ h6 {
 }
 
 .slider .owl-nav > div.owl-prev {
-  left: 0;
-  padding-left: 140px;
+  right: 0;
+  padding-right: 350px;
 }
 
 .slider .owl-nav > div.owl-next {
   right: 0;
-  padding-right: 140px;
+  padding-right: 250px;
 }
 
 .slider .owl-dots {
