@@ -1966,28 +1966,6 @@ main .content .sect-link i {
   width: 30px;
 }
 
-.adsbox {
-  display: none;
-}
-
-.button-top {
-  padding: 20px;
-  background-color: #0e0b13;
-  cursor: pointer;
-  position: absolute;
-  width: 100%;
-  margin-top: -100px;
-}
-
-.button-top:hover .fas {
-  color: #f9d02a;
-}
-
-.button-top .fas {
-  color: #261e33;
-  font-size: 24px;
-}
-
 .main-footer {
   background-color: #0e0b13;
   padding: 100px 0;
@@ -2002,8 +1980,7 @@ main .content .sect-link i {
   font-style: normal;
 }
 
-.main-footer .logo .span,
-.main-footer .logo p {
+.main-footer .logo .span {
   font-size: 16px;
   font-weight: 300;
   margin-top: 10px;
@@ -2039,15 +2016,6 @@ main .content .sect-link i {
 	font-size: 16px;
 	font-weight: 300;
 	text-transform: none;
-}
-
-.main-footer .top-email .fa,
-.main-footer .top-email .fab,
-.main-footer .top-email .fas,
-.main-footer .top-phone .fa,
-.main-footer .top-phone .fab,
-.main-footer .top-phone .fas {
-  opacity: 0.4;
 }
 
 .main-footer .mnu-self a {
