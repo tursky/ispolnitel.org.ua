@@ -634,23 +634,22 @@ h6 {
 
 .slider .owl-nav {
   position: absolute;
-  top: 35%;
+  top: 75%;
   width: 100%;
 }
 
 .slider .owl-nav > div {
-  width: 80px;
-  height: 80px;
-  background-color: transparent;
-  color: #999;
   position: absolute;
-  text-align: center;
-  line-height: 64px;
-  font-size: 48px;
 }
 
-.slider .owl-nav > div:hover {
-  color: #0056b3;
+.slider .owl-nav > div > svg {
+  width: 64px;
+  height: 64px;
+  fill: #ccc;
+}
+
+.slider .owl-nav > div:hover svg {
+  fill: #0056b3;
 }
 
 .slider .owl-nav > div.owl-prev {
@@ -667,7 +666,7 @@ h6 {
   width: 100%;
   text-align: center;
   background-color: #efefef;
-  padding: 10px 0 0;
+	padding: 40px 20px;
 }
 
 .slider .owl-dot {
@@ -677,7 +676,7 @@ h6 {
   opacity: 1;
   border-radius: 10em;
   display: inline-block;
-  margin: 20px;
+  margin: 0 10px;
 	box-shadow: 10px 10px 5px #999;
   transition: background-color 0.5s ease, -webkit-transform 0.5s ease;
   transition: background-color 0.5s ease, transform 0.5s ease,
