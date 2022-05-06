@@ -856,6 +856,13 @@ h6 {
   margin-bottom: 10px;
 }
 
+.sect-algoritm .self-item .icon svg {
+	width: 64px;
+	height: auto;
+	fill: #f9d02a;
+	margin-bottom: 10px;
+}
+
 .sect-algoritm .self-item .text {
   line-height: 24px;
   margin: 10px 0;
