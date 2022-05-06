@@ -1304,6 +1304,7 @@ main .content .sect-link i {
 }
 
 .sect-links .link-item {
+	display: inline-flex;
   padding: 14px;
   box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 20%);
   background-color: #fff;
@@ -1314,10 +1315,6 @@ main .content .sect-link i {
 
 .sect-links .link-item a:hover {
   text-decoration: underline;
-}
-
-.sect-links .link-item {
-	display: inline-flex;
 }
 
 .sect-links .link-item a {
