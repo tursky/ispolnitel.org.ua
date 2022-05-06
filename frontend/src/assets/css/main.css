@@ -1014,12 +1014,13 @@ main .content .main-aside .self-pannel-box {
   margin-bottom: 30px;
 }
 
-main .content .main-aside .self-pannel-box i {
-  opacity: 0.4;
-  color: green;
-  font-size: 18px;
+main .content .main-aside .self-pannel-box svg {
   position: absolute;
-  margin-top: 12px;
+  margin-top: 5px;
+	width: 22px;
+	height: 22px;
+  fill: green;
+  opacity: 0.4;
 }
 
 main .content .main-aside .self-pannel-box h4 {
@@ -1036,7 +1037,7 @@ main .content .main-aside .mnu-self a {
   display: block;
   margin-top: 8px;
   margin-bottom: 8px;
-  padding-left: 30px;
+  padding-left: 32px;
   text-transform: uppercase;
 }
 
@@ -1048,10 +1049,6 @@ main .content .main-aside .mnu-self a:hover {
 main .content .main-aside .mnu-self li {
   display: block;
   border-bottom: 1px solid #f0f0f0;
-}
-
-main .content .main-aside .mnu-self li.active .fas {
-  opacity: 0.8;
 }
 
 main .content .main-aside .mnu-self li.active a {
