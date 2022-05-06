@@ -179,9 +179,11 @@ h6 {
   padding: 20px 25px;
 }
 
-.top-line .sf-menu li a .fa {
-  font-size: 14px;
-  margin-left: 2px;
+.top-line .sf-menu li a svg {
+	fill: #fff;
+	width: 14px;
+	height: 14px;
+  margin-left: 3px;
 }
 
 .top-line .sf-menu li.active,
