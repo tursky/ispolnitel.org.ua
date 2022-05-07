@@ -60,7 +60,7 @@ const VENDOR = {
   componentJSTerser(
     src,
     config,
-    js = async (result = JSTerser.minify(src, config)) => {
+    js = async (result = this.JSTerser.minify(src, config)) => {
       const processed = await result;
       return processed.code;
     }
@@ -79,7 +79,7 @@ const VENDOR = {
       return config.map((plugin) => deps[plugin]);
     },
     css = async (
-      result = PostCSS(plugins()).process(src, {
+      result = this.PostCSS(plugins()).process(src, {
         from: src,
         to: src,
       })
