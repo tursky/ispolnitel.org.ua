@@ -261,16 +261,17 @@ h6 {
 	margin-top: 5px;
 }
 
-.self-pannel-box h4 {
+.self-pannel-box .title {
   margin-top: 0;
   font-size: 14px;
   position: relative;
   margin-bottom: 10px;
   color: #999;
   letter-spacing: 0.6px;
+	text-transform: uppercase;
 }
 
-.self-pannel-box h4::after {
+.self-pannel-box .title::after {
   content: '';
   height: 1px;
   width: 100%;
@@ -1010,7 +1011,7 @@ main .content .main-aside .self-pannel-box svg {
   opacity: 0.4;
 }
 
-main .content .main-aside .self-pannel-box h4 {
+main .content .main-aside .self-pannel-box .title {
   margin-bottom: 20px;
   margin-top: 20px;
   color: #000;
@@ -1068,7 +1069,7 @@ main .content .sasha .service-item-image .far {
   opacity: 0;
 }
 
-main .content .sasha .self-pannel-box h4 {
+main .content .sasha .self-pannel-box .title {
   margin-top: 0;
 }
 
@@ -1994,7 +1995,7 @@ main .content .sect-link i {
 	opacity: 0.4;
 }
 
-.main-footer .self-pannel-box h4 {
+.main-footer .self-pannel-box .title {
   margin-bottom: 20px;
   color: #fff;
 }
