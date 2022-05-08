@@ -2132,6 +2132,10 @@ main .content .sect-link i {
   cursor: pointer;
 }
 
+.popup-form .btn-wrapper {
+	text-align: center;
+}
+
 .popup-form .success {
   position: absolute;
   z-index: 1;
