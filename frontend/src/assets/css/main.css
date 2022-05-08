@@ -940,6 +940,13 @@ article h5 {
   line-height: 1.2;
 }
 
+article h2 {
+	display: block;
+	margin: 40px 0;
+  text-align: center;
+  font-weight: 300;
+}
+
 article h4 {
   text-align: center;
   font-weight: 700;
