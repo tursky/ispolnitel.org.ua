@@ -1153,14 +1153,6 @@ main .content .sect-link i {
 	transition: all 0.25s ease;
 }
 
-.service-item h4 {
-  font-size: 16px;
-  margin-bottom: 20px;
-  margin-top: 15px;
-  padding: 0 10px;
-  color: #000;
-}
-
 .service-item .title {
   font-size: 16px;
   margin-bottom: 20px;
@@ -1275,17 +1267,9 @@ main .content .sect-link i {
   transition: all 0.25s ease;
 }
 
-.sect-news .new-item h4, .title,
+.sect-news .new-item .title,
 .sect-news .new-item p {
   padding: 0 5px;
-}
-
-.sect-news .new-item h4 {
-  margin-top: 20px;
-  padding: 0 40px;
-  font-weight: 400;
-  margin-bottom: 12px;
-  font-size: 16px;
 }
 
 .sect-news .new-item .title {
@@ -1295,10 +1279,6 @@ main .content .sect-link i {
   margin-bottom: 12px;
   font-size: 16px;
 	text-transform: uppercase;
-}
-
-.sect-news .new-item .document h4 {
-  padding: 0;
 }
 
 .date {
