@@ -947,6 +947,10 @@ article h2 {
   font-weight: 300;
 }
 
+article .h2 {
+  text-align: left;
+}
+
 article h4 {
   text-align: center;
   font-weight: 700;
