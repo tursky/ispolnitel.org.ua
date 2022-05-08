@@ -745,6 +745,8 @@ h6 {
   box-shadow: 10px 10px 5px #999;
   padding: 9px;
   background: #f9d02a;
+	text-align: left;
+	margin: 10px 0;
 }
 
 .accordion {
