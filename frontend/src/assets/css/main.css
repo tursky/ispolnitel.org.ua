@@ -1323,6 +1323,7 @@ main .content .sect-link i {
   padding-bottom: 20px;
   padding-top: 20px;
   margin: 20px 0;
+	width: 100%;
 }
 
 .sect-links .link-item a:hover {
