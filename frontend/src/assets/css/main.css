@@ -261,16 +261,17 @@ h6 {
 	margin-top: 5px;
 }
 
-.self-pannel-box h4 {
+.self-pannel-box .title {
   margin-top: 0;
   font-size: 14px;
   position: relative;
   margin-bottom: 10px;
   color: #999;
   letter-spacing: 0.6px;
+	text-transform: uppercase;
 }
 
-.self-pannel-box h4::after {
+.self-pannel-box .title::after {
   content: '';
   height: 1px;
   width: 100%;
@@ -744,6 +745,8 @@ h6 {
   box-shadow: 10px 10px 5px #999;
   padding: 9px;
   background: #f9d02a;
+	text-align: left;
+	margin: 10px 0;
 }
 
 .accordion {
@@ -939,9 +942,15 @@ article h5 {
   line-height: 1.2;
 }
 
-article h4 {
+article h2 {
+	display: block;
+	margin: 40px 0;
   text-align: center;
-  font-weight: 700;
+  font-weight: 300;
+}
+
+article .h2 {
+  text-align: left;
 }
 
 article blockquote {
@@ -1010,7 +1019,7 @@ main .content .main-aside .self-pannel-box svg {
   opacity: 0.4;
 }
 
-main .content .main-aside .self-pannel-box h4 {
+main .content .main-aside .self-pannel-box .title {
   margin-bottom: 20px;
   margin-top: 20px;
   color: #000;
@@ -1068,7 +1077,7 @@ main .content .sasha .service-item-image .far {
   opacity: 0;
 }
 
-main .content .sasha .self-pannel-box h4 {
+main .content .sasha .self-pannel-box .title {
   margin-top: 0;
 }
 
@@ -1146,12 +1155,13 @@ main .content .sect-link i {
 	transition: all 0.25s ease;
 }
 
-.service-item h4 {
+.service-item .title {
   font-size: 16px;
   margin-bottom: 20px;
   margin-top: 15px;
   padding: 0 10px;
   color: #000;
+	text-transform: uppercase;
 }
 
 .service-item-image {
@@ -1259,21 +1269,18 @@ main .content .sect-link i {
   transition: all 0.25s ease;
 }
 
-.sect-news .new-item h4,
+.sect-news .new-item .title,
 .sect-news .new-item p {
   padding: 0 5px;
 }
 
-.sect-news .new-item h4 {
+.sect-news .new-item .title {
   margin-top: 20px;
   padding: 0 40px;
   font-weight: 400;
   margin-bottom: 12px;
   font-size: 16px;
-}
-
-.sect-news .new-item .document h4 {
-  padding: 0;
+	text-transform: uppercase;
 }
 
 .date {
@@ -1316,6 +1323,7 @@ main .content .sect-link i {
   padding-bottom: 20px;
   padding-top: 20px;
   margin: 20px 0;
+	width: 100%;
 }
 
 .sect-links .link-item a:hover {
@@ -1955,7 +1963,7 @@ main .content .sect-link i {
   background-color: #0e0b13;
   padding: 100px 0;
   color: #fff;
-  letter-spacing: 0.3px;
+	font-family: var(--roboto-condensed);
 }
 
 .main-footer .logo {
@@ -1983,7 +1991,7 @@ main .content .sect-link i {
 }
 
 .main-footer .self-pannel-box {
-	font-family: var(--roboto-condensed);
+	/* font-family: var(--roboto-condensed); */
   margin-bottom: 40px;
   color: #999;
   font-size: 14px;
@@ -1994,7 +2002,7 @@ main .content .sect-link i {
 	opacity: 0.4;
 }
 
-.main-footer .self-pannel-box h4 {
+.main-footer .self-pannel-box .title {
   margin-bottom: 20px;
   color: #fff;
 }
@@ -2009,7 +2017,7 @@ main .content .sect-link i {
 
 .main-footer .mnu-self a {
   color: #999;
-  font-size: 17px;
+  font-size: 16px;
 }
 
 .main-footer .mnu-self li {
@@ -2035,7 +2043,8 @@ main .content .sect-link i {
 }
 
 .bottom-footer .footer-copy {
-  color: #999;
+	color: #f9d02a;
+	opacity: 0.4;
   font-size: 16px;
   letter-spacing: 0.4px;
 }
@@ -2122,6 +2131,10 @@ main .content .sect-link i {
   margin-bottom: 10px;
   font-size: 18px;
   cursor: pointer;
+}
+
+.popup-form .btn-wrapper {
+	text-align: center;
 }
 
 .popup-form .success {

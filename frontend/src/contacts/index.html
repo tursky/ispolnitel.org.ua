@@ -12,10 +12,9 @@
       content="Адреса: 21001, м. Вінниця, вул. Героїв Крут, буд. 4-В, прим. № 47"
     />
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
 
     <meta
@@ -262,7 +261,7 @@
               </div>
               <div class="col-2 d-none d-lg-block">
                 <div class="self-pannel-box">
-                  <h4>Адреса:</h4>
+                  <div class="title">Адреса:</div>
                   <ul>
                     <li>
                       <svg
@@ -282,7 +281,7 @@
               </div>
               <div class="col-3 d-none d-lg-block">
                 <div class="self-pannel-box">
-                  <h4>Графік роботи:</h4>
+                  <div class="title">Графік роботи:</div>
                   <ul>
                     <li>
                       <svg
@@ -301,7 +300,7 @@
                 </div>
                 <br />
                 <div class="self-pannel-box">
-                  <h4>Прийом відвідувачів:</h4>
+                  <div class="title">Прийом відвідувачів:</div>
                   <ul>
                     <li>Понеділок: <span>з 10:00 до 13:00</span></li>
                   </ul>
@@ -350,7 +349,7 @@
         </div>
       </section>
 
-      <a href="faq/" class="pulse-button">
+      <a href="faq/" class="pulse-button" aria-label="FAQ">
         <span class="pulse-button__icon">
           <svg
             aria-hidden="true"
@@ -399,7 +398,7 @@
                       />
                     </svg>
                   </div>
-                  <h4>ЗВЕРНУТИСЯ ЧЕРЕЗ САЙТ</h4>
+                  <div class="title">ЗВЕРНУТИСЯ ЧЕРЕЗ САЙТ</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -456,17 +455,17 @@
               <article>
                 <h1>Контакти</h1>
 
-                <p>
+                <h2>
                   Приватний виконавець виконавчого округу Вінницької області
-                </p>
-                <blockquote>
-                  <strong> Турський Олександр Віталійович </strong>
-                </blockquote>
+                  <strong>Турський Олександр Віталійович</strong>
+                </h2>
+
+                <br />
 
                 <p>
                   <strong> Графік роботи: </strong>
                   <span class="newline"
-                    >Понеділок – п’ятниця з 10:00 до 19:00.
+                    >Понеділок – п’ятниця з 10:00 до 19:00
                   </span>
                 </p>
 
@@ -474,12 +473,14 @@
 
                 <p>
                   <span class="newline"
-                    ><strong>Обідня перерва</strong> з 13-00 до 14-00
-                    годин.</span
-                  >
+                    ><strong>Обідня перерва:</strong> з 13-00 до 14-00
+                  </span>
+                </p>
+
+                <p>
                   <span class="newline"
-                    ><strong>Суббота, неділя</strong> - за попереднім
-                    записом.</span
+                    ><strong>Суббота, неділя:</strong> за попереднім
+                    записом</span
                   >
                 </p>
 
@@ -497,6 +498,7 @@
                         href="assets/docs/vizitka.jpg"
                         class="new-item-img"
                         style="background-image: url(assets/docs/vizitka.jpg)"
+                        aria-label="Фото: Візитка ПВ Турського О.В."
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -509,7 +511,7 @@
                         </svg>
                       </a>
                       <div class="new-item-text document">
-                        <h4><strong>Візитка ПВ Турського О.В.</strong></h4>
+                        <div class="title">Візитка ПВ Турського О.В.</div>
                       </div>
 
                       <a
@@ -530,6 +532,8 @@
                         style="
                           background-image: url(assets/docs/rekvizyty-bank.png);
                         "
+                        aria-label="Реквізити банківських рахунків ПВ Турського
+												О.В."
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -542,12 +546,9 @@
                         </svg>
                       </a>
                       <div class="new-item-text document">
-                        <h4>
-                          <strong
-                            >Реквізити банківських рахунків ПВ Турського
-                            О.В.</strong
-                          >
-                        </h4>
+                        <div class="title">
+                          Реквізити банківських рахунків ПВ Турського О.В.
+                        </div>
                       </div>
 
                       <a
@@ -566,6 +567,7 @@
                         href="assets/docs/office.jpg"
                         class="new-item-img"
                         style="background-image: url(assets/docs/office.jpg)"
+                        aria-label="Фото: ОФІС ПРИВАТНОГО ВИКОНАВЦЯ"
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -578,7 +580,7 @@
                         </svg>
                       </a>
                       <div class="new-item-text document">
-                        <h4><strong>ОФІС ПРИВАТНОГО ВИКОНАВЦЯ</strong></h4>
+                        <div class="title">ОФІС ПРИВАТНОГО ВИКОНАВЦЯ</div>
                       </div>
 
                       <a
@@ -605,6 +607,7 @@
                     style="border: 0"
                     allowfullscreen=""
                     loading="lazy"
+                    title="КОНТАКТИ ОФІСУ ПРИВАТНОГО ВИКОНАВЦЯ"
                   ></iframe>
                 </div>
               </article>
@@ -651,7 +654,7 @@
 
           <div class="col-lg-3">
             <div class="self-pannel-box">
-              <h4>Адреса:</h4>
+              <div class="title">Адреса:</div>
               <ul>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -666,7 +669,7 @@
             </div>
 
             <div class="self-pannel-box">
-              <h4>Графік роботи:</h4>
+              <div class="title">Графік роботи:</div>
               <ul>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -682,7 +685,7 @@
             </div>
 
             <div class="self-pannel-box">
-              <h4>Прийом відвідувачів:</h4>
+              <div class="title">Прийом відвідувачів:</div>
               <ul>
                 <li>Понеділок з 10:00 до 13:00</li>
               </ul>
@@ -691,7 +694,7 @@
 
           <div class="col-lg-3">
             <div class="self-pannel-box mnu-self">
-              <h4>Карта сайту:</h4>
+              <div class="title">Карта сайту:</div>
               <ul>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -731,7 +734,7 @@
                     <path
                       d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"
                     /></svg
-                  ><a href="analytics/">Аналітика</a>
+                  ><a href="analytics/">Аналітичний блок</a>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -748,6 +751,14 @@
                       d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"
                     /></svg
                   ><a href="contacts/">Контакти</a>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path
+                      d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"
+                    /></svg
+                  ><a href="feedback/">Залишити повідомлення</a>
                 </li>
               </ul>
             </div>

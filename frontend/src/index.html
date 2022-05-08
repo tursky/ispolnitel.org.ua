@@ -10,10 +10,9 @@
       content="Понеділок - п’ятниця: 10:00 до 19:00 Обідня перерва: 13-00 до 14-00 Прийом відвідувачів: Понеділок з 10:00 до 13:00"
     />
 
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, maximum-scale=1"
+      content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0"
     />
 
     <meta
@@ -258,7 +257,7 @@
               </div>
               <div class="col-2 d-none d-lg-block">
                 <div class="self-pannel-box">
-                  <h4>Адреса:</h4>
+                  <div class="title">Адреса:</div>
                   <ul>
                     <li>
                       <svg
@@ -278,7 +277,7 @@
               </div>
               <div class="col-3 d-none d-lg-block">
                 <div class="self-pannel-box">
-                  <h4>Графік роботи:</h4>
+                  <div class="title">Графік роботи:</div>
                   <ul>
                     <li>
                       <svg
@@ -297,7 +296,7 @@
                 </div>
                 <br />
                 <div class="self-pannel-box">
-                  <h4>Прийом відвідувачів:</h4>
+                  <div class="title">Прийом відвідувачів:</div>
                   <ul>
                     <li>Понеділок: <span>з 10:00 до 13:00</span></li>
                   </ul>
@@ -346,7 +345,7 @@
         </div>
       </section>
 
-      <a href="faq/" class="pulse-button">
+      <a href="faq/" class="pulse-button" aria-label="FAQ">
         <span class="pulse-button__icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">
             <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -662,7 +661,7 @@
           <div class="container">
             <div class="row">
               <div class="col-md-2 self-item-wrapp">
-                <a href="feedback/" class="icon"
+                <span class="icon"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 576 512"
@@ -671,7 +670,7 @@
                     <path
                       d="M512 32H64C28.65 32 0 60.65 0 96v320c0 35.35 28.65 64 64 64h448c35.35 0 64-28.65 64-64V96C576 60.65 547.3 32 512 32zM176 128c35.35 0 64 28.65 64 64s-28.65 64-64 64s-64-28.65-64-64S140.7 128 176 128zM272 384h-192C71.16 384 64 376.8 64 368C64 323.8 99.82 288 144 288h64c44.18 0 80 35.82 80 80C288 376.8 280.8 384 272 384zM496 320h-128C359.2 320 352 312.8 352 304S359.2 288 368 288h128C504.8 288 512 295.2 512 304S504.8 320 496 320zM496 256h-128C359.2 256 352 248.8 352 240S359.2 224 368 224h128C504.8 224 512 231.2 512 240S504.8 256 496 256zM496 192h-128C359.2 192 352 184.8 352 176S359.2 160 368 160h128C504.8 160 512 167.2 512 176S504.8 192 496 192z"
                     /></svg
-                ></a>
+                ></span>
                 <div class="text">
                   <span
                     >1) Звернення через <a href="feedback/">сайт</a> або
@@ -693,7 +692,7 @@
                 </div>
               </div>
               <div class="col-md-4 self-item-wrapp">
-                <a href="information/2017-10-30-zrazky-zayav.html" class="icon"
+                <span class="icon"
                   ><svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 384 512"
@@ -702,7 +701,7 @@
                     <path
                       d="M256 0v128h128L256 0zM288 256H96v64h192V256zM224 128L224 0H48C21.49 0 0 21.49 0 48v416C0 490.5 21.49 512 48 512h288c26.51 0 48-21.49 48-48V160h-127.1C238.3 160 224 145.7 224 128zM64 72C64 67.63 67.63 64 72 64h80C156.4 64 160 67.63 160 72v16C160 92.38 156.4 96 152 96h-80C67.63 96 64 92.38 64 88V72zM64 136C64 131.6 67.63 128 72 128h80C156.4 128 160 131.6 160 136v16C160 156.4 156.4 160 152 160h-80C67.63 160 64 156.4 64 152V136zM320 440c0 4.375-3.625 8-8 8h-80C227.6 448 224 444.4 224 440v-16c0-4.375 3.625-8 8-8h80c4.375 0 8 3.625 8 8V440zM320 240v96c0 8.875-7.125 16-16 16h-224C71.13 352 64 344.9 64 336v-96C64 231.1 71.13 224 80 224h224C312.9 224 320 231.1 320 240z"
                     /></svg
-                ></a>
+                ></span>
                 <div class="text">
                   <span
                     >3) Подання
@@ -755,6 +754,7 @@
                     style="
                       background-image: url(assets/images/information/informacijnyj-list/1t.jpg);
                     "
+                    aria-label="Інфо: Якщо ваш рахунок арештували"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -766,7 +766,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Якщо ваш рахунок арештували</h4>
+                  <div class="title">Якщо ваш рахунок арештували</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -812,6 +812,7 @@
                     style="
                       background-image: url(assets/images/information/tymchasovo-skasovuetsja-pryjom-vidviduvachiv/1t.jpg);
                     "
+                    aria-label="Інфо: ТИМЧАСОВО СКАСОВУЄТЬСЯ ПРИЙОМ ВІДВІДУВАЧІВ"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -823,7 +824,9 @@
                       />
                     </svg>
                   </a>
-                  <h4>ТИМЧАСОВО СКАСОВУЄТЬСЯ ПРИЙОМ ВІДВІДУВАЧІВ</h4>
+                  <div class="title">
+                    ТИМЧАСОВО СКАСОВУЄТЬСЯ ПРИЙОМ ВІДВІДУВАЧІВ
+                  </div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -869,6 +872,7 @@
                     style="
                       background-image: url(assets/images/information/zrazky-zayav/1t.png);
                     "
+                    aria-label="Інфо: Зразки заяв"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -880,7 +884,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Зразки заяв</h4>
+                  <div class="title">Зразки заяв</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -926,6 +930,7 @@
                     style="
                       background-image: url(assets/images/information/yak-rozpochaty-spivpracyu-z-pryvatnym-vykonavcem/1t.jpg);
                     "
+                    aria-label="Інфо: Як розпочати співпрацю з приватним виконавцем"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -937,7 +942,9 @@
                       />
                     </svg>
                   </a>
-                  <h4>Як розпочати співпрацю з приватним виконавцем</h4>
+                  <div class="title">
+                    Як розпочати співпрацю з приватним виконавцем
+                  </div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -983,6 +990,7 @@
                     style="
                       background-image: url(assets/images/information/yakist-posluh/1t.png);
                     "
+                    aria-label="Інфо: Якість послуг"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -994,7 +1002,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Якість послуг</h4>
+                  <div class="title">Якість послуг</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1040,6 +1048,7 @@
                     style="
                       background-image: url(assets/images/information/vartist-posluh-pryvatnoho-vykonavcya/1t.png);
                     "
+                    aria-label="Інфо: Вартість послуг приватного виконавця"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1051,7 +1060,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Вартість послуг приватного виконавця</h4>
+                  <div class="title">Вартість послуг приватного виконавця</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1097,6 +1106,7 @@
                     style="
                       background-image: url(assets/images/information/rechi-ta-maynovi-prava-shjo-mozhut-buty-areshtovani/1t.png);
                     "
+                    aria-label="Інфо: Речі та майнові права, що можуть бути арештовані"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1108,7 +1118,9 @@
                       />
                     </svg>
                   </a>
-                  <h4>Речі та майнові права, що можуть бути арештовані</h4>
+                  <div class="title">
+                    Речі та майнові права, що можуть бути арештовані
+                  </div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1154,6 +1166,7 @@
                     style="
                       background-image: url(assets/images/information/vidminnosti-pryvatnoho-vykonavcya-vid-derzhavnoho/1t.png);
                     "
+                    aria-label="Інфо: Відмінності приватного виконавця від державного"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1165,7 +1178,9 @@
                       />
                     </svg>
                   </a>
-                  <h4>Відмінності приватного виконавця від державного</h4>
+                  <div class="title">
+                    Відмінності приватного виконавця від державного
+                  </div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1211,6 +1226,7 @@
                     style="
                       background-image: url(assets/images/information/realizacia-mayna-borzhnykiv/1t.png);
                     "
+                    aria-label="Інфо: Реалізація майна боржників"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1222,7 +1238,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Реалізація майна боржників</h4>
+                  <div class="title">Реалізація майна боржників</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1268,6 +1284,7 @@
                     style="
                       background-image: url(assets/images/services/internet.png);
                     "
+                    aria-label="Інфо: Звернутися через сайт"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1279,7 +1296,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Звернутися через сайт</h4>
+                  <div class="title">Звернутися через сайт</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1332,6 +1349,7 @@
                     style="
                       background-image: url(assets/images/information/povnovazhenya-pryvatnoho-vykonavcya/1t.png);
                     "
+                    aria-label="Інфо: Повноваження приватного виконавця"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1343,7 +1361,7 @@
                       />
                     </svg>
                   </a>
-                  <h4>Повноваження приватного виконавця</h4>
+                  <div class="title">Повноваження приватного виконавця</div>
                   <div class="service-item-icons">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -1406,6 +1424,7 @@
                   style="
                     background-image: url(/assets/images/analytics/2021-12-13-koncepcija-elektronnoho-vykonavchoho-provadzhennja/1t.jpg);
                   "
+                  aria-label="Інфо: Концепія електронного выконавчого провадження"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                     <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -1415,7 +1434,9 @@
                   </svg>
                 </a>
                 <div class="new-item-text">
-                  <h4>Концепія електронного выконавчого провадження</h4>
+                  <div class="title">
+                    Концепія електронного выконавчого провадження
+                  </div>
                   <span class="date">13/12/2021</span>
                   <span class="preprint">
                     В рамках реалізації Стратегії реформування судоустрою,
@@ -1439,6 +1460,8 @@
                   style="
                     background-image: url(/assets/images/analytics/2021-10-18-zjizd-pryvatnyh-vykonavciv-ukrajiny/1t.png);
                   "
+                  aria-label="Інфо: АПВУ оголошує черговий VII З'їзд приватних виконавців
+									України."
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                     <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -1448,10 +1471,10 @@
                   </svg>
                 </a>
                 <div class="new-item-text">
-                  <h4>
+                  <div class="title">
                     АПВУ оголошує черговий VII З'їзд приватних виконавців
                     України.
-                  </h4>
+                  </div>
                   <span class="date">18/10/2021</span>
                   <span class="preprint">
                     З'їзд відбудеться 26 жовтня 2021 р. у м. Києві. Місце
@@ -1474,6 +1497,8 @@
                   style="
                     background-image: url(/assets/images/analytics/2021-10-18-v-ukrajini-oficijno-startuvala-prymusova-realizacija-zemelnyh-dilyanok/1t.jpg);
                   "
+                  aria-label="Інфо: В Україні офіційно стартувала примусова реалізація земельних
+									ділянок"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
                     <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
@@ -1483,10 +1508,10 @@
                   </svg>
                 </a>
                 <div class="new-item-text">
-                  <h4>
+                  <div class="title">
                     В Україні офіційно стартувала примусова реалізація земельних
                     ділянок
-                  </h4>
+                  </div>
                   <span class="date">18/10/2021</span>
                   <span class="preprint">
                     Приватний виконавець виконавчого округу Київської області
@@ -1577,7 +1602,7 @@
                         rel="nofollow"
                         href="http://zakon3.rada.gov.ua/laws/show/1798-12"
                         ><span
-                          >ГОСПОДАРСЬКИЙ ПРОЦЕСУАЛЬНИЙ КОДЕКС УКРАЇНИ</span
+                          >Господарьский процесуальний кодекс України</span
                         ></a
                       >
                     </div>
@@ -1598,7 +1623,7 @@
                       <a
                         rel="nofollow"
                         href="http://zakon0.rada.gov.ua/laws/show/1618-15"
-                        ><span>ЦИВІЛЬНИЙ ПРОЦЕСУАЛЬНИЙ КОДЕКС УКРАЇНИ</span></a
+                        ><span>Цивільний процесуальний кодекс України</span></a
                       >
                     </div>
                   </div>
@@ -1618,7 +1643,7 @@
                       <a
                         rel="nofollow"
                         href="http://zakon2.rada.gov.ua/laws/show/2341-14"
-                        ><span>КРИМІНАЛЬНИЙ КОДЕКС УКРАЇНИ</span></a
+                        ><span>Кримінальний кодекс України</span></a
                       >
                     </div>
                   </div>
@@ -1638,7 +1663,7 @@
                       <a
                         rel="nofollow"
                         href="http://zakon5.rada.gov.ua/laws/show/z0489-12"
-                        ><span>МІНІСТЕРСТВО ЮСТИЦІЇ УКРАЇНИ:</span> "Про
+                        ><span>Міністерство юстиції України:</span> "Про
                         затвердження Інструкції з організації примусового
                         виконання рішень"</a
                       >
@@ -1689,7 +1714,7 @@
 
           <div class="col-lg-3">
             <div class="self-pannel-box">
-              <h4>Адреса:</h4>
+              <div class="title">Адреса:</div>
               <ul>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -1704,7 +1729,7 @@
             </div>
 
             <div class="self-pannel-box">
-              <h4>Графік роботи:</h4>
+              <div class="title">Графік роботи:</div>
               <ul>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -1720,7 +1745,7 @@
             </div>
 
             <div class="self-pannel-box">
-              <h4>Прийом відвідувачів:</h4>
+              <div class="title">Прийом відвідувачів:</div>
               <ul>
                 <li>Понеділок з 10:00 до 13:00</li>
               </ul>
@@ -1729,7 +1754,7 @@
 
           <div class="col-lg-3">
             <div class="self-pannel-box mnu-self">
-              <h4>Карта сайту:</h4>
+              <div class="title">Карта сайту:</div>
               <ul>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -1769,7 +1794,7 @@
                     <path
                       d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"
                     /></svg
-                  ><a href="analytics/">Аналітика</a>
+                  ><a href="analytics/">Аналітичний блок</a>
                 </li>
                 <li>
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -1786,6 +1811,14 @@
                       d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"
                     /></svg
                   ><a href="contacts/">Контакти</a>
+                </li>
+                <li>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                    <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                    <path
+                      d="M112.1 454.3c0 6.297 1.816 12.44 5.284 17.69l17.14 25.69c5.25 7.875 17.17 14.28 26.64 14.28h61.67c9.438 0 21.36-6.401 26.61-14.28l17.08-25.68c2.938-4.438 5.348-12.37 5.348-17.7L272 415.1h-160L112.1 454.3zM191.4 .0132C89.44 .3257 16 82.97 16 175.1c0 44.38 16.44 84.84 43.56 115.8c16.53 18.84 42.34 58.23 52.22 91.45c.0313 .25 .0938 .5166 .125 .7823h160.2c.0313-.2656 .0938-.5166 .125-.7823c9.875-33.22 35.69-72.61 52.22-91.45C351.6 260.8 368 220.4 368 175.1C368 78.61 288.9-.2837 191.4 .0132zM192 96.01c-44.13 0-80 35.89-80 79.1C112 184.8 104.8 192 96 192S80 184.8 80 176c0-61.76 50.25-111.1 112-111.1c8.844 0 16 7.159 16 16S200.8 96.01 192 96.01z"
+                    /></svg
+                  ><a href="feedback/">Залишити повідомлення</a>
                 </li>
               </ul>
             </div>

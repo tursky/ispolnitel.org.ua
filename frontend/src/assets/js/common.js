@@ -60,7 +60,7 @@ $(function () {
     removalDelay: 100,
   });
 
-  $('.service-item h4').equalHeights();
+  $('.service-item .title').equalHeights();
   $('.new-item-text').equalHeights();
   $('.link-item').equalHeights();
 
