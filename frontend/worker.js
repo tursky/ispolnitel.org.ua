@@ -21,6 +21,7 @@ const config = {
   IGNORE: [
     'bundles',
     'images',
+    'icons',
     'webfonts',
     'docs',
     'robots.txt',
