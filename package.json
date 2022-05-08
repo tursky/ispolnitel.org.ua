@@ -9,6 +9,7 @@
     "start": "http-server application/static -a localhost -o /",
     "lint": "eslint . && prettier -c \"**/*.js\" \"**/*.json\"",
     "stylelint": "stylelint \"**/*.css\" --ignore-path .npmignore",
+    "pagelint": "prettier --check \"**/*.html\" --ignore-path .npmignore",
     "format": "npm run fmt:code && npm run fmt:html && npm run fmt:css",
     "fmt:code": "prettier --write \"**/*.js\" \"**/*.json\" --ignore-path .npmignore",
     "fmt:css": "stylelint \"**/*.css\" --fix --ignore-path .npmignore",
