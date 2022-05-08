@@ -1161,6 +1161,15 @@ main .content .sect-link i {
   color: #000;
 }
 
+.service-item .title {
+  font-size: 16px;
+  margin-bottom: 20px;
+  margin-top: 15px;
+  padding: 0 10px;
+  color: #000;
+	text-transform: uppercase;
+}
+
 .service-item-image {
   min-height: 220px;
   background-size: cover;
@@ -1266,7 +1275,7 @@ main .content .sect-link i {
   transition: all 0.25s ease;
 }
 
-.sect-news .new-item h4,
+.sect-news .new-item h4, .title,
 .sect-news .new-item p {
   padding: 0 5px;
 }
@@ -1277,6 +1286,15 @@ main .content .sect-link i {
   font-weight: 400;
   margin-bottom: 12px;
   font-size: 16px;
+}
+
+.sect-news .new-item .title {
+  margin-top: 20px;
+  padding: 0 40px;
+  font-weight: 400;
+  margin-bottom: 12px;
+  font-size: 16px;
+	text-transform: uppercase;
 }
 
 .sect-news .new-item .document h4 {
