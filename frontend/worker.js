@@ -561,10 +561,10 @@ const verifyRootExists = (path) =>
     });
   });
 
-const copy = (sources, destination) =>
+const copy = (path, destination) =>
   new Promise((resolve, reject) => {
     // experimental feature of the standard lib
-    fs.cp(sources, destination, { recursive: true, force: true }, (error) => {
+    fs.cp(path, destination, { recursive: true, force: true }, (error) => {
       error ? reject(error) : resolve('OK');
     });
   });
