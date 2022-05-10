@@ -561,17 +561,17 @@ const verifyRootExists = (path) =>
     });
   });
 
-const clear = (dir) =>
+const copy = (sources, destination) =>
   new Promise((resolve, reject) => {
-    fs.rm(dir, { recursive: true, force: true }, (error) => {
+    // experimental feature of the standard lib
+    fs.cp(sources, destination, { recursive: true, force: true }, (error) => {
       error ? reject(error) : resolve('OK');
     });
   });
 
-const copy = (src, dist) =>
+const clear = (directory) =>
   new Promise((resolve, reject) => {
-    // experimental feature of the standard lib
-    fs.cp(src, dist, { recursive: true, force: true }, (error) => {
+    fs.rm(directory, { recursive: true, force: true }, (error) => {
       error ? reject(error) : resolve('OK');
     });
   });
@@ -581,10 +581,8 @@ const build = async (src, dist) => {
     await clear(dist);
     await copy(src, dist);
   } catch (error) {
-    if (error) {
-      console.log(error);
-      process.exit(0);
-    }
+    console.log(error);
+    process.exit(0);
   }
 };
 
