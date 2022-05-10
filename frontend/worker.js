@@ -561,21 +561,40 @@ const verifyRootExists = (path) =>
     });
   });
 
+const clear = (dir) =>
+  new Promise((resolve, reject) => {
+    fs.rm(dir, { recursive: true, force: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
 const copy = (src, dist) =>
   new Promise((resolve, reject) => {
     // experimental feature of the standard lib
     fs.cp(src, dist, { recursive: true, force: true }, (error) => {
-      error ? reject(error) : resolve(dist);
+      error ? reject(error) : resolve('OK');
     });
   });
+
+const build = async (src, dist) => {
+  try {
+    await clear(dist);
+    await copy(src, dist);
+  } catch (error) {
+    if (error) {
+      console.log(error);
+      process.exit(0);
+    }
+  }
+};
 
 const main = async (...args) => {
   const [application, filter, metadata, src, dist] = args;
   CLI.Renderer('start', application);
   try {
     await verifyRootExists(src);
-    const prototype = await copy(src, dist);
-    const sources = await pathfinder(prototype);
+    await build(src, dist);
+    const sources = await pathfinder(dist);
     const srcmap = await prepareDataset(sources, filter);
     await launchTask(srcmap, metadata);
   } catch (error) {
