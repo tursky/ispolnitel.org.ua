@@ -609,7 +609,11 @@ const check = async ({ ROOT }) => {
 };
 
 const start = async ({ APPLICATION }) => {
-  CLI.Renderer('start', APPLICATION);
+  try {
+    CLI.Renderer('start', APPLICATION);
+  } catch (err) {
+    throw new Error('Start fail...');
+  }
   return 0;
 };
 
