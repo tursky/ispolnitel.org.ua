@@ -11,14 +11,14 @@
 
 const config = {
   APPLICATION: 'FRONTEND WORKER',
-  ROOT: './frontend/src',
-  DIST: './application/static',
+  ROOT: 'frontend/src',
+  DIST: 'application/static',
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: ['cssnano'],
   },
-  IGNORE: [
+  FILTER: [
     'bundles',
     'images',
     'icons',
@@ -124,6 +124,34 @@ const readDetails = (sourcepath) =>
     });
   });
 
+const clearDirectory = (directory) =>
+  new Promise((resolve, reject) => {
+    fs.rm(directory, { recursive: true, force: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
+const copyDirectory = (path, destination) =>
+  new Promise((resolve, reject) => {
+    // experimental feature of the standard lib
+    fs.cp(path, destination, { recursive: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
+const verifyDirectory = (path) =>
+  new Promise((resolve, reject) => {
+    fs.access(path, (error) => {
+      const msg = `Target directory not found, wrong ROOT > ${path}`;
+      error ? reject(new Error(msg)) : resolve(true);
+    });
+  });
+
+const sleep = (msec) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, msec);
+  });
+
 /**
  * CONSOLE OUTPUT, UI */
 
@@ -147,43 +175,40 @@ const CLI /** FEATURES */ = {
   },
 
   CLIStart(data, cli = this.UITypography) {
-    const [title] = [...data];
+    const [app] = [...data];
     return this.preprint([
       [cli.clear, cli.boldfont, cli.white, cli.blueBG],
-      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
-      [' '.repeat(5), title, ' '.repeat(5), cli.newline],
-      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
+      [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
+      [' '.repeat(5), app, ' '.repeat(5), cli.newline],
+      [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
       [cli.reset, cli.indent.repeat(2)],
     ]);
   },
 
   CLISuccess(data, cli = this.UITypography) {
-    const [srcname] = [...data];
     return this.preprint([
       [cli.cyan, '[ok]'],
       [cli.blue, cli.dim, ' - ', cli.reset],
-      [cli.blue, srcname, cli.newline, cli.reset],
+      [cli.blue, [data], cli.newline, cli.reset],
     ]);
   },
 
   CLIError(data, cli = this.UITypography) {
-    const [srcname, err] = [...data];
+    const [msg, err] = [...data];
     return this.preprint([
       [cli.red, '[ok]'],
       [cli.blue, cli.dim, ' - ', cli.reset],
-      [cli.blue, srcname, cli.newline, cli.indent],
+      [cli.blue, msg, cli.newline, cli.indent],
       [cli.red, err.stack, cli.newline, cli.indent, cli.reset],
     ]);
   },
 
   CLIFailure(data, cli = this.UITypography) {
-    const [msg] = [...data];
     return this.preprint([
       [cli.blue],
       ['- Failure❗️', cli.newline],
-      ['- ', msg, cli.newline],
-      ['- Process completed...', cli.newline],
-      [cli.reset],
+      ['- ', [data], cli.newline, cli.reset],
+      [cli.indent],
     ]);
   },
 
@@ -417,9 +442,6 @@ const RALEY = {
   JS: true,
 };
 
-/**
- * MAIN */
-
 const metacomponent = async (file, options, process) => {
   let result = null,
     code = null;
@@ -482,38 +504,31 @@ const preprocess = (sourcepath, config) => {
   metahandler(file, options, scenario);
 };
 
-const sleep = (msec) =>
-  new Promise((resolve) => {
-    setTimeout(resolve, msec);
-  });
-
-const launcher = async (file, config) => {
-  await sleep(30);
-  preprocess(file, config);
-};
-
-const launchTask = async (srcmap, metadata) => {
+const launchCompress = async (srcmap, metadata) => {
   for (const [format, files] of srcmap) {
     if (RALEY[format]) {
       for (const file of files) {
-        await launcher(file, metadata);
+        await sleep(20);
+        preprocess(file, metadata);
       }
     }
   }
 };
 
-const confirmException = (path, fltr) =>
+const confirmExcept = (path, fltr) =>
   fltr.find((exception) => path.includes(exception));
 
-const confirmInsertion = (path, insertion) => path.includes(insertion);
+const confirmInsert = (path, insertion) => path.includes(insertion);
 
 const prepareDataset = async (src, filter) => {
   const srcmap = new Map();
   let stack = new Array();
   for (const name of RALEY.EXTNAME) {
     for (const source of src) {
-      if (confirmException(source, filter)) continue;
-      if (confirmInsertion(source, name)) stack.push(source);
+      if (confirmExcept(source, filter)) continue;
+      if (confirmInsert(source, name)) {
+        stack.push(source);
+      }
     }
     const extname = name.slice(1).toUpperCase();
     srcmap.set(extname, stack);
@@ -522,113 +537,141 @@ const prepareDataset = async (src, filter) => {
   return srcmap;
 };
 
+const normilize = async (matrix) => matrix.flat();
+
 const pathfinder = async (root) => {
   const content = await readDirectory(root);
-  const set = await Promise.all(
+  const arr = await Promise.all(
     content.map(async (source) => {
-      const sourcepath = path.join(root, source);
-      source = await readDetails(sourcepath);
-      if (source.isDirectory()) return pathfinder(sourcepath);
-      else return sourcepath;
+      const srcpath = path.join(root, source);
+      source = await readDetails(srcpath);
+      if (source.isDirectory()) return await pathfinder(srcpath);
+      else return srcpath;
     })
   );
-  return set.reduce((acc, src) => acc.concat(src), []);
+  return await normilize(arr);
+};
+
+/**
+ * DATABASE */
+
+const DB = {
+  saveExitInfo(
+    data = 'Exit information may be missing...',
+    obj = DB,
+    field = this.INFO
+  ) {
+    return Reflect.set(obj, field, data);
+  },
+
+  getExitInfo(
+    obj = DB,
+    field = this.INFO,
+    response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
+  ) {
+    return response;
+  },
+};
+
+/**
+ * MAIN */
+
+const compress = async ({ DIST, OPTIONS, FILTER }) => {
+  try {
+    const src = await pathfinder(DIST);
+    const dataset = await prepareDataset(src, FILTER);
+    await launchCompress(dataset, OPTIONS);
+    await sleep(20);
+  } catch (err) {
+    CLI.Renderer('error', 'COMPRESSION STOPPED', err);
+    throw new Error('Compress fail...');
+  }
+  return 0;
+};
+
+const build = async ({ ROOT, DIST }) => {
+  try {
+    await clearDirectory(DIST);
+    const status = await copyDirectory(ROOT, DIST);
+    if (status === 'OK') CLI.Renderer('success', `BUILD IS READY > ${DIST}`);
+  } catch (err) {
+    CLI.Renderer('error', 'BUILD IS NOT READY', err);
+    throw new Error('Build fail...');
+  }
+  return 0;
+};
+
+const check = async ({ ROOT }) => {
+  try {
+    await verifyDirectory(ROOT);
+  } catch (err) {
+    CLI.Renderer('failure', err.message);
+    throw new Error('Check fail...');
+  }
+  return 0;
+};
+
+const start = async ({ APPLICATION }) => {
+  try {
+    CLI.Renderer('start', APPLICATION);
+  } catch (err) {
+    throw new Error('Start fail...');
+  }
+  return 0;
 };
 
 const EXIT = {
-  SUCCESS: true,
-  FAILURE: false,
+  SUCCESS: 0,
+  FAILURE: 1,
 };
 
-const saveExitInformation = (
-  data = 'Exit info is missing...',
-  obj = EXIT,
-  field = 'INFO'
-) => Reflect.set(obj, field, data);
-
-const getExitInformation = (
-  obj = EXIT,
-  field = 'INFO',
-  response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
-) => response;
-
-const verifyRootExists = (path) =>
-  new Promise((resolve, reject) => {
-    fs.access(path, (error) => {
-      error
-        ? reject(`Directory not found, wrong path: ${path}`)
-        : resolve(true);
-    });
-  });
-
-const copy = (path, destination) =>
-  new Promise((resolve, reject) => {
-    // experimental feature of the standard lib
-    fs.cp(path, destination, { recursive: true, force: true }, (error) => {
-      error ? reject(error) : resolve('OK');
-    });
-  });
-
-const clear = (directory) =>
-  new Promise((resolve, reject) => {
-    fs.rm(directory, { recursive: true, force: true }, (error) => {
-      error ? reject(error) : resolve('OK');
-    });
-  });
-
-const build = async (src, dist) => {
-  try {
-    await clear(dist);
-    await copy(src, dist);
-  } catch (error) {
-    console.log(error);
-    process.exit(0);
-  }
-};
-
-const main = async (...args) => {
-  const [application, filter, metadata, src, dist] = args;
-  CLI.Renderer('start', application);
-  try {
-    await verifyRootExists(src);
-    await build(src, dist);
-    const sources = await pathfinder(dist);
-    const srcmap = await prepareDataset(sources, filter);
-    await launchTask(srcmap, metadata);
-  } catch (error) {
-    saveExitInformation(error);
-    return EXIT.FAILURE;
+const launch = async (software, instruction) => {
+  for (const component of software) {
+    try {
+      const outcome = await component(instruction);
+      if (outcome instanceof Error) throw new Error('Launch fail...');
+    } catch (err) {
+      DB.saveExitInfo(err);
+      return EXIT.FAILURE;
+    }
   }
   return EXIT.SUCCESS;
 };
 
+const API = {
+  start: [start],
+  run: [start, check, build, compress],
+  build: [build],
+  compress: [compress],
+  check: [check],
+
+  parseFirst(argv) {
+    if (argv.length === 2) argv.push('run');
+    const [command] = argv.filter((el, i) => i > 1);
+    return command;
+  },
+};
+
+const node = async (...args) => {
+  const [commands, prerequisites] = args;
+  const command = API.parseFirst(commands);
+  const scenario = API[command];
+  const done = await launch(scenario, prerequisites);
+  return done;
+};
+
 /**
- * RUN, MULTITHREADING */
+ * MULTITHREADING ENVIRONMENT */
 
 const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
-
-const run = async (settings) => {
-  const outcome = await main(
-    settings.APPLICATION,
-    settings.IGNORE,
-    settings.OPTIONS,
-    settings.ROOT,
-    settings.DIST
-  );
-  if (outcome === EXIT.FAILURE) {
-    const data = getExitInformation();
-    CLI.Renderer('failure', data);
-  }
-  return outcome;
-};
 
 if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
       msg: 'Data to Worker',
-      config: JSON.stringify(config),
-      threadStart: '',
+      configuration: JSON.stringify(config),
+      commands: process.argv,
     },
   });
 
@@ -636,20 +679,41 @@ if (isMainThread) {
     TIMER: 0,
   };
 
-  worker.on('message', (msg) => Reflect.set(statistics, 'TIMER', msg));
-  worker.on('exit', () => CLI.Renderer('timer', statistics.TIMER));
-  worker.on('error', (err) => console.log(err.stack));
+  worker.on('message', async (msg) => {
+    if (msg instanceof Date) Reflect.set(statistics, 'TIMER', msg);
+    if (msg instanceof Error) {
+      setTimeout(() => {
+        Reflect.set(statistics, 'STACK', msg);
+        worker.terminate();
+      }, 0);
+    }
+  });
+
+  worker.on('exit', (code) => {
+    if (code === 1) CLI.Renderer('error', 'So so', statistics.STACK);
+    if (code === 0) CLI.Renderer('timer', statistics.TIMER);
+  });
+
+  worker.on('error', (err) => {
+    console.log(err.stack);
+  });
 } else {
   // console.dir({ worker: threads });
 
-  Reflect.set(workerData, 'threadStart', new Date());
-  const data = Reflect.get(workerData, 'threadStart');
-  threads.parentPort.postMessage(data);
+  const now = new Date();
+  threads.parentPort.postMessage(now);
 
-  const config = Reflect.get(workerData, 'config');
-  const fn = JSON.parse(config);
+  const data = Reflect.get(workerData, 'configuration');
+  const settings = JSON.parse(data);
+  const argv = Reflect.get(workerData, 'commands');
 
-  run(fn);
+  setTimeout(async () => {
+    const sensor = await node(argv, settings);
+    if (sensor === 1) {
+      const critical = DB.getExitInfo();
+      threads.parentPort.postMessage(critical);
+    }
+  }, 0);
 }
 
 module.exports = { schema };
