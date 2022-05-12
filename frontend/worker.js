@@ -563,13 +563,13 @@ const EXIT = {
   FAILURE: 1,
 };
 
-const saveExitInformation = (
+const saveExitInfo = (
   data = 'Exit info is missing...',
   obj = EXIT,
   field = 'INFO'
 ) => Reflect.set(obj, field, data);
 
-const getExitInformation = (
+const getExitInfo = (
   obj = EXIT,
   field = 'INFO',
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
@@ -618,7 +618,7 @@ const launch = async (software, instruction) => {
       const outcome = await component(instruction);
       if (outcome instanceof Error) throw new Error('Launch fail...');
     } catch (err) {
-      saveExitInformation(err);
+      saveExitInfo(err);
       return EXIT.FAILURE;
     }
   }
@@ -700,7 +700,7 @@ if (isMainThread) {
   setTimeout(async () => {
     const sensor = await node(argv, settings);
     if (sensor === 1) {
-      const msg = getExitInformation();
+      const msg = getExitInfo();
       threads.parentPort.postMessage(msg);
     }
   }, 0);
