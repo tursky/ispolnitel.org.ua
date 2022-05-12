@@ -603,6 +603,48 @@ const main = async (...args) => {
 };
 
 /**
+ * RUNNER NODE */
+
+const verifyDirectory = (path) =>
+ new Promise((resolve, reject) => {
+   fs.access(path, (error) => {
+     const msg = `Target directory not found, wrong ROOT: ${path}`;
+     error
+       ? reject(new Error(msg))
+       : resolve(true);
+   });
+ });
+
+const start = async ({ APPLICATION, ROOT }) => {
+ try {
+   CLI.Renderer('start', APPLICATION);
+   await verifyDirectory(ROOT);
+ } catch (err) {
+   const msg = err.message;
+   if (err) CLI.Renderer('failure', msg);
+   return err;
+ }
+};
+
+const launch = async (software, instruction) => {
+ for (const component of software) {
+   try {
+     const done = await component(instruction);
+     if (done instanceof Error) return EXIT.FAILURE;
+   } catch (err) {
+     if (err) return;
+   }
+ }
+ return EXIT.SUCCESS;
+};
+
+const node = async (...args) => {
+ const [prerequisites] = args;
+ const fns = [start];
+ return await launch(fns, prerequisites);
+};
+
+/**
  * RUN, MULTITHREADING */
 
 const threads = require('worker_threads');
