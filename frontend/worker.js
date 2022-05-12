@@ -11,7 +11,7 @@
 
 const config = {
   APPLICATION: 'FRONTEND WORKER',
-  ROOT: 'frontend/src',
+  ROOT: 'frontend/sc',
   DIST: 'application/static',
   OPTIONS: {
     JS: { compress: false },
@@ -607,7 +607,7 @@ const start = async ({ APPLICATION, ROOT }) => {
     await verifyDirectory(ROOT);
   } catch (err) {
     const msg = err.message;
-    if (err) CLI.Renderer('failure', msg);
+    CLI.Renderer('failure', msg);
     return err;
   }
 };
@@ -615,10 +615,11 @@ const start = async ({ APPLICATION, ROOT }) => {
 const launch = async (software, instruction) => {
   for (const component of software) {
     try {
-      const done = await component(instruction);
-      if (done instanceof Error) return EXIT.FAILURE;
+      const outcome = await component(instruction);
+      if (outcome instanceof Error) throw new Error('Launch fail...');
     } catch (err) {
-      if (err) return;
+      saveExitInformation(err);
+      return EXIT.FAILURE;
     }
   }
   return EXIT.SUCCESS;
@@ -655,7 +656,6 @@ if (isMainThread) {
       msg: 'Data to Worker',
       configuration: JSON.stringify(config),
       commands: process.argv,
-      threadStart: '',
     },
   });
 
@@ -663,16 +663,26 @@ if (isMainThread) {
     TIMER: 0,
   };
 
-  worker.on('message', (msg) => {
+  worker.on('message', async (msg) => {
     if (msg instanceof Date) Reflect.set(statistics, 'TIMER', msg);
-    if (msg === 'END') {
-      setTimeout(async () => {
-        CLI.Renderer('timer', statistics.TIMER);
-      }, 20);
+    if (msg instanceof Error) {
+      setTimeout(() => {
+        Reflect.set(statistics, 'STACK', msg);
+        worker.terminate();
+      }, 0);
     }
   });
 
-  worker.on('exit', (code) => {});
+  worker.on('exit', (code) => {
+    if (code === 0) {
+      CLI.Renderer('timer', statistics.TIMER);
+    }
+
+    if (code === 1) {
+      process.stdout.write('\n');
+      CLI.Renderer('error', 'So so', statistics.STACK);
+    }
+  });
 
   worker.on('error', (err) => {
     console.log(err.stack);
@@ -681,7 +691,6 @@ if (isMainThread) {
   // console.dir({ worker: threads });
 
   const now = new Date();
-  Reflect.set(workerData, 'threadStart', now);
   threads.parentPort.postMessage(now);
 
   const data = Reflect.get(workerData, 'configuration');
@@ -690,8 +699,9 @@ if (isMainThread) {
 
   setTimeout(async () => {
     const sensor = await node(argv, settings);
-    if (typeof sensor === 'number') {
-      threads.parentPort.postMessage('END');
+    if (sensor === 1) {
+      const msg = getExitInformation();
+      threads.parentPort.postMessage(msg);
     }
   }, 0);
 }
