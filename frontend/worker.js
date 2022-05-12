@@ -561,7 +561,7 @@ const getExitInformation = (
     });
   });*/
 
-const copy = (path, destination) =>
+/*const copy = (path, destination) =>
   new Promise((resolve, reject) => {
     // experimental feature of the standard lib
     fs.cp(path, destination, { recursive: true, force: true }, (error) => {
@@ -574,7 +574,7 @@ const clear = (directory) =>
     fs.rm(directory, { recursive: true, force: true }, (error) => {
       error ? reject(error) : resolve('OK');
     });
-  });
+  });*/
 
 /*const build = async (src, dist) => {
   try {
