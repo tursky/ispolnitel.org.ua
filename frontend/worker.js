@@ -584,18 +584,6 @@ const EXIT = {
   FAILURE: 1,
 };
 
-const saveExitInfo = (
-  data = 'Exit info is missing...',
-  obj = EXIT,
-  field = 'INFO'
-) => Reflect.set(obj, field, data);
-
-const getExitInfo = (
-  obj = EXIT,
-  field = 'INFO',
-  response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
-) => response;
-
 /**
  * RUNNER NODE */
 
