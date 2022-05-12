@@ -142,7 +142,7 @@ const copyDirectory = (path, destination) =>
 const verifyDirectory = (path) =>
   new Promise((resolve, reject) => {
     fs.access(path, (error) => {
-      const msg = `Target directory not found, wrong ROOT: ${path}`;
+      const msg = `Target directory not found, wrong ROOT > ${path}`;
       error ? reject(new Error(msg)) : resolve(true);
     });
   });
@@ -175,43 +175,40 @@ const CLI /** FEATURES */ = {
   },
 
   CLIStart(data, cli = this.UITypography) {
-    const [title] = [...data];
+    const [app] = [...data];
     return this.preprint([
       [cli.clear, cli.boldfont, cli.white, cli.blueBG],
-      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
-      [' '.repeat(5), title, ' '.repeat(5), cli.newline],
-      [' '.repeat(5), ' '.repeat(title.length), ' '.repeat(5), cli.newline],
+      [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
+      [' '.repeat(5), app, ' '.repeat(5), cli.newline],
+      [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
       [cli.reset, cli.indent.repeat(2)],
     ]);
   },
 
   CLISuccess(data, cli = this.UITypography) {
-    const [srcname] = [...data];
     return this.preprint([
       [cli.cyan, '[ok]'],
       [cli.blue, cli.dim, ' - ', cli.reset],
-      [cli.blue, srcname, cli.newline, cli.reset],
+      [cli.blue, [data], cli.newline, cli.reset],
     ]);
   },
 
   CLIError(data, cli = this.UITypography) {
-    const [srcname, err] = [...data];
+    const [msg, err] = [...data];
     return this.preprint([
       [cli.red, '[ok]'],
       [cli.blue, cli.dim, ' - ', cli.reset],
-      [cli.blue, srcname, cli.newline, cli.indent],
+      [cli.blue, msg, cli.newline, cli.indent],
       [cli.red, err.stack, cli.newline, cli.indent, cli.reset],
     ]);
   },
 
   CLIFailure(data, cli = this.UITypography) {
-    const [msg] = [...data];
     return this.preprint([
       [cli.blue],
       ['- Failure❗️', cli.newline],
-      ['- ', msg, cli.newline],
-      ['- Process completed...', cli.newline],
-      [cli.reset],
+      ['- ', [data], cli.newline, cli.reset],
+      [cli.indent],
     ]);
   },
 
@@ -679,14 +676,8 @@ if (isMainThread) {
   });
 
   worker.on('exit', (code) => {
-    if (code === 1) {
-      process.stdout.write('\n');
-      CLI.Renderer('error', 'So so', statistics.STACK);
-    }
-
-    if (code === 0) {
-      CLI.Renderer('timer', statistics.TIMER);
-    }
+    if (code === 1) CLI.Renderer('error', 'So so', statistics.STACK);
+    if (code === 0) CLI.Renderer('timer', statistics.TIMER);
   });
 
   worker.on('error', (err) => {
