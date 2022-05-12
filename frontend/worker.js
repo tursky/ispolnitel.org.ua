@@ -445,9 +445,6 @@ const RALEY = {
   JS: true,
 };
 
-/**
- * MAIN */
-
 const metacomponent = async (file, options, process) => {
   let result = null,
     code = null;
@@ -579,13 +576,8 @@ const DB = {
   },
 };
 
-const EXIT = {
-  SUCCESS: 0,
-  FAILURE: 1,
-};
-
 /**
- * RUNNER NODE */
+ * MAIN */
 
 const compress = async ({ DIST, OPTIONS, FILTER }) => {
   try {
@@ -594,7 +586,7 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
     await launchCompress(dataset, OPTIONS);
     await sleep(20);
   } catch (err) {
-    CLI.Renderer('error', 'COMPRESS FAILED!', err);
+    CLI.Renderer('error', 'COMPRESS FAILED', err);
     return err;
   }
 };
@@ -620,6 +612,11 @@ const start = async ({ APPLICATION, ROOT }) => {
   }
 };
 
+const EXIT = {
+  SUCCESS: 0,
+  FAILURE: 1,
+};
+
 const launch = async (software, instruction) => {
   for (const component of software) {
     try {
@@ -627,7 +624,6 @@ const launch = async (software, instruction) => {
       if (outcome instanceof Error) throw new Error('Launch fail...');
     } catch (err) {
       DB.saveExitInfo(err);
-      // saveExitInfo(err);
       return EXIT.FAILURE;
     }
   }
@@ -654,7 +650,7 @@ const node = async (...args) => {
 };
 
 /**
- * RUN, MULTITHREADING */
+ * MULTITHREADING ENVIRONMENT */
 
 const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
