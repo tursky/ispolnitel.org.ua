@@ -492,7 +492,7 @@ const launcher = async (file, config) => {
   preprocess(file, config);
 };
 
-const launchTask = async (srcmap, metadata) => {
+const launchCompress = async (srcmap, metadata) => {
   for (const [format, files] of srcmap) {
     if (RALEY[format]) {
       for (const file of files) {
@@ -594,7 +594,7 @@ const clear = (directory) =>
     await build(src, dist);
     const sources = await pathfinder(dist);
     const srcmap = await prepareDataset(sources, filter);
-    await launchTask(srcmap, metadata);
+    await launchCompress(srcmap, metadata);
   } catch (error) {
     saveExitInformation(error);
     return EXIT.FAILURE;
@@ -609,7 +609,7 @@ const compress = async ({ DIST, OPTIONS, IGNORE }) => {
   try {
     const src = await pathfinder(DIST);
     const dataset = await prepareDataset(src, IGNORE);
-    await launchTask(dataset, OPTIONS);
+    await launchCompress(dataset, OPTIONS);
   } catch (err) {
     if (err) CLI.Renderer('error', 'COMPRESS FAILED!', err);
     return err;
