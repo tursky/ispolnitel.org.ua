@@ -536,8 +536,8 @@ const pathfinder = async (root) => {
 };
 
 const EXIT = {
-  SUCCESS: true,
-  FAILURE: false,
+  SUCCESS: 0,
+  FAILURE: 1,
 };
 
 const saveExitInformation = (
