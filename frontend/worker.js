@@ -487,16 +487,12 @@ const sleep = (msec) =>
     setTimeout(resolve, msec);
   });
 
-const launcher = async (file, config) => {
-  await sleep(30);
-  preprocess(file, config);
-};
-
 const launchCompress = async (srcmap, metadata) => {
   for (const [format, files] of srcmap) {
     if (RALEY[format]) {
       for (const file of files) {
-        await launcher(file, metadata);
+        await sleep(20);
+        preprocess(file, metadata);
       }
     }
   }
