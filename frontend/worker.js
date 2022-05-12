@@ -583,9 +583,10 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
     await launchCompress(dataset, OPTIONS);
     await sleep(20);
   } catch (err) {
-    CLI.Renderer('error', 'COMPRESS FAILED', err);
-    return err;
+    CLI.Renderer('error', 'COMPRESSION STOPPED', err);
+    throw new Error('Compress fail...');
   }
+  return 0;
 };
 
 const build = async ({ ROOT, DIST }) => {
