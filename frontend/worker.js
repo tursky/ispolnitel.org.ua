@@ -558,6 +558,27 @@ const pathfinder = async (root) => {
   return await normilize(arr);
 };
 
+/**
+ * DATABASE */
+
+const DB = {
+  saveExitInfo(
+    data = 'Exit information may be missing...',
+    obj = DB,
+    field = this.INFO
+  ) {
+    return Reflect.set(obj, field, data);
+  },
+
+  getExitInfo(
+    obj = DB,
+    field = this.INFO,
+    response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
+  ) {
+    return response;
+  },
+};
+
 const EXIT = {
   SUCCESS: 0,
   FAILURE: 1,
@@ -617,7 +638,8 @@ const launch = async (software, instruction) => {
       const outcome = await component(instruction);
       if (outcome instanceof Error) throw new Error('Launch fail...');
     } catch (err) {
-      saveExitInfo(err);
+      DB.saveExitInfo(err);
+      // saveExitInfo(err);
       return EXIT.FAILURE;
     }
   }
@@ -699,7 +721,7 @@ if (isMainThread) {
   setTimeout(async () => {
     const sensor = await node(argv, settings);
     if (sensor === 1) {
-      const critical = getExitInfo();
+      const critical = DB.getExitInfo();
       threads.parentPort.postMessage(critical);
     }
   }, 0);
