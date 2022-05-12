@@ -606,42 +606,40 @@ const clear = (directory) =>
  * RUNNER NODE */
 
 const verifyDirectory = (path) =>
- new Promise((resolve, reject) => {
-   fs.access(path, (error) => {
-     const msg = `Target directory not found, wrong ROOT: ${path}`;
-     error
-       ? reject(new Error(msg))
-       : resolve(true);
-   });
- });
+  new Promise((resolve, reject) => {
+    fs.access(path, (error) => {
+      const msg = `Target directory not found, wrong ROOT: ${path}`;
+      error ? reject(new Error(msg)) : resolve(true);
+    });
+  });
 
 const start = async ({ APPLICATION, ROOT }) => {
- try {
-   CLI.Renderer('start', APPLICATION);
-   await verifyDirectory(ROOT);
- } catch (err) {
-   const msg = err.message;
-   if (err) CLI.Renderer('failure', msg);
-   return err;
- }
+  try {
+    CLI.Renderer('start', APPLICATION);
+    await verifyDirectory(ROOT);
+  } catch (err) {
+    const msg = err.message;
+    if (err) CLI.Renderer('failure', msg);
+    return err;
+  }
 };
 
 const launch = async (software, instruction) => {
- for (const component of software) {
-   try {
-     const done = await component(instruction);
-     if (done instanceof Error) return EXIT.FAILURE;
-   } catch (err) {
-     if (err) return;
-   }
- }
- return EXIT.SUCCESS;
+  for (const component of software) {
+    try {
+      const done = await component(instruction);
+      if (done instanceof Error) return EXIT.FAILURE;
+    } catch (err) {
+      if (err) return;
+    }
+  }
+  return EXIT.SUCCESS;
 };
 
 const node = async (...args) => {
- const [prerequisites] = args;
- const fns = [start];
- return await launch(fns, prerequisites);
+  const [prerequisites] = args;
+  const fns = [start];
+  return await launch(fns, prerequisites);
 };
 
 /**
@@ -678,9 +676,20 @@ if (isMainThread) {
     TIMER: 0,
   };
 
-  worker.on('message', (msg) => Reflect.set(statistics, 'TIMER', msg));
-  worker.on('exit', () => CLI.Renderer('timer', statistics.TIMER));
-  worker.on('error', (err) => console.log(err.stack));
+  worker.on('message', (msg) => {
+    if (msg instanceof Date) Reflect.set(statistics, 'TIMER', msg);
+    if (msg === 'END') {
+      setTimeout(async () => {
+        CLI.Renderer('timer', statistics.TIMER);
+      }, 20);
+    }
+  });
+
+  worker.on('exit', (code) => {});
+
+  worker.on('error', (err) => {
+    console.log(err.stack);
+  });
 } else {
   // console.dir({ worker: threads });
 
@@ -693,7 +702,10 @@ if (isMainThread) {
 
   // run(fn);
   setTimeout(async () => {
-    await node(settings);
+    const sensor = await node(settings);
+    if (typeof sensor === 'number') {
+      threads.parentPort.postMessage('END');
+    }
   }, 0);
 }
 
