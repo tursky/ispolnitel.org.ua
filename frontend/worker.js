@@ -691,7 +691,10 @@ if (isMainThread) {
   const config = Reflect.get(workerData, 'config');
   const fn = JSON.parse(config);
 
-  run(fn);
+  // run(fn);
+  setTimeout(async () => {
+    await node(fn);
+  }, 0);
 }
 
 module.exports = { schema };
