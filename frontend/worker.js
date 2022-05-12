@@ -599,14 +599,18 @@ const build = async ({ ROOT, DIST }) => {
   }
 };
 
-const start = async ({ APPLICATION, ROOT }) => {
+const check = async ({ ROOT }) => {
   try {
-    CLI.Renderer('start', APPLICATION);
     await verifyDirectory(ROOT);
   } catch (err) {
     CLI.Renderer('failure', err.message);
     return err;
   }
+};
+
+const start = async ({ APPLICATION }) => {
+  CLI.Renderer('start', APPLICATION);
+  return 0;
 };
 
 const EXIT = {
@@ -628,9 +632,11 @@ const launch = async (software, instruction) => {
 };
 
 const API = {
-  run: [start, build, compress],
-  build: [start, build],
-  compress: [start, compress],
+  start: [start],
+  run: [start, check, build, compress],
+  build: [build],
+  compress: [compress],
+  check: [check],
 
   parseFirst(argv) {
     if (argv.length === 2) argv.push('run');
