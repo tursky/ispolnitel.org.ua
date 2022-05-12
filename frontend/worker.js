@@ -575,56 +575,6 @@ const getExitInformation = (
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
-/*const verifyRootExists = (path) =>
-  new Promise((resolve, reject) => {
-    fs.access(path, (error) => {
-      error
-        ? reject(`Directory not found, wrong path: ${path}`)
-        : resolve(true);
-    });
-  });*/
-
-/*const copy = (path, destination) =>
-  new Promise((resolve, reject) => {
-    // experimental feature of the standard lib
-    fs.cp(path, destination, { recursive: true, force: true }, (error) => {
-      error ? reject(error) : resolve('OK');
-    });
-  });
-
-const clear = (directory) =>
-  new Promise((resolve, reject) => {
-    fs.rm(directory, { recursive: true, force: true }, (error) => {
-      error ? reject(error) : resolve('OK');
-    });
-  });*/
-
-/*const build = async (src, dist) => {
-  try {
-    await clear(dist);
-    await copy(src, dist);
-  } catch (error) {
-    console.log(error);
-    process.exit(0);
-  }
-};*/
-
-/*const main = async (...args) => {
-  const [application, filter, metadata, src, dist] = args;
-  CLI.Renderer('start', application);
-  try {
-    await verifyRootExists(src);
-    await build(src, dist);
-    const sources = await pathfinder(dist);
-    const srcmap = await prepareDataset(sources, filter);
-    await launchCompress(srcmap, metadata);
-  } catch (error) {
-    saveExitInformation(error);
-    return EXIT.FAILURE;
-  }
-  return EXIT.SUCCESS;
-};*/
-
 /**
  * RUNNER NODE */
 
@@ -685,21 +635,6 @@ const node = async (...args) => {
 const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
-/*const run = async (settings) => {
-  const outcome = await main(
-    settings.APPLICATION,
-    settings.IGNORE,
-    settings.OPTIONS,
-    settings.ROOT,
-    settings.DIST
-  );
-  if (outcome === EXIT.FAILURE) {
-    const data = getExitInformation();
-    CLI.Renderer('failure', data);
-  }
-  return outcome;
-};*/
-
 if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
@@ -737,7 +672,6 @@ if (isMainThread) {
   const data = Reflect.get(workerData, 'configuration');
   const settings = JSON.parse(data);
 
-  // run(fn);
   setTimeout(async () => {
     const sensor = await node(settings);
     if (typeof sensor === 'number') {
