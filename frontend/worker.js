@@ -147,6 +147,11 @@ const verifyDirectory = (path) =>
     });
   });
 
+const sleep = (msec) =>
+  new Promise((resolve) => {
+    setTimeout(resolve, msec);
+  });
+
 /**
  * CONSOLE OUTPUT, UI */
 
@@ -504,11 +509,6 @@ const preprocess = (sourcepath, config) => {
   const scenario = metamodel(qr);
   metahandler(file, options, scenario);
 };
-
-const sleep = (msec) =>
-  new Promise((resolve) => {
-    setTimeout(resolve, msec);
-  });
 
 const launchCompress = async (srcmap, metadata) => {
   for (const [format, files] of srcmap) {
