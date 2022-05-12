@@ -520,17 +520,19 @@ const prepareDataset = async (src, filter) => {
   return srcmap;
 };
 
+const normilize = async (matrix) => matrix.flat();
+
 const pathfinder = async (root) => {
   const content = await readDirectory(root);
-  const set = await Promise.all(
+  const arr = await Promise.all(
     content.map(async (source) => {
       const srcpath = path.join(root, source);
       source = await readDetails(srcpath);
-      if (source.isDirectory()) return pathfinder(srcpath);
+      if (source.isDirectory()) return await pathfinder(srcpath);
       else return srcpath;
     })
   );
-  return set.reduce((acc, src) => acc.concat(src), []);
+  return await normilize(arr);
 };
 
 const EXIT = {
