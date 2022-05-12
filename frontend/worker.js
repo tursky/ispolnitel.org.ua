@@ -605,6 +605,17 @@ const clear = (directory) =>
 /**
  * RUNNER NODE */
 
+const compress = async ({ DIST, OPTIONS, IGNORE }) => {
+  try {
+    const src = await pathfinder(DIST);
+    const dataset = await prepareDataset(src, IGNORE);
+    await launchTask(dataset, OPTIONS);
+  } catch (err) {
+    if (err) CLI.Renderer('error', 'COMPRESS FAILED!', err);
+    return err;
+  }
+};
+
 const clearDirectory = (directory) =>
   new Promise((resolve, reject) => {
     fs.rm(directory, { recursive: true, force: true }, (error) => {
@@ -664,7 +675,7 @@ const launch = async (software, instruction) => {
 
 const node = async (...args) => {
   const [prerequisites] = args;
-  const fns = [start, build];
+  const fns = [start, build, compress];
   return await launch(fns, prerequisites);
 };
 
