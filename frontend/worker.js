@@ -604,8 +604,9 @@ const check = async ({ ROOT }) => {
     await verifyDirectory(ROOT);
   } catch (err) {
     CLI.Renderer('failure', err.message);
-    return err;
+    throw new Error('Check fail...');
   }
+  return 0;
 };
 
 const start = async ({ APPLICATION }) => {
