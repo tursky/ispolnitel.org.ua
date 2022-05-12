@@ -594,9 +594,10 @@ const build = async ({ ROOT, DIST }) => {
     const status = await copyDirectory(ROOT, DIST);
     if (status === 'OK') CLI.Renderer('success', `BUILD IS READY > ${DIST}`);
   } catch (err) {
-    CLI.Renderer('error', 'BUILD FAILED', err);
-    return err;
+    CLI.Renderer('error', 'BUILD IS NOT READY', err);
+    throw new Error('Build fail...');
   }
+  return 0;
 };
 
 const check = async ({ ROOT }) => {
