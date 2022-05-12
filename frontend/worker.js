@@ -124,6 +124,29 @@ const readDetails = (sourcepath) =>
     });
   });
 
+const clearDirectory = (directory) =>
+  new Promise((resolve, reject) => {
+    fs.rm(directory, { recursive: true, force: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
+const copyDirectory = (path, destination) =>
+  new Promise((resolve, reject) => {
+    // experimental feature of the standard lib
+    fs.cp(path, destination, { recursive: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
+const verifyDirectory = (path) =>
+  new Promise((resolve, reject) => {
+    fs.access(path, (error) => {
+      const msg = `Target directory not found, wrong ROOT: ${path}`;
+      error ? reject(new Error(msg)) : resolve(true);
+    });
+  });
+
 /**
  * CONSOLE OUTPUT, UI */
 
@@ -616,21 +639,6 @@ const compress = async ({ DIST, OPTIONS, IGNORE }) => {
   }
 };
 
-const clearDirectory = (directory) =>
-  new Promise((resolve, reject) => {
-    fs.rm(directory, { recursive: true, force: true }, (error) => {
-      error ? reject(error) : resolve('OK');
-    });
-  });
-
-const copyDirectory = (path, destination) =>
-  new Promise((resolve, reject) => {
-    // experimental feature of the standard lib
-    fs.cp(path, destination, { recursive: true }, (error) => {
-      error ? reject(error) : resolve('OK');
-    });
-  });
-
 const build = async ({ ROOT, DIST }) => {
   try {
     await clearDirectory(DIST);
@@ -641,14 +649,6 @@ const build = async ({ ROOT, DIST }) => {
   }
   CLI.Renderer('success', `BUILD LUCK: ${DIST}`);
 };
-
-const verifyDirectory = (path) =>
-  new Promise((resolve, reject) => {
-    fs.access(path, (error) => {
-      const msg = `Target directory not found, wrong ROOT: ${path}`;
-      error ? reject(new Error(msg)) : resolve(true);
-    });
-  });
 
 const start = async ({ APPLICATION, ROOT }) => {
   try {
