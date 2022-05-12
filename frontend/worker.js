@@ -11,7 +11,7 @@
 
 const config = {
   APPLICATION: 'FRONTEND WORKER',
-  ROOT: 'frontend/sc',
+  ROOT: 'frontend/src',
   DIST: 'application/static',
   OPTIONS: {
     JS: { compress: false },
@@ -585,7 +585,7 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
     await launchCompress(dataset, OPTIONS);
     await sleep(20);
   } catch (err) {
-    if (err) CLI.Renderer('error', 'COMPRESS FAILED!', err);
+    CLI.Renderer('error', 'COMPRESS FAILED!', err);
     return err;
   }
 };
@@ -593,12 +593,12 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
 const build = async ({ ROOT, DIST }) => {
   try {
     await clearDirectory(DIST);
-    await copyDirectory(ROOT, DIST);
+    const status = await copyDirectory(ROOT, DIST);
+    if (status === 'OK') CLI.Renderer('success', `BUILD IS READY > ${DIST}`);
   } catch (err) {
-    if (err) CLI.Renderer('error', 'BUILD FAILURE', err);
+    CLI.Renderer('error', 'BUILD FAILED', err);
     return err;
   }
-  CLI.Renderer('success', `BUILD LUCK: ${DIST}`);
 };
 
 const start = async ({ APPLICATION, ROOT }) => {
@@ -606,8 +606,7 @@ const start = async ({ APPLICATION, ROOT }) => {
     CLI.Renderer('start', APPLICATION);
     await verifyDirectory(ROOT);
   } catch (err) {
-    const msg = err.message;
-    CLI.Renderer('failure', msg);
+    CLI.Renderer('failure', err.message);
     return err;
   }
 };
@@ -674,13 +673,13 @@ if (isMainThread) {
   });
 
   worker.on('exit', (code) => {
-    if (code === 0) {
-      CLI.Renderer('timer', statistics.TIMER);
-    }
-
     if (code === 1) {
       process.stdout.write('\n');
       CLI.Renderer('error', 'So so', statistics.STACK);
+    }
+
+    if (code === 0) {
+      CLI.Renderer('timer', statistics.TIMER);
     }
   });
 
@@ -700,8 +699,8 @@ if (isMainThread) {
   setTimeout(async () => {
     const sensor = await node(argv, settings);
     if (sensor === 1) {
-      const msg = getExitInfo();
-      threads.parentPort.postMessage(msg);
+      const critical = getExitInfo();
+      threads.parentPort.postMessage(critical);
     }
   }, 0);
 }
