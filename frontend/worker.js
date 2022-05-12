@@ -583,6 +583,7 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
     const src = await pathfinder(DIST);
     const dataset = await prepareDataset(src, FILTER);
     await launchCompress(dataset, OPTIONS);
+    await sleep(20);
   } catch (err) {
     if (err) CLI.Renderer('error', 'COMPRESS FAILED!', err);
     return err;
