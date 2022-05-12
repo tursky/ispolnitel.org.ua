@@ -605,6 +605,32 @@ const clear = (directory) =>
 /**
  * RUNNER NODE */
 
+const clearDirectory = (directory) =>
+  new Promise((resolve, reject) => {
+    fs.rm(directory, { recursive: true, force: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
+const copyDirectory = (path, destination) =>
+  new Promise((resolve, reject) => {
+    // experimental feature of the standard lib
+    fs.cp(path, destination, { recursive: true }, (error) => {
+      error ? reject(error) : resolve('OK');
+    });
+  });
+
+const build = async ({ ROOT, DIST }) => {
+  try {
+    await clearDirectory(DIST);
+    await copyDirectory(ROOT, DIST);
+  } catch (err) {
+    if (err) CLI.Renderer('error', 'BUILD FAILURE', err);
+    return err;
+  }
+  CLI.Renderer('success', `BUILD LUCK: ${DIST}`);
+};
+
 const verifyDirectory = (path) =>
   new Promise((resolve, reject) => {
     fs.access(path, (error) => {
@@ -638,7 +664,7 @@ const launch = async (software, instruction) => {
 
 const node = async (...args) => {
   const [prerequisites] = args;
-  const fns = [start];
+  const fns = [start, build];
   return await launch(fns, prerequisites);
 };
 
