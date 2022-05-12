@@ -669,7 +669,7 @@ if (isMainThread) {
   const worker = new Worker(__filename, {
     workerData: {
       msg: 'Data to Worker',
-      config: JSON.stringify(config),
+      configuration: JSON.stringify(config),
       threadStart: '',
     },
   });
@@ -684,16 +684,16 @@ if (isMainThread) {
 } else {
   // console.dir({ worker: threads });
 
-  Reflect.set(workerData, 'threadStart', new Date());
-  const data = Reflect.get(workerData, 'threadStart');
-  threads.parentPort.postMessage(data);
+  const now = new Date();
+  Reflect.set(workerData, 'threadStart', now);
+  threads.parentPort.postMessage(now);
 
-  const config = Reflect.get(workerData, 'config');
-  const fn = JSON.parse(config);
+  const data = Reflect.get(workerData, 'configuration');
+  const settings = JSON.parse(data);
 
   // run(fn);
   setTimeout(async () => {
-    await node(fn);
+    await node(settings);
   }, 0);
 }
 
