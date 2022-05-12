@@ -552,14 +552,14 @@ const getExitInformation = (
   response = Reflect.has(obj, field) ? obj[field] : 'Data is missing...'
 ) => response;
 
-const verifyRootExists = (path) =>
+/*const verifyRootExists = (path) =>
   new Promise((resolve, reject) => {
     fs.access(path, (error) => {
       error
         ? reject(`Directory not found, wrong path: ${path}`)
         : resolve(true);
     });
-  });
+  });*/
 
 const copy = (path, destination) =>
   new Promise((resolve, reject) => {
@@ -576,7 +576,7 @@ const clear = (directory) =>
     });
   });
 
-const build = async (src, dist) => {
+/*const build = async (src, dist) => {
   try {
     await clear(dist);
     await copy(src, dist);
@@ -584,9 +584,9 @@ const build = async (src, dist) => {
     console.log(error);
     process.exit(0);
   }
-};
+};*/
 
-const main = async (...args) => {
+/*const main = async (...args) => {
   const [application, filter, metadata, src, dist] = args;
   CLI.Renderer('start', application);
   try {
@@ -600,7 +600,7 @@ const main = async (...args) => {
     return EXIT.FAILURE;
   }
   return EXIT.SUCCESS;
-};
+};*/
 
 /**
  * RUNNER NODE */
@@ -650,7 +650,7 @@ const node = async (...args) => {
 const threads = require('worker_threads');
 const { Worker, workerData, isMainThread } = threads;
 
-const run = async (settings) => {
+/*const run = async (settings) => {
   const outcome = await main(
     settings.APPLICATION,
     settings.IGNORE,
@@ -663,7 +663,7 @@ const run = async (settings) => {
     CLI.Renderer('failure', data);
   }
   return outcome;
-};
+};*/
 
 if (isMainThread) {
   const worker = new Worker(__filename, {
