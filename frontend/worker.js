@@ -498,18 +498,20 @@ const launchCompress = async (srcmap, metadata) => {
   }
 };
 
-const confirmException = (path, fltr) =>
+const confirmExcept = (path, fltr) =>
   fltr.find((exception) => path.includes(exception));
 
-const confirmInsertion = (path, insertion) => path.includes(insertion);
+const confirmInsert = (path, insertion) => path.includes(insertion);
 
 const prepareDataset = async (src, filter) => {
   const srcmap = new Map();
   let stack = new Array();
   for (const name of RALEY.EXTNAME) {
     for (const source of src) {
-      if (confirmException(source, filter)) continue;
-      if (confirmInsertion(source, name)) stack.push(source);
+      if (confirmExcept(source, filter)) continue;
+      if (confirmInsert(source, name)) {
+        stack.push(source);
+      }
     }
     const extname = name.slice(1).toUpperCase();
     srcmap.set(extname, stack);
@@ -522,10 +524,10 @@ const pathfinder = async (root) => {
   const content = await readDirectory(root);
   const set = await Promise.all(
     content.map(async (source) => {
-      const sourcepath = path.join(root, source);
-      source = await readDetails(sourcepath);
-      if (source.isDirectory()) return pathfinder(sourcepath);
-      else return sourcepath;
+      const srcpath = path.join(root, source);
+      source = await readDetails(srcpath);
+      if (source.isDirectory()) return pathfinder(srcpath);
+      else return srcpath;
     })
   );
   return set.reduce((acc, src) => acc.concat(src), []);
