@@ -11,14 +11,14 @@
 
 const config = {
   APPLICATION: 'FRONTEND WORKER',
-  ROOT: './frontend/src',
-  DIST: './application/static',
+  ROOT: 'frontend/src',
+  DIST: 'application/static',
   OPTIONS: {
     JS: { compress: false },
     HTML: { collapseWhitespace: true, removeComments: true },
     CSS: ['cssnano'],
   },
-  IGNORE: [
+  FILTER: [
     'bundles',
     'images',
     'icons',
@@ -578,10 +578,10 @@ const getExitInformation = (
 /**
  * RUNNER NODE */
 
-const compress = async ({ DIST, OPTIONS, IGNORE }) => {
+const compress = async ({ DIST, OPTIONS, FILTER }) => {
   try {
     const src = await pathfinder(DIST);
-    const dataset = await prepareDataset(src, IGNORE);
+    const dataset = await prepareDataset(src, FILTER);
     await launchCompress(dataset, OPTIONS);
   } catch (err) {
     if (err) CLI.Renderer('error', 'COMPRESS FAILED!', err);
