@@ -624,10 +624,23 @@ const launch = async (software, instruction) => {
   return EXIT.SUCCESS;
 };
 
+const API = {
+  run: [start, build, compress],
+  build: [start, build],
+  compress: [start, compress],
+
+  parseFirst(argv) {
+    if (argv.length === 2) argv.push('run');
+    const [command] = argv.filter((el, i) => i > 1);
+    return command;
+  },
+};
+
 const node = async (...args) => {
-  const [prerequisites] = args;
-  const fns = [start, build, compress];
-  return await launch(fns, prerequisites);
+  const [commands, prerequisites] = args;
+  const command = API.parseFirst(commands);
+  const scenario = API[command];
+  return await launch(scenario, prerequisites);
 };
 
 /**
@@ -641,6 +654,7 @@ if (isMainThread) {
     workerData: {
       msg: 'Data to Worker',
       configuration: JSON.stringify(config),
+      commands: process.argv,
       threadStart: '',
     },
   });
@@ -672,9 +686,10 @@ if (isMainThread) {
 
   const data = Reflect.get(workerData, 'configuration');
   const settings = JSON.parse(data);
+  const argv = Reflect.get(workerData, 'commands');
 
   setTimeout(async () => {
-    const sensor = await node(settings);
+    const sensor = await node(argv, settings);
     if (typeof sensor === 'number') {
       threads.parentPort.postMessage('END');
     }
