@@ -431,6 +431,9 @@ const RALEY = {
   JS: true,
 };
 
+/**
+ * MAIN */
+
 const metacomponent = async (file, options, process) => {
   let result = null,
     code = null;
@@ -563,7 +566,7 @@ const DB = {
 };
 
 /**
- * MAIN */
+ * RUN */
 
 const compress = async ({ DIST, OPTIONS, FILTER }) => {
   try {
