@@ -576,7 +576,7 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
     await sleep(20);
   } catch (err) {
     CLI.Renderer('error', 'COMPRESSION STOPPED', err);
-    throw new Error('Compress fail...');
+    throw new Error('Compress fn failed...');
   }
   return 0;
 };
@@ -588,7 +588,7 @@ const build = async ({ ROOT, DIST }) => {
     if (status === 'OK') CLI.Renderer('success', `BUILD IS READY > ${DIST}`);
   } catch (err) {
     CLI.Renderer('error', 'BUILD IS NOT READY', err);
-    throw new Error('Build fail...');
+    throw new Error('Build fn failed...');
   }
   return 0;
 };
@@ -598,7 +598,7 @@ const check = async ({ ROOT }) => {
     await verifyDirectory(ROOT);
   } catch (err) {
     CLI.Renderer('failure', err.message);
-    throw new Error('Check fail...');
+    throw new Error('Check fn failed...');
   }
   return 0;
 };
@@ -607,7 +607,7 @@ const start = async ({ APPLICATION }) => {
   try {
     CLI.Renderer('start', APPLICATION);
   } catch (err) {
-    throw new Error('Start fail...');
+    throw new Error('Start fn failed...');
   }
   return 0;
 };
@@ -621,7 +621,7 @@ const launch = async (software, instruction) => {
   for (const component of software) {
     try {
       const outcome = await component(instruction);
-      if (outcome instanceof Error) throw new Error('Launch fail...');
+      if (outcome instanceof Error) throw new Error('Launch fn failed...');
     } catch (err) {
       DB.saveExitInfo(err);
       return EXIT.FAILURE;
