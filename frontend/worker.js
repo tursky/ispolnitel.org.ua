@@ -683,7 +683,7 @@ if (isMainThread) {
   });
 
   worker.on('exit', (code) => {
-    if (code === 1) CLI.Renderer('error', 'So so', statistics.STACK);
+    if (code === 1) CLI.Renderer('error', '🤷', statistics.STACK);
     if (code === 0) CLI.Renderer('timer', statistics.TIMER);
   });
 
