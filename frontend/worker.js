@@ -174,8 +174,7 @@ const CLI /** FEATURES */ = {
     return [...matrix].flat().join('');
   },
 
-  CLIStart(data, cli = this.UITypography) {
-    const [app] = [...data];
+  CLIStart([app], cli = this.UITypography) {
     return this.preprint([
       [cli.clear, cli.boldfont, cli.white, cli.blueBG],
       [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
@@ -185,16 +184,15 @@ const CLI /** FEATURES */ = {
     ]);
   },
 
-  CLISuccess(data, cli = this.UITypography) {
+  CLISuccess([msg], cli = this.UITypography) {
     return this.preprint([
       [cli.cyan, '[ok]'],
       [cli.blue, cli.dim, ' - ', cli.reset],
-      [cli.blue, [data], cli.newline, cli.reset],
+      [cli.blue, [msg], cli.newline, cli.reset],
     ]);
   },
 
-  CLIError(data, cli = this.UITypography) {
-    const [msg, err] = [...data];
+  CLIError([msg, err], cli = this.UITypography) {
     return this.preprint([
       [cli.red, '[ok]'],
       [cli.blue, cli.dim, ' - ', cli.reset],
@@ -203,20 +201,19 @@ const CLI /** FEATURES */ = {
     ]);
   },
 
-  CLIFailure(data, cli = this.UITypography) {
+  CLIFailure([msg], cli = this.UITypography) {
     return this.preprint([
       [cli.blue],
       ['- Failure❗️', cli.newline],
-      ['- ', [data], cli.newline, cli.reset],
+      ['- ', msg, cli.newline, cli.reset],
       [cli.indent],
     ]);
   },
 
-  CLITimer(data, cli = this.UITypography) {
-    const [timer] = [...data];
+  CLITimer([start], cli = this.UITypography) {
     return this.preprint([
       [cli.newline, cli.cyan],
-      [`Time spent: ${new Date() - timer} ms`],
+      [`Time spent: ${new Date() - start} ms`],
       [cli.newline, cli.indent, cli.reset],
     ]);
   },
