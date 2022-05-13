@@ -153,10 +153,12 @@ const sleep = (msec) =>
   });
 
 /**
- * CONSOLE OUTPUT, UI */
+ * UI FEATURES, CONSOLE OUTPUT */
 
-const CLI /** FEATURES */ = {
+const CLI = {
   UITypography: {
+    newline: '\n',
+    indent: '\v',
     clear: '\x1Bc',
     reset: '\x1b[0m',
     boldfont: '\x1b[1m',
@@ -166,8 +168,6 @@ const CLI /** FEATURES */ = {
     red: '\x1b[31m',
     cyan: '\x1b[36m',
     blueBG: '\x1b[44m',
-    newline: '\n',
-    indent: '\v',
   },
 
   preprint(matrix) {
@@ -186,16 +186,14 @@ const CLI /** FEATURES */ = {
 
   CLISuccess([msg], cli = this.UITypography) {
     return this.preprint([
-      [cli.cyan, '[ok]'],
-      [cli.blue, cli.dim, ' - ', cli.reset],
+      [cli.cyan, '[ok]', cli.blue, cli.dim, ' - ', cli.reset],
       [cli.blue, [msg], cli.newline, cli.reset],
     ]);
   },
 
   CLIError([msg, err], cli = this.UITypography) {
     return this.preprint([
-      [cli.red, '[ok]'],
-      [cli.blue, cli.dim, ' - ', cli.reset],
+      [cli.red, '[ok]', cli.blue, cli.dim, ' - ', cli.reset],
       [cli.blue, msg, cli.newline, cli.indent],
       [cli.red, err.stack, cli.newline, cli.indent, cli.reset],
     ]);
@@ -203,17 +201,14 @@ const CLI /** FEATURES */ = {
 
   CLIFailure([msg], cli = this.UITypography) {
     return this.preprint([
-      [cli.blue],
-      ['- Failure❗️', cli.newline],
-      ['- ', msg, cli.newline, cli.reset],
-      [cli.indent],
+      [cli.blue, '- Failure❗️', cli.newline],
+      ['- ', msg, cli.newline, cli.indent, cli.reset],
     ]);
   },
 
   CLITimer([start], cli = this.UITypography) {
     return this.preprint([
-      [cli.newline, cli.cyan],
-      [`Time spent: ${new Date() - start} ms`],
+      [cli.newline, cli.cyan, `Time spent: ${new Date() - start} ms`],
       [cli.newline, cli.indent, cli.reset],
     ]);
   },
@@ -350,10 +345,8 @@ const ISAlgorithm = (
       const msg = `${file} processing is done by native software.`;
       process.stdout.write(
         [
-          ['\x1b[36m', '[er]'],
-          ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
-          ['\x1b[1;37m', note, ' ', msg],
-          ['\n', '\x1b[0m'],
+          ['\x1b[36m', '[er]', '\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
+          ['\x1b[1;37m', note, ' ', msg, '\n', '\x1b[0m'],
         ]
           .flat()
           .join('')
@@ -363,10 +356,9 @@ const ISAlgorithm = (
       const msg = `${file} files have been excluded from processing.`;
       process.stdout.write(
         [
-          ['\x1b[31m', '[..]'],
-          ['\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
-          ['\x1b[1;37m', note, ' ', msg],
-          ['\n', '\x1b[0m'],
+          [],
+          ['\x1b[31m', '[..]', '\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
+          ['\x1b[1;37m', note, ' ', msg, '\n', '\x1b[0m'],
         ]
           .flat()
           .join('')
