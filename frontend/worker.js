@@ -653,8 +653,8 @@ const API = {
 };
 
 const node = async (...args) => {
-  const [commands, prerequisites] = args;
-  const command = API.parseFirst(commands);
+  const [commandline, prerequisites] = args;
+  const command = API.parseFirst(commandline);
   const scenario = API[command];
   const done = await launch(scenario, prerequisites);
   return done;
