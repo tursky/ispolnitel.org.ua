@@ -153,16 +153,16 @@ const sleep = (msec) =>
   });
 
 /**
- * UI FEATURES, CONSOLE OUTPUT */
+ * UI */
 
 const CLI = {
   UITypography: {
+    boldfont: '\x1b[1m',
+    clear: '\x1Bc',
+    dim: '\x1b[2m',
+    reset: '\x1b[0m',
     newline: '\n',
     indent: '\v',
-    clear: '\x1Bc',
-    reset: '\x1b[0m',
-    boldfont: '\x1b[1m',
-    dim: '\x1b[2m',
     white: '\x1b[37m',
     blue: '\x1b[34m',
     red: '\x1b[31m',
@@ -234,7 +234,7 @@ const CLI = {
 };
 
 /**
- * IMPORT SUBSTITUTION COMPONENT, AI */
+ * IMPORT SUBSTITUTION SOFTWARE COMPONENT, AI */
 
 const ISAlgorithm = (
   buffer,
