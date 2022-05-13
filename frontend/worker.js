@@ -155,7 +155,7 @@ const sleep = (msec) =>
 /**
  * UI */
 
-const CLI = {
+const CLI = /** CONSOLE OUTPUT */ {
   UITypography: {
     boldfont: '\x1b[1m',
     clear: '\x1Bc',
