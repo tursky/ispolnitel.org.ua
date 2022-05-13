@@ -644,9 +644,10 @@ const API = {
   build: [build],
   compress: [compress],
   check: [check],
+	default: 'run',
 
   parseFirst(argv) {
-    if (argv.length === 2) argv.push('run');
+    if (argv.length === 2) argv.push(this.default);
     const [command] = argv.filter((el, i) => i > 1);
     return command;
   },
