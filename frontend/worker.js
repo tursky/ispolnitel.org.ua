@@ -356,7 +356,6 @@ const ISAlgorithm = (
       const msg = `${file} files have been excluded from processing.`;
       process.stdout.write(
         [
-          [],
           ['\x1b[31m', '[..]', '\x1b[34m', '\x1b[2m', ' - ', '\x1b[0m'],
           ['\x1b[1;37m', note, ' ', msg, '\n', '\x1b[0m'],
         ]
