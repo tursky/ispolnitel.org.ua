@@ -644,21 +644,24 @@ const API = {
   build: [build],
   compress: [compress],
   check: [check],
-	default: 'run',
+  default: 'run',
 
-  parseFirst(argv) {
-    if (argv.length === 2) argv.push(this.default);
-    const [command] = argv.filter((el, i) => i > 1);
-    return command;
+  parseFirst(commandline) {
+    const [argument] = commandline.filter((el, i) => i > 1);
+    return argument;
+  },
+
+  parse(argv) {
+    let command = this.default;
+    if (argv.length > 2) command = this.parseFirst(argv);
+    return API[command];
   },
 };
 
 const node = async (...args) => {
   const [commandline, prerequisites] = args;
-  const command = API.parseFirst(commandline);
-  const scenario = API[command];
-  const done = await launch(scenario, prerequisites);
-  return done;
+  const scenario = API.parse(commandline);
+  return await launch(scenario, prerequisites);
 };
 
 /**
