@@ -766,14 +766,14 @@ const unittest = async (...args) => {
     () => test.equal(encode, [
       ['CSS',    'C',   'Stylesheets processing schema'],
       ['JS',     'A',   'Scripts processing schema'    ],
-      ['HTML',   'B',  'Webpages processing schema'    ],
+      ['HTML',   'B',   'Webpages processing schema'   ],
     ]),
 
     // Test 3
     () => test.equal(encode, [
       ['CSS',    'S',   'Stylesheets processing schema'],
       ['JS',     'A',   'Scripts processing schema'    ],
-      ['HTML',   'B',  'Webpages processing schema'    ],
+      ['HTML',   'B',   'Webpages processing schema'   ],
     ]),
   ]
 
