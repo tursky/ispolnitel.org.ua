@@ -721,6 +721,26 @@ if (isMainThread) {
  * TEST */
 
 const unittest = async (...args) => {
+  class Unit {
+    constructor() {
+      this.assert = require('assert');
+    }
+
+    equal(fn, tests) {
+      for (const test of tests) {
+        const [param, expected, scenario] = test;
+        const result = fn(param);
+        try {
+          this.assert.strictEqual(result, expected);
+        } catch (err) {
+          const operator = fn.name;
+          const summary = { operator, scenario, param, expected, result };
+          console.table(summary);
+        }
+      }
+    }
+  }
+
   CLI.Renderer('start', 'TESTS RUNNIING');
   CLI.Renderer('success', '🏁');
 };
