@@ -745,10 +745,25 @@ const unittest = async (...args) => {
 
   // prettier-ignore
   const set = [
+    // Test 1
     () => test.equal(encode, [
       ['CSS',    'C',   'Stylesheets processing schema'],
       ['JS',     'A',   'Scripts processing schema'    ],
       ['HTML',   null,  'Webpages processing schema'   ],
+    ]),
+
+    // Test 2
+    () => test.equal(encode, [
+      ['CSS',    'C',   'Stylesheets processing schema'],
+      ['JS',     'A',   'Scripts processing schema'    ],
+      ['HTML',   'B',  'Webpages processing schema'    ],
+    ]),
+
+    // Test 3
+    () => test.equal(encode, [
+      ['CSS',    'S',   'Stylesheets processing schema'],
+      ['JS',     'A',   'Scripts processing schema'    ],
+      ['HTML',   'B',  'Webpages processing schema'    ],
     ]),
   ]
 
