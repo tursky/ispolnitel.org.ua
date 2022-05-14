@@ -629,12 +629,18 @@ const launch = async (software, instruction) => {
   return EXIT.SUCCESS;
 };
 
+const test = (configuration) => {
+  const { unittest } = require(__filename);
+  unittest(configuration);
+};
+
 const API = {
   start: [start],
   run: [start, check, build, compress],
   build: [build],
   compress: [compress],
   check: [check],
+  test: [test],
   default: 'run',
 
   parseFirst(commandline) {
@@ -711,4 +717,12 @@ if (isMainThread) {
   }, 0);
 }
 
-module.exports = { schema };
+/**
+ * TEST */
+
+const unittest = async (...args) => {
+  CLI.Renderer('start', 'TESTS RUNNIING');
+  CLI.Renderer('success', '🏁');
+};
+
+module.exports = { config, schema, unittest };
