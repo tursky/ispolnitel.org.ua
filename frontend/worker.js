@@ -743,6 +743,16 @@ const unittest = async (...args) => {
 
   CLI.Renderer('start', 'TESTS RUNNIING');
   CLI.Renderer('success', '🏁');
+  process.stdout.write('\v');
+
+  const test = new Unit();
+
+  // prettier-ignore
+  test.equal(encode, [
+      ['CSS',    'C',  'Stylesheets processing schema'     ],
+      ['JS',     'A',  'Scripts processing schema'         ],
+      ['HTML',   null,  'Webpages processing schema'       ],
+    ])
 };
 
 module.exports = { config, schema, unittest };
