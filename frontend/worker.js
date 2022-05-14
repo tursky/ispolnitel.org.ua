@@ -777,7 +777,7 @@ const unittest = async (...args) => {
     ]),
   ]
 
-  const tests = await normilize(set);
+  const tests = set;
 
   /**
    * LAUNCH */
