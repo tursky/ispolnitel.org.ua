@@ -195,7 +195,7 @@ const CLI = /** CONSOLE OUTPUT */ {
     return this.preprint([
       [cli.red, '[ok]', cli.blue, cli.dim, ' - ', cli.reset],
       [cli.blue, msg, cli.newline, cli.indent],
-      [cli.red, err.stack, cli.newline, cli.indent, cli.reset],
+      [cli.red, err, cli.newline, cli.indent, cli.reset],
     ]);
   },
 
@@ -443,11 +443,14 @@ const metacomponent = async (file, options, process) => {
       const processed = await process(code, options);
       result = await writeFile(file, processed);
     } catch (err) {
-      CLI.Renderer('error', file, err);
+      const { stack } = err;
+      CLI.Renderer('error', file, stack);
+
       if (err instanceof TypeError || err instanceof ReferenceError) {
         const data = v8.serialize({
           PACKAGE: [file, err, code],
         });
+
         result = ISAlgorithm(data); // run import substitution algorithm
       }
     } finally {
@@ -574,7 +577,8 @@ const compress = async ({ DIST, OPTIONS, FILTER }) => {
     await launchCompress(dataset, OPTIONS);
     await sleep(20);
   } catch (err) {
-    CLI.Renderer('error', 'COMPRESSION STOPPED', err);
+    const { stack } = err;
+    CLI.Renderer('error', 'COMPRESSION STOPPED', stack);
     throw new Error('Compress fn failed...');
   }
   return 0;
@@ -586,7 +590,8 @@ const build = async ({ ROOT, DIST }) => {
     const status = await copyDirectory(ROOT, DIST);
     if (status === 'OK') CLI.Renderer('success', `BUILD IS READY > ${DIST}`);
   } catch (err) {
-    CLI.Renderer('error', 'BUILD IS NOT READY', err);
+    const { stack } = err;
+    CLI.Renderer('error', 'BUILD IS NOT READY', stack);
     throw new Error('Build fn failed...');
   }
   return 0;
@@ -596,7 +601,8 @@ const check = async ({ ROOT }) => {
   try {
     await verifyDirectory(ROOT);
   } catch (err) {
-    CLI.Renderer('failure', err.message);
+    const { message } = err;
+    CLI.Renderer('failure', message);
     throw new Error('Check fn failed...');
   }
   return 0;
@@ -684,15 +690,19 @@ if (isMainThread) {
     if (msg instanceof Date) Reflect.set(statistics, 'TIMER', msg);
     if (msg instanceof Error) {
       setTimeout(() => {
-        Reflect.set(statistics, 'STACK', msg);
+        Reflect.set(statistics, 'ERROR', msg);
         worker.terminate();
       }, 0);
     }
   });
 
   worker.on('exit', (code) => {
-    if (code === 1) CLI.Renderer('error', '🤷', statistics.STACK);
     if (code === 0) CLI.Renderer('timer', statistics.TIMER);
+    if (code === 1) {
+      const err = statistics.ERROR;
+      const { stack } = err;
+      CLI.Renderer('error', '🤷', stack);
+    }
   });
 
   worker.on('error', (err) => {
