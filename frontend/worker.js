@@ -629,12 +629,18 @@ const launch = async (software, instruction) => {
   return EXIT.SUCCESS;
 };
 
+const test = (configuration) => {
+  const { unittest } = require(__filename);
+  unittest(configuration);
+};
+
 const API = {
   start: [start],
   run: [start, check, build, compress],
   build: [build],
   compress: [compress],
   check: [check],
+  test: [test],
   default: 'run',
 
   parseFirst(commandline) {
@@ -711,4 +717,76 @@ if (isMainThread) {
   }, 0);
 }
 
-module.exports = { schema };
+/**
+ * TEST */
+
+const unittest = async (...args) => {
+  class Unit {
+    constructor() {
+      this.assert = require('assert');
+    }
+
+    equal(fn, tests) {
+      for (const test of tests) {
+        const [param, expected, scenario] = test;
+        const result = fn(param);
+        try {
+          this.assert.strictEqual(result, expected);
+        } catch (err) {
+          const operator = fn.name;
+          const summary = { operator, scenario, param, expected, result };
+          console.table(summary);
+        }
+      }
+    }
+  }
+
+  const test = new Unit();
+
+  // prettier-ignore
+  const set = [
+    // Test 1
+    () => test.equal(encode, [
+      ['CSS',    'C',   'Stylesheets processing schema'],
+      ['JS',     'A',   'Scripts processing schema'    ],
+      ['HTML',   null,  'Webpages processing schema'   ],
+    ]),
+
+    // Test 2
+    () => test.equal(encode, [
+      ['CSS',    'C',   'Stylesheets processing schema'],
+      ['JS',     'A',   'Scripts processing schema'    ],
+      ['HTML',   'B',  'Webpages processing schema'    ],
+    ]),
+
+    // Test 3
+    () => test.equal(encode, [
+      ['CSS',    'S',   'Stylesheets processing schema'],
+      ['JS',     'A',   'Scripts processing schema'    ],
+      ['HTML',   'B',  'Webpages processing schema'    ],
+    ]),
+  ]
+
+  const tests = await normilize(set);
+
+  /**
+   * LAUNCH */
+
+  const run = async (...args) => {
+    const [tests] = args;
+    for (const test of tests) {
+      try {
+        await test();
+      } catch (err) {
+        throw new Error('Run testing fail...');
+      }
+    }
+  };
+
+  CLI.Renderer('start', 'TESTS RUNNIING');
+  CLI.Renderer('success', '🏁');
+
+  run(tests);
+};
+
+module.exports = { config, schema, unittest };
