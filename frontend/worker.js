@@ -732,15 +732,15 @@ if (isMainThread) {
 
 const unittest = async (...args) => {
   class Unit {
-    constructor(schema) {
+    constructor(spec) {
       this.lib = require('assert');
-      this.schema = schema;
+      this.schema = spec;
       this.namespace = {
         strictMatch: this.lib.strictEqual,
       };
     }
 
-    async unit(realize, test, operator, cases) {
+    async _unit(realize, test, operator, cases) {
       for (const deal of cases) {
         const summary = await realize(test, operator, deal);
         if (summary) {
@@ -753,11 +753,11 @@ const unittest = async (...args) => {
       const [operator, cases] = requirements;
       const realization = this.schema[name];
       const test = this.namespace[realization.name];
-      return this.unit(realization, test, operator, cases);
+      return this._unit(realization, test, operator, cases);
     }
   }
 
-  const schema = {
+  const specification = {
     strictMatch: async (confirm, operator, test) => {
       const [param, expected, scenario] = test;
       const result = operator(param);
@@ -771,7 +771,7 @@ const unittest = async (...args) => {
     },
   };
 
-  const unit = new Unit(schema);
+  const unit = new Unit(specification);
 
   // prettier-ignore
   const set = [
@@ -795,6 +795,11 @@ const unittest = async (...args) => {
       ['JS',     'A',   'should scripts schema'    ],
       ['HTML',   'B',   'should webpages schema'   ],
     ]),
+
+    // Test 4
+    () => unit.test('strictMatch', encode, [
+      ['JS',     'F',   'should scripts schema'    ],
+    ]),
   ];
 
   const tests = set;
@@ -817,7 +822,8 @@ const unittest = async (...args) => {
   };
 
   CLI.Renderer('start', 'TESTS RUNNIING');
-  CLI.Renderer('success', '🏁' + '\n');
+  CLI.Renderer('success', '🏁');
+  console.log('\x1b[31m');
 
   run(tests);
 };
