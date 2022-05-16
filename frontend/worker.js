@@ -732,50 +732,70 @@ if (isMainThread) {
 
 const unittest = async (...args) => {
   class Unit {
-    constructor() {
-      this.assert = require('assert');
+    constructor(schema) {
+      this.lib = require('assert');
+      this.schema = schema;
+      this.namespace = {
+        strictMatch: this.lib.strictEqual,
+      };
     }
 
-    equal(fn, tests) {
-      for (const test of tests) {
-        const [param, expected, scenario] = test;
-        const result = fn(param);
-        try {
-          this.assert.strictEqual(result, expected);
-        } catch (err) {
-          const operator = fn.name;
-          const summary = { operator, scenario, param, expected, result };
-          console.table(summary);
+    async unit(realize, test, operator, cases) {
+      for (const deal of cases) {
+        const summary = await realize(test, operator, deal);
+        if (summary) {
+          return summary;
         }
       }
     }
+
+    test(name, ...requirements) {
+      const [operator, cases] = requirements;
+      const realization = this.schema[name];
+      const test = this.namespace[realization.name];
+      return this.unit(realization, test, operator, cases);
+    }
   }
 
-  const test = new Unit();
+  const schema = {
+    strictMatch: async (confirm, operator, test) => {
+      const [param, expected, scenario] = test;
+      const result = operator(param);
+      try {
+        await confirm(result, expected);
+      } catch (err) {
+        const test = operator.name;
+        const summary = { test, scenario, param, expected, result };
+        return summary;
+      }
+    },
+  };
+
+  const unit = new Unit(schema);
 
   // prettier-ignore
   const set = [
     // Test 1
-    () => test.equal(encode, [
-      ['CSS',    'C',   'Stylesheets processing schema'],
-      ['JS',     'A',   'Scripts processing schema'    ],
-      ['HTML',   null,  'Webpages processing schema'   ],
+    () => unit.test('strictMatch', encode, [
+      ['CSS',    'C',   'should stylesheets schema'],
+      ['JS',     'A',   'should scripts schema'    ],
+      ['HTML',   'B',   'should webpages schema'   ],
     ]),
 
     // Test 2
-    () => test.equal(encode, [
-      ['CSS',    'C',   'Stylesheets processing schema'],
-      ['JS',     'A',   'Scripts processing schema'    ],
-      ['HTML',   'B',   'Webpages processing schema'   ],
+    () => unit.test('strictMatch', encode, [
+      ['CSS',    'C',   'should stylesheets schema'],
+      ['JS',     'A',   'should scripts schema'    ],
+      ['HTML',   null,  'should webpages schema'   ],
     ]),
 
     // Test 3
-    () => test.equal(encode, [
-      ['CSS',    'S',   'Stylesheets processing schema'],
-      ['JS',     'A',   'Scripts processing schema'    ],
-      ['HTML',   'B',   'Webpages processing schema'   ],
+    () => unit.test('strictMatch', encode, [
+      ['CSS',    'S',   'should stylesheets schema'],
+      ['JS',     'A',   'should scripts schema'    ],
+      ['HTML',   'B',   'should webpages schema'   ],
     ]),
-  ]
+  ];
 
   const tests = set;
 
@@ -784,17 +804,20 @@ const unittest = async (...args) => {
 
   const run = async (...args) => {
     const [tests] = args;
+    const result = [];
     for (const test of tests) {
       try {
-        await test();
+        const outcome = await test();
+        if (typeof outcome === 'object') result.push(outcome);
       } catch (err) {
         throw new Error('Run testing fail...');
       }
     }
+    console.table(result);
   };
 
   CLI.Renderer('start', 'TESTS RUNNIING');
-  CLI.Renderer('success', '🏁');
+  CLI.Renderer('success', '🏁' + '\n');
 
   run(tests);
 };
