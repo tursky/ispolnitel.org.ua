@@ -740,9 +740,9 @@ const unittest = async (...args) => {
       };
     }
 
-    async _unit(realize, test, operator, cases) {
-      for (const deal of cases) {
-        const summary = await realize(test, operator, deal);
+    async _unit(realize, unit, operator, tests) {
+      for (const test of tests) {
+        const summary = await realize(unit, operator, test);
         if (summary) {
           return summary;
         }
@@ -751,21 +751,21 @@ const unittest = async (...args) => {
 
     test(name, ...requirements) {
       const [operator, cases] = requirements;
-      const realization = this.schema[name];
-      const test = this.namespace[realization.name];
-      return this._unit(realization, test, operator, cases);
+      const implement = this.schema[name];
+      const testfn = this.namespace[implement.name];
+      return this._unit(implement, testfn, operator, cases);
     }
   }
 
   const specification = {
-    strictMatch: async (confirm, operator, test) => {
+    strictMatch: async (testfn, operator, test) => {
       const [param, expected, scenario] = test;
       const result = operator(param);
       try {
-        await confirm(result, expected);
+        await testfn(result, expected);
       } catch (err) {
-        const test = operator.name;
-        const summary = { test, scenario, param, expected, result };
+        const unit = operator.name;
+        const summary = { unit, scenario, param, expected, result };
         return summary;
       }
     },
@@ -775,6 +775,7 @@ const unittest = async (...args) => {
 
   // prettier-ignore
   const set = [
+
     // Test 1
     () => unit.test('strictMatch', encode, [
       ['CSS',    'C',   'should stylesheets schema'],
@@ -808,6 +809,8 @@ const unittest = async (...args) => {
    * LAUNCH */
 
   const run = async (...args) => {
+    CLI.Renderer('start', 'TESTS RUNNIING');
+    CLI.Renderer('success', '🏁');
     const [tests] = args;
     const result = [];
     for (const test of tests) {
@@ -818,12 +821,9 @@ const unittest = async (...args) => {
         throw new Error('Run testing fail...');
       }
     }
+    console.log('\x1b[31m');
     console.table(result);
   };
-
-  CLI.Renderer('start', 'TESTS RUNNIING');
-  CLI.Renderer('success', '🏁');
-  console.log('\x1b[31m');
 
   run(tests);
 };
