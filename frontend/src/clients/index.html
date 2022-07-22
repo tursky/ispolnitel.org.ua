@@ -404,7 +404,9 @@
                       />
                     </svg>
                   </div>
-                  <a href="feedback/" class="button button-order button-green"
+                  <a
+                    href="#callback"
+                    class="callback button button-order button-green"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 448 512"
@@ -418,6 +420,76 @@
                   >
                 </div>
               </aside>
+            </div>
+
+            <div class="d-none">
+              <div id="callback" class="callback-form popup-form">
+                <h2>
+                  Заповніть форму зворотнього зв'язку - <br />
+                  мы з Вами зв'яжемося.
+                </h2>
+
+                <form class="ajax-form">
+                  <!-- Hidden Required Fields -->
+                  <input
+                    type="hidden"
+                    name="project_name"
+                    value="Приватний виконавець"
+                  />
+                  <input
+                    type="hidden"
+                    name="admin_email"
+                    value="office-pv@ukr.net"
+                  />
+                  <input
+                    type="hidden"
+                    name="form_subject"
+                    value="Форма - Стягувачі"
+                  />
+                  <!-- END Hidden Required Fields -->
+
+                  <label><span>П.І.Б. *</span></label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Ім'я:"
+                    placeholder="Ваше ім'я:"
+                    required
+                  />
+
+                  <label><span>E-mail *</span></label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="E-mail:"
+                    placeholder="Електронна скринька:"
+                    required
+                  />
+
+                  <label><span>Телефон *</span></label>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="Телефон:"
+                    placeholder="+380 (XX) XXX-XX-XX"
+                    required
+                  />
+
+                  <textarea
+                    name="Повідомлення"
+                    cols="10"
+                    rows="10"
+                    placeholder="Текст повідомлення:"
+                    required
+                  ></textarea>
+
+                  <div class="btn-wrapper">
+                    <button class="button button-order">Відіслати форму</button>
+                  </div>
+                </form>
+
+                <div class="success">Дякую за Вашу заяву!</div>
+              </div>
             </div>
 
             <div class="col-lg-9">
