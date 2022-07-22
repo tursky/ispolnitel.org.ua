@@ -420,6 +420,122 @@
                   >
                 </div>
 
+                <div class="d-none">
+                  <div id="callback" class="callback-form popup-form">
+                    <h2>Залишити заяву</h2>
+                    <p>
+                      Заповніть форму зворотнього зв'язку - <br />
+                      мы з Вами зв'яжемося.
+                    </p>
+
+                    <form class="ajax-form">
+                      <!-- Hidden Required Fields -->
+                      <input
+                        type="hidden"
+                        name="project_name"
+                        value="САЙТ - Приватний виконавець"
+                      />
+                      <input
+                        type="hidden"
+                        name="admin_email"
+                        value="office-pv@ukr.net"
+                      />
+                      <input
+                        type="hidden"
+                        name="form_subject"
+                        value="Форма - Боржники"
+                      />
+                      <!-- END Hidden Required Fields -->
+
+                      <label><span>П.І.Б.:</span></label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Ім'я:"
+                        placeholder="Ваше ім'я:"
+                        required
+                      />
+
+                      <label><span>Телефон:</span></label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Телефон:"
+                        placeholder="+38 XXX XXX-XX-XX"
+                        required
+                      />
+                      <label><span>Індивідаульний податковий код:</span></label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="ID-код боржника:"
+                        placeholder="ID-код боржника: XXXXXXXXXX"
+                        required
+                      />
+
+                      <div class="check-control">
+                        <div class="check-them">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="Роль:"
+                            value="Боржник"
+                            required
+                          />
+                          <label class="form-check-label">
+                            Сплатити борг за виконавчим провадженням
+                          </label>
+                        </div>
+
+                        <div class="check-them">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="Роль:"
+                            value="Боржник"
+                            required
+                          />
+                          <label class="form-check-label">
+                            Ознайомитись с матеріалами ВП
+                          </label>
+                        </div>
+
+                        <div class="check-them">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="Роль:"
+                            value="Боржник"
+                            required
+                          />
+                          <label class="form-check-label">
+                            Отримую соціальні виплати на арештований рахунок
+                          </label>
+                        </div>
+
+                        <div class="check-them">
+                          <input
+                            class="form-check-input"
+                            type="radio"
+                            name="Роль:"
+                            value="Боржник"
+                            required
+                          />
+                          <label class="form-check-label"> Інше </label>
+                        </div>
+                      </div>
+
+                      <div class="btn-wrapper">
+                        <button class="button button-order">
+                          Відіслати форму
+                        </button>
+                      </div>
+                    </form>
+
+                    <div class="success">Дякую за Вашу заяву!</div>
+                  </div>
+                </div>
+
                 <div class="service-item">
                   <div
                     class="service-item-image"
@@ -1380,112 +1496,6 @@
               <br /><br />
             </div>
           </div>
-        </div>
-      </div>
-
-      <div class="d-none">
-        <div id="callback" class="callback-form popup-form">
-          <h2>Залишити заяву</h2>
-          <p>
-            Заповніть форму зворотнього зв'язку - <br />
-            мы з Вами зв'яжемося.
-          </p>
-
-          <form class="ajax-form">
-            <!-- Hidden Required Fields -->
-            <input
-              type="hidden"
-              name="project_name"
-              value="САЙТ - Приватний виконавець"
-            />
-            <input type="hidden" name="admin_email" value="office-pv@ukr.net" />
-            <input type="hidden" name="form_subject" value="Форма - Боржники" />
-            <!-- END Hidden Required Fields -->
-
-            <label><span>П.І.Б.:</span></label>
-            <input
-              class="form-control"
-              type="text"
-              name="Ім'я:"
-              placeholder="Ваше ім'я:"
-              required
-            />
-
-            <label><span>Телефон:</span></label>
-            <input
-              class="form-control"
-              type="text"
-              name="Телефон:"
-              placeholder="+38 XXX XXX-XX-XX"
-              required
-            />
-            <label><span>Індивідаульний податковий код:</span></label>
-            <input
-              class="form-control"
-              type="text"
-              name="ID-код боржника:"
-              placeholder="ID-код боржника: XXXXXXXXXX"
-              required
-            />
-
-            <div class="check-control">
-              <div class="check-them">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="Роль:"
-                  value="Боржник"
-                  required
-                />
-                <label class="form-check-label">
-                  Сплатити борг за виконавчим провадженням
-                </label>
-              </div>
-
-              <div class="check-them">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="Роль:"
-                  value="Боржник"
-                  required
-                />
-                <label class="form-check-label">
-                  Ознайомитись с матеріалами ВП
-                </label>
-              </div>
-
-              <div class="check-them">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="Роль:"
-                  value="Боржник"
-                  required
-                />
-                <label class="form-check-label">
-                  Отримую соціальні виплати на арештований рахунок
-                </label>
-              </div>
-
-              <div class="check-them">
-                <input
-                  class="form-check-input"
-                  type="radio"
-                  name="Роль:"
-                  value="Боржник"
-                  required
-                />
-                <label class="form-check-label"> Інше </label>
-              </div>
-            </div>
-
-            <div class="btn-wrapper">
-              <button class="button button-order">Відіслати форму</button>
-            </div>
-          </form>
-
-          <div class="success">Дякую за Вашу заяву!</div>
         </div>
       </div>
     </main>
