@@ -2107,19 +2107,26 @@ main .content .sect-link i {
   padding: 15px;
 }
 
+.popup-form .check-control {
+  margin-top: 10px;
+}
+
 .popup-form .check-control .check-them {
   margin-right: 10px;
+	margin-bottom: 5px;
   padding-left: 5px;
 }
 
 .popup-form .check-control .check-them label {
   margin-left: 3px;
   font-size: 17px;
+	display: inline;
 }
 
 .popup-form .check-control .check-them input {
   cursor: pointer;
   margin-left: 3px;
+	display: inline;
 }
 
 .popup-form .message {
