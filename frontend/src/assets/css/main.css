@@ -900,7 +900,7 @@ h6 {
 .breadcrumbs li a::after {
   content: '»';
   position: absolute;
-  right: -6px;
+  right: -3px;
   color: #ccc;
 }
 
