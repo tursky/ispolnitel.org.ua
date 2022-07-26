@@ -405,8 +405,8 @@
                     </svg>
                   </div>
                   <a
-                    href="feedback/"
-                    class="button button-order button-green"
+                    href="#callback"
+                    class="callback button button-order button-green"
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 448 512"
@@ -442,11 +442,11 @@
                       <input
                         type="hidden"
                         name="form_subject"
-                        value="Форма - Боржники"
+                        value="Форма - Стягувачі"
                       />
                       <!-- END Hidden Required Fields -->
 
-                      <label><span>П.І.Б.:</span></label>
+                      <label><span>П.І.Б. *</span></label>
                       <input
                         class="form-control"
                         type="text"
@@ -455,7 +455,16 @@
                         required
                       />
 
-                      <label><span>Телефон:</span></label>
+                      <label><span>E-mail *</span></label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="E-mail:"
+                        placeholder="Електронна скринька:"
+                        required
+                      />
+
+                      <label><span>Телефон *</span></label>
                       <input
                         class="form-control"
                         type="text"
@@ -464,66 +473,44 @@
                         required
                       />
 
-                      <label><span>Індивідаульний податковий код:</span></label>
+                      <label
+                        ><span
+                          >Індивідаульний податковий код боржника:</span
+                        ></label
+                      >
                       <input
                         class="form-control"
                         type="text"
                         name="ID-код боржника:"
-                        placeholder="ID-код боржника: XXXXXXXXXX"
+                        placeholder="ID-код: XXXXXXXXXX"
                         required
                       />
 
-                      <div class="check-control">
-                        <div class="check-them">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="Роль:"
-                            value="Боржник"
-                            required
-                          />
-                          <label class="form-check-label">
-                            Сплатити борг за виконавчим провадженням
-                          </label>
-                        </div>
+                      <label><span>Виконавче провадження</span></label>
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="ВП #"
+                        placeholder="ВП #"
+                        required
+                      />
 
-                        <div class="check-them">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="Роль:"
-                            value="Боржник"
-                            required
-                          />
-                          <label class="form-check-label">
-                            Ознайомитись с матеріалами ВП
-                          </label>
-                        </div>
+                      <label><span>Тема листа *</span></label>
+                      <input
+                        class="form-control message"
+                        type="text"
+                        name="Тема:"
+                        placeholder="Декілька слів:"
+                        required
+                      />
 
-                        <div class="check-them">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="Роль:"
-                            value="Боржник"
-                            required
-                          />
-                          <label class="form-check-label">
-                            Отримую соціальні виплати на арештований рахунок
-                          </label>
-                        </div>
-
-                        <div class="check-them">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="Роль:"
-                            value="Боржник"
-                            required
-                          />
-                          <label class="form-check-label"> Інше </label>
-                        </div>
-                      </div>
+                      <textarea
+                        name="Повідомлення"
+                        cols="10"
+                        rows="10"
+                        placeholder="Текст повідомлення:"
+                        required
+                      ></textarea>
 
                       <div class="btn-wrapper">
                         <button class="button button-order">
