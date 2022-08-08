@@ -1,5 +1,5 @@
-# ispolnitel.org.ua
-Legacy website - redesign, refactoring, retrospective...
+# ispolnitel.org.ua - legacy site
+Redesign, refactoring, retrospective...
 
 ## Description
 
