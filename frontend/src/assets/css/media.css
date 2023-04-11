@@ -1,4 +1,4 @@
-@media (max-width: 1199.98px) {
+@media (width <= 1199.98px) {
   .top-phone {
     font-size: 14px;
   }
@@ -35,7 +35,8 @@
 		margin: 40px 0;
   }
 }
-@media (max-width: 1000.98px) {
+
+@media (width <= 1000.98px) {
   .logo {
     text-align: right;
   }
@@ -144,7 +145,8 @@
     right: 20px;
   }
 }
-@media (max-width: 767.98px) {
+
+@media (width <= 767.98px) {
   .slide-img-wrap img {
     margin-top: 30px;
   }
@@ -153,7 +155,8 @@
     padding: 60px 0;
   }
 }
-@media (max-width: 575.98px) {
+
+@media (width <= 575.98px) {
   .top-phone {
     margin-top: 20px;
   }

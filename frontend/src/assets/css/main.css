@@ -1,10 +1,17 @@
 @font-face { src: url("../webfonts/Roboto/roboto-condensed-300.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 300; font-style: normal; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-condensed-400.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 400; font-style: normal; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-condensed-400-italic.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 400; font-style: italic; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-condensed-700.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 700; font-style: normal; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-300.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 300; font-style: normal; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-400.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 400; font-style: normal; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-400-italic.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 400; font-style: italic; }
+
 @font-face { src: url("../webfonts/Roboto/roboto-700.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 700; font-style: normal; }
 
 :root {
@@ -491,10 +498,7 @@ h6 {
 .pulse-button__rings {
   border: 1px solid #82c91e;
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  inset: 0;
   height: auto;
   width: auto;
   border-radius: 50%;
@@ -511,6 +515,7 @@ h6 {
 .pulse-button__rings:nth-child(3) {
   animation-name: pulse_3;
 }
+
 @keyframes pulse_1 {
   from {
     opacity: 1;
@@ -522,6 +527,7 @@ h6 {
     transform: scale(1.3, 1.3);
   }
 }
+
 @keyframes pulse_2 {
   from {
     opacity: 1;
@@ -533,6 +539,7 @@ h6 {
     transform: scale(1.5, 1.5);
   }
 }
+
 @keyframes pulse_3 {
   from {
     opacity: 1;
@@ -591,10 +598,7 @@ h6 {
 .slider .slide-bg {
   position: absolute;
   background-size: cover;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
 }
 
 .slider .slide-content {
@@ -1438,6 +1442,7 @@ main .content .sect-link i {
   transition: none;
   cursor: pointer;
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget:active,
   .likely-on-page .likely__widget:focus,
@@ -1514,6 +1519,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_facebook:hover {
   background: rgb(207 212 229 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_facebook:active,
   .likely-on-page .likely__widget_facebook:focus,
@@ -1528,6 +1534,7 @@ main .content .sect-link i {
   text-shadow: #425497 0 0 0.25em;
   background: rgb(66 84 151 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_facebook:active,
   .likely-on-page .likely-light .likely__widget_facebook:focus,
@@ -1546,6 +1553,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_gplus:hover {
   background: rgb(246 207 207 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_gplus:active,
   .likely-on-page .likely__widget_gplus:focus,
@@ -1560,6 +1568,7 @@ main .content .sect-link i {
   text-shadow: #dd4241 0 0 0.25em;
   background: rgb(221 66 65 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_gplus:active,
   .likely-on-page .likely-light .likely__widget_gplus:focus,
@@ -1578,6 +1587,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_linkedin:hover {
   background: rgb(191 221 236 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_linkedin:active,
   .likely-on-page .likely__widget_linkedin:focus,
@@ -1592,6 +1602,7 @@ main .content .sect-link i {
   text-shadow: #0077b5 0 0 0.25em;
   background: rgb(0 119 181 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_linkedin:active,
   .likely-on-page .likely-light .likely__widget_linkedin:focus,
@@ -1610,6 +1621,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_odnoklassniki:hover {
   background: rgb(252 227 206 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_odnoklassniki:active,
   .likely-on-page .likely__widget_odnoklassniki:focus,
@@ -1624,6 +1636,7 @@ main .content .sect-link i {
   text-shadow: #f6903b 0 0 0.25em;
   background: rgb(246 144 59 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_odnoklassniki:active,
   .likely-on-page .likely-light .likely__widget_odnoklassniki:focus,
@@ -1642,6 +1655,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_pinterest:hover {
   background: rgb(238 193 198 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_pinterest:active,
   .likely-on-page .likely__widget_pinterest:focus,
@@ -1656,6 +1670,7 @@ main .content .sect-link i {
   text-shadow: #bd081c 0 0 0.25em;
   background: rgb(189 8 28 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_pinterest:active,
   .likely-on-page .likely-light .likely__widget_pinterest:focus,
@@ -1674,6 +1689,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_telegram:hover {
   background: rgb(204 234 246 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_telegram:active,
   .likely-on-page .likely__widget_telegram:focus,
@@ -1688,6 +1704,7 @@ main .content .sect-link i {
   text-shadow: #34abde 0 0 0.25em;
   background: rgb(52 171 222 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_telegram:active,
   .likely-on-page .likely-light .likely__widget_telegram:focus,
@@ -1706,6 +1723,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_twitter:hover {
   background: rgb(191 237 250 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_twitter:active,
   .likely-on-page .likely__widget_twitter:focus,
@@ -1720,6 +1738,7 @@ main .content .sect-link i {
   text-shadow: #00b7ec 0 0 0.25em;
   background: rgb(0 183 236 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_twitter:active,
   .likely-on-page .likely-light .likely__widget_twitter:focus,
@@ -1738,6 +1757,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_vkontakte:hover {
   background: rgb(211 218 227 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_vkontakte:active,
   .likely-on-page .likely__widget_vkontakte:focus,
@@ -1752,6 +1772,7 @@ main .content .sect-link i {
   text-shadow: #526e8f 0 0 0.25em;
   background: rgb(82 110 143 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_vkontakte:active,
   .likely-on-page .likely-light .likely__widget_vkontakte:focus,
@@ -1770,6 +1791,7 @@ main .content .sect-link i {
 .likely-on-page .likely__widget_whatsapp:hover {
   background: rgb(200 244 216 / 80%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely__widget_whatsapp:active,
   .likely-on-page .likely__widget_whatsapp:focus,
@@ -1784,6 +1806,7 @@ main .content .sect-link i {
   text-shadow: #25d366 0 0 0.25em;
   background: rgb(37 211 102 / 70%);
 }
+
 @media (hover: none) {
   .likely-on-page .likely-light .likely__widget_whatsapp:active,
   .likely-on-page .likely-light .likely__widget_whatsapp:focus,
@@ -2151,10 +2174,7 @@ main .content .sect-link i {
 .popup-form .success {
   position: absolute;
   z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   font-size: 40px;
   background-color: #efefef;
   color: #000;
