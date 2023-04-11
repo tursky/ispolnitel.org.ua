@@ -25,19 +25,19 @@
   "repository": "https://github.com/tursky",
   "license": "MIT",
   "devDependencies": {
-    "basic-ftp": "^4.6.6",
-    "cssnano": "^5.1.4",
-    "eslint": "^8.11.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.4",
-    "eslint-plugin-prettier": "^4.0.0",
-    "html-minifier-terser": "^7.0.0-alpha.2",
-    "http-server": "^14.1.0",
-    "postcss": "^8.4.10",
-    "prettier": "^2.5.1",
-    "stylelint": "^14.5.3",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "^25.0.0",
-    "terser": "^5.12.1"
+    "basic-ftp": "^5.0.2",
+    "cssnano": "^6.0.0",
+    "eslint": "^8.38.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "html-minifier-terser": "^7.2.0",
+    "http-server": "^14.1.1",
+    "postcss": "^8.4.21",
+    "prettier": "^2.8.7",
+    "stylelint": "^15.4.0",
+    "stylelint-config-prettier": "^9.0.5",
+    "stylelint-config-standard": "^32.0.0",
+    "terser": "^5.16.9"
   }
 }
