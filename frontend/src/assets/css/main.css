@@ -163,8 +163,8 @@ h6 {
   display: inline-block;
 	font-family: var(--roboto-condensed);
   font-weight: 700;
-  font-size: 22px;
-  letter-spacing: 1px;
+  font-size: 18px;
+  letter-spacing: 0.5px;
   border-bottom: #2e3947 2px solid;
 }
 
@@ -173,7 +173,7 @@ h6 {
 }
 
 .top-line .sf-menu ul > li a {
-  padding: 12px 17px;
+  padding: 12px 14px;
   text-align: left;
   margin-top: 0;
 }
@@ -185,7 +185,7 @@ h6 {
 .top-line .sf-menu li a {
   color: #efefef;
   border: none;
-  padding: 20px 25px;
+  padding: 20px 24px;
 }
 
 .top-line .sf-menu li a svg {
@@ -222,7 +222,7 @@ h6 {
   display: block;
   font-size: 20px;
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 0px;
   color: #f9d02a;
   text-transform: uppercase;
 }
