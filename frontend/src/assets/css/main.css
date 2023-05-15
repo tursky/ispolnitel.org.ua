@@ -796,7 +796,7 @@ h6 {
   position: relative;
   background-size: cover;
   z-index: 1;
-  padding: 100px 0;
+  padding: 80px 0;
   color: #fff;
 }
 
@@ -1214,7 +1214,7 @@ main .content .sect-link i {
 
 .sect-news {
   color: #fff;
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 .sect-news .new-item {
@@ -1316,7 +1316,7 @@ main .content .sect-link i {
 }
 
 .sect-links {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 .sect-links .link-item {
@@ -1984,7 +1984,7 @@ main .content .sect-link i {
 
 .main-footer {
   background-color: #0e0b13;
-  padding: 100px 0;
+  padding: 80px 0;
   color: #fff;
 	font-family: var(--roboto-condensed);
 }
