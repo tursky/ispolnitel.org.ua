@@ -167,7 +167,7 @@ const CLI = /** CONSOLE OUTPUT */ {
     blue: '\x1b[34m',
     red: '\x1b[31m',
     cyan: '\x1b[36m',
-    blueBG: '\x1b[44m',
+    txtcolor: '\x1b[34m',
   },
 
   preprint(matrix) {
@@ -176,10 +176,10 @@ const CLI = /** CONSOLE OUTPUT */ {
 
   CLIStart([app], cli = this.UITypography) {
     return this.preprint([
-      [cli.clear, cli.boldfont, cli.white, cli.blueBG],
-      [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
-      [' '.repeat(5), app, ' '.repeat(5), cli.newline],
-      [' '.repeat(5), ' '.repeat(app.length), ' '.repeat(5), cli.newline],
+      [cli.clear, cli.txtcolor],
+      [':'.repeat(5), ':'.repeat(app.length), ':'.repeat(5), cli.newline],
+      [':'.repeat(5), app, ':'.repeat(5), cli.newline],
+      [':'.repeat(5), ':'.repeat(app.length), ':'.repeat(5), cli.newline],
       [cli.reset, cli.indent.repeat(2)],
     ]);
   },
