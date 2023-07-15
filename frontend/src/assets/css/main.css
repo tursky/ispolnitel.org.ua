@@ -2186,6 +2186,10 @@ main .content .sect-link i {
   opacity: 1;
 }
 
+.comment-form textarea {
+  margin-top: 0px;
+}
+
 .ajax {
   padding: 0;
   max-width: 100%;

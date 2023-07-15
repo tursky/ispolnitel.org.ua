@@ -402,11 +402,12 @@
                       />
                     </svg>
                   </div>
+                  <div class="title">ЗАЛИШИТИ СВІЙ ВІДГУК (КОМЕНТАР) ВИ МОЖЕТЕ ШЛЯХОМ ЗАПОВНЕННЯ ФОРМИ НА НАШОМУ САЙТІ</div>
                 </div>
               </aside>
             </div>
 
-            <div class="col-lg-9">
+            <div class="col-lg-6">
               <nav class="breadcrumbs">
                 <ul>
                   <li><a href="/">Головна</a></li>
@@ -416,10 +417,74 @@
 
               <article>
                 <h1>Відгуки</h1>
-                <textarea name="" id="comments" cols="30" rows="10"></textarea>
               </article>
 
               <br />
+            </div>
+            <div class="col-lg-3">
+              <div id="feedback" class="callback-form popup-form comment-form ajax">
+  
+                <form class="ajax-form">
+                  <div class="row">
+                    <!-- Hidden Required Fields -->
+                    <input
+                      type="hidden"
+                      name="project_name"
+                      value="Приватний виконавець"
+                    />
+                    <input
+                      type="hidden"
+                      name="admin_email"
+                      value="office-pv@ukr.net"
+                    />
+                    <input
+                      type="hidden"
+                      name="form_subject"
+                      value="Контактна форма - відгуки"
+                    />
+                    <!-- END Hidden Required Fields -->
+                    <div class="col-lg-12">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Ім'я:"
+                        placeholder="ІМ’Я *"
+                        required
+                      />
+                    </div>
+
+                    <div class="col-lg-12">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="E-mail:"
+                        placeholder="E-mail *"
+                        required
+                      />
+                    </div>
+
+                    <div class="col-lg-12">
+                      <textarea
+                      name="Коментар:"
+                      id="comment"
+                      cols="30"
+                      rows="10"
+                      placeholder="Коментар"
+                      required
+                    ></textarea>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <button class="button button-small button-order">
+                        Відіслати форму
+                      </button>
+                    </div>
+
+                  </div>
+                </form>
+
+                <div class="success">Дякую за Ваш відгук!</div>
+              </div>
             </div>
           </div>
         </div>
