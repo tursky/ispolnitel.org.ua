@@ -75,7 +75,13 @@ $(function () {
     filtersPosition: "bottom",
     tones: false,
     buttonTitle: "Щоб швидше вставити емодзі, натисніть TAB",
-    autocomplete: false
+    autocomplete: false,
+    filters: {
+      recent : false,
+      smileys_people: {
+        title: "Смайлики"
+      }
+    }
   });
 
   //E-mail Ajax Send
