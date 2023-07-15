@@ -68,6 +68,16 @@ $(function () {
     $(this).next('.accordion-item__content').slideToggle(300);
   });
 
+  $('#comment').emojioneArea({
+    pickerPosition: 'bottom',
+    search: false,
+    placeholder: "",
+    filtersPosition: "bottom",
+    tones: false,
+    buttonTitle: "Щоб швидше вставити емодзі, натисніть TAB",
+    autocomplete: false
+  });
+
   //E-mail Ajax Send
   $('.ajax-form').submit(function () {
     var th = $(this);
