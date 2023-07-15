@@ -2113,7 +2113,8 @@ main .content .sect-link i {
 }
 
 .popup-form .form-control,
-.popup-form textarea {
+.popup-form textarea,
+.comment-form .emojionearea .emojionearea-editor {
   font-size: 18px;
   height: 50px;
   width: 100%;
@@ -2184,6 +2185,16 @@ main .content .sect-link i {
   padding: 70% 10% 10%;
   display: none;
   opacity: 1;
+}
+
+.comment-form textarea,
+.comment-form .emojionearea .emojionearea-editor {
+  margin-top: 0px;
+  margin-bottom: 0;
+}
+
+.comment-form .emojionearea .emojionearea-button {
+  top: 7px;
 }
 
 .ajax {

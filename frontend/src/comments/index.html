@@ -4,9 +4,14 @@
     <meta charset="utf-8" />
     <base href="/" />
 
-    <title>404</title>
+    <title>
+      Відгуки | Приватний виконавець, Вінницька область, Турський О.В.
+    </title>
 
-    <meta name="description" content="Помылка 404" />
+    <meta
+      name="description"
+      content="ЗАЛИШИТИ СВІЙ ВІДГУК (КОМЕНТАР) ВИ МОЖЕТЕ ШЛЯХОМ ЗАПОВНЕННЯ ФОРМИ НА НАШОМУ САЙТІ"
+    />
 
     <meta
       name="viewport"
@@ -33,6 +38,7 @@
     <!-- Custom Browsers Color End -->
 
     <link rel="stylesheet" href="assets/bundles/styles.min.css" />
+    <link rel="stylesheet" href="assets/bundles/emoji/emojionearea.min.css" />
 
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="assets/css/media.css" />
@@ -380,24 +386,129 @@
       <div class="content">
         <div class="container">
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-3">
+              <aside class="main-aside sasha">
+                <div class="service-item">
+                  <div
+                    class="service-item-image"
+                    style="
+                      background-image: url(assets/images/comments/emoji.jpg);
+                    "
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 576 512"
+                    >
+                      <!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. -->
+                      <path
+                        d="M279.6 160.4C282.4 160.1 285.2 160 288 160C341 160 384 202.1 384 256C384 309 341 352 288 352C234.1 352 192 309 192 256C192 253.2 192.1 250.4 192.4 247.6C201.7 252.1 212.5 256 224 256C259.3 256 288 227.3 288 192C288 180.5 284.1 169.7 279.6 160.4zM480.6 112.6C527.4 156 558.7 207.1 573.5 243.7C576.8 251.6 576.8 260.4 573.5 268.3C558.7 304 527.4 355.1 480.6 399.4C433.5 443.2 368.8 480 288 480C207.2 480 142.5 443.2 95.42 399.4C48.62 355.1 17.34 304 2.461 268.3C-.8205 260.4-.8205 251.6 2.461 243.7C17.34 207.1 48.62 156 95.42 112.6C142.5 68.84 207.2 32 288 32C368.8 32 433.5 68.84 480.6 112.6V112.6zM288 112C208.5 112 144 176.5 144 256C144 335.5 208.5 400 288 400C367.5 400 432 335.5 432 256C432 176.5 367.5 112 288 112z"
+                      />
+                    </svg>
+                  </div>
+                  <div class="title">
+                    ЗАЛИШИТИ СВІЙ ВІДГУК (КОМЕНТАР) ВИ МОЖЕТЕ ШЛЯХОМ ЗАПОВНЕННЯ
+                    ФОРМИ НА НАШОМУ САЙТІ
+                  </div>
+                  <div class="title">
+                    Відповіді будуть надаватися модератором сайту чи
+                    відвідувачами
+                  </div>
+                </div>
+              </aside>
+            </div>
+
+            <div class="col-lg-6">
               <nav class="breadcrumbs">
                 <ul>
                   <li><a href="/">Головна</a></li>
-                  <li class="active">Помылка 404</li>
+                  <li class="active">Відгуки</li>
                 </ul>
               </nav>
 
               <article>
-                <h1>Cторінки не існує</h1>
+                <h1>Відгуки</h1>
 
                 <br />
 
-                <img src="assets/images/404.png" alt="Помылка 404" />
-
-                <br />
-                <br />
+                <strong>Дмиро Тертичний</strong>
+                <p>
+                  Адвокат шахрай, вивалив йому купу грошей, втратив час, а у
+                  підсумку він нічого не зробив. Одні тільки нерви. Оплатив
+                  провадження через ДІЮ відразу мені його закрили. Якби спочатку
+                  так зробив вийшло би дешевше. Думайте самі перед тим як щось
+                  робити. Ще й звертався до адвоката якого мені порадили знайомі
+                  😠.
+                </p>
               </article>
+
+              <br />
+            </div>
+            <div class="col-lg-3">
+              <div
+                id="feedback"
+                class="callback-form popup-form comment-form ajax"
+              >
+                <form class="ajax-form">
+                  <div class="row">
+                    <!-- Hidden Required Fields -->
+                    <input
+                      type="hidden"
+                      name="project_name"
+                      value="Приватний виконавець"
+                    />
+                    <input
+                      type="hidden"
+                      name="admin_email"
+                      value="office-pv@ukr.net"
+                    />
+                    <input
+                      type="hidden"
+                      name="form_subject"
+                      value="Контактна форма - відгуки"
+                    />
+                    <!-- END Hidden Required Fields -->
+                    <div class="col-lg-12">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="Ім'я:"
+                        placeholder="ІМ’Я *"
+                        required
+                      />
+                    </div>
+
+                    <div class="col-lg-12">
+                      <input
+                        class="form-control"
+                        type="text"
+                        name="E-mail:"
+                        placeholder="E-MAIL *"
+                        required
+                      />
+                    </div>
+
+                    <div class="col-lg-12">
+                      <textarea
+                        name="Коментар:"
+                        id="comment"
+                        cols="30"
+                        rows="10"
+                        placeholder=""
+                        required
+                      ></textarea>
+                    </div>
+
+                    <div class="col-lg-12">
+                      <button class="button button-small button-order">
+                        Відіслати форму
+                      </button>
+                      <br />
+                    </div>
+                  </div>
+                </form>
+
+                <div class="success">Дякую за Ваш відгук!</div>
+              </div>
             </div>
           </div>
         </div>
@@ -619,6 +730,7 @@
     </div>
 
     <script src="assets/bundles/scripts.min.js"></script>
+    <script src="assets/bundles/emoji/emojionearea.min.js"></script>
     <script src="assets/js/common.js"></script>
   </body>
 </html>
