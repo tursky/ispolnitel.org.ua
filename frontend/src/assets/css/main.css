@@ -2195,6 +2195,7 @@ main .content .sect-link i {
 
 .comment-form .emojionearea .emojionearea-button {
   top: 7px;
+  right: 0;
 }
 
 .ajax {
