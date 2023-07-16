@@ -996,10 +996,30 @@ article .comment-reply {
 
 article .comment-date {
   font-weight: 300;
+  font-size: 12px;
+  display: inline-block;
+  margin-left: 15px;
 }
 
-article .comment-marker {
-  background-color: #f9d02a;
+.comment-title {
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+.comment-title i {
+  display: inline-block;
+  margin-right: 8px;
+  height: 2.2em;
+  width: 2.2em;
+  fill: #1d4a84;
+}
+
+.comment-title span {
+  display: inline-block;
+  margin-left: 25px;
+  font-weight: 300;
+  font-size: 12px;
 }
 
 .video {
@@ -2139,8 +2159,26 @@ main .content .sect-link i {
   border-radius: 5px;
 }
 
+.comment-form .emojionearea .emojionearea-editor {
+  padding: 10px 15px;
+  line-height: 1.4;
+  letter-spacing: normal;
+  font-family: var(--roboto);
+  height: 200px;
+}
+
+.emojionearea {
+  border: 0;
+}
+
+.popup-form .form-control::placeholder,
+.popup-form textarea::placeholder {
+  color: #888;
+}
+
 .popup-form .form-control:focus::placeholder,
-.popup-form textarea:focus::placeholder {
+.popup-form textarea:focus::placeholder,
+.comment-form .emojionearea .focused {
   color: transparent;
 }
 
@@ -2209,7 +2247,7 @@ main .content .sect-link i {
 }
 
 .comment-form .emojionearea .emojionearea-button {
-  top: 7px;
+  top: 6px;
   right: 0;
 }
 

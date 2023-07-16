@@ -71,7 +71,7 @@ $(function () {
   $('#comment').emojioneArea({
     pickerPosition: 'bottom',
     search: false,
-    placeholder: "",
+    placeholder: "Текст *",
     filtersPosition: "bottom",
     tones: false,
     buttonTitle: "Щоб швидше вставити емодзі, натисніть TAB",
