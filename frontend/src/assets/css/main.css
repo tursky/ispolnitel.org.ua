@@ -987,6 +987,21 @@ article a:hover {
   color: #007bff;
 }
 
+article .comment-reply {
+  background-color:#82c91e;
+  color: #fff;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+article .comment-date {
+  font-weight: 300;
+}
+
+article .comment-marker {
+  background-color: #f9d02a;
+}
+
 .video {
   position: relative;
   padding-bottom: 56.25%;
