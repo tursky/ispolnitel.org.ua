@@ -817,7 +817,7 @@ h6 {
   color: #fff;
   font-size: 16px;
   text-align: center;
-  padding: 50px 0;
+  padding: 40px 0;
   z-index: 200;
 }
 
@@ -1931,8 +1931,8 @@ main .content .sect-link i {
 }
 
 .pagenav {
-  margin-top: 90px;
-  margin-bottom: 60px;
+  margin-top: 80px;
+  margin-bottom: 40px;
   display: block;
   text-align: center;
 }
@@ -2036,7 +2036,6 @@ main .content .sect-link i {
 	margin-bottom: 40px;
 	margin-top: 20px;
 	padding: 10px 0;
-	font-size: 16px;
 	font-weight: 300;
 	text-transform: none;
 }
@@ -2049,7 +2048,6 @@ main .content .sect-link i {
 }
 
 .main-footer .self-pannel-box {
-	/* font-family: var(--roboto-condensed); */
   margin-bottom: 40px;
   color: #999;
   font-size: 14px;
@@ -2066,9 +2064,7 @@ main .content .sect-link i {
 }
 
 .main-footer .top-email span {
-	font-size: 16px;
 	font-weight: 300;
-	text-transform: none;
 	display: block;
 	margin-bottom: 60px;
 }
