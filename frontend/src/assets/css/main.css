@@ -158,24 +158,18 @@ h6 {
 }
 
 .top-line .sf-menu {
-  margin: 0 auto -8px;
+  margin: 0 auto -5px;
   float: none;
   display: inline-block;
 	font-family: var(--roboto-condensed);
-  font-weight: 700;
+  font-weight: 500;
   font-size: 18px;
   letter-spacing: 0.5px;
-  border-bottom: #2e3947 2px solid;
-}
-
-.top-line .sf-menu ul > li {
-  border-bottom: #242c37 1px solid;
 }
 
 .top-line .sf-menu ul > li a {
   padding: 12px 14px;
   text-align: left;
-  margin-top: 0;
 }
 
 .top-line .sf-menu li {
@@ -185,7 +179,7 @@ h6 {
 .top-line .sf-menu li a {
   color: #efefef;
   border: none;
-  padding: 20px 24px;
+  border-top: #2e3947 1px solid;
 }
 
 .top-line .sf-menu li a svg {
@@ -206,6 +200,10 @@ h6 {
   color: #f9d02a;
 }
 
+.top-line .sf-menu li:hover > ul li a {
+  margin-top: 1px;
+}
+
 .section-overlay::before {
   content: '';
   position: absolute;
@@ -220,7 +218,7 @@ h6 {
 .logo {
   text-align: center;
   display: block;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 0px;
   color: #f9d02a;
@@ -255,7 +253,7 @@ h6 {
 }
 
 .self-pannel {
-  padding: 10px 0;
+  padding: 15px 0;
   position: relative;
   letter-spacing: 0.4px;
 }
@@ -351,10 +349,12 @@ h6 {
 }
 
 .top-email span {
-	font-size: 14px;
+	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 0.6px;
   color: rgb(255 255 255 / 50%);
+  display: inline-block;
+  margin-bottom: 5px;
 }
 
 .text-right {
@@ -562,7 +562,7 @@ h6 {
   width: 100%;
   position: relative;
   color: #000;
-  padding: 20px;
+  padding-top: 10px;
 }
 
 .slider .slide .slide-content {
@@ -623,7 +623,7 @@ h6 {
 
 .slider .owl-nav {
   position: absolute;
-  top: 77%;
+  top: 82%;
   width: 100%;
 }
 
@@ -655,18 +655,18 @@ h6 {
   width: 100%;
   text-align: center;
   background-color: #efefef;
-	padding: 40px 20px;
+	padding: 20px 20px;
 }
 
 .slider .owl-dot {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   background-color: #ccc;
   opacity: 1;
   border-radius: 10em;
   display: inline-block;
   margin: 0 10px;
-	box-shadow: 10px 10px 5px #999;
+	box-shadow: 5px 5px 5px #999;
   transition: background-color 0.5s ease, transform 0.5s ease,
     -webkit-transform 0.5s ease;
 }
@@ -713,11 +713,11 @@ h6 {
   text-align: center;
   margin: 5px 20px;
 	font-family: var(--roboto-condensed);
-  width: 300px;
+  width: 290px;
+  height: 290px;
   font-size: 28px;
   padding: 15px;
   display: flex;
-  height: 300px;
   color: #fff;
   transition: opacity 0.2s ease;
 	box-shadow: 10px 10px 5px #999;
