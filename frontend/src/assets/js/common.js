@@ -71,17 +71,17 @@ $(function () {
   $('#comment').emojioneArea({
     pickerPosition: 'bottom',
     search: false,
-    placeholder: "Текст *",
-    filtersPosition: "bottom",
+    placeholder: 'Текст *',
+    filtersPosition: 'bottom',
     tones: false,
-    buttonTitle: "Щоб швидше вставити емодзі, натисніть TAB",
+    buttonTitle: 'Щоб швидше вставити емодзі, натисніть TAB',
     autocomplete: false,
     filters: {
-      recent : false,
+      recent: false,
       smileys_people: {
-        title: "Смайлики"
-      }
-    }
+        title: 'Смайлики',
+      },
+    },
   });
 
   //E-mail Ajax Send

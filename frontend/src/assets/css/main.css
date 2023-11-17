@@ -220,7 +220,7 @@ h6 {
   display: block;
   font-size: 18px;
   font-weight: 700;
-  letter-spacing: 0px;
+  letter-spacing: 0;
   color: #f9d02a;
   text-transform: uppercase;
 }
@@ -655,7 +655,7 @@ h6 {
   width: 100%;
   text-align: center;
   background-color: #efefef;
-	padding: 20px 20px;
+	padding: 20px;
 }
 
 .slider .owl-dot {
@@ -2238,7 +2238,7 @@ main .content .sect-link i {
 
 .comment-form textarea,
 .comment-form .emojionearea .emojionearea-editor {
-  margin-top: 0px;
+  margin-top: 0;
   margin-bottom: 0;
 }
 
