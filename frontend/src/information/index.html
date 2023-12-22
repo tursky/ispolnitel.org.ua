@@ -356,6 +356,301 @@
                       Боржникам</a
                     >
                   </div>
+
+                              <idencode>
+                    <div class="top-email">
+                      <br /><br />
+                      <span>Дізнайся стать і дату народження:</span>
+                    </div>
+
+                    <div class="top-button">
+                      <a href="#callback" class="callback button button-small"
+                        ><svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 384 512"
+                        >
+                          <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                          <path
+                            d="M64 0C28.7 0 0 28.7 0 64V448c0 35.3 28.7 64 64 64H320c35.3 0 64-28.7 64-64V64c0-35.3-28.7-64-64-64H64zM96 64H288c17.7 0 32 14.3 32 32v32c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V96c0-17.7 14.3-32 32-32zm32 160a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM96 352a32 32 0 1 1 0-64 32 32 0 1 1 0 64zM64 416c0-17.7 14.3-32 32-32h96c17.7 0 32 14.3 32 32s-14.3 32-32 32H96c-17.7 0-32-14.3-32-32zM192 256a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zm64-64a32 32 0 1 1 0-64 32 32 0 1 1 0 64zm32 64a32 32 0 1 1 -64 0 32 32 0 1 1 64 0zM288 448a32 32 0 1 1 0-64 32 32 0 1 1 0 64z"
+                          />
+                        </svg>
+                        за іденкодом (РНОКПП)</a
+                      >
+                    </div>
+
+                    <br />
+
+                    <div class="d-none">
+                      <div id="callback" class="callback-form popup-form">
+                        <div
+                          class="fon"
+                          style="
+                            background: linear-gradient(
+                              to left,
+                              #fff 0%,
+                              #fff 99.5%,
+                              #ccc 0%
+                            );
+                            background-size: 160px 50%;
+                          "
+                        >
+                          <h2
+                            style="
+                              background-image: linear-gradient(
+                                to left,
+                                #14335a,
+                                #0300bf
+                              );
+                              color: transparent;
+                              background-clip: text;
+                              -webkit-background-clip: text;
+                            "
+                          >
+                            Розшифровка ідентифікаційного податкового номера
+                            фізичної особи (РНОКПП)
+                          </h2>
+
+                          <br />
+
+                          <div class="component" style="text-align: center">
+                            <font
+                              style="
+                                margin: 0px;
+                                padding: 0px;
+                                font-size: 16px;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #000000;
+                              "
+                            >
+                              Введіть ваш номер іденкоду та натисніть
+                              Enter:</font
+                            ><br /><br />
+
+                            <form
+                              method="POST"
+                              action=""
+                              onsubmit="return subm(this)"
+                            >
+                              <input
+                                id="inn"
+                                type="text"
+                                value=""
+                                pattern="[0-9]{10}"
+                                placeholder="0000000000"
+                                size="10"
+                                minlength="10"
+                                maxlength="10"
+                                onkeypress="checkNumber"
+                                style="
+                                  margin: 0px;
+                                  padding: 0 5px;
+                                  font-size: 30px;
+                                  font-weight: bold;
+                                  font-family: 'Courier New';
+                                  color: #0300bf;
+                                "
+                              />
+                            </form>
+
+                            <br />
+
+                            <button id="enter-btn">Enter</button>
+                            <button id="refresh-input">Очистити</button>
+
+                            <br /><br /><br />
+
+                            <font
+                              style="
+                                font-size: 14px;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #000000;
+                              "
+                            >
+                              Дата народження: &nbsp;&nbsp;</font
+                            >
+
+                            <input
+                              id="qdata"
+                              type="text"
+                              value=""
+                              size="10"
+                              maxlength="10"
+                              readonly
+                              style="
+                                margin: 5px;
+                                padding: 0 5px;
+                                font-size: 16px;
+                                text-align: center;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #087a02;
+                              "
+                            />
+
+                            <br />
+
+                            <font
+                              style="
+                                font-size: 14px;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #000000;
+                              "
+                            >
+                              Стать власника: &nbsp;&nbsp;</font
+                            >
+
+                            <input
+                              id="qpol"
+                              type="text"
+                              value=""
+                              size="10"
+                              maxlength="10"
+                              readonly
+                              style="
+                                margin: 5px;
+                                padding: 0 5px;
+                                font-size: 16px;
+                                text-align: center;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #087a02;
+                              "
+                            />
+
+                            <input
+                              id="ginfo"
+                              type="text"
+                              value=""
+                              size="80"
+                              readonly
+                              style="
+                                margin: 15px;
+                                padding: 0 5px;
+                                font-size: 14px;
+                                border: 0px;
+                                font-weight: bold;
+                                text-align: center;
+                                font-family: 'Tahoma';
+                                color: #ff0000;
+                                background-color: transparent;
+                              "
+                            />
+                          </div>
+
+                          <div class="component" style="text-align: center">
+                            <!-- <hr/> -->
+
+                            <br />
+                            <font
+                              style="
+                                margin: 0px;
+                                padding: 0px;
+                                font-size: 16px;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #000000;
+                              "
+                            >
+                              Введіть дату народження та натисніть Enter для
+                              отримання перших 5 цифр іденкоду: </font
+                            ><br /><br />
+
+                            <form
+                              method="POST"
+                              action=""
+                              onsubmit="return subx(this)"
+                            >
+                              <input
+                                id="dr"
+                                type="text"
+                                value=""
+                                pattern="\d{1,2}\.\d{1,2}\.\d{1,4}"
+                                placeholder="00.00.0000"
+                                size="10"
+                                minlength="10"
+                                maxlength="10"
+                                onkeypress="checkNumber"
+                                style="
+                                  margin: 0px;
+                                  padding: 0 5px;
+                                  font-size: 30px;
+                                  font-weight: bold;
+                                  font-family: 'Courier New';
+                                  color: #0300bf;
+                                "
+                              />
+                            </form>
+
+                            <br />
+
+                            <button id="birthday-btn">Enter</button>
+
+                            <br /><br />
+
+                            <font
+                              style="
+                                font-size: 14px;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #000000;
+                              "
+                            >
+                              РНОКПП починається з: &nbsp;</font
+                            >
+
+                            <input
+                              id="dr0"
+                              type="text"
+                              value=""
+                              size="5"
+                              maxlength="5"
+                              readonly
+                              style="
+                                margin: 5px;
+                                padding: 0 5px;
+                                font-size: 16px;
+                                text-align: center;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #087a02;
+                              "
+                            />
+                            <font
+                              style="
+                                font-size: 16px;
+                                font-weight: bold;
+                                font-family: 'Tahoma';
+                                color: #000000;
+                              "
+                            ></font>
+
+                            <input
+                              id="ginfo2"
+                              type="text"
+                              value=""
+                              size="80"
+                              readonly
+                              style="
+                                margin: 15px;
+                                padding: 0 5px;
+                                font-size: 14px;
+                                border: 0px;
+                                font-weight: bold;
+                                text-align: center;
+                                font-family: 'Tahoma';
+                                color: #ff0000;
+                                background-color: transparent;
+                              "
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </idencode>
                 </div>
               </div>
             </div>
@@ -887,5 +1182,6 @@
 
     <script src="assets/bundles/scripts.min.js"></script>
     <script src="assets/js/common.js"></script>
+    <script src="assets/js/id.js"></script>
   </body>
 </html>
