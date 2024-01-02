@@ -574,7 +574,6 @@ h6 {
   );
   color: transparent;
   background-clip: text;
-  background-clip: text;
 }
 
 .idencode-component {
@@ -586,7 +585,7 @@ h6 {
   padding: 0;
   font-size: 16px;
   font-weight: bold;
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   color: #000;
 }
 
@@ -599,7 +598,7 @@ h6 {
   padding: 0 5px;
   font-size: 30px;
   font-weight: bold;
-  font-family: 'Courier New';
+  font-family: 'Courier New', sans-serif;
   color: #0300bf;
 }
 
@@ -609,7 +608,7 @@ h6 {
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   color: #087a02;
 }
 
@@ -619,7 +618,7 @@ h6 {
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   color: #087a02;
 }
 
@@ -630,7 +629,7 @@ h6 {
   border: 0;
   font-weight: bold;
   text-align: center;
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   color: #f00;
   background-color: transparent;
 }
@@ -640,7 +639,7 @@ h6 {
   padding: 0 5px;
   font-size: 30px;
   font-weight: bold;
-  font-family: 'Courier New';
+  font-family: 'Courier New', sans-serif;
   color: #0300bf;
 }
 
@@ -650,7 +649,7 @@ h6 {
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   color: #087a02;
 }
 
@@ -661,7 +660,7 @@ h6 {
   border: 0;
   font-weight: bold;
   text-align: center;
-  font-family: Tahoma;
+  font-family: Tahoma, sans-serif;
   color: #f00;
   background-color: transparent;
 }
