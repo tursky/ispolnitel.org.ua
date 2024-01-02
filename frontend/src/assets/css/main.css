@@ -552,6 +552,116 @@ h6 {
   }
 }
 
+.idencode-fon {
+  background: linear-gradient(
+    to left,
+    #fff 0%,
+    #fff 99.5%,
+    #ccc 0%
+  );
+  background-size: 160px 50%;
+}
+
+.idencode-fon h2 {
+  background-image: linear-gradient(
+    to left,
+    #14335a,
+    #0300bf
+  );
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.idencode-component {
+  text-align: center;
+}
+
+.idencode-component font {
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Tahoma';
+  color: #000000;
+}
+
+.idencode-component font#font {
+  font-size: 14px;
+}
+
+#inn {
+  margin: 0px;
+  padding: 0 5px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Courier New';
+  color: #0300bf;
+}
+
+#qdata {
+  margin: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Tahoma';
+  color: #087a02;
+}
+
+#qpol {
+  margin: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Tahoma';
+  color: #087a02;
+}
+
+#ginfo {
+  margin: 15px;
+  padding: 0 5px;
+  font-size: 14px;
+  border: 0px;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Tahoma';
+  color: #ff0000;
+  background-color: transparent;
+}
+
+#dr {
+  margin: 0px;
+  padding: 0 5px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Courier New';
+  color: #0300bf;
+}
+
+#dr0 {
+  margin: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-family: 'Tahoma';
+  color: #087a02;
+}
+
+#ginfo2 {
+  margin: 15px;
+  padding: 0 5px;
+  font-size: 14px;
+  border: 0px;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Tahoma';
+  color: #ff0000;
+  background-color: transparent;
+}
+
 .slider {
   box-shadow: rgb(255 255 255 / 5%) 0 0 0 6px;
   background-color: #efefef;
