@@ -40,7 +40,7 @@ function subm(form) {
   if (k4 != k3) {
     var error2 = 1;
     document.getElementById('ginfo').value =
-    // 'РНОКПП з помилкою; остання (контрольна) цифра повинна бути ' + k3;
+      // 'РНОКПП з помилкою; остання (контрольна) цифра повинна бути ' + k3;
       'Не ідентифіковано';
     document.getElementById('qpol').value = '';
     document.getElementById('qdata').value = '';

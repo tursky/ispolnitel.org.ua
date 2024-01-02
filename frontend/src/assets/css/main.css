@@ -574,7 +574,7 @@ h6 {
   );
   color: transparent;
   background-clip: text;
-  -webkit-background-clip: text;
+  background-clip: text;
 }
 
 .idencode-component {
@@ -582,12 +582,12 @@ h6 {
 }
 
 .idencode-component font {
-  margin: 0px;
-  padding: 0px;
+  margin: 0;
+  padding: 0;
   font-size: 16px;
   font-weight: bold;
-  font-family: 'Tahoma';
-  color: #000000;
+  font-family: Tahoma;
+  color: #000;
 }
 
 .idencode-component font#font {
@@ -595,7 +595,7 @@ h6 {
 }
 
 #inn {
-  margin: 0px;
+  margin: 0;
   padding: 0 5px;
   font-size: 30px;
   font-weight: bold;
@@ -609,7 +609,7 @@ h6 {
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  font-family: 'Tahoma';
+  font-family: Tahoma;
   color: #087a02;
 }
 
@@ -619,7 +619,7 @@ h6 {
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  font-family: 'Tahoma';
+  font-family: Tahoma;
   color: #087a02;
 }
 
@@ -627,16 +627,16 @@ h6 {
   margin: 15px;
   padding: 0 5px;
   font-size: 14px;
-  border: 0px;
+  border: 0;
   font-weight: bold;
   text-align: center;
-  font-family: 'Tahoma';
-  color: #ff0000;
+  font-family: Tahoma;
+  color: #f00;
   background-color: transparent;
 }
 
 #dr {
-  margin: 0px;
+  margin: 0;
   padding: 0 5px;
   font-size: 30px;
   font-weight: bold;
@@ -650,7 +650,7 @@ h6 {
   font-size: 16px;
   text-align: center;
   font-weight: bold;
-  font-family: 'Tahoma';
+  font-family: Tahoma;
   color: #087a02;
 }
 
@@ -658,11 +658,11 @@ h6 {
   margin: 15px;
   padding: 0 5px;
   font-size: 14px;
-  border: 0px;
+  border: 0;
   font-weight: bold;
   text-align: center;
-  font-family: 'Tahoma';
-  color: #ff0000;
+  font-family: Tahoma;
+  color: #f00;
   background-color: transparent;
 }
 
