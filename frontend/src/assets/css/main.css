@@ -70,6 +70,10 @@ body textarea:focus:required:invalid {
   text-align: center;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 a {
   outline: 0;
 }
@@ -550,6 +554,115 @@ h6 {
     opacity: 0;
     transform: scale(1.7, 1.7);
   }
+}
+
+.idencode-fon {
+  background: linear-gradient(
+    to left,
+    #fff 0%,
+    #fff 99.5%,
+    #ccc 0%
+  );
+  background-size: 160px 50%;
+}
+
+.idencode-fon h2 {
+  background-image: linear-gradient(
+    to left,
+    #14335a,
+    #0300bf
+  );
+  color: transparent;
+  background-clip: text;
+}
+
+.idencode-component {
+  text-align: center;
+}
+
+.idencode-component font {
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  color: #000;
+}
+
+.idencode-component font#font {
+  font-size: 14px;
+}
+
+#inn {
+  margin: 0;
+  padding: 0 5px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Courier New', sans-serif;
+  color: #0300bf;
+}
+
+#qdata {
+  margin: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  color: #087a02;
+}
+
+#qpol {
+  margin: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  color: #087a02;
+}
+
+#ginfo {
+  margin: 15px;
+  padding: 0 5px;
+  font-size: 14px;
+  border: 0;
+  font-weight: bold;
+  text-align: center;
+  font-family: Tahoma, sans-serif;
+  color: #f00;
+  background-color: transparent;
+}
+
+#dr {
+  margin: 0;
+  padding: 0 5px;
+  font-size: 30px;
+  font-weight: bold;
+  font-family: 'Courier New', sans-serif;
+  color: #0300bf;
+}
+
+#dr0 {
+  margin: 5px;
+  padding: 0 5px;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  font-family: Tahoma, sans-serif;
+  color: #087a02;
+}
+
+#ginfo2 {
+  margin: 15px;
+  padding: 0 5px;
+  font-size: 14px;
+  border: 0;
+  font-weight: bold;
+  text-align: center;
+  font-family: Tahoma, sans-serif;
+  color: #f00;
+  background-color: transparent;
 }
 
 .slider {
