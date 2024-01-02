@@ -1,3 +1,5 @@
+// The algorithm is borrowed from an open source: http://www.tranzit.ltd.ua/ipn/
+
 function subm(form) {
   var idd = document.getElementById('inn').value;
   var k1 = 0; // расчет контрольной цифры
@@ -167,6 +169,8 @@ function subx(form) {
 
   return false;
 }
+
+// Added Enter and Clear buttons
 
 let re_btn = document.getElementById('refresh-input');
 re_btn.addEventListener('click', function (event) {
