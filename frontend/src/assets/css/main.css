@@ -70,6 +70,10 @@ body textarea:focus:required:invalid {
   text-align: center;
 }
 
+.text-justify {
+  text-align: justify;
+}
+
 a {
   outline: 0;
 }
