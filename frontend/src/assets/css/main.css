@@ -74,6 +74,14 @@ body textarea:focus:required:invalid {
   text-align: justify;
 }
 
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
 a {
   outline: 0;
 }
@@ -359,10 +367,6 @@ h6 {
   color: rgb(255 255 255 / 50%);
   display: inline-block;
   margin-bottom: 5px;
-}
-
-.text-right {
-  text-align: right;
 }
 
 .button {
