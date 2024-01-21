@@ -1082,6 +1082,11 @@ article blockquote {
   border-bottom: #ddd 2px dotted;
 }
 
+article blockquote.employee {
+  text-transform: uppercase;
+  color: #1d4a84;
+}
+
 article ol,
 article ul {
   padding-left: 30px;
