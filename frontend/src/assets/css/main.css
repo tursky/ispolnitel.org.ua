@@ -56,6 +56,12 @@ body textarea:focus:required:invalid {
   border-color: #8b0000;
 }
 
+.pdf {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+
 .img-responsive {
   display: block;
   max-width: 100%;
