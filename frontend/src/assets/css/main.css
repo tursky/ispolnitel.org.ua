@@ -1,23 +1,64 @@
-@font-face { src: url("../webfonts/Roboto/roboto-condensed-300.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 300; font-style: normal; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-condensed-300.woff2') format('woff2');
+  font-family: RobotoCondensed-ft;
+  font-weight: 300;
+  font-style: normal;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-condensed-400.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 400; font-style: normal; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-condensed-400.woff2') format('woff2');
+  font-family: RobotoCondensed-ft;
+  font-weight: 400;
+  font-style: normal;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-condensed-400-italic.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 400; font-style: italic; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-condensed-400-italic.woff2')
+    format('woff2');
+  font-family: RobotoCondensed-ft;
+  font-weight: 400;
+  font-style: italic;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-condensed-700.woff2") format("woff2"); font-family: RobotoCondensed-ft; font-weight: 700; font-style: normal; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-condensed-700.woff2') format('woff2');
+  font-family: RobotoCondensed-ft;
+  font-weight: 700;
+  font-style: normal;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-300.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 300; font-style: normal; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-300.woff2') format('woff2');
+  font-family: Roboto-ft;
+  font-weight: 300;
+  font-style: normal;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-400.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 400; font-style: normal; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-400.woff2') format('woff2');
+  font-family: Roboto-ft;
+  font-weight: 400;
+  font-style: normal;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-400-italic.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 400; font-style: italic; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-400-italic.woff2') format('woff2');
+  font-family: Roboto-ft;
+  font-weight: 400;
+  font-style: italic;
+}
 
-@font-face { src: url("../webfonts/Roboto/roboto-700.woff2") format("woff2"); font-family: Roboto-ft; font-weight: 700; font-style: normal; }
+@font-face {
+  src: url('../webfonts/Roboto/roboto-700.woff2') format('woff2');
+  font-family: Roboto-ft;
+  font-weight: 700;
+  font-style: normal;
+}
 
 :root {
-	--roboto: roboto-ft, sans-serif;
-	--roboto-condensed: robotocondensed-ft, sans-serif;
-	--systemfont: -apple-system, blinkmacsystemfont, arial, sans-serif;
+  --roboto: roboto-ft, sans-serif;
+  --roboto-condensed: robotocondensed-ft, sans-serif;
+  --systemfont: -apple-system, blinkmacsystemfont, arial, sans-serif;
 }
 
 ::placeholder {
@@ -151,9 +192,9 @@ h6 {
 }
 
 .mobile-mnu a svg {
-	width: 32px;
-	height: 32px;
-	fill: rgb(255 255 255 / 50%);
+  width: 32px;
+  height: 32px;
+  fill: rgb(255 255 255 / 50%);
   padding-top: 4px;
 }
 
@@ -179,7 +220,7 @@ h6 {
   margin: 0 auto -5px;
   float: none;
   display: inline-block;
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
   font-weight: 500;
   font-size: 18px;
   letter-spacing: 0.5px;
@@ -201,9 +242,9 @@ h6 {
 }
 
 .top-line .sf-menu li a svg {
-	fill: #fff;
-	width: 14px;
-	height: 14px;
+  fill: #fff;
+  width: 14px;
+  height: 14px;
   margin-left: 3px;
 }
 
@@ -244,7 +285,7 @@ h6 {
 }
 
 .logo:hover {
-	text-decoration: none;
+  text-decoration: none;
   color: #f9d02a;
   opacity: 0.85;
 }
@@ -290,10 +331,10 @@ h6 {
 
 .self-pannel-content {
   position: relative;
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
   color: #fff;
   font-size: 13px;
-	margin-top: 5px;
+  margin-top: 5px;
 }
 
 .self-pannel-box .title {
@@ -303,7 +344,7 @@ h6 {
   margin-bottom: 10px;
   color: #999;
   letter-spacing: 0.6px;
-	text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .self-pannel-box .title::after {
@@ -327,21 +368,21 @@ h6 {
 .self-pannel-box li span,
 .self-pannel-box ul span {
   color: #f9d02a;
-	margin-left: 6px;
+  margin-left: 6px;
 }
 
 .self-pannel-box li {
-	display: inline-flex;
+  display: inline-flex;
   max-width: 100%;
   padding: 5px 10px 0 0;
 }
 
 .self-pannel-box svg {
-	width: 16px;
-	height: 16px;
+  width: 16px;
+  height: 16px;
   fill: #fff;
-	justify-items: center;
-	margin-right: 6px;
+  justify-items: center;
+  margin-right: 6px;
 }
 
 .top-phone {
@@ -379,9 +420,9 @@ h6 {
 }
 
 .top-email span {
-	font-size: 13px;
-	text-transform: uppercase;
-	letter-spacing: 0.6px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
   color: rgb(255 255 255 / 50%);
   display: inline-block;
   margin-bottom: 5px;
@@ -390,7 +431,7 @@ h6 {
 .button {
   color: #000;
   background-color: #f9d02a;
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
   font-size: 14px;
   font-weight: 700;
   text-transform: uppercase;
@@ -400,15 +441,15 @@ h6 {
   border-radius: 5px;
   outline: 0;
   letter-spacing: 0.5px;
-	position: relative;
+  position: relative;
 }
 
 .button svg {
-	fill: #000;
-	width: 17px;
-	height: 17px;
-	margin-right: 6px;
-	margin-bottom: -3px;
+  fill: #000;
+  width: 17px;
+  height: 17px;
+  margin-right: 6px;
+  margin-bottom: -3px;
 }
 
 .button:focus {
@@ -439,12 +480,12 @@ h6 {
 }
 
 .client-links .button svg {
-	fill: #f9d02a;
+  fill: #f9d02a;
 }
 
 .client-links .icon-wrapper svg {
   width: 150px;
-	height: auto;
+  height: auto;
 }
 
 .button-order {
@@ -466,7 +507,7 @@ h6 {
 }
 
 .button-green svg {
-	fill: #fff;
+  fill: #fff;
 }
 
 .button-green:hover {
@@ -510,7 +551,7 @@ h6 {
   width: 100%;
   height: 35px;
   font-size: 16px;
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
   color: #fff;
   text-align: center;
   line-height: 1.2;
@@ -592,21 +633,12 @@ h6 {
 }
 
 .idencode-fon {
-  background: linear-gradient(
-    to left,
-    #fff 0%,
-    #fff 99.5%,
-    #ccc 0%
-  );
+  background: linear-gradient(to left, #fff 0%, #fff 99.5%, #ccc 0%);
   background-size: 160px 50%;
 }
 
 .idencode-fon h2 {
-  background-image: linear-gradient(
-    to left,
-    #14335a,
-    #0300bf
-  );
+  background-image: linear-gradient(to left, #14335a, #0300bf);
   color: transparent;
   background-clip: text;
 }
@@ -719,8 +751,8 @@ h6 {
 }
 
 .slider .slide h2 {
-	font-family: var(--roboto-condensed);
-	font-weight: 300;
+  font-family: var(--roboto-condensed);
+  font-weight: 300;
   font-size: 28px;
   margin-top: 0;
   margin-bottom: 20px;
@@ -728,7 +760,7 @@ h6 {
 }
 
 .slider .slide p {
-	font-family: 300;
+  font-family: 300;
   margin-bottom: 25px;
 }
 
@@ -771,7 +803,7 @@ h6 {
 
 .slider .owl-nav {
   position: absolute;
-  top: 82%;
+  top: 85%;
   width: 100%;
 }
 
@@ -780,13 +812,14 @@ h6 {
 }
 
 .slider .owl-nav > div > svg {
-  width: 64px;
-  height: 64px;
+  width: 44px;
+  height: 44px;
   fill: #ccc;
 }
 
 .slider .owl-nav > div:hover svg {
   fill: #0056b3;
+  background: #ccc;
 }
 
 .slider .owl-nav > div.owl-prev {
@@ -803,18 +836,18 @@ h6 {
   width: 100%;
   text-align: center;
   background-color: #efefef;
-	padding: 22px;
+  padding: 15px;
 }
 
 .slider .owl-dot {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   background-color: #ccc;
   opacity: 1;
   border-radius: 10em;
   display: inline-block;
   margin: 0 10px;
-	box-shadow: 5px 5px 5px #999;
+  box-shadow: 5px 5px 5px #777;
   transition: background-color 0.5s ease, transform 0.5s ease,
     -webkit-transform 0.5s ease;
 }
@@ -835,7 +868,7 @@ h6 {
   opacity: 0;
   transform: scale(0.8);
   transition: all 0.6s ease;
-	box-shadow: 10px 10px 5px #999;
+  box-shadow: 10px 10px 5px #999;
 }
 
 .slider .circles {
@@ -860,7 +893,7 @@ h6 {
   border-radius: 100%;
   text-align: center;
   margin: 5px 20px;
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
   width: 290px;
   height: 290px;
   font-size: 28px;
@@ -868,7 +901,7 @@ h6 {
   display: flex;
   color: #fff;
   transition: opacity 0.2s ease;
-	box-shadow: 10px 10px 5px #999;
+  box-shadow: 10px 10px 5px #999;
 }
 
 .slider .circle-left {
@@ -897,8 +930,8 @@ h6 {
   box-shadow: 10px 10px 5px #999;
   padding: 9px;
   background: #f9d02a;
-	text-align: left;
-	margin: 10px 0;
+  text-align: left;
+  margin: 10px 0;
 }
 
 .accordion {
@@ -906,10 +939,10 @@ h6 {
 }
 
 .accordion-item__trigger svg {
-	width: 28px;
-	height: 28px;
+  width: 28px;
+  height: 28px;
   fill: #ec1c1c;
-	margin-bottom: -4px;
+  margin-bottom: -4px;
   margin-right: 5px;
   transition: color 0.2s ease;
 }
@@ -990,10 +1023,10 @@ h6 {
 }
 
 .sect-algoritm .self-item .icon svg {
-	width: 64px;
-	height: auto;
-	fill: #f9d02a;
-	margin-bottom: 10px;
+  width: 64px;
+  height: auto;
+  fill: #f9d02a;
+  margin-bottom: 10px;
 }
 
 .sect-algoritm .self-item .text {
@@ -1004,7 +1037,7 @@ h6 {
 .sect-algoritm .self-item .text span {
   letter-spacing: 0.4px;
   color: #fff;
-	font-weight: 700;
+  font-weight: 700;
 }
 
 .sect-algoritm .self-item .text span a {
@@ -1031,7 +1064,7 @@ h6 {
 }
 
 .breadcrumbs li {
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
   display: inline-block;
   font-size: 16px;
 }
@@ -1095,8 +1128,8 @@ article h5 {
 }
 
 article h2 {
-	display: block;
-	margin: 40px 0;
+  display: block;
+  margin: 40px 0;
   text-align: center;
   font-weight: 300;
 }
@@ -1141,7 +1174,7 @@ article a:hover {
 }
 
 article .comment-reply {
-  background-color:#82c91e;
+  background-color: #82c91e;
   color: #fff;
   padding: 4px;
   border-radius: 4px;
@@ -1205,8 +1238,8 @@ main .content .main-aside .self-pannel-box {
 main .content .main-aside .self-pannel-box svg {
   position: absolute;
   margin-top: 5px;
-	width: 22px;
-	height: 22px;
+  width: 22px;
+  height: 22px;
   fill: green;
   opacity: 0.4;
 }
@@ -1294,7 +1327,7 @@ main .content .sect-link i {
 #feedback {
   color: #fff;
   padding-top: 30px;
-	padding-bottom: 60px;
+  padding-bottom: 60px;
 }
 
 #feedback h2 {
@@ -1303,7 +1336,7 @@ main .content .sect-link i {
 }
 
 #feedback p {
-	margin-top: 10px;
+  margin-top: 10px;
   margin-bottom: 60px;
 }
 
@@ -1340,11 +1373,11 @@ main .content .sect-link i {
 }
 
 .service-item-icons svg {
-	margin-left: 2px;
-	width: 16px;
-	height: 16px;
+  margin-left: 2px;
+  width: 16px;
+  height: 16px;
   fill: #b4b4b4;
-	transition: all 0.25s ease;
+  transition: all 0.25s ease;
 }
 
 .service-item .title {
@@ -1353,7 +1386,7 @@ main .content .sect-link i {
   margin-top: 15px;
   padding: 0 10px;
   color: #000;
-	text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .service-item-image {
@@ -1365,8 +1398,8 @@ main .content .sect-link i {
 
 .service-item-image svg {
   position: absolute;
-	width: 42px;
-	height: 42px;
+  width: 42px;
+  height: 42px;
   fill: #fff;
   top: 45%;
   left: 48%;
@@ -1437,9 +1470,9 @@ main .content .sect-link i {
 }
 
 .sect-news .new-item-img svg {
-	position: absolute;
-	width: 42px;
-	height: 42px;
+  position: absolute;
+  width: 42px;
+  height: 42px;
   fill: #fff;
   top: 45%;
   left: 48%;
@@ -1472,7 +1505,7 @@ main .content .sect-link i {
   font-weight: 400;
   margin-bottom: 12px;
   font-size: 16px;
-	text-transform: uppercase;
+  text-transform: uppercase;
 }
 
 .date {
@@ -1480,7 +1513,7 @@ main .content .sect-link i {
   margin-top: 40px;
   font-size: 14px;
   font-weight: 400;
-	font-style: italic;
+  font-style: italic;
   opacity: 1;
   color: #000;
 }
@@ -1508,14 +1541,14 @@ main .content .sect-link i {
 }
 
 .sect-links .link-item {
-	display: inline-flex;
+  display: inline-flex;
   padding: 14px;
   box-shadow: 12px 12px 2px 1px rgb(0 0 255 / 20%);
   background-color: #fff;
   padding-bottom: 20px;
   padding-top: 20px;
   margin: 20px 0;
-	width: 100%;
+  width: 100%;
 }
 
 .sect-links .link-item a:hover {
@@ -1534,9 +1567,9 @@ main .content .sect-link i {
 }
 
 .sect-links .link-item svg {
-	display: inline;
-	width: 46px;
-	height: 46px;
+  display: inline;
+  width: 46px;
+  height: 46px;
   margin-right: 10px;
   fill: #0056b3;
 }
@@ -1547,24 +1580,24 @@ main .content .sect-link i {
   text-indent: 0 !important;
   list-style: none !important;
   font-weight: 400;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
 }
 
 .likely-on-page .likely {
   position: relative;
   display: inline-block;
-	opacity: 0;
+  opacity: 0;
   font-size: 0 !important;
-	margin: 0 -5px -10px;
-	top: -10px;
+  margin: 0 -5px -10px;
+  top: -10px;
 }
 
 .likely-on-page .likely__widget {
-	position: relative;
+  position: relative;
   white-space: nowrap;
   margin: 0;
   font-size: inherit;
-	vertical-align: top;
+  vertical-align: top;
   transition: background 0.33s ease-out, color 0.33s ease-out,
     fill 0.33s ease-out;
 }
@@ -1594,7 +1627,7 @@ main .content .sect-link i {
   text-rendering: optimizelegibility;
   margin: 0;
   outline: 0;
-	line-height: inherit;
+  line-height: inherit;
   cursor: inherit;
 }
 
@@ -1607,7 +1640,7 @@ main .content .sect-link i {
   display: none;
   position: relative;
   font-weight: 400;
-	text-align: center;
+  text-align: center;
 }
 
 .likely-on-page .likely_ready .likely__counter {
@@ -1663,7 +1696,7 @@ main .content .sect-link i {
   color: #000;
   background: rgb(231 231 231 / 80%);
   padding: 3px 3px 25px 6px;
-	line-height: 20px;
+  line-height: 20px;
   font-size: 14px;
   border-radius: 3px;
   height: 22px;
@@ -1679,7 +1712,7 @@ main .content .sect-link i {
     rgb(0 0 0 / 0%) 0.5px,
     rgb(0 0 0 / 0%) 100%
   );
-	padding: 1px 4px 1px 6px;
+  padding: 1px 4px 1px 6px;
 }
 
 .likely-on-page .likely-light .likely__widget {
@@ -2010,7 +2043,7 @@ main .content .sect-link i {
 }
 
 .likely-on-page .likely .likely__button {
-	margin-left: 2px;
+  margin-left: 2px;
   opacity: 0.8;
   padding: 1px 8px 1px 1px;
 }
@@ -2174,7 +2207,7 @@ main .content .sect-link i {
   background-color: #0e0b13;
   padding: 80px 0;
   color: #fff;
-	font-family: var(--roboto-condensed);
+  font-family: var(--roboto-condensed);
 }
 
 .main-footer .logo {
@@ -2185,19 +2218,19 @@ main .content .sect-link i {
 }
 
 .main-footer .logo .span {
-	display: block;
-	margin-bottom: 40px;
-	margin-top: 20px;
-	padding: 10px 0;
-	font-weight: 300;
-	text-transform: none;
+  display: block;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding: 10px 0;
+  font-weight: 300;
+  text-transform: none;
 }
 
 .main-footer .triple-icons svg {
-	width: 26px;
-	height: 26px;
-	fill: #f9d02a;
-	opacity: 0.4;
+  width: 26px;
+  height: 26px;
+  fill: #f9d02a;
+  opacity: 0.4;
 }
 
 .main-footer .self-pannel-box {
@@ -2208,7 +2241,7 @@ main .content .sect-link i {
 
 .main-footer .self-pannel-box svg {
   fill: #f9d02a;
-	opacity: 0.4;
+  opacity: 0.4;
 }
 
 .main-footer .self-pannel-box .title {
@@ -2217,9 +2250,9 @@ main .content .sect-link i {
 }
 
 .main-footer .top-email span {
-	font-weight: 300;
-	display: block;
-	margin-bottom: 60px;
+  font-weight: 300;
+  display: block;
+  margin-bottom: 60px;
 }
 
 .main-footer .mnu-self a {
@@ -2250,8 +2283,8 @@ main .content .sect-link i {
 }
 
 .bottom-footer .footer-copy {
-	color: #f9d02a;
-	opacity: 0.4;
+  color: #f9d02a;
+  opacity: 0.4;
   font-size: 16px;
   letter-spacing: 0.4px;
 }
@@ -2343,20 +2376,20 @@ main .content .sect-link i {
 
 .popup-form .check-control .check-them {
   margin-right: 10px;
-	margin-bottom: 5px;
+  margin-bottom: 5px;
   padding-left: 5px;
 }
 
 .popup-form .check-control .check-them label {
   margin-left: 3px;
   font-size: 17px;
-	display: inline;
+  display: inline;
 }
 
 .popup-form .check-control .check-them input {
   cursor: pointer;
   margin-left: 3px;
-	display: inline;
+  display: inline;
 }
 
 .popup-form .message {
@@ -2371,7 +2404,7 @@ main .content .sect-link i {
 }
 
 .popup-form .btn-wrapper {
-	text-align: center;
+  text-align: center;
 }
 
 .popup-form .success {
