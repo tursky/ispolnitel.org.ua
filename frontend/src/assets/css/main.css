@@ -249,6 +249,18 @@ h6 {
   opacity: 0.85;
 }
 
+.logo svg {
+  height: 22px;
+  width: auto;
+  margin-right: 3px;
+  /* display: block; */
+}
+
+.logo-subtitle {
+  display: block;
+  color: #fff;
+}
+
 .logo .span,
 .logo p {
   color: #999;
@@ -422,12 +434,17 @@ h6 {
   margin-top: 22px;
 }
 
-.client-btn {
+.client-links {
   margin-top: 22px;
 }
 
-.client-btn .button svg {
-	fill: #fff;
+.client-links .button svg {
+	fill: #f9d02a;
+}
+
+.client-links .icon-wrapper svg {
+  width: 150px;
+	height: auto;
 }
 
 .button-order {

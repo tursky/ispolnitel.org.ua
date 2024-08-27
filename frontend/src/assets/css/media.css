@@ -144,6 +144,15 @@
     bottom: 20px;
     right: 20px;
   }
+
+  .link-wrapper {
+    display: block;
+    margin-top: 20px;
+  }
+
+  .client-links .button {
+    display: block;
+  }
 }
 
 @media (width <= 767.98px) {
