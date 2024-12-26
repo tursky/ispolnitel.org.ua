@@ -2480,7 +2480,7 @@ main .content .sect-link i {
 }
 
 .map {
-  max-height: 406px;
+  max-height: 465px;
   border: 3px solid #f9d02a;
   transition: opacity 0.5s ease;
 }
