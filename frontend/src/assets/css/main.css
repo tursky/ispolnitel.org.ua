@@ -153,6 +153,41 @@ h6 {
   text-transform: uppercase;
 }
 
+
+
+.ticker {
+  position: relative;
+  overflow: hidden;
+  background-color: #ec1c1c;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.ticker__wrapper {
+  display: flex;
+}
+
+.ticker__item {
+  font-family: var(--roboto), sans-serif;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 0 50px;
+  animation: ticker 30s linear infinite;
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateZ(0);
+  }
+
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+
+
 .mm-menu {
   z-index: 200;
 }
