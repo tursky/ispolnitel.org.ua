@@ -365,9 +365,10 @@
                     <span>Дізнатися стать і дату народження:</span>
                   </div>
 
-                  <idencode>
+                  <!-- Popup component for handling user IDs -->
+                  <div id="idencode">
                     <div class="top-button">
-                      <a href="#idencode" class="callback button button-small"
+                      <a href="#person-id" class="callback button button-small"
                         ><svg
                           xmlns="http://www.w3.org/2000/svg"
                           height="1em"
@@ -386,7 +387,7 @@
 
                     <div class="d-none">
                       <div
-                        id="idencode"
+                        id="person-id"
                         class="callback-form popup-form idencode-fon"
                       >
                         <h2>
@@ -397,13 +398,12 @@
                         <br />
 
                         <div class="idencode-component">
-                          <font>
-                            Введіть ваш номер іденкоду та натисніть Enter:</font
+                          <span>
+                            Введіть ваш номер іденкоду та натисніть Enter:</span
                           ><br /><br />
 
                           <form
-                            method="POST"
-                            action=""
+                            action="#"
                             onsubmit="return subm(this)"
                           >
                             <input
@@ -426,7 +426,7 @@
 
                           <br /><br /><br />
 
-                          <font id="font"> Дата народження: &nbsp;&nbsp;</font>
+                          <span class="person-field"> Дата народження: &nbsp;&nbsp;</span>
 
                           <input
                             id="qdata"
@@ -439,7 +439,7 @@
 
                           <br />
 
-                          <font id="font"> Стать власника: &nbsp;&nbsp;</font>
+                          <span class="person-field"> Стать власника: &nbsp;&nbsp;</span>
 
                           <input
                             id="qpol"
@@ -462,14 +462,13 @@
                         <div class="idencode-component">
                           <br />
 
-                          <font>
+                          <span>
                             Введіть дату народження та натисніть Enter для
-                            отримання перших 5 цифр іденкоду: </font
+                            отримання перших 5 цифр іденкоду: </span
                           ><br /><br />
 
                           <form
-                            method="POST"
-                            action=""
+                            action="#"
                             onsubmit="return subx(this)"
                           >
                             <input
@@ -491,7 +490,7 @@
 
                           <br /><br />
 
-                          <font id="font"> РНОКПП починається з: &nbsp;</font>
+                          <span class="person-field"> РНОКПП починається з: &nbsp;</span>
 
                           <input
                             id="dr0"
@@ -512,7 +511,8 @@
                         </div>
                       </div>
                     </div>
-                  </idencode>
+                  </div>
+                  <!-- EOF Popup component for handling user IDs -->
                 </div>
               </div>
             </div>
