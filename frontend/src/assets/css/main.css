@@ -683,17 +683,16 @@ h6 {
   text-align: center;
 }
 
-.idencode-component font {
+.idencode-component span {
   margin: 0;
   padding: 0;
-  font-size: 16px;
-  font-weight: bold;
-  font-family: Tahoma, sans-serif;
+  font-size: 18px;
   color: #000;
+  font-weight: 400;
 }
 
-.idencode-component font#font {
-  font-size: 14px;
+.idencode-component .person-field {
+  font-size: 18px;
 }
 
 #inn {
